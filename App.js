@@ -1,11 +1,11 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, Image } from 'react-native';
+import { StyleSheet, Text, View, backgroundColor } from 'react-native';
+import Colors from './src/constants/Colors';
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <Image source={require('../Journeyfy/src/assets/png/journeyfy_logo.png')}>
-      </Image>
+    <View style={styles.container} backgroundColor={Colors.BackgroundGradientUpper}>
+      <Text style={styles.fontColor}>JourneyFy</Text>
       <StatusBar style="auto" />
     </View>
   );
@@ -17,5 +17,8 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  fontColor: {
+    color: Colors.DarkGray,
   },
 });
