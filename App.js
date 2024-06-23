@@ -1,24 +1,8 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, backgroundColor } from 'react-native';
-import Colors from './src/constants/Colors';
+import React from 'react';
+import AppNavigation from './src/navigations/AppNavigation';
 
 export default function App() {
   return (
-    <View style={styles.container} backgroundColor={Colors.BackgroundGradientUpper}>
-      <Text style={styles.fontColor}>JourneyFy</Text>
-      <StatusBar style="auto" />
-    </View>
+    <AppNavigation/>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  fontColor: {
-    color: Colors.DarkGray,
-  },
-});
