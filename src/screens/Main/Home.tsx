@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, Modal, Pressable } from 'react-native';
+import { useUser } from '../../hooks/useUser';
 
 export default function Home() {
   const [modalVisible, setModalVisible] = useState(false);
@@ -7,6 +8,8 @@ export default function Home() {
   const toggleModal = () => {
     setModalVisible(!modalVisible);
   };
+
+  const user = useUser();
 
   return (
     <View style={styles.container}>

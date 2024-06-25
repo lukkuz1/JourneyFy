@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, Pressable, Image, KeyboardAvoidingView, Platform, ScrollView } from 'react-native';
+import { View, Text, StyleSheet, Pressable, Image, KeyboardAvoidingView, Platform, ScrollView , Alert} from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import Colors from '../../constants/Colors';
 import EntryInputField from '../../components/Entry/EntryInputField';
 import EntryButton from '../../components/Entry/EntryButton';
+import { sendPasswordResetEmail } from 'firebase/auth';
+import firebase from '../../services/firebase';
 
 export default function ForgotPassword() {
   const [email, setEmail] = useState('');
@@ -11,7 +13,26 @@ export default function ForgotPassword() {
   const navigation = useNavigation();
 
   const handleForgotPassword = async () => {
-    // Forgot password logic
+    try {
+      if (!email.trim()) {
+        Alert.alert('Neteisingas el. paštas', 'Prašome įvesti teisingą el. paštą.');
+        return;
+      }
+      await sendPasswordResetEmail(firebase.auth, email);
+      Alert.alert(
+        'Slaptažodžio priminimo nuoroda nusiųsta',
+        'Jeigu turite paskyrą, slaptažodžio priminimo nuoroda išsiųsta į el. paštą'
+      );
+      navigation.navigate('Login');
+    } catch (error) {
+      if (error.code === 'auth/invalid-email') {
+        Alert.alert('Invalid Email', 'Please enter a valid email address.');
+      } else if (error.code === 'auth/user-not-found') {
+        Alert.alert('Email Not Found', 'This email address is not associated with any account.');
+      } else {
+        Alert.alert('Password Reset Failed', error.message);
+      }
+    }
   };
 
   return (

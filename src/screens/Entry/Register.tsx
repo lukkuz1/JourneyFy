@@ -1,18 +1,29 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, Pressable, Image, ScrollView, KeyboardAvoidingView, Platform } from 'react-native';
+import { View, Text, StyleSheet, Pressable, Image, ScrollView, KeyboardAvoidingView, Platform, Alert } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import Colors from '../../constants/Colors';
 import EntryInputField from '../../components/Entry/EntryInputField';
 import EntryButton from '../../components/Entry/EntryButton';
+import { useAuth } from '../../hooks/useAuth';
 
 export default function Register() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const navigation = useNavigation();
+  const auth = useAuth();
 
   const handleSignUp = async () => {
-    // Registration logic
+    const status = await auth.signUp(email, password);
+    if (typeof status === 'string') {
+      console.log("Error Code: ", status);
+      setError(status);
+    } else if (status) {
+      Alert.alert('Verifikacijos nuoroda išsiųsta', 'Patvirtinkite savo el. paštą, kad galėtumėte prisijungti prie programėlės.');
+      navigation.navigate("Login");
+    } else {
+      console.log("Unexpected status: ", status);
+    }
   };
 
   return (
@@ -29,7 +40,7 @@ export default function Register() {
           {error ? <Text style={styles.error}>{error}</Text> : null}
           <EntryInputField
             headerText="El. paštas"
-            placeholderText="vardenispavardenis@gmail.com"
+            placeholderText="pavyzdys@gmail.com"
             isPassword={false}
             margin={[0, 20, 0, 0]}
             onChangeText={(text) => setEmail(text)}

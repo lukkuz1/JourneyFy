@@ -5,6 +5,7 @@ import Colors from '../../constants/Colors';
 import EntryInputField from '../../components/Entry/EntryInputField';
 import EntryButton from '../../components/Entry/EntryButton';
 import BouncyCheckbox from 'react-native-bouncy-checkbox';
+import { useAuth } from '../../hooks/useAuth';
 
 
 
@@ -13,11 +14,15 @@ export default function Login() {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [rememberMe, setRememberMe] = useState(false);
+  const auth = useAuth();
 
   const navigation = useNavigation();
 
   const handleLogin = async () => {
-    // Login logic
+    const status = await auth.signIn(email, password);
+    if (status != undefined) {
+      setError(status.operationType);
+    }
   };
 
   return (
@@ -34,7 +39,7 @@ export default function Login() {
           {error ? <Text style={styles.error}>{error}</Text> : null}
           <EntryInputField
             headerText="El. paštas"
-            placeholderText="vardenispavardenis@gmail.com"
+            placeholderText="pavyzdys@gmail.com"
             isPassword={false}
             margin={[0, 20, 0, 0]}
             onChangeText={(text) => setEmail(text)}

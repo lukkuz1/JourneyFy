@@ -7,6 +7,7 @@ import Journey from '../screens/Main/Journey';
 import Home from '../screens/Main/Home';
 import { RootStackParamList } from '../navigations/navigation';
 import Settings from '../screens/Main/Settings';
+import Chat from '../screens/Main/Chat';
 
 const Tab = createMaterialTopTabNavigator();
 const Stack = createStackNavigator<RootStackParamList>();
@@ -14,7 +15,7 @@ const Stack = createStackNavigator<RootStackParamList>();
 function HomeStack() {
   return (
     <Stack.Navigator screenOptions={{ headerShown: false }}>
-      <Stack.Screen name="Home" component={Home} />
+      <Stack.Screen name="HomeScreen" component={Home} />
     </Stack.Navigator>
   );
 }
@@ -25,6 +26,9 @@ export default function MainNavigation() {
       <path fill-rule="evenodd" clip-rule="evenodd" d="M7.63959 16.0596C7 17.4502 7 19.0322 7 22.1963V32.0779C7 36.4721 7 38.6692 8.36509 40.0343C9.73018 41.3994 11.9273 41.3994 16.3214 41.3994H16.4866V29.7477C16.4866 27.9084 17.9777 26.4174 19.817 26.4174H26.808C28.6473 26.4174 30.1384 27.9084 30.1384 29.7477V41.3994H30.3036C34.6977 41.3994 36.8948 41.3994 38.2599 40.0343C39.625 38.6692 39.625 36.4721 39.625 32.0779V22.1963C39.625 19.0322 39.625 17.4502 38.9854 16.0596C38.3458 14.669 37.1446 13.6394 34.7423 11.5803L32.412 9.58282C28.0698 5.86094 25.8987 4 23.3125 4C20.7263 4 18.5552 5.86094 14.213 9.58282L14.213 9.58282L11.8827 11.5803C9.48035 13.6394 8.27919 14.669 7.63959 16.0596ZM28.1384 41.3994V29.7477C28.1384 29.013 27.5428 28.4174 26.808 28.4174H19.817C19.0822 28.4174 18.4866 29.013 18.4866 29.7477V41.3994H28.1384Z" />
     </svg>
   `;
+
+
+  const chat_icon_xml = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 333334 333334" shape-rendering="geometricPrecision" text-rendering="geometricPrecision" image-rendering="optimizeQuality" fill-rule="evenodd" clip-rule="evenodd"><path d="M166667 0c92048 0 166667 74619 166667 166667s-74619 166667-166667 166667S0 258715 0 166667 74619 0 166667 0zm80219 91205l-29735 149919s-4158 10396-15594 5404l-68410-53854s76104-68409 79222-71320c3119-2911 2079-3534 2079-3534 207-3535-5614 0-5614 0l-100846 64043-42002-14140s-6446-2288-7069-7277c-624-4992 7277-7694 7277-7694l166970-65498s13722-6030 13722 3951zm-87637 122889l-27141 24745s-2122 1609-4443 601l5197-45965 26387 20619z"/></svg>`;
 
   const settings_icon_xml = `
     <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -85,6 +89,8 @@ export default function MainNavigation() {
             return <SvgXml xml={journey_icon_xml} width="40" height="40" fill={color} />;
           else if (route.name === "Settings")
             return <SvgXml xml={settings_icon_xml} width="40" height="40" fill={color} />;
+          else if (route.name === "Chat")
+            return <SvgXml xml={chat_icon_xml} width="40" height="40" fill={color} />;
         },
         tabBarIconStyle: {
           marginBottom: 10,
@@ -94,6 +100,7 @@ export default function MainNavigation() {
     >
       <Tab.Screen name="Journey" component={Journey} />
       <Tab.Screen name="Home" component={HomeStack} />
+      <Tab.Screen name="Chat" component={Chat} />
       <Tab.Screen name="Settings" component={Settings} />
     </Tab.Navigator>
   );
