@@ -40,7 +40,7 @@ export default function Register() {
           {error ? <Text style={styles.error}>{error}</Text> : null}
           <EntryInputField
             headerText="El. paštas"
-            placeholderText="pavyzdys@gmail.com"
+            placeholderText="Įveskite savo el. paštą"
             isPassword={false}
             margin={[0, 20, 0, 0]}
             onChangeText={(text) => setEmail(text)}

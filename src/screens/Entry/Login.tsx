@@ -39,7 +39,7 @@ export default function Login() {
           {error ? <Text style={styles.error}>{error}</Text> : null}
           <EntryInputField
             headerText="El. paštas"
-            placeholderText="pavyzdys@gmail.com"
+            placeholderText="Įveskite savo el. paštą"
             isPassword={false}
             margin={[0, 20, 0, 0]}
             onChangeText={(text) => setEmail(text)}
@@ -88,7 +88,7 @@ const styles = StyleSheet.create({
     flexGrow: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    paddingBottom: 40, // Adjust as needed to ensure bottom content is not obscured
+    paddingBottom: 40,
   },
   logoContainer: {
     marginTop: 40,

@@ -1,35 +1,214 @@
-import React from 'react';
-import { View, Text, StyleSheet, Pressable } from 'react-native';
+import React, { useState } from 'react';
+import { View, Text, StyleSheet, Pressable, Modal, TouchableOpacity, Alert, TextInput, Button, KeyboardAvoidingView, Platform, ScrollView } from 'react-native';
+import EntryInputField from '../../components/Entry/EntryInputField';
 import { useNavigation } from '@react-navigation/native';
 import { SvgXml } from 'react-native-svg';
 import { useAuth } from '../../hooks/useAuth';
+import { getAuth, deleteUser, updateEmail } from 'firebase/auth';
+import Colors from '../../constants/Colors';
+import app from "../../services/firebase"
+import { logout_icon_xml } from '../../assets/xml/svg';
+import { password_icon_xml } from '../../assets/xml/svg';
+import { delete_icon_xml } from '../../assets/xml/svg';
+import { profile_icon_xml } from '../../assets/xml/svg';
 
 
-const logout_icon_xml = `
-  <svg width="27" height="26" viewBox="0 0 27 26" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M23.2765 18.8954H21.1947C21.0526 18.8954 20.9193 18.9564 20.8305 19.064C20.6232 19.3111 20.4011 19.5494 20.1671 19.7762C19.2103 20.7164 18.077 21.4657 16.8297 21.9826C15.5376 22.5183 14.1488 22.7932 12.7461 22.7907C11.3276 22.7907 9.9536 22.5174 8.66247 21.9826C7.41525 21.4657 6.2819 20.7164 5.32508 19.7762C4.36655 18.8391 3.60225 17.7285 3.07449 16.5058C2.52665 15.2384 2.25125 13.8925 2.25125 12.5C2.25125 11.1076 2.52961 9.76166 3.07449 8.49422C3.6016 7.27038 4.3597 6.16864 5.32508 5.22387C6.29047 4.27911 7.4128 3.53492 8.66247 3.01748C9.9536 2.4826 11.3276 2.20934 12.7461 2.20934C14.1646 2.20934 15.5386 2.47969 16.8297 3.01748C18.0794 3.53492 19.2018 4.27911 20.1671 5.22387C20.4011 5.45352 20.6202 5.69189 20.8305 5.93608C20.9193 6.04364 21.0555 6.10468 21.1947 6.10468H23.2765C23.4631 6.10468 23.5786 5.9012 23.4749 5.74713C21.2036 2.28202 17.2295 -0.0115839 12.7135 4.40077e-05C5.61825 0.0174858 -0.0704125 5.67155 0.000658755 12.6279C0.07173 19.4738 5.75151 25 12.7461 25C17.2503 25 21.2066 22.7093 23.4749 19.2529C23.5756 19.0988 23.4631 18.8954 23.2765 18.8954ZM25.9091 12.3169L21.707 9.06108C21.5501 8.93898 21.322 9.04945 21.322 9.24421V11.4535H12.0236C11.8933 11.4535 11.7866 11.5582 11.7866 11.6861V13.314C11.7866 13.4419 11.8933 13.5465 12.0236 13.5465H21.322V15.7558C21.322 15.9506 21.553 16.0611 21.707 15.939L25.9091 12.6832C25.9374 12.6614 25.9603 12.6336 25.9761 12.6019C25.9918 12.5702 26 12.5353 26 12.5C26 12.4647 25.9918 12.4299 25.9761 12.3982C25.9603 12.3664 25.9374 12.3386 25.9091 12.3169Z" fill="#FF0000"/>
-</svg>
 
-`;
+
+
 
 export default function Settings() {
   const navigation = useNavigation();
   const auth = useAuth();
+  const [isModalVisible, setIsModalVisible] = useState(false);
+  const [passwordModalVisible, setPasswordModalVisible] = useState(false);
+  const [newPassword, setNewPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const [emailModalVisible, setEmailModalVisible] = useState(false);
+  const [newEmail, setNewEmail] = useState('');
+  const [passwordForEmailChange, setPasswordForEmailChange] = useState('');
 
   const handleLogoutPress = () => {
     auth.signOut();
   };
 
+  const handlePasswordChange = () => {
+    setPasswordModalVisible(true);
+  };
+
+  const handlePasswordSubmit = () => {
+    if (newPassword !== confirmPassword) {
+      alert("Slaptažodžiai nesutampa");
+      return;
+    }
+    if (newPassword === "" || newPassword.length < 6) {
+      alert("Slaptažodis privalo būti bent 6 simbolių");
+      return;
+    }
+    auth.updatePassword(newPassword);
+    console.log('Changing password...');
+    setPasswordModalVisible(false);
+    alert("Slaptažodis sėkmingai pakeistas");
+  };
+
+  const handleDeleteAccount = () => {
+    const user = app.auth.currentUser;
+    deleteUser(user)
+      .then(() => {
+        navigation.navigate("Login");
+        console.log('User deleted successfully');
+        Alert.alert("Paskyra ištrinta", "Paskyra sėkmingai ištrinta.")
+      })
+      .catch((error) => {
+        console.error('Error deleting user:', error);
+      });
+  };
+
+  const handleProfile = () => {
+    setEmailModalVisible(true);
+  };
+
+  const handleChangeEmail = () => {
+    if (!newEmail) {
+      Alert.alert("Error", "Prašome įvesti el. paštą ir slaptažodį.");
+      return;
+    }
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailPattern.test(newEmail)) {
+      Alert.alert("Error", "Įvestas el. pašto adresas yra neteisingas.");
+      return;
+    }
+    auth.updateEmail(newEmail);
+    setEmailModalVisible(false);
+    alert("El. paštas pakeistas")
+  };
+
   return (
-    <View style={styles.container}>
-      <Text>Nustatymų ekranas</Text>
+    <KeyboardAvoidingView
+      style={styles.container}
+      behavior={Platform.OS === 'ios' ? 'padding' : null} // Use null for Android
+    >
+      <View style={styles.container}>
+        <Pressable onPress={handlePasswordChange} style={styles.DefaultButton}>
+          <SvgXml xml={password_icon_xml} width={24} height={24} />
+          <Text style={styles.defaultText}>Pakeisti slaptažodį</Text>
+        </Pressable>
+
+        <Pressable onPress={handleProfile} style={styles.DefaultButton}>
+          <SvgXml xml={profile_icon_xml} width={24} height={24} />
+          <Text style={styles.defaultText}>Profilis</Text>
+        </Pressable>
+
+        <Pressable onPress={handleLogoutPress} style={styles.DefaultButton}>
+          <SvgXml xml={logout_icon_xml} width={24} height={24} />
+          <Text style={styles.logoutButtonText}>Atsijungti</Text>
+        </Pressable>
+
+        <Pressable onPress={() => setIsModalVisible(true)} style={styles.DefaultButton}>
+          <SvgXml xml={delete_icon_xml} width={24} height={24} />
+          <Text style={styles.logoutButtonText}>Ištrinti paskyrą</Text>
+        </Pressable>
+
+        <Modal
+          animationType="slide"
+          transparent={true}
+          visible={emailModalVisible}
+          onRequestClose={() => setEmailModalVisible(!emailModalVisible)}
+        >
+          <ScrollView contentContainerStyle={styles.scrollViewContent}>
+            <View style={styles.modalOverlay}>
+              <View style={styles.modalContainer}>
+                <Text style={styles.modalTitle}>El. pašto pakeitimas</Text>
+
+                <EntryInputField
+                  headerText="Naujas el. paštas"
+                  placeholderText="Įveskite naują el. paštą"
+                  keyboardType="email-address"
+                  isPassword={false}
+                  margin={[0, 20, 0, 0]}
+                  onChangeText={(text) => setNewEmail(text)}
+                />
+                <View style={styles.buttonContainer}>
+                  <Button title="Pakeisti" onPress={handleChangeEmail} />
+                  <Button title="Atšaukti" onPress={() => setEmailModalVisible(false)} color="red" />
+                </View>
+              </View>
+            </View>
+          </ScrollView>
+        </Modal>
+
+        <Modal
+          transparent={true}
+          animationType="slide"
+          visible={isModalVisible}
+          onRequestClose={() => setIsModalVisible(false)}
+        >
+          <ScrollView contentContainerStyle={styles.scrollViewContent}>
+            <View style={styles.modalOverlay}>
+              <View style={styles.modalContent}>
+                <Text style={styles.modalText}>Ar tikrai norite ištrinti paskyrą?</Text>
+                <View style={styles.buttonContainer}>
+                  <TouchableOpacity
+                    style={[styles.button, styles.confirmButton]}
+                    onPress={() => {
+                      handleDeleteAccount();
+                      setIsModalVisible(false);
+                    }}
+                  >
+                    <Text style={styles.buttonText}>Taip</Text>
+                  </TouchableOpacity>
+                  <TouchableOpacity
+                    style={[styles.button, styles.cancelButton]}
+                    onPress={() => setIsModalVisible(false)}
+                  >
+                    <Text style={styles.buttonText}>Ne</Text>
+                  </TouchableOpacity>
+                </View>
+              </View>
+            </View>
+          </ScrollView>
+        </Modal>
+
+        <Modal
+          animationType="slide"
+          transparent={true}
+          visible={passwordModalVisible}
+          onRequestClose={() => {
+            setPasswordModalVisible(!passwordModalVisible);
+          }}
+        >
+          <ScrollView contentContainerStyle={styles.scrollViewContent}>
+            <View style={styles.modalOverlay}>
+              <View style={styles.modalContainer}>
+                <Text style={styles.modalTitle}>Slaptažodžio pakeitimas</Text>
+
+                <EntryInputField
+                  headerText="Naujas slaptažodis"
+                  placeholderText="Įveskite savo naują slaptažodį"
+                  isPassword={true}
+                  margin={[0, 20, 0, 0]}
+                  onChangeText={(text) => setNewPassword(text)}
+                />
+
+                <EntryInputField
+                  headerText="Patvirtinkite slaptažodį"
+                  placeholderText="Patvirtinkite savo naują slaptažodį"
+                  isPassword={true}
+                  margin={[0, 20, 0, 0]}
+                  onChangeText={(text) => setConfirmPassword(text)}
+                />
+                <View style={styles.buttonContainer}>
+                  <Button title="Pakeisti" onPress={handlePasswordSubmit} />
+                  <Button title="Atšaukti" onPress={() => setPasswordModalVisible(false)} color="red" />
+                </View>
+              </View>
+            </View>
+          </ScrollView>
+        </Modal>
+
       
-      {/* Logout button */}
-      <Pressable onPress={handleLogoutPress} style={styles.logoutButton}>
-        <SvgXml xml={logout_icon_xml} width={24} height={24} />
-        <Text style={styles.logoutButtonText}>Atsijungti</Text>
-      </Pressable>
-    </View>
+      </View>
+    </KeyboardAvoidingView>
   );
 }
 
@@ -39,19 +218,87 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-  logoutButton: {
+  DefaultButton: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
     marginTop: 20,
-    backgroundColor: '#f0f0f0',
+    backgroundColor: 'transparent',
     padding: 10,
     borderRadius: 5,
+  },
+  scrollViewContent: {
+    flexGrow: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingBottom: 40,
   },
   logoutButtonText: {
     marginLeft: 10,
     fontSize: 16,
     fontWeight: 'bold',
     color: 'red',
+  },
+  defaultText: {
+    marginLeft: 10,
+    fontSize: 16,
+    fontWeight: 'bold',
+    color: Colors.LightBlue,
+  },
+  modalOverlay: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+  },
+  modalContent: {
+    width: 600,
+    padding: 20,
+    backgroundColor: 'white',
+    borderRadius: 10,
+    alignItems: 'center',
+  },
+  modalText: {
+    fontSize: 18,
+    marginBottom: 20,
+    textAlign: 'center',
+  },
+  buttonContainer: {
+    flexDirection: 'row',
+  },
+  button: {
+    padding: 10,
+    margin: 10,
+    borderRadius: 5,
+  },
+  confirmButton: {
+    backgroundColor: 'red',
+  },
+  cancelButton: {
+    backgroundColor: 'gray',
+  },
+  buttonText: {
+    color: 'white',
+    fontSize: 16,
+  },
+  modalContainer: {
+    width: 800,
+    padding: 20,
+    backgroundColor: 'white',
+    borderRadius: 10,
+    alignItems: 'center',
+  },
+  modalTitle: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    marginBottom: 10,
+  },
+  input: {
+    width: '100%',
+    padding: 10,
+    marginVertical: 5,
+    borderWidth: 1,
+    borderColor: '#ccc',
+    borderRadius: 5,
   },
 });
