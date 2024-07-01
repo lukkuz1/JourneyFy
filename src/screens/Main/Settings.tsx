@@ -1,32 +1,89 @@
-import React, { useState } from 'react';
-import { View, Text, StyleSheet, Pressable, Modal, TouchableOpacity, Alert, TextInput, Button, KeyboardAvoidingView, Platform, ScrollView } from 'react-native';
-import EntryInputField from '../../components/Entry/EntryInputField';
-import { useNavigation } from '@react-navigation/native';
-import { SvgXml } from 'react-native-svg';
-import { useAuth } from '../../hooks/useAuth';
-import { getAuth, deleteUser, updateEmail } from 'firebase/auth';
-import Colors from '../../constants/Colors';
-import app from "../../services/firebase"
-import { logout_icon_xml } from '../../assets/xml/svg';
-import { password_icon_xml } from '../../assets/xml/svg';
-import { delete_icon_xml } from '../../assets/xml/svg';
-import { profile_icon_xml } from '../../assets/xml/svg';
+import React, { useState, useEffect } from "react";
+import {
+  View,
+  Text,
+  StyleSheet,
+  Pressable,
+  Modal,
+  TouchableOpacity,
+  Alert,
+  Button,
+  KeyboardAvoidingView,
+  Platform,
+  ScrollView,
+  TextInput,
+  ActivityIndicator,
+} from "react-native";
+import { useNavigation } from "@react-navigation/native";
+import { SvgXml } from "react-native-svg";
+import { getAuth, deleteUser, updateEmail } from "firebase/auth";
+import { doc, getDoc, updateDoc } from "firebase/firestore";
+import firebaseServices from "../../services/firebase";
+import { useAuth } from "../../hooks/useAuth";
+import Colors from "../../constants/Colors";
+import { logout_icon_xml } from "../../assets/xml/svg";
+import { password_icon_xml } from "../../assets/xml/svg";
+import { delete_icon_xml } from "../../assets/xml/svg";
+import { profile_icon_xml } from "../../assets/xml/svg";
+import EntryInputField from "../../components/Entry/EntryInputField";
 
-
-
-
-
+const { db } = firebaseServices;
 
 export default function Settings() {
   const navigation = useNavigation();
   const auth = useAuth();
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [passwordModalVisible, setPasswordModalVisible] = useState(false);
-  const [newPassword, setNewPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
+  const [newPassword, setNewPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
   const [emailModalVisible, setEmailModalVisible] = useState(false);
-  const [newEmail, setNewEmail] = useState('');
-  const [passwordForEmailChange, setPasswordForEmailChange] = useState('');
+  const [newEmail, setNewEmail] = useState("");
+  const [profileModalVisible, setProfileModalVisible] = useState(false);
+  const [loading, setLoading] = useState(true);
+
+  const [username, setUsername] = useState("");
+  const [name, setName] = useState("");
+  const [surname, setSurname] = useState("");
+  const [age, setAge] = useState("");
+  const currentUserId = getAuth().currentUser.uid;
+  console.log("User id");
+  console.log(currentUserId);
+
+  useEffect(() => {
+    const fetchUser = async () => {
+      try {
+        const userDoc = await getDoc(doc(db, "users", currentUserId));
+        if (userDoc.exists()) {
+          const data = userDoc.data();
+          setUsername(data.username);
+          setName(data.name);
+          setSurname(data.surname);
+          setAge(data.age.toString());
+        }
+      } catch (error) {
+        console.error("Error fetching user data: ", error);
+      }
+      setLoading(false);
+    };
+
+    fetchUser();
+  }, [currentUserId]);
+
+  const handleProfileUpdate = async () => {
+    try {
+      await updateDoc(doc(db, "users", currentUserId), {
+        username,
+        name,
+        surname,
+        age: parseInt(age),
+      });
+      Alert.alert("Sėkmės pranešimas", "Profilis sėkmingai atnaujintas");
+      setProfileModalVisible(false);
+    } catch (error) {
+      console.error("Error updating profile: ", error);
+      Alert.alert("Klaida", "Profilio atnaujinimas nepavyko");
+    }
+  };
 
   const handleLogoutPress = () => {
     auth.signOut();
@@ -46,26 +103,26 @@ export default function Settings() {
       return;
     }
     auth.updatePassword(newPassword);
-    console.log('Changing password...');
+    console.log("Changing password...");
     setPasswordModalVisible(false);
     alert("Slaptažodis sėkmingai pakeistas");
   };
 
   const handleDeleteAccount = () => {
-    const user = app.auth.currentUser;
+    const user = getAuth().currentUser;
     deleteUser(user)
       .then(() => {
         navigation.navigate("Login");
-        console.log('User deleted successfully');
-        Alert.alert("Paskyra ištrinta", "Paskyra sėkmingai ištrinta.")
+        console.log("User deleted successfully");
+        Alert.alert("Paskyra ištrinta", "Paskyra sėkmingai ištrinta.");
       })
       .catch((error) => {
-        console.error('Error deleting user:', error);
+        console.error("Error deleting user:", error);
       });
   };
 
   const handleProfile = () => {
-    setEmailModalVisible(true);
+    setProfileModalVisible(true);
   };
 
   const handleChangeEmail = () => {
@@ -80,13 +137,17 @@ export default function Settings() {
     }
     auth.updateEmail(newEmail);
     setEmailModalVisible(false);
-    alert("El. paštas pakeistas")
+    alert("El. paštas pakeistas");
   };
+
+  if (loading) {
+    return <ActivityIndicator size="large" color="#0000ff" />;
+  }
 
   return (
     <KeyboardAvoidingView
       style={styles.container}
-      behavior={Platform.OS === 'ios' ? 'padding' : null} // Use null for Android
+      behavior={Platform.OS === "ios" ? "padding" : null}
     >
       <View style={styles.container}>
         <Pressable onPress={handlePasswordChange} style={styles.DefaultButton}>
@@ -104,7 +165,10 @@ export default function Settings() {
           <Text style={styles.logoutButtonText}>Atsijungti</Text>
         </Pressable>
 
-        <Pressable onPress={() => setIsModalVisible(true)} style={styles.DefaultButton}>
+        <Pressable
+          onPress={() => setIsModalVisible(true)}
+          style={styles.DefaultButton}
+        >
           <SvgXml xml={delete_icon_xml} width={24} height={24} />
           <Text style={styles.logoutButtonText}>Ištrinti paskyrą</Text>
         </Pressable>
@@ -130,7 +194,11 @@ export default function Settings() {
                 />
                 <View style={styles.buttonContainer}>
                   <Button title="Pakeisti" onPress={handleChangeEmail} />
-                  <Button title="Atšaukti" onPress={() => setEmailModalVisible(false)} color="red" />
+                  <Button
+                    title="Atšaukti"
+                    onPress={() => setEmailModalVisible(false)}
+                    color="red"
+                  />
                 </View>
               </View>
             </View>
@@ -146,7 +214,9 @@ export default function Settings() {
           <ScrollView contentContainerStyle={styles.scrollViewContent}>
             <View style={styles.modalOverlay}>
               <View style={styles.modalContent}>
-                <Text style={styles.modalText}>Ar tikrai norite ištrinti paskyrą?</Text>
+                <Text style={styles.modalText}>
+                  Ar tikrai norite ištrinti paskyrą?
+                </Text>
                 <View style={styles.buttonContainer}>
                   <TouchableOpacity
                     style={[styles.button, styles.confirmButton]}
@@ -199,14 +269,68 @@ export default function Settings() {
                 />
                 <View style={styles.buttonContainer}>
                   <Button title="Pakeisti" onPress={handlePasswordSubmit} />
-                  <Button title="Atšaukti" onPress={() => setPasswordModalVisible(false)} color="red" />
+                  <Button
+                    title="Atšaukti"
+                    onPress={() => setPasswordModalVisible(false)}
+                    color="red"
+                  />
                 </View>
               </View>
             </View>
           </ScrollView>
         </Modal>
 
-      
+        <Modal
+          animationType="slide"
+          transparent={true}
+          visible={profileModalVisible}
+          onRequestClose={() => setProfileModalVisible(false)}
+        >
+          <ScrollView contentContainerStyle={styles.scrollViewContent}>
+            <View style={styles.modalOverlay}>
+              <View style={styles.modalContainer}>
+                <Text style={styles.modalTitle}>Atnaujinkite profilį</Text>
+                <EntryInputField
+  headerText={`Dabartinis slapyvardis: ${username}`}
+  placeholderText="Pakeiskite savo slapyvardį"
+  isPassword={false}
+  onChangeText={(text) => setUsername(text)}
+  margin={[0, 20, 0, 0]}
+/>
+                <EntryInputField
+                  headerText={`Dabartinis vardas: ${name}`}
+                  placeholderText="Pakeiskite savo vardą"
+                  isPassword={false}
+                  onChangeText={setName}
+                  margin={[0, 20, 0, 0]}
+                />
+                <EntryInputField
+                  headerText={`Dabartinė pavardė: ${surname}`}
+                  placeholderText="Pakeiskite savo pavardę"
+                  isPassword={false}
+                  onChangeText={setSurname}
+                  margin={[0, 20, 0, 0]}
+                />
+                <EntryInputField
+                  headerText={`Dabartinis amžius: ${age}`}
+                  placeholderText="Pakeiskite savo amžių"
+                  isPassword={false}
+                  onChangeText={setAge}
+                  keyboardType="numeric"
+                  margin={[0, 20, 0, 0]}
+                />
+                <View style={styles.buttonContainer}>
+                  <Button title="Išsaugoti" onPress={handleProfileUpdate} />
+                  <Button
+                    title="Atšaukti"
+                    onPress={() => setProfileModalVisible(false)}
+                    color="red"
+                  />
+                </View>
+              </View>
+            </View>
+          </ScrollView>
+        </Modal>
       </View>
     </KeyboardAvoidingView>
   );
@@ -215,56 +339,56 @@ export default function Settings() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
   },
   DefaultButton: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
     marginTop: 20,
-    backgroundColor: 'transparent',
+    backgroundColor: "transparent",
     padding: 10,
     borderRadius: 5,
   },
   scrollViewContent: {
     flexGrow: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
     paddingBottom: 40,
   },
   logoutButtonText: {
     marginLeft: 10,
     fontSize: 16,
-    fontWeight: 'bold',
-    color: 'red',
+    fontWeight: "bold",
+    color: "red",
   },
   defaultText: {
     marginLeft: 10,
     fontSize: 16,
-    fontWeight: 'bold',
+    fontWeight: "bold",
     color: Colors.LightBlue,
   },
   modalOverlay: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "rgba(0, 0, 0, 0.5)",
   },
   modalContent: {
     width: 600,
     padding: 20,
-    backgroundColor: 'white',
+    backgroundColor: "white",
     borderRadius: 10,
-    alignItems: 'center',
+    alignItems: "center",
   },
   modalText: {
     fontSize: 18,
     marginBottom: 20,
-    textAlign: 'center',
+    textAlign: "center",
   },
   buttonContainer: {
-    flexDirection: 'row',
+    flexDirection: "row",
   },
   button: {
     padding: 10,
@@ -272,33 +396,33 @@ const styles = StyleSheet.create({
     borderRadius: 5,
   },
   confirmButton: {
-    backgroundColor: 'red',
+    backgroundColor: "red",
   },
   cancelButton: {
-    backgroundColor: 'gray',
+    backgroundColor: "gray",
   },
   buttonText: {
-    color: 'white',
+    color: "white",
     fontSize: 16,
   },
   modalContainer: {
     width: 800,
     padding: 20,
-    backgroundColor: 'white',
+    backgroundColor: "white",
     borderRadius: 10,
-    alignItems: 'center',
+    alignItems: "center",
   },
   modalTitle: {
     fontSize: 18,
-    fontWeight: 'bold',
+    fontWeight: "bold",
     marginBottom: 10,
   },
   input: {
-    width: '100%',
+    width: "100%",
     padding: 10,
     marginVertical: 5,
     borderWidth: 1,
-    borderColor: '#ccc',
+    borderColor: "#ccc",
     borderRadius: 5,
   },
 });

@@ -1,23 +1,54 @@
-import React, { useState } from 'react';
-import { View, Text, StyleSheet, Modal, Pressable } from 'react-native';
-import { useUser } from '../../hooks/useUser';
+import React, { useState, useEffect } from 'react';
+import { View, Text, StyleSheet, Modal, Pressable, ActivityIndicator } from 'react-native';
+import { getAuth } from 'firebase/auth';
+import { doc, getDoc } from 'firebase/firestore';
+import firebaseServices from '../../services/firebase';
+
+const { db } = firebaseServices;
 
 export default function Home() {
   const [modalVisible, setModalVisible] = useState(false);
+  const [username, setUsername] = useState('');
+  const [loading, setLoading] = useState(true);
+
+  const auth = getAuth();
+  const currentUserId = auth.currentUser ? auth.currentUser.uid : null;
+  console.log(currentUserId);
 
   const toggleModal = () => {
     setModalVisible(!modalVisible);
   };
 
-  const user = useUser();
+  useEffect(() => {
+    const fetchUser = async () => {
+      if (currentUserId) {
+        try {
+          const userDoc = await getDoc(doc(db, 'users', currentUserId));
+          if (userDoc.exists()) {
+            setUsername(userDoc.data().username);
+          } else {
+            console.error('No such document!');
+          }
+        } catch (error) {
+          console.error('Error fetching user: ', error);
+        }
+      }
+      setLoading(false);
+    };
+
+    fetchUser();
+  }, [currentUserId]);
 
   return (
     <View style={styles.container}>
+      {loading ? (
+        <ActivityIndicator size="large" color="#0000ff" />
+      ) : (
+        <Text style={styles.greeting}>Labas, {username}</Text>
+      )}
       <Pressable onPress={toggleModal}>
         <Text style={styles.modalTrigger}>Kas yra Journeyfy?</Text>
       </Pressable>
-      <Text>Pagrindinis ekranas</Text>
-
       <Modal
         animationType="slide"
         transparent={true}
@@ -49,6 +80,10 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  greeting: {
+    fontSize: 24,
+    marginBottom: 20,
   },
   modalTrigger: {
     fontSize: 16,

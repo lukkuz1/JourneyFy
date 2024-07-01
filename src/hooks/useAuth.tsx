@@ -14,6 +14,7 @@ type UserData = {
 }
 
 type AuthContextData = {
+  currentUser(currentUser: any, newPassword: string): unknown;
   loggedIn: boolean;
   user: object | null;
   signUp(email: string, password: string): Promise<UserCredential> | string;
