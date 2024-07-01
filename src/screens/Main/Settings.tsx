@@ -29,6 +29,8 @@ import EntryInputField from "../../components/Entry/EntryInputField";
 
 const { db } = firebaseServices;
 
+
+
 export default function Settings() {
   const navigation = useNavigation();
   const auth = useAuth();
@@ -45,27 +47,31 @@ export default function Settings() {
   const [name, setName] = useState("");
   const [surname, setSurname] = useState("");
   const [age, setAge] = useState("");
+  const [populateusername, setpopulateUsername] = useState("");
+  const [populatename, setpopulateName] = useState("");
+  const [populatesurname, setpopulateSurname] = useState("");
+  const [populateage, setpopulateAge] = useState("");
   const currentUserId = getAuth().currentUser.uid;
   console.log("User id");
   console.log(currentUserId);
 
-  useEffect(() => {
-    const fetchUser = async () => {
-      try {
-        const userDoc = await getDoc(doc(db, "users", currentUserId));
-        if (userDoc.exists()) {
-          const data = userDoc.data();
-          setUsername(data.username);
-          setName(data.name);
-          setSurname(data.surname);
-          setAge(data.age.toString());
-        }
-      } catch (error) {
-        console.error("Error fetching user data: ", error);
+  const fetchUser = async () => {
+    try {
+      const userDoc = await getDoc(doc(db, "users", currentUserId));
+      if (userDoc.exists()) {
+        const data = userDoc.data();
+        setpopulateUsername(data.username);
+        setpopulateName(data.name);
+        setpopulateSurname(data.surname);
+        setpopulateAge(data.age.toString());
       }
-      setLoading(false);
-    };
+    } catch (error) {
+      console.error("Error fetching user data: ", error);
+    }
+    setLoading(false);
+  };
 
+  useEffect(() => {
     fetchUser();
   }, [currentUserId]);
 
@@ -77,6 +83,7 @@ export default function Settings() {
         surname,
         age: parseInt(age),
       });
+      fetchUser();
       Alert.alert("Sėkmės pranešimas", "Profilis sėkmingai atnaujintas");
       setProfileModalVisible(false);
     } catch (error) {
@@ -291,29 +298,29 @@ export default function Settings() {
               <View style={styles.modalContainer}>
                 <Text style={styles.modalTitle}>Atnaujinkite profilį</Text>
                 <EntryInputField
-  headerText={`Dabartinis slapyvardis: ${username}`}
-  placeholderText="Pakeiskite savo slapyvardį"
+  headerText="Slapyvardis"
+  placeholderText={populateusername || "Įveskite savo slapyvardį"}
   isPassword={false}
   onChangeText={(text) => setUsername(text)}
   margin={[0, 20, 0, 0]}
 />
                 <EntryInputField
-                  headerText={`Dabartinis vardas: ${name}`}
-                  placeholderText="Pakeiskite savo vardą"
+                  headerText="Vardas"
+                  placeholderText={populatename || "Įveskite savo vardą"}
                   isPassword={false}
                   onChangeText={setName}
                   margin={[0, 20, 0, 0]}
                 />
                 <EntryInputField
-                  headerText={`Dabartinė pavardė: ${surname}`}
-                  placeholderText="Pakeiskite savo pavardę"
+                  headerText="Pavardė"
+                  placeholderText={populatesurname || "Įveskite savo pavardę"}
                   isPassword={false}
                   onChangeText={setSurname}
                   margin={[0, 20, 0, 0]}
                 />
                 <EntryInputField
-                  headerText={`Dabartinis amžius: ${age}`}
-                  placeholderText="Pakeiskite savo amžių"
+                  headerText="Amžius"
+                  placeholderText={populateage || "Įveskite savo amžių"}
                   isPassword={false}
                   onChangeText={setAge}
                   keyboardType="numeric"
