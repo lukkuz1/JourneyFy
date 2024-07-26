@@ -25,20 +25,21 @@ const Journey = () => {
   const auth = useAuth();
   const user = useUser();
 
+  const fetchJourneys = async () => {
+    try {
+      const querySnapshot = await getDocs(collection(db, 'journeys'));
+      const journeyData = querySnapshot.docs.map(doc => ({
+        id: doc.id,
+        ...doc.data()
+      }));
+      setJourneys(journeyData);
+      setFilteredJourneys(journeyData);
+    } catch (error) {
+      console.error('Error fetching journeys:', error);
+    }
+  };
+
   useEffect(() => {
-    const fetchJourneys = async () => {
-      try {
-        const querySnapshot = await getDocs(collection(db, 'journeys'));
-        const journeyData = querySnapshot.docs.map(doc => ({
-          id: doc.id,
-          ...doc.data()
-        }));
-        setJourneys(journeyData);
-        setFilteredJourneys(journeyData);
-      } catch (error) {
-        console.error('Error fetching journeys:', error);
-      }
-    };
 
     fetchJourneys();
   }, []);
@@ -80,6 +81,7 @@ const Journey = () => {
       setPricePerPerson('');
       setJourneys(prevJourneys => [...prevJourneys, { id: docRef.id, ...newJourney }]);
       setIsAddModalVisible(false);
+      fetchJourneys();
     } catch (error) {
       console.error('Error adding journey:', error);
     }
