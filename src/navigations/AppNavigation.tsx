@@ -18,7 +18,7 @@ export default function AppNavigation() {
 
   return (
     <NavigationContainer>
-      {auth.loggedIn && user.initialized && firebase.auth.currentUser.emailVerified ? (
+      {auth.loggedIn && user.initialized /* && firebase.auth.currentUser.emailVerified */ ? (
         <MainNavigation/>
       ) : (
         <EntryNavigation />
