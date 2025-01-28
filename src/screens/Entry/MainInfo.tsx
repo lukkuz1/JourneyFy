@@ -1,21 +1,31 @@
-import React, { useState } from 'react';
-import { View, Text, StyleSheet, ScrollView, KeyboardAvoidingView, Platform, Alert, TouchableWithoutFeedback, Keyboard } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
-import { collection, doc, setDoc } from 'firebase/firestore';
-import { getAuth } from 'firebase/auth';
-import firebaseServices from '../../services/firebase';
-import Colors from '../../constants/Colors';
-import EntryInputField from '../../components/Entry/EntryInputField';
-import EntryButton from '../../components/Entry/EntryButton';
+import React, { useState } from "react";
+import {
+  View,
+  Text,
+  StyleSheet,
+  ScrollView,
+  KeyboardAvoidingView,
+  Platform,
+  Alert,
+  TouchableWithoutFeedback,
+  Keyboard,
+} from "react-native";
+import { useNavigation } from "@react-navigation/native";
+import { doc, setDoc } from "firebase/firestore";
+import { getAuth } from "firebase/auth";
+import firebaseServices from "../../services/firebase";
+import Colors from "../../constants/Colors";
+import EntryInputField from "../../components/Entry/EntryInputField";
+import EntryButton from "../../components/Entry/EntryButton";
 
 const { db } = firebaseServices;
 
 export default function MainInfo() {
-  const [username, setUsername] = useState('');
-  const [name, setName] = useState('');
-  const [surname, setSurname] = useState('');
-  const [age, setAge] = useState('');
-  const [error, setError] = useState('');
+  const [username, setUsername] = useState("");
+  const [name, setName] = useState("");
+  const [surname, setSurname] = useState("");
+  const [age, setAge] = useState("");
+  const [error, setError] = useState("");
 
   const navigation = useNavigation();
   const auth = getAuth();
@@ -23,34 +33,37 @@ export default function MainInfo() {
 
   const handleInfo = async () => {
     if (!username || !name || !surname || !age) {
-      setError('Užpildykite visus laukus');
+      setError("Užpildykite visus laukus");
       return;
     }
 
     try {
-      await setDoc(doc(db, 'users', user.uid), {
+      await setDoc(doc(db, "users", user.uid), {
         username,
         name,
         surname,
-        age: parseInt(age)
+        age: parseInt(age),
       });
-      Alert.alert('Sėkmės pranešimas', 'Naudotojo informacija sėkmingai išsaugota');
+      Alert.alert(
+        "Sėkmės pranešimas",
+        "Naudotojo informacija sėkmingai išsaugota"
+      );
       navigation.navigate("Login");
-      setUsername('');
-      setName('');
-      setSurname('');
-      setAge('');
-      setError('');
+      setUsername("");
+      setName("");
+      setSurname("");
+      setAge("");
+      setError("");
     } catch (error) {
-      console.error('Error adding document: ', error);
-      setError('Klaida išsaugant naudotojo informacija');
+      console.error("Error adding document: ", error);
+      setError("Klaida išsaugant naudotojo informacija");
     }
   };
 
   return (
     <KeyboardAvoidingView
       style={styles.container}
-      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+      behavior={Platform.OS === "ios" ? "padding" : "height"}
     >
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
         <ScrollView contentContainerStyle={styles.scrollViewContent}>
@@ -108,28 +121,28 @@ const styles = StyleSheet.create({
   },
   scrollViewContent: {
     flexGrow: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
     paddingBottom: 20,
   },
   rectangle: {
-    width: '90%',
+    width: "90%",
     padding: 20,
     borderTopRightRadius: 50,
     backgroundColor: Colors.White,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
     elevation: 5,
   },
   label: {
     marginBottom: 30,
     color: Colors.LightBlue,
     fontSize: 26,
-    fontWeight: 'bold',
+    fontWeight: "bold",
   },
   error: {
-    color: 'red',
+    color: "red",
     marginBottom: 10,
-    textAlign: 'center',
+    textAlign: "center",
   },
 });

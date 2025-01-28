@@ -11,12 +11,11 @@ import {
   KeyboardAvoidingView,
   Platform,
   ScrollView,
-  TextInput,
   ActivityIndicator,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { SvgXml } from "react-native-svg";
-import { getAuth, deleteUser, updateEmail } from "firebase/auth";
+import { getAuth, deleteUser } from "firebase/auth";
 import { doc, getDoc, updateDoc } from "firebase/firestore";
 import firebaseServices from "../../services/firebase";
 import { useAuth } from "../../hooks/useAuth";
@@ -28,8 +27,6 @@ import { profile_icon_xml } from "../../assets/xml/svg";
 import EntryInputField from "../../components/Entry/EntryInputField";
 
 const { db } = firebaseServices;
-
-
 
 export default function Settings() {
   const navigation = useNavigation();
@@ -298,12 +295,14 @@ export default function Settings() {
               <View style={styles.modalContainer}>
                 <Text style={styles.modalTitle}>Atnaujinkite profilį</Text>
                 <EntryInputField
-  headerText="Slapyvardis"
-  placeholderText={populateusername || "Įveskite savo slapyvardį"}
-  isPassword={false}
-  onChangeText={(text) => setUsername(text)}
-  margin={[0, 20, 0, 0]}
-/>
+                  headerText="Slapyvardis"
+                  placeholderText={
+                    populateusername || "Įveskite savo slapyvardį"
+                  }
+                  isPassword={false}
+                  onChangeText={(text) => setUsername(text)}
+                  margin={[0, 20, 0, 0]}
+                />
                 <EntryInputField
                   headerText="Vardas"
                   placeholderText={populatename || "Įveskite savo vardą"}

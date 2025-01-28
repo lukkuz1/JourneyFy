@@ -1,36 +1,52 @@
-import React, { useState } from 'react';
-import { View, Text, StyleSheet, Pressable, Image, KeyboardAvoidingView, Platform, ScrollView , Alert} from 'react-native';
-import { useNavigation } from '@react-navigation/native';
-import Colors from '../../constants/Colors';
-import EntryInputField from '../../components/Entry/EntryInputField';
-import EntryButton from '../../components/Entry/EntryButton';
-import { sendPasswordResetEmail } from 'firebase/auth';
-import firebase from '../../services/firebase';
+import React, { useState } from "react";
+import {
+  View,
+  Text,
+  StyleSheet,
+  Pressable,
+  Image,
+  KeyboardAvoidingView,
+  Platform,
+  ScrollView,
+  Alert,
+} from "react-native";
+import { useNavigation } from "@react-navigation/native";
+import Colors from "../../constants/Colors";
+import EntryInputField from "../../components/Entry/EntryInputField";
+import EntryButton from "../../components/Entry/EntryButton";
+import { sendPasswordResetEmail } from "firebase/auth";
+import firebase from "../../services/firebase";
 
 export default function ForgotPassword() {
-  const [email, setEmail] = useState('');
-  const [error, setError] = useState('');
+  const [email, setEmail] = useState("");
+  const [error, setError] = useState("");
   const navigation = useNavigation();
 
   const handleForgotPassword = async () => {
     try {
       if (!email.trim()) {
-        Alert.alert('Neteisingas el. paštas', 'Prašome įvesti teisingą el. paštą.');
+        Alert.alert(
+          "Neteisingas el. paštas",
+          "Prašome įvesti teisingą el. paštą."
+        );
         return;
       }
       await sendPasswordResetEmail(firebase.auth, email);
       Alert.alert(
-        'Slaptažodžio priminimo nuoroda nusiųsta',
-        'Jeigu turite paskyrą, slaptažodžio priminimo nuoroda išsiųsta į el. paštą'
+        "Slaptažodžio priminimo nuoroda nusiųsta",
+        "Jeigu turite paskyrą, slaptažodžio priminimo nuoroda išsiųsta į el. paštą"
       );
-      navigation.navigate('Login');
+      navigation.navigate("Login");
     } catch (error) {
-      if (error.code === 'auth/invalid-email') {
-        Alert.alert('Invalid Email', 'Please enter a valid email address.');
-      } else if (error.code === 'auth/user-not-found') {
-        Alert.alert('Email Not Found', 'This email address is not associated with any account.');
+      if (error.code === "auth/invalid-email") {
+        Alert.alert("Invalid Email", "Please enter a valid email address.");
+      } else if (error.code === "auth/user-not-found") {
+        Alert.alert(
+          "Email Not Found",
+          "This email address is not associated with any account."
+        );
       } else {
-        Alert.alert('Password Reset Failed', error.message);
+        Alert.alert("Password Reset Failed", error.message);
       }
     }
   };
@@ -38,11 +54,14 @@ export default function ForgotPassword() {
   return (
     <KeyboardAvoidingView
       style={styles.container}
-      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+      behavior={Platform.OS === "ios" ? "padding" : "height"}
     >
       <ScrollView contentContainerStyle={styles.scrollViewContent}>
         <View style={styles.logoContainer}>
-          <Image source={require('../../../assets/journeyfy_logo.png')} style={styles.logo} />
+          <Image
+            source={require("../../../assets/journeyfy_logo.png")}
+            style={styles.logo}
+          />
         </View>
         <View style={styles.rectangle}>
           <Text style={styles.label}>Slaptažodžio priminimas</Text>
@@ -64,7 +83,7 @@ export default function ForgotPassword() {
           />
           <View style={styles.signUpContainer}>
             <Text style={styles.signUpText}>Neturite paskyros?</Text>
-            <Pressable onPress={() => navigation.navigate('Register')}>
+            <Pressable onPress={() => navigation.navigate("Register")}>
               <Text style={styles.signUpLink}>Pradėkite jau šiandien!</Text>
             </Pressable>
           </View>
@@ -81,56 +100,56 @@ const styles = StyleSheet.create({
   },
   scrollViewContent: {
     flexGrow: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
     paddingBottom: 40,
   },
   logoContainer: {
     marginTop: 40,
-    alignItems: 'center',
-    justifyContent: 'center',
-    width: '100%',
+    alignItems: "center",
+    justifyContent: "center",
+    width: "100%",
   },
   logo: {
     width: 250,
     height: 250,
-    resizeMode: 'contain',
+    resizeMode: "contain",
   },
   rectangle: {
-    width: '100%',
+    width: "100%",
     padding: 20,
     borderTopRightRadius: 50,
     backgroundColor: Colors.White,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
     elevation: 5,
   },
   label: {
     marginBottom: 60,
     color: Colors.LightBlue,
     fontSize: 26,
-    fontWeight: 'bold',
+    fontWeight: "bold",
   },
   error: {
-    color: 'red',
+    color: "red",
     marginBottom: 10,
-    textAlign: 'center',
+    textAlign: "center",
   },
   signUpContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
     marginTop: 20,
   },
   signUpText: {
     color: Colors.Gray,
     fontSize: 14,
-    fontWeight: '400',
+    fontWeight: "400",
   },
   signUpLink: {
     color: Colors.LightBlue,
     fontSize: 14,
-    fontWeight: '600',
+    fontWeight: "600",
     marginLeft: 5,
   },
 });

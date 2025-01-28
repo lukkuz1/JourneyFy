@@ -1,6 +1,15 @@
-import React from 'react';
-import { View, Text, TextInput, StyleSheet, KeyboardTypeOptions, ViewStyle, StyleProp, TextStyle } from 'react-native';
-import Colors from '../../constants/Colors';
+import React from "react";
+import {
+  View,
+  Text,
+  TextInput,
+  StyleSheet,
+  KeyboardTypeOptions,
+  ViewStyle,
+  StyleProp,
+  TextStyle,
+} from "react-native";
+import Colors from "../../constants/Colors";
 
 type Props = {
   headerText: string;
@@ -12,9 +21,19 @@ type Props = {
   margin?: [top: number, bottom: number, left: number, right: number];
   onChangeText: (text: string) => void;
   keyboardType?: KeyboardTypeOptions;
-}
+};
 
-export default function EntryInputField({ headerText, placeholderText, isPassword, margin = [0, 0, 0, 0], keyboardType, style, headerStyle, postfix = "", onChangeText }: Props) {
+export default function EntryInputField({
+  headerText,
+  placeholderText,
+  isPassword,
+  margin = [0, 0, 0, 0],
+  keyboardType,
+  style,
+  headerStyle,
+  postfix = "",
+  onChangeText,
+}: Props) {
   return (
     <View
       style={[
@@ -25,11 +44,11 @@ export default function EntryInputField({ headerText, placeholderText, isPasswor
           marginLeft: margin[2],
           marginRight: margin[3],
         },
-        style
+        style,
       ]}
     >
       <Text style={[styles.typeFont, headerStyle]}>{headerText}</Text>
-      <View style={{ flexDirection: 'row' }}>
+      <View style={{ flexDirection: "row" }}>
         <TextInput
           placeholder={placeholderText}
           placeholderTextColor={Colors.Gray}
@@ -43,7 +62,6 @@ export default function EntryInputField({ headerText, placeholderText, isPasswor
     </View>
   );
 }
-
 
 const styles = StyleSheet.create({
   typeFont: {
@@ -61,7 +79,7 @@ const styles = StyleSheet.create({
   prefix: {
     color: Colors.Gray,
     fontSize: 16,
-    fontWeight: '400',
+    fontWeight: "400",
     marginTop: 3,
   },
   rectangle: {
@@ -69,9 +87,9 @@ const styles = StyleSheet.create({
     height: 70,
     borderRadius: 18,
     backgroundColor: Colors.White,
-    shadowColor: '#000000',
+    shadowColor: "#000000",
     elevation: 3,
     zIndex: 999,
-    justifyContent: 'center',
+    justifyContent: "center",
   },
 });

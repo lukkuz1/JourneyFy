@@ -1,18 +1,24 @@
-import React, { useState } from 'react';
-import { View, Text, StyleSheet, Pressable, Image, ScrollView, KeyboardAvoidingView, Platform } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
-import Colors from '../../constants/Colors';
-import EntryInputField from '../../components/Entry/EntryInputField';
-import EntryButton from '../../components/Entry/EntryButton';
-import BouncyCheckbox from 'react-native-bouncy-checkbox';
-import { useAuth } from '../../hooks/useAuth';
-
-
+import React, { useState } from "react";
+import {
+  View,
+  Text,
+  StyleSheet,
+  Pressable,
+  Image,
+  ScrollView,
+  KeyboardAvoidingView,
+  Platform,
+} from "react-native";
+import { useNavigation } from "@react-navigation/native";
+import Colors from "../../constants/Colors";
+import EntryInputField from "../../components/Entry/EntryInputField";
+import EntryButton from "../../components/Entry/EntryButton";
+import { useAuth } from "../../hooks/useAuth";
 
 export default function Login() {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
   const [rememberMe, setRememberMe] = useState(false);
   const auth = useAuth();
 
@@ -21,18 +27,21 @@ export default function Login() {
   const handleLogin = async () => {
     const status = await auth.signIn(email, password);
     if (status != undefined) {
-      setError(status.operationType);
+      setError("Bad login");
     }
   };
 
   return (
     <KeyboardAvoidingView
       style={styles.container}
-      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+      behavior={Platform.OS === "ios" ? "padding" : "height"}
     >
       <ScrollView contentContainerStyle={styles.scrollViewContent}>
         <View style={styles.logoContainer}>
-          <Image source={require('../../../assets/journeyfy_logo.png')} style={styles.logo} />
+          <Image
+            source={require("../../../assets/journeyfy_logo.png")}
+            style={styles.logo}
+          />
         </View>
         <View style={styles.rectangle}>
           <Text style={styles.label}>Prisijungimas</Text>
@@ -52,9 +61,13 @@ export default function Login() {
             onChangeText={(text) => setPassword(text)}
           />
           <View style={styles.checkboxContainer}>
-            
-            <Pressable onPress={() => navigation.navigate('ForgotPassword')} style={styles.forgotPasswordButton}>
-              <Text style={styles.forgotPasswordText}>Pamiršote slaptažodį?</Text>
+            <Pressable
+              onPress={() => navigation.navigate("ForgotPassword")}
+              style={styles.forgotPasswordButton}
+            >
+              <Text style={styles.forgotPasswordText}>
+                Pamiršote slaptažodį?
+              </Text>
             </Pressable>
           </View>
 
@@ -69,7 +82,7 @@ export default function Login() {
 
           <View style={styles.signUpContainer}>
             <Text style={styles.signUpText}>Neturite paskyros?</Text>
-            <Pressable onPress={() => navigation.navigate('Register')}>
+            <Pressable onPress={() => navigation.navigate("Register")}>
               <Text style={styles.signUpLink}>Pradėkite jau šiandien!</Text>
             </Pressable>
           </View>
@@ -86,81 +99,81 @@ const styles = StyleSheet.create({
   },
   scrollViewContent: {
     flexGrow: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
     paddingBottom: 40,
   },
   logoContainer: {
     marginTop: 40,
-    alignItems: 'center',
-    justifyContent: 'center',
-    width: '100%',
+    alignItems: "center",
+    justifyContent: "center",
+    width: "100%",
   },
   logo: {
     width: 250,
     height: 250,
-    resizeMode: 'contain',
+    resizeMode: "contain",
   },
   rectangle: {
-    width: '100%',
+    width: "100%",
     padding: 20,
     borderTopRightRadius: 50,
     backgroundColor: Colors.White,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
     elevation: 5,
   },
   label: {
     marginBottom: 30,
     color: Colors.LightBlue,
     fontSize: 26,
-    fontWeight: 'bold',
+    fontWeight: "bold",
   },
   error: {
-    color: 'red',
+    color: "red",
     marginBottom: 10,
-    textAlign: 'center',
+    textAlign: "center",
   },
   checkboxContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
     marginBottom: 20,
   },
   checkboxText: {
     marginLeft: 10,
     color: Colors.Black,
     fontSize: 14,
-    fontWeight: '400',
+    fontWeight: "400",
   },
   rememberMeText: {
     color: Colors.Black,
     fontSize: 14,
-    fontWeight: '400',
+    fontWeight: "400",
     marginLeft: 10,
   },
   forgotPasswordButton: {
-    marginLeft: 'auto',
+    marginLeft: "auto",
   },
   forgotPasswordText: {
     color: Colors.LightBlue,
     fontSize: 14,
-    fontWeight: '600',
+    fontWeight: "600",
   },
   signUpContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
     marginTop: 20,
   },
   signUpText: {
     color: Colors.Gray,
     fontSize: 14,
-    fontWeight: '400',
+    fontWeight: "400",
   },
   signUpLink: {
     color: Colors.LightBlue,
     fontSize: 14,
-    fontWeight: '600',
+    fontWeight: "600",
     marginLeft: 5,
   },
 });
