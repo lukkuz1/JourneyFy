@@ -51,7 +51,7 @@ export default function Register() {
             style={styles.logo}
           />
         </View>
-        <View style={styles.rectangle}>
+        <View style={styles.formContainer}>
           <Text style={styles.label}>Registracija</Text>
           {error ? <Text style={styles.error}>{error}</Text> : null}
           <EntryInputField
@@ -59,6 +59,7 @@ export default function Register() {
             placeholderText="Įveskite savo el. paštą"
             isPassword={false}
             margin={[0, 20, 0, 0]}
+            keyboardType="default"
             onChangeText={(text) => setEmail(text)}
           />
           <EntryInputField
@@ -66,6 +67,7 @@ export default function Register() {
             placeholderText="Įveskite savo slaptažodį"
             isPassword={true}
             margin={[0, 20, 0, 0]}
+            keyboardType="default"
             onChangeText={(text) => setPassword(text)}
           />
           <EntryButton
@@ -91,7 +93,9 @@ export default function Register() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: Colors.LightBlue,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "transparent"
   },
   scrollViewContent: {
     flexGrow: 1,
@@ -100,28 +104,25 @@ const styles = StyleSheet.create({
     paddingBottom: 40,
   },
   logoContainer: {
-    marginTop: 40,
     alignItems: "center",
     justifyContent: "center",
     width: "100%",
+    marginTop: 40,
   },
   logo: {
     width: 250,
     height: 250,
     resizeMode: "contain",
   },
-  rectangle: {
-    width: "100%",
+  formContainer: {
+    width: "90%",
     padding: 20,
-    borderTopRightRadius: 50,
-    backgroundColor: Colors.White,
-    justifyContent: "center",
+    backgroundColor: "transparent", // Same as Login page: no background color
     alignItems: "center",
-    elevation: 5,
   },
   label: {
-    marginBottom: 60,
-    color: Colors.LightBlue,
+    marginBottom: 20,
+    color: Colors.LightBlue, // Color from Login page
     fontSize: 26,
     fontWeight: "bold",
   },

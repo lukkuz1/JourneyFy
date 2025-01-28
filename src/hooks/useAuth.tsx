@@ -126,7 +126,6 @@ export const AuthProvider: React.FC = ({ children }: Props) => {
         await updPassword(firebase.auth.currentUser, newPassword);
       }
     } catch (error: any) {
-      console.log(error);
       Alert.alert("Klaida", `${error.message}`);
       return error.code;
     }
@@ -138,7 +137,6 @@ export const AuthProvider: React.FC = ({ children }: Props) => {
         await updEmail(firebase.auth.currentUser, newEmail);
       }
     } catch (error: any) {
-      console.log(error);
       return error.code;
     }
   };

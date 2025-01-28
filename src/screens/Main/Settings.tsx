@@ -49,8 +49,7 @@ export default function Settings() {
   const [populatesurname, setpopulateSurname] = useState("");
   const [populateage, setpopulateAge] = useState("");
   const currentUserId = getAuth().currentUser.uid;
-  console.log("User id");
-  console.log(currentUserId);
+
 
   const fetchUser = async () => {
     try {
@@ -107,7 +106,6 @@ export default function Settings() {
       return;
     }
     auth.updatePassword(newPassword);
-    console.log("Changing password...");
     setPasswordModalVisible(false);
     alert("Slaptažodis sėkmingai pakeistas");
   };
@@ -117,7 +115,6 @@ export default function Settings() {
     deleteUser(user)
       .then(() => {
         navigation.navigate("Login");
-        console.log("User deleted successfully");
         Alert.alert("Paskyra ištrinta", "Paskyra sėkmingai ištrinta.");
       })
       .catch((error) => {

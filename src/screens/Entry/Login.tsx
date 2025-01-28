@@ -5,9 +5,7 @@ import {
   StyleSheet,
   Pressable,
   Image,
-  ScrollView,
-  KeyboardAvoidingView,
-  Platform,
+  ScrollView
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import Colors from "../../constants/Colors";
@@ -19,7 +17,6 @@ export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
-  const [rememberMe, setRememberMe] = useState(false);
   const auth = useAuth();
 
   const navigation = useNavigation();
@@ -32,70 +29,71 @@ export default function Login() {
   };
 
   return (
-    <KeyboardAvoidingView
-      style={styles.container}
-      behavior={Platform.OS === "ios" ? "padding" : "height"}
-    >
-      <ScrollView contentContainerStyle={styles.scrollViewContent}>
-        <View style={styles.logoContainer}>
-          <Image
-            source={require("../../../assets/journeyfy_logo.png")}
-            style={styles.logo}
-          />
-        </View>
-        <View style={styles.rectangle}>
-          <Text style={styles.label}>Prisijungimas</Text>
-          {error ? <Text style={styles.error}>{error}</Text> : null}
-          <EntryInputField
-            headerText="El. paštas"
-            placeholderText="Įveskite savo el. paštą"
-            isPassword={false}
-            margin={[0, 20, 0, 0]}
-            onChangeText={(text) => setEmail(text)}
-          />
-          <EntryInputField
-            headerText="Slaptažodis"
-            placeholderText="Įveskite savo slaptažodį"
-            isPassword={true}
-            margin={[0, 20, 0, 0]}
-            onChangeText={(text) => setPassword(text)}
-          />
-          <View style={styles.checkboxContainer}>
-            <Pressable
-              onPress={() => navigation.navigate("ForgotPassword")}
-              style={styles.forgotPasswordButton}
-            >
-              <Text style={styles.forgotPasswordText}>
-                Pamiršote slaptažodį?
-              </Text>
-            </Pressable>
-          </View>
+    <ScrollView contentContainerStyle={styles.scrollViewContent}>
+      <View style={styles.logoContainer}>
+        <Image
+          source={require("../../../assets/journeyfy_logo.png")}
+          style={styles.logo}
+        />
+      </View>
+      <View style={styles.formContainer}>
+        <Text style={styles.label}>Prisijungimas</Text>
+        {error ? <Text style={styles.error}>{error}</Text> : null}
 
-          <EntryButton
-            text="Prisijungti"
-            textColor={Colors.White}
-            buttonColor={Colors.Blue}
-            margin={[30, 75, 0, 0]}
-            onPress={() => handleLogin()}
-            style={{ elevation: 5 }}
-          />
 
-          <View style={styles.signUpContainer}>
-            <Text style={styles.signUpText}>Neturite paskyros?</Text>
-            <Pressable onPress={() => navigation.navigate("Register")}>
-              <Text style={styles.signUpLink}>Pradėkite jau šiandien!</Text>
-            </Pressable>
-          </View>
+        <EntryInputField
+          headerText="El. paštas"
+          placeholderText="Įveskite savo el. paštą"
+          isPassword={false}
+          margin={[0, 20, 0, 0]}
+          keyboardType="default"
+          onChangeText={(text) => setEmail(text)}
+        />
+
+
+        <EntryInputField
+          headerText="Slaptažodis"
+          placeholderText="Įveskite savo slaptažodį"
+          isPassword={true}
+          margin={[0, 20, 0, 0]}
+          keyboardType="default"
+          onChangeText={(text) => setPassword(text)}
+        />
+
+        <View style={styles.linksContainer}>
+          <Pressable
+            onPress={() => navigation.navigate("ForgotPassword")}
+            style={styles.linkButton}
+          >
+            <Text style={styles.linkText}>Pamiršote slaptažodį?</Text>
+          </Pressable>
         </View>
-      </ScrollView>
-    </KeyboardAvoidingView>
+
+        <EntryButton
+          text="Prisijungti"
+          textColor={Colors.White}
+          buttonColor={Colors.Blue}
+          margin={[30, 75, 0, 0]}
+          onPress={handleLogin}
+          style={{ elevation: 5 }}
+        />
+
+        <View style={styles.signUpContainer}>
+          <Text style={styles.signUpText}>Neturite paskyros?</Text>
+          <Pressable onPress={() => navigation.navigate("Register")}>
+            <Text style={styles.signUpLink}>Pradėkite jau šiandien!</Text>
+          </Pressable>
+        </View>
+      </View>
+    </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: Colors.LightBlue,
+    justifyContent: "center",
+    alignItems: "center",
   },
   scrollViewContent: {
     flexGrow: 1,
@@ -104,7 +102,6 @@ const styles = StyleSheet.create({
     paddingBottom: 40,
   },
   logoContainer: {
-    marginTop: 40,
     alignItems: "center",
     justifyContent: "center",
     width: "100%",
@@ -113,18 +110,16 @@ const styles = StyleSheet.create({
     width: 250,
     height: 250,
     resizeMode: "contain",
+    marginBottom: 30,
   },
-  rectangle: {
-    width: "100%",
+  formContainer: {
+    width: "90%",
     padding: 20,
-    borderTopRightRadius: 50,
-    backgroundColor: Colors.White,
-    justifyContent: "center",
+    backgroundColor: "transparent", // no background color
     alignItems: "center",
-    elevation: 5,
   },
   label: {
-    marginBottom: 30,
+    marginBottom: 20,
     color: Colors.LightBlue,
     fontSize: 26,
     fontWeight: "bold",
@@ -134,27 +129,15 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     textAlign: "center",
   },
-  checkboxContainer: {
-    flexDirection: "row",
-    alignItems: "center",
+  linksContainer: {
+    width: "100%",
+    alignItems: "flex-end",
     marginBottom: 20,
   },
-  checkboxText: {
-    marginLeft: 10,
-    color: Colors.Black,
-    fontSize: 14,
-    fontWeight: "400",
+  linkButton: {
+    marginBottom: 10,
   },
-  rememberMeText: {
-    color: Colors.Black,
-    fontSize: 14,
-    fontWeight: "400",
-    marginLeft: 10,
-  },
-  forgotPasswordButton: {
-    marginLeft: "auto",
-  },
-  forgotPasswordText: {
+  linkText: {
     color: Colors.LightBlue,
     fontSize: 14,
     fontWeight: "600",

@@ -1,27 +1,26 @@
 import React from "react";
-import { View, StyleSheet } from "react-native";
+import { View, StyleSheet, Text } from "react-native";
 
 const Chat = () => {
-  return <View style={styles.container}></View>;
+  return (
+    <View style={styles.container}>
+      <Text style={styles.pageTitle}>Pokalbių puslapis</Text>
+    </View>
+  );
 };
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#f0f0f0",
+    padding: 20,
   },
-  searchContainer: {
-    paddingHorizontal: 20,
-    paddingVertical: 60,
-    backgroundColor: "#fff",
-    borderBottomWidth: StyleSheet.hairlineWidth,
-    borderBottomColor: "#ccc",
-  },
-  searchInput: {
-    height: 40,
-    paddingHorizontal: 10,
-    backgroundColor: "#f0f0f0",
-    borderRadius: 20,
+  pageTitle: {
+    fontSize: 24,
+    fontWeight: "bold",
+    color: "#333",
+    marginTop: 100,
+    textAlign: "center",
   },
 });
 

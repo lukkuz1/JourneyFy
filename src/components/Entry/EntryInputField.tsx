@@ -56,6 +56,7 @@ export default function EntryInputField({
           secureTextEntry={isPassword}
           onChangeText={onChangeText}
           keyboardType={keyboardType}
+          autoCapitalize="none"
         />
         <Text style={styles.prefix}>{" " + postfix}</Text>
       </View>

@@ -63,7 +63,7 @@ export default function ForgotPassword() {
             style={styles.logo}
           />
         </View>
-        <View style={styles.rectangle}>
+        <View style={styles.formContainer}>
           <Text style={styles.label}>Slaptažodžio priminimas</Text>
           {error ? <Text style={styles.error}>{error}</Text> : null}
           <EntryInputField
@@ -96,7 +96,9 @@ export default function ForgotPassword() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: Colors.LightBlue,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "transparent", // Background transparent as per your request
   },
   scrollViewContent: {
     flexGrow: 1,
@@ -105,28 +107,25 @@ const styles = StyleSheet.create({
     paddingBottom: 40,
   },
   logoContainer: {
-    marginTop: 40,
     alignItems: "center",
     justifyContent: "center",
     width: "100%",
+    marginTop: 40,
   },
   logo: {
     width: 250,
     height: 250,
     resizeMode: "contain",
   },
-  rectangle: {
-    width: "100%",
+  formContainer: {
+    width: "90%",
     padding: 20,
-    borderTopRightRadius: 50,
-    backgroundColor: Colors.White,
-    justifyContent: "center",
+    backgroundColor: "transparent", // No background color to match Login page
     alignItems: "center",
-    elevation: 5,
   },
   label: {
-    marginBottom: 60,
-    color: Colors.LightBlue,
+    marginBottom: 20,
+    color: Colors.LightBlue, // Label color from Login page
     fontSize: 26,
     fontWeight: "bold",
   },

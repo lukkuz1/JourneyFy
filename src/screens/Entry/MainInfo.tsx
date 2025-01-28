@@ -67,7 +67,7 @@ export default function MainInfo() {
     >
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
         <ScrollView contentContainerStyle={styles.scrollViewContent}>
-          <View style={styles.rectangle}>
+          <View style={styles.formContainer}>
             <Text style={styles.label}>Įveskite savo informaciją</Text>
             {error ? <Text style={styles.error}>{error}</Text> : null}
             <EntryInputField
@@ -117,7 +117,9 @@ export default function MainInfo() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: Colors.LightBlue,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "transparent", // Transparent background
   },
   scrollViewContent: {
     flexGrow: 1,
@@ -125,14 +127,11 @@ const styles = StyleSheet.create({
     alignItems: "center",
     paddingBottom: 20,
   },
-  rectangle: {
+  formContainer: {
     width: "90%",
     padding: 20,
-    borderTopRightRadius: 50,
-    backgroundColor: Colors.White,
-    justifyContent: "center",
+    backgroundColor: "transparent", // No background color to match Login and Register pages
     alignItems: "center",
-    elevation: 5,
   },
   label: {
     marginBottom: 30,
