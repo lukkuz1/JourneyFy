@@ -24,7 +24,7 @@ export default function Login() {
   const handleLogin = async () => {
     const status = await auth.signIn(email, password);
     if (status != undefined) {
-      setError("Bad login");
+      setError("");
     }
   };
 
