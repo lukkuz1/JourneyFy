@@ -1,7 +1,7 @@
 import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
 import { NavigationContainer } from "@react-navigation/native";
-import MainNavigation from "../navigations/MainNavigation";
+import MainNavigation from "./MainNavigation";
 import EntryNavigation from "../navigations/EntryNavigation";
 import { useAuth } from "../hooks/useAuth";
 import { useUser } from "../hooks/useUser";

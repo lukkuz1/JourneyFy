@@ -7,6 +7,8 @@ import Journey from "../screens/Main/Journey";
 import Home from "../screens/Main/Home";
 import Settings from "../screens/Main/Settings";
 import Chat from "../screens/Main/Chat";
+
+
 import {
   home_icon_xml,
   journey_icon_xml,
