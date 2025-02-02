@@ -5,7 +5,7 @@ import {
   StyleSheet,
   Pressable,
   Image,
-  ScrollView
+  ScrollView,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import Colors from "../../constants/Colors";
@@ -40,7 +40,6 @@ export default function Login() {
         <Text style={styles.label}>Prisijungimas</Text>
         {error ? <Text style={styles.error}>{error}</Text> : null}
 
-
         <EntryInputField
           headerText="El. paštas"
           placeholderText="Įveskite savo el. paštą"
@@ -49,7 +48,6 @@ export default function Login() {
           keyboardType="default"
           onChangeText={(text) => setEmail(text)}
         />
-
 
         <EntryInputField
           headerText="Slaptažodis"

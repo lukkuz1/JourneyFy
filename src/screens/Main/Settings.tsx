@@ -50,7 +50,6 @@ export default function Settings() {
   const [populateage, setpopulateAge] = useState("");
   const currentUserId = getAuth().currentUser.uid;
 
-
   const fetchUser = async () => {
     try {
       const userDoc = await getDoc(doc(db, "users", currentUserId));
