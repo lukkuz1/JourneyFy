@@ -8,12 +8,15 @@ import Journey from "../screens/Main/Journey";
 import Home from "../screens/Main/Home";
 import Settings from "../screens/Main/Settings";
 import Wallet from "../screens/Main/Wallet";
+import HomeScreen from "../screens/home/homeScreen";
+import ProfileScreen from "../screens/profile/profileScreen";
 
 import {
   home_icon_xml,
   journey_icon_xml,
   settings_icon_xml,
   wallet_icon_xml,
+  new_profile_icon_xml
 } from "../assets/xml/svg";
 
 const Tab = createBottomTabNavigator();
@@ -42,9 +45,10 @@ export default function MainNavigation() {
       initialRouteName="Home"
     >
       <Tab.Screen name="Journeys" component={Journey} />
-      <Tab.Screen name="Home" component={HomeStack} />
+      <Tab.Screen name="Home" component={HomeScreen} />
       <Tab.Screen name="Wallet" component={Wallet} />
       <Tab.Screen name="Settings" component={Settings} />
+      <Tab.Screen name="Profile" component={ProfileScreen} />
     </Tab.Navigator>
   );
 }
@@ -55,6 +59,7 @@ function tabSort(name, focused, color) {
     Journeys: journey_icon_xml,
     Wallet: wallet_icon_xml,
     Settings: settings_icon_xml,
+    Profile: new_profile_icon_xml,
   };
 
   return (
