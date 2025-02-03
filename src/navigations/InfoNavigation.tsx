@@ -1,13 +1,13 @@
 import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createStackNavigator } from "@react-navigation/stack";
-import Settings from "../screens/Main/Settings";
+import NotificationsScreen from "../screens/TemplateInfo/notifications/notificationsScreen";
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
 
 
-export default function SettingsNavigation() {
+export default function InfoNavigation() {
     return (
         <Stack.Navigator
           screenOptions={{
@@ -15,9 +15,9 @@ export default function SettingsNavigation() {
             animationEnabled: false,
             presentation: "modal",
           }}
-          initialRouteName="Settings"
+          initialRouteName="NotificationsScreen"
         >
-          <Stack.Screen name="Settings" component={Settings} />
+          <Stack.Screen name="NotificationsScreen" component={NotificationsScreen} />
 
 
         </Stack.Navigator>

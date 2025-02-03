@@ -582,8 +582,8 @@ const HomeScreen = ({ navigation, route }) => {
           onPress={() => {
             if (pickupAddress && destinationAddress) {
               selectedTabIndex == 1
-                ? navigation.push("AvailableRides")
-                : navigation.push("OfferRide");
+                ? console.log("")
+                : console.log("")
             } else {
               setpickAlert(true);
               setTimeout(() => {
@@ -656,7 +656,7 @@ const HomeScreen = ({ navigation, route }) => {
             size={22}
             color={Colors.whiteColor}
             onPress={() => {
-              navigation.push("Notifications");
+              //add menu
             }}
           />
         </View>
