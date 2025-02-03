@@ -1,8 +1,9 @@
 # JourneyFy
+![JourneyFy](./assets/app_color_icon.png)
 
 Journey booking app to plan and complete your journeys
 
-![JourneyFy](./assets/journeyfy_logo.png)
+
 
 ## Table of Contents
 - [Introduction](#introduction)
@@ -14,7 +15,7 @@ Journey booking app to plan and complete your journeys
 - [License](#license)
 
 ## Introduction
-JourneyFy is a mobile application designed to help users plan, book, and complete journeys. Whether you are traveling for leisure or business, JourneyFy allows you to create journeys that other users can join, making your travel planning social and interactive.
+JourneyFy is a mobile application designed to help users plan, book, and complete journeys. Whether you are traveling for leisure or business, JourneyFy allows you to create journeys that other users can join, making your travel planning social and interactive. Same as BlaBlaCar.
 
 ## Features
 - Create and manage journeys
@@ -36,13 +37,7 @@ cd journeyfy
 3. Install the dependencies:
 npm install
 
-4. Set up Firebase:
-- Create a Firebase project in the [Firebase Console](https://console.firebase.google.com/).
-- Add an Android and/or iOS app to your Firebase project.
-- Download the `google-services.json` (for Android) or `GoogleService-Info.plist` (for iOS) file and place it in the appropriate directory of your React Native project.
-- Update the Firebase configuration in your project.
-
-5. Run the app on your emulator or device:
+4. Run the app on your emulator or device:
 npx react-native run-android
 # or
 npx react-native run-ios
