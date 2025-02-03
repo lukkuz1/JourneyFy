@@ -41,7 +41,7 @@ export default function MainNavigation() {
       })}
       initialRouteName="Home"
     >
-      <Tab.Screen name="Journey" component={Journey} />
+      <Tab.Screen name="Journeys" component={Journey} />
       <Tab.Screen name="Home" component={HomeStack} />
       <Tab.Screen name="Wallet" component={Wallet} />
       <Tab.Screen name="Settings" component={Settings} />
@@ -52,7 +52,7 @@ export default function MainNavigation() {
 function tabSort(name, focused, color) {
   const icons = {
     Home: home_icon_xml,
-    Journey: journey_icon_xml,
+    Journeys: journey_icon_xml,
     Wallet: wallet_icon_xml,
     Settings: settings_icon_xml,
   };
