@@ -7,9 +7,9 @@ import {
   TouchableOpacity,
 } from "react-native";
 import React, { useState } from "react";
-import { Colors, Sizes, Fonts, CommonStyles } from "../../constants/styles";
-import MyStatusBar from "../../components/myStatusBar";
-import Header from "../../components/header";
+import { Colors, Sizes, Fonts, CommonStyles } from "../../../constants/styles";
+import MyStatusBar from "../../../components/myStatusBar";
+import Header from "../../../components/header";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import { BottomSheet } from "@rneui/themed";

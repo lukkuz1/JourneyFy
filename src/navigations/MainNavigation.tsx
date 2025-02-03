@@ -8,8 +8,8 @@ import Journey from "../screens/Main/Journey";
 import Home from "../screens/Main/Home";
 import Settings from "../screens/Main/Settings";
 import Wallet from "../screens/Main/Wallet";
-import HomeScreen from "../screens/home/homeScreen";
-import ProfileScreen from "../screens/profile/profileScreen";
+import HomeScreen from "../screens/Main/home/homeScreen";
+import ProfileScreen from "../screens/TemplateProfile/profile/profileScreen";
 
 import {
   home_icon_xml,

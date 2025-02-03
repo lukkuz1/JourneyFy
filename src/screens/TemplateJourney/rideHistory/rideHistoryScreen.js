@@ -7,9 +7,9 @@ import {
   FlatList,
 } from "react-native";
 import React from "react";
-import { Colors, Fonts, Sizes, CommonStyles } from "../../constants/styles";
-import MyStatusBar from "../../components/myStatusBar";
-import Header from "../../components/header";
+import { Colors, Fonts, Sizes, CommonStyles } from "../../../constants/styles";
+import MyStatusBar from "../../../components/myStatusBar";
+import Header from "../../../components/header";
 import DashedLine from "react-native-dashed-line";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import Ionicons from "react-native-vector-icons/Ionicons";

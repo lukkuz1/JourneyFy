@@ -7,9 +7,9 @@ import {
   TouchableOpacity,
 } from "react-native";
 import React,{useState} from "react";
-import { Colors, Fonts, Sizes, CommonStyles } from "../../constants/styles";
-import MyStatusBar from "../../components/myStatusBar";
-import Header from "../../components/header";
+import { Colors, Fonts, Sizes, CommonStyles } from "../../../constants/styles";
+import MyStatusBar from "../../../components/myStatusBar";
+import Header from "../../../components/header";
 
 const BankInfoScreen = ({ navigation }) => {
   const [bankName, setbankName] = useState("");

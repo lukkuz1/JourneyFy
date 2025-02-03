@@ -1,8 +1,8 @@
 import { Text, View, FlatList } from "react-native";
 import React from "react";
-import MyStatusBar from "../../components/myStatusBar";
-import Header from "../../components/header";
-import { Colors, Fonts, Sizes, CommonStyles } from "../../constants/styles";
+import MyStatusBar from "../../../components/myStatusBar";
+import Header from "../../../components/header";
+import { Colors, Fonts, Sizes, CommonStyles } from "../../../constants/styles";
 
 const transactionsList = [
   {

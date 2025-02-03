@@ -14,9 +14,9 @@ import {
   Fonts,
   Sizes,
   CommonStyles,
-} from "../../constants/styles";
-import MyStatusBar from "../../components/myStatusBar";
-import Header from "../../components/header";
+} from "../../../constants/styles";
+import MyStatusBar from "../../../components/myStatusBar";
+import Header from "../../../components/header";
 
 const AddAndSendMoneyScreen = ({ navigation, route }) => {
   return (

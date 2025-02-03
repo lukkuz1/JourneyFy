@@ -7,8 +7,8 @@ import {
   TouchableOpacity,
 } from "react-native";
 import React, { useState } from "react";
-import { Colors, Fonts, Sizes, CommonStyles } from "../../constants/styles";
-import MyStatusBar from "../../components/myStatusBar";
+import { Colors, Fonts, Sizes, CommonStyles } from "../../../constants/styles";
+import MyStatusBar from "../../../components/myStatusBar";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import { Overlay } from "@rneui/themed";
 

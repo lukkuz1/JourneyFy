@@ -8,11 +8,11 @@ import {
   TouchableOpacity,
 } from "react-native";
 import React, { useState } from "react";
-import MyStatusBar from "../../components/myStatusBar";
-import { Colors, CommonStyles, Fonts, Sizes } from "../../constants/styles";
+import MyStatusBar from "../../../components/myStatusBar";
+import { Colors, CommonStyles, Fonts, Sizes } from "../../../constants/styles";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import DashedLine from "react-native-dashed-line";
-import Header from "../../components/header";
+import Header from "../../../components/header";
 import { Overlay } from "@rneui/themed";
 
 const passengerList = [

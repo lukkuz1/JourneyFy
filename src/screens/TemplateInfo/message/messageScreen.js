@@ -16,8 +16,8 @@ import {
   CommonStyles,
   Fonts,
   screenWidth,
-} from "../../constants/styles";
-import MyStatusBar from "../../components/myStatusBar";
+} from "../../../constants/styles";
+import MyStatusBar from "../../../components/myStatusBar";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 
 const userMessages = [

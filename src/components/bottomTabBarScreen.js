@@ -4,10 +4,10 @@ import { View, StyleSheet, Text, BackHandler, Platform } from "react-native";
 import { useCallback, useState } from "react";
 import { useFocusEffect } from "@react-navigation/native";
 import Ionicons from "react-native-vector-icons/Ionicons";
-import RidesScreen from "../screens/rides/ridesScreen";
+import RidesScreen from "../screens/TemplateJourney/rides/ridesScreen";
 import WalletScreen from "../screens/wallet/walletScreen";
-import HomeScreen from "../screens/home/homeScreen";
-import ProfileScreen from "../screens/profile/profileScreen";
+import HomeScreen from "../screens/Main/home/homeScreen";
+import ProfileScreen from "../screens/TemplateProfile/profile/profileScreen";
 
 const Tab = createBottomTabNavigator();
 

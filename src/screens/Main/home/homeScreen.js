@@ -13,8 +13,8 @@ import {
   Fonts,
   CommonStyles,
   screenHeight,
-} from "../../constants/styles";
-import MyStatusBar from "../../components/myStatusBar";
+} from "../../../constants/styles";
+import MyStatusBar from "../../../components/myStatusBar";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import MapView, { PROVIDER_GOOGLE } from "react-native-maps";

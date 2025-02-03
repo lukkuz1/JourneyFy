@@ -7,8 +7,8 @@ import {
   TouchableOpacity,
 } from "react-native";
 import React, { useEffect, useState } from "react";
-import { Colors, Sizes, Fonts, CommonStyles } from "../../constants/styles";
-import MyStatusBar from "../../components/myStatusBar";
+import { Colors, Sizes, Fonts, CommonStyles } from "../../../constants/styles";
+import MyStatusBar from "../../../components/myStatusBar";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import DashedLine from "react-native-dashed-line";

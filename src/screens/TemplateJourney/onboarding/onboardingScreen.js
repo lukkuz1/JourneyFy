@@ -5,8 +5,8 @@ import {
   screenHeight,
   screenWidth,
   CommonStyles,
-} from "../../constants/styles";
-import MyStatusBar from "../../components/myStatusBar";
+} from "../../../constants/styles";
+import MyStatusBar from "../../../components/myStatusBar";
 import {
   StyleSheet,
   Text,
