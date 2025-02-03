@@ -309,7 +309,7 @@ export const CommonStyles = {
   shadow: {
     shadowColor: Colors.blackColor,
     shadowOpacity: 0.2,
-    shadowOffset: { x: 0, y: 0 },
+    shadowOffset: { width: 0, height: 0 },
     elevation: 2.0,
     borderColor: "#e0e0e0",
     borderWidth: 1,
@@ -327,3 +327,4 @@ export const CommonStyles = {
     alignItems: "center",
   },
 };
+

@@ -32,7 +32,7 @@ export default function Login() {
     <ScrollView contentContainerStyle={styles.scrollViewContent}>
       <View style={styles.logoContainer}>
         <Image
-          source={require("../../../assets/journeyfy_logo.png")}
+          source={require("../../assets/images/auth.png")}
           style={styles.logo}
         />
       </View>
@@ -105,8 +105,8 @@ const styles = StyleSheet.create({
     width: "100%",
   },
   logo: {
-    width: 250,
-    height: 250,
+    width: "100%",
+    height: 200,
     resizeMode: "contain",
     marginBottom: 30,
   },

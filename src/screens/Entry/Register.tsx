@@ -47,7 +47,7 @@ export default function Register() {
       <ScrollView contentContainerStyle={styles.scrollViewContent}>
         <View style={styles.logoContainer}>
           <Image
-            source={require("../../../assets/journeyfy_logo.png")}
+            source={require("../../assets/images/auth.png")}
             style={styles.logo}
           />
         </View>
@@ -110,8 +110,8 @@ const styles = StyleSheet.create({
     marginTop: 40,
   },
   logo: {
-    width: 250,
-    height: 250,
+    width: 200,
+    height: 200,
     resizeMode: "contain",
   },
   formContainer: {
