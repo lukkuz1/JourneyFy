@@ -23,21 +23,21 @@ import { useFocusEffect } from "@react-navigation/native";
 const onboardingScreenList = [
   {
     id: "1",
-    onboardingImage: require("../../assets/images/onboarding/onboarding1.png"),
+    onboardingImage: require("../../../assets/images/onboarding/onboarding1.png"),
     onboardingTitle: "Your ride your route",
     onboardingDescription:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sapien suspendisse gravida mi ullamcorper. Tellus nunc in id cursus viverra placerat duis",
   },
   {
     id: "2",
-    onboardingImage: require("../../assets/images/onboarding/onboarding2.png"),
+    onboardingImage: require("../../../assets/images/onboarding/onboarding2.png"),
     onboardingTitle: "Fast and reliable",
     onboardingDescription:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sapien suspendisse gravida mi ullamcorper. Tellus nunc in id cursus viverra placerat duis",
   },
   {
     id: "3",
-    onboardingImage: require("../../assets/images/onboarding/onboarding3.png"),
+    onboardingImage: require("../../../assets/images/onboarding/onboarding3.png"),
     onboardingTitle: "Pay for just the seat",
     onboardingDescription:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sapien suspendisse gravida mi ullamcorper. Tellus nunc in id cursus viverra placerat duis",

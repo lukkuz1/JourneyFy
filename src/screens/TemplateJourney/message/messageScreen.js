@@ -89,7 +89,7 @@ const MessageScreen = ({ navigation }) => {
           }}
         >
           <Image
-            source={require("../../assets/images/user/user2.png")}
+            source={require("../../../assets/images/user/user2.png")}
             style={{ width: 40.0, height: 40.0, borderRadius: 20.0 }}
           />
           <View style={{ flex: 1, marginLeft: Sizes.fixPadding }}>
@@ -118,7 +118,7 @@ const MessageScreen = ({ navigation }) => {
         >
           {item.isSender ? null : (
             <Image
-              source={require("../../assets/images/user/user2.png")}
+              source={require("../../../assets/images/user/user2.png")}
               style={styles.receiverImage}
             />
           )}

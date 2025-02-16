@@ -1,5 +1,4 @@
 import React from "react";
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createStackNavigator } from "@react-navigation/stack";
 import Journey from "../screens/Main/Journey";
 import AddVehicleScreen from "../screens/TemplateJourney/addVehicle/addVehicleScreen";
@@ -20,38 +19,36 @@ import StartRideScreen from "../screens/TemplateJourney/startRide/startRideScree
 import UserVehiclesScreen from "../screens/TemplateJourney/userVehicles/userVehiclesScreen";
 import MessageScreen from "../screens/TemplateJourney/message/messageScreen";
 
-const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
 
-
 export default function JourneyNavigation() {
-
+  return (
     <Stack.Navigator
-          screenOptions={{
-            headerShown: false,
-            animationEnabled: false,
-            presentation: "modal",
-          }}
-          initialRouteName="Journey"
-        >
-          <Stack.Screen name="Journey" component={Journey} />
-          <Stack.Screen name="AddVehicleScreen" component={AddVehicleScreen} />
-          <Stack.Screen name="AvailableRidesScreen" component={AvailableRidesScreen} />
-          <Stack.Screen name="ConfirmPoolingScreen" component={ConfirmPoolingScreen} />
-          <Stack.Screen name="EndRideScreen" component={EndRideScreen} />
-          <Stack.Screen name="HistoryRideDetailScreen" component={HistoryRideDetailScreen} />
-          <Stack.Screen name="OfferRideScreen" component={OfferRideScreen} />
-          <Stack.Screen name="OnboardingScreen" component={OnboardingScreen} />
-          <Stack.Screen name="PickLocationScreen" component={PickLocationScreen} />
-          <Stack.Screen name="RideCompleteScreen" component={RideCompleteScreen} />
-          <Stack.Screen name="RideDetailScreen" component={RideDetailScreen} />
-          <Stack.Screen name="RideHistoryScreen" component={RideHistoryScreen} />
-          <Stack.Screen name="RideMapViewScreen" component={RideMapViewScreen} />
-          <Stack.Screen name="RideRequestScreen" component={RideRequestScreen} />
-          <Stack.Screen name="RidesScreen" component={RidesScreen} />
-          <Stack.Screen name="StartRideScreen" component={StartRideScreen} />
-          <Stack.Screen name="UserVehiclesScreen" component={UserVehiclesScreen} />
-          <Stack.Screen name="MessageScreen" component={MessageScreen} />
-
+      screenOptions={{
+        headerShown: false,
+        animationEnabled: false,
+        presentation: "modal",
+      }}
+      initialRouteName="Journey"
+    >
+      <Stack.Screen name="Journey" component={Journey} />
+      <Stack.Screen name="AddVehicleScreen" component={AddVehicleScreen} />
+      <Stack.Screen name="AvailableRidesScreen" component={AvailableRidesScreen} />
+      <Stack.Screen name="ConfirmPoolingScreen" component={ConfirmPoolingScreen} />
+      <Stack.Screen name="EndRideScreen" component={EndRideScreen} />
+      <Stack.Screen name="HistoryRideDetailScreen" component={HistoryRideDetailScreen} />
+      <Stack.Screen name="OfferRideScreen" component={OfferRideScreen} />
+      <Stack.Screen name="OnboardingScreen" component={OnboardingScreen} />
+      <Stack.Screen name="PickLocationScreen" component={PickLocationScreen} />
+      <Stack.Screen name="RideCompleteScreen" component={RideCompleteScreen} />
+      <Stack.Screen name="RideDetailScreen" component={RideDetailScreen} />
+      <Stack.Screen name="RideHistoryScreen" component={RideHistoryScreen} />
+      <Stack.Screen name="RideMapViewScreen" component={RideMapViewScreen} />
+      <Stack.Screen name="RideRequestScreen" component={RideRequestScreen} />
+      <Stack.Screen name="RidesScreen" component={RidesScreen} />
+      <Stack.Screen name="StartRideScreen" component={StartRideScreen} />
+      <Stack.Screen name="UserVehiclesScreen" component={UserVehiclesScreen} />
+      <Stack.Screen name="MessageScreen" component={MessageScreen} />
     </Stack.Navigator>
+  );
 }

@@ -94,7 +94,7 @@ const AddAndSendMoneyScreen = ({ navigation, route }) => {
   function walletImage() {
     return (
       <Image
-        source={require("../../assets/images/wallet.png")}
+        source={require("../../../assets/images/wallet.png")}
         style={styles.walletImageStyle}
       />
     );

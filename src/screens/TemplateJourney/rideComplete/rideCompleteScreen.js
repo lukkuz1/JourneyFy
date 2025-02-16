@@ -1,7 +1,7 @@
 import { Text, View, Image, Platform, BackHandler } from "react-native";
 import React, { useCallback } from "react";
-import { Colors, Fonts, Sizes } from "../../constants/styles";
-import MyStatusBar from "../../components/myStatusBar";
+import { Colors, Fonts, Sizes } from "../../../constants/styles";
+import MyStatusBar from "../../../components/myStatusBar";
 import { useFocusEffect } from "@react-navigation/native";
 
 const RideCompleteScreen = ({ navigation }) => {
@@ -58,7 +58,7 @@ const RideCompleteScreen = ({ navigation }) => {
     return (
       <View style={{ alignItems: "center", margin: Sizes.fixPadding * 2.0 }}>
         <Image
-          source={require("../../assets/images/ride_end.png")}
+          source={require("../../../assets/images/ride_end.png")}
           style={{ width: 250, height: 150.0, resizeMode: "contain" }}
         />
         <Text

@@ -16,7 +16,7 @@ import DashedLine from "react-native-dashed-line";
 const ridesList = [
   {
     id: "1",
-    profile: require("../../assets/images/user/user8.png"),
+    profile: require("../../../assets/images/user/user8.png"),
     name: "Jenny wilsom",
     date: "Today",
     time: "9:00 am",
@@ -25,7 +25,7 @@ const ridesList = [
   },
   {
     id: "2",
-    profile: require("../../assets/images/user/user3.png"),
+    profile: require("../../../assets/images/user/user3.png"),
     name: "Devon Lane",
     date: "22 jan 2023",
     time: "9:00 am",
@@ -34,7 +34,7 @@ const ridesList = [
   },
   {
     id: "3",
-    profile: require("../../assets/images/user/user16.png"),
+    profile: require("../../../assets/images/user/user16.png"),
     name: "Leslie Alexander",
     date: "23 jan 2023",
     time: "9:00 am",
@@ -43,7 +43,7 @@ const ridesList = [
   },
   {
     id: "4",
-    profile: require("../../assets/images/user/user2.png"),
+    profile: require("../../../assets/images/user/user2.png"),
     name: "Guy Hawkins",
     date: "24 jan 2023",
     time: "9:00 am",
@@ -52,7 +52,7 @@ const ridesList = [
   },
   {
     id: "5",
-    profile: require("../../assets/images/user/user17.png"),
+    profile: require("../../../assets/images/user/user17.png"),
     name: "Savannah Nguyen",
     date: "25 jan 2023",
     time: "9:00 am",
@@ -86,7 +86,7 @@ const RidesScreen = ({ navigation, route }) => {
     return (
       <View style={styles.emptyPage}>
         <Image
-          source={require("../../assets/images/empty_ride.png")}
+          source={require("../../../assets/images/empty_ride.png")}
           style={{ width: 50.0, height: 50.0, resizeMode: "contain" }}
         />
         <Text

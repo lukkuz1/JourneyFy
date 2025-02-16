@@ -8,9 +8,9 @@ import {
   TouchableOpacity,
 } from "react-native";
 import React, { useState } from "react";
-import { Colors, Sizes, Fonts, CommonStyles } from "../../constants/styles";
-import MyStatusBar from "../../components/myStatusBar";
-import Header from "../../components/header";
+import { Colors, Sizes, Fonts, CommonStyles } from "../../../constants/styles";
+import MyStatusBar from "../../../components/myStatusBar";
+import Header from "../../../components/header";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import { BottomSheet } from "@rneui/themed";
@@ -183,7 +183,7 @@ const EditProfileScreen = ({ navigation }) => {
     return (
       <View style={styles.profilePicWrapper}>
         <Image
-          source={require("../../assets/images/user/user1.jpeg")}
+          source={require("../../../assets/images/user/user1.jpeg")}
           style={{ width: 100.0, height: 100.0, borderRadius: 50.0 }}
         />
         <TouchableOpacity

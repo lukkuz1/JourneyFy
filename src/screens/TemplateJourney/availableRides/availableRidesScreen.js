@@ -8,17 +8,17 @@ import {
   TouchableOpacity,
 } from "react-native";
 import React from "react";
-import { Colors, CommonStyles, Fonts, Sizes } from "../../constants/styles";
-import MyStatusBar from "../../components/myStatusBar";
+import { Colors, CommonStyles, Fonts, Sizes } from "../../../constants/styles";
+import MyStatusBar from "../../../components/myStatusBar";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import DashedLine from "react-native-dashed-line";
-import Header from "../../components/header";
+import Header from "../../../components/header";
 
 const rides = [
   {
     id: "1",
     amount: "$15.00",
-    profile: require("../../assets/images/user/user8.png"),
+    profile: require("../../../assets/images/user/user8.png"),
     name: "Jenny Wilson",
     rating: "4.8",
     availableSheet: 2,
@@ -26,7 +26,7 @@ const rides = [
   {
     id: "2",
     amount: "$25.00",
-    profile: require("../../assets/images/user/user2.png"),
+    profile: require("../../../assets/images/user/user2.png"),
     name: "Guy Hawkins",
     rating: "4.5",
     availableSheet: 3,
@@ -34,7 +34,7 @@ const rides = [
   {
     id: "3",
     amount: "$20.00",
-    profile: require("../../assets/images/user/user3.png"),
+    profile: require("../../../assets/images/user/user3.png"),
     name: "Jacob Jones",
     rating: "4.3",
     availableSheet: 1,
@@ -42,7 +42,7 @@ const rides = [
   {
     id: "4",
     amount: "$30.00",
-    profile: require("../../assets/images/user/user4.png"),
+    profile: require("../../../assets/images/user/user4.png"),
     name: "Floyd Miles",
     rating: "4.5",
     availableSheet: 2,
@@ -50,7 +50,7 @@ const rides = [
   {
     id: "5",
     amount: "$35.00",
-    profile: require("../../assets/images/user/user5.png"),
+    profile: require("../../../assets/images/user/user5.png"),
     name: "Jerome Bell",
     rating: "4.5",
     availableSheet: 2,
@@ -58,7 +58,7 @@ const rides = [
   {
     id: "6",
     amount: "$10.00",
-    profile: require("../../assets/images/user/user6.png"),
+    profile: require("../../../assets/images/user/user6.png"),
     name: "Jenny Wilsonl",
     rating: "4.2",
     availableSheet: 1,
@@ -66,7 +66,7 @@ const rides = [
   {
     id: "7",
     amount: "$15.00",
-    profile: require("../../assets/images/user/user7.png"),
+    profile: require("../../../assets/images/user/user7.png"),
     name: "Arlene McCoy",
     rating: "4.8",
     availableSheet: 2,

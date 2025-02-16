@@ -6,10 +6,10 @@ import {
   View,
 } from "react-native";
 import React, { useState } from "react";
-import { Colors, Fonts, Sizes, CommonStyles } from "../../constants/styles";
-import MyStatusBar from "../../components/myStatusBar";
-import Header from "../../components/header";
-import { CreditCardInput } from "rn-card-input";
+import { Colors, Fonts, Sizes, CommonStyles } from "../../../constants/styles";
+import MyStatusBar from "../../../components/myStatusBar";
+import Header from "../../../components/header";
+// import { CreditCardInput } from "rn-card-input";
 
 const CreditCardScreen = ({ navigation }) => {
   const [cardNumberStatus, setcardNumberStatus] = useState("invalid");
@@ -76,8 +76,8 @@ const CreditCardScreen = ({ navigation }) => {
         invalidColor={"red"}
         placeholderColor={Colors.grayColor}
         onChange={_onChange}
-        cardImageFront={require("../../assets/images/card_bg.png")}
-        cardImageBack={require("../../assets/images/card_bg.png")}
+        cardImageFront={require("../../../assets/images/card_bg.png")}
+        cardImageBack={require("../../../assets/images/card_bg.png")}
       />
     );
   }

@@ -7,10 +7,10 @@ import {
   TouchableOpacity,
 } from "react-native";
 import React, { useState } from "react";
-import { Colors, Fonts, Sizes } from "../../constants/styles";
-import MyStatusBar from "../../components/myStatusBar";
-import Header from "../../components/header";
-import LinearGradient from 'react-native-linear-gradient';
+import { Colors, Fonts, Sizes } from "../../../constants/styles";
+import MyStatusBar from "../../../components/myStatusBar";
+import Header from "../../../components/header";
+// import LinearGradient from 'react-native-linear-gradient';
 import Ionicons from "react-native-vector-icons/Ionicons";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import { Snackbar } from "react-native-paper";
@@ -18,13 +18,13 @@ import { Snackbar } from "react-native-paper";
 const vehiclesList = [
   {
     id: "1",
-    image: require("../../assets/images/vehicle/vehicle1.png"),
+    image: require("../../../assets/images/vehicle/vehicle1.png"),
     name: "Mercedes-Benz AMG A35",
     capacityOfPerson: 2,
   },
   {
     id: "2",
-    image: require("../../assets/images/vehicle/vehicle2.png"),
+    image: require("../../../assets/images/vehicle/vehicle2.png"),
     name: "Toyota Matrix | KJ 5454 | Black colour",
     capacityOfPerson: 2,
   },

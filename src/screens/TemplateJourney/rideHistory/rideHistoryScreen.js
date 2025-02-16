@@ -17,7 +17,7 @@ import Ionicons from "react-native-vector-icons/Ionicons";
 const ridesList = [
   {
     id: "1",
-    profile: require("../../assets/images/user/user17.png"),
+    profile: require("../../../assets/images/user/user17.png"),
     name: "Savannah Nguyen",
     date: "18 jan 2023",
     time: "9:00 am",
@@ -26,7 +26,7 @@ const ridesList = [
   },
   {
     id: "2",
-    profile: require("../../assets/images/user/user16.png"),
+    profile: require("../../../assets/images/user/user16.png"),
     name: "Leslie Alexander",
     date: "18 jan 2023",
     time: "9:00 am",
@@ -35,7 +35,7 @@ const ridesList = [
   },
   {
     id: "3",
-    profile: require("../../assets/images/user/user2.png"),
+    profile: require("../../../assets/images/user/user2.png"),
     name: "Guy Hawkins",
     date: "19 jan 2023",
     time: "9:00 am",
@@ -44,7 +44,7 @@ const ridesList = [
   },
   {
     id: "4",
-    profile: require("../../assets/images/user/user3.png"),
+    profile: require("../../../assets/images/user/user3.png"),
     name: "Devon Lane",
     date: "20 jan 2023",
     time: "9:00 am",
@@ -53,7 +53,7 @@ const ridesList = [
   },
   {
     id: "5",
-    profile: require("../../assets/images/user/user8.png"),
+    profile: require("../../../assets/images/user/user8.png"),
     name: "Jenny wilsom",
     date: "20 jan 2023",
     time: "9:00 am",
@@ -62,7 +62,7 @@ const ridesList = [
   },
   {
     id: "6",
-    profile: require("../../assets/images/user/user14.png"),
+    profile: require("../../../assets/images/user/user14.png"),
     name: "Ralph Edwards",
     date: "21 jan 2023",
     time: "9:00 am",
@@ -71,7 +71,7 @@ const ridesList = [
   },
   {
     id: "7",
-    profile: require("../../assets/images/user/user13.png"),
+    profile: require("../../../assets/images/user/user13.png"),
     name: "Albert Flores",
     date: "21 jan 2023",
     time: "9:00 am",
@@ -80,7 +80,7 @@ const ridesList = [
   },
   {
     id: "8",
-    profile: require("../../assets/images/user/user15.png"),
+    profile: require("../../../assets/images/user/user15.png"),
     name: "Jerome Bell",
     date: "22 jan 2023",
     time: "9:00 am",

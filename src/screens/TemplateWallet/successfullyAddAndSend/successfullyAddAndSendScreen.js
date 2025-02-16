@@ -7,8 +7,8 @@ import {
   BackHandler,
 } from "react-native";
 import React, { useCallback } from "react";
-import { Colors, Sizes, Fonts } from "../../constants/styles";
-import MyStatusBar from "../../components/myStatusBar";
+import { Colors, Sizes, Fonts } from "../../../constants/styles";
+import MyStatusBar from "../../../components/myStatusBar";
 import { useFocusEffect } from "@react-navigation/native";
 
 const SuccessfullyAddAndSendScreen = ({ navigation, route }) => {
@@ -63,7 +63,7 @@ const SuccessfullyAddAndSendScreen = ({ navigation, route }) => {
     return (
       <View style={{ alignItems: "center" }}>
         <Image
-          source={require("../../assets/images/icons/success.png")}
+          source={require("../../../assets/images/icons/success.png")}
           style={{ width: 83.0, height: 83.0, resizeMode: "contain" }}
         />
         <Text

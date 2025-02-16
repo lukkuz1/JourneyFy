@@ -9,7 +9,6 @@ import SuccessfullyAddAndSendScreen from "../screens/TemplateWallet/successfully
 import TransactionsScreen from "../screens/TemplateWallet/transactions/transactionsScreen";
 import Wallet from "../screens/Main/Wallet";
 
-const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
 
 

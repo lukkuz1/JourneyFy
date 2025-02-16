@@ -15,9 +15,9 @@ import {
   Fonts,
   Sizes,
   CommonStyles,
-} from "../../constants/styles";
-import MyStatusBar from "../../components/myStatusBar";
-import Header from "../../components/header";
+} from "../../../constants/styles";
+import MyStatusBar from "../../../components/myStatusBar";
+import Header from "../../../components/header";
 import Ionicons from "react-native-vector-icons/Ionicons";
 
 const CustomerSupportScreen = ({ navigation }) => {
@@ -182,7 +182,7 @@ const CustomerSupportScreen = ({ navigation }) => {
         }}
       >
         <Image
-          source={require("../../assets/images/customer_support.png")}
+          source={require("../../../assets/images/customer_support.png")}
           style={{
             width: screenWidth / 4.5,
             height: screenWidth / 4.5,

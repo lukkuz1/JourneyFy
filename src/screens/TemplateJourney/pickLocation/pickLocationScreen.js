@@ -15,15 +15,15 @@ import {
   CommonStyles,
   screenHeight,
   screenWidth,
-} from '../../constants/styles';
+} from '../../../constants/styles';
 import MapView, {Marker, PROVIDER_GOOGLE} from 'react-native-maps';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import {GooglePlacesAutocomplete} from 'react-native-google-places-autocomplete';
-import Key from '../../constants/key';
+// import {GooglePlacesAutocomplete} from 'react-native-google-places-autocomplete';
+// import Key from '../../constants/key';
 import {Input} from '@rneui/themed';
-import MyStatusBar from '../../components/myStatusBar';
-import Geocoder from 'react-native-geocoding';
+import MyStatusBar from '../../../components/myStatusBar';
+// import Geocoder from 'react-native-geocoding';
 
 const LATITUDE = 37.78825;
 const LONGITUDE = -122.4324;
@@ -213,7 +213,7 @@ const PickLocationScreen = ({navigation, route}) => {
           }}
           draggable>
           <Image
-            source={require('../../assets/images/icons/marker.png')}
+            source={require('../../../assets/images/icons/marker.png')}
             style={{width: 40.0, height: 40.0, resizeMode: 'contain'}}
           />
         </Marker>

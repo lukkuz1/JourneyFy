@@ -6,7 +6,7 @@ import { useFocusEffect } from "@react-navigation/native";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import RidesScreen from "../screens/TemplateJourney/rides/ridesScreen";
 import WalletScreen from "../screens/wallet/walletScreen";
-import HomeScreen from "../screens/Main/home/homeScreen";
+import HomeScreen from "../screens/Main/homeScreen";
 import ProfileScreen from "../screens/TemplateProfile/profile/profileScreen";
 
 const Tab = createBottomTabNavigator();

@@ -18,12 +18,12 @@ import { Overlay } from "@rneui/themed";
 const passengerList = [
   {
     id: "1",
-    profile: require("../../assets/images/user/user10.png"),
+    profile: require("../../../assets/images/user/user10.png"),
     name: "Savannah Nguyen",
   },
   {
     id: "2",
-    profile: require("../../assets/images/user/user1.jpeg"),
+    profile: require("../../../assets/images/user/user1.jpeg"),
     name: "Brooklyn Simmons",
   },
 ];
@@ -31,7 +31,7 @@ const passengerList = [
 const reviewsList = [
   {
     id: "1",
-    profile: require("../../assets/images/user/user11.png"),
+    profile: require("../../../assets/images/user/user11.png"),
     name: "Wade Warren",
     rating: 4.8,
     reviewDate: "25 jan 2023",
@@ -40,7 +40,7 @@ const reviewsList = [
   },
   {
     id: "2",
-    profile: require("../../assets/images/user/user12.png"),
+    profile: require("../../../assets/images/user/user12.png"),
     name: "Jenny wilsom",
     rating: 3.5,
     reviewDate: "25 jan 2023",
@@ -315,7 +315,7 @@ const RideDetailScreen = ({ navigation, route }) => {
           source={
             index <= passengerList.length - 1
               ? passengerList[index].profile
-              : require("../../assets/images/icons/empty.png")
+              : require("../../../assets/images/icons/empty.png")
           }
           style={{ width: 50.0, height: 50.0, borderRadius: 25.0 }}
         />
@@ -527,7 +527,7 @@ const RideDetailScreen = ({ navigation, route }) => {
         }}
       >
         <Image
-          source={require("../../assets/images/user/user9.png")}
+          source={require("../../../assets/images/user/user9.png")}
           style={{
             width: 80.0,
             height: 80.0,

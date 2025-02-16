@@ -14,36 +14,36 @@ import {
   Sizes,
   screenHeight,
   CommonStyles,
-} from "../../constants/styles";
-import MapViewDirections from "react-native-maps-directions";
-import { Key } from "../../constants/key";
-import MapView, { PROVIDER_GOOGLE, Marker } from "react-native-maps";
+} from "../../../constants/styles";
+// import MapViewDirections from "react-native-maps-directions";
+// import { Key } from "../../constants/key";
+// import MapView, { PROVIDER_GOOGLE, Marker } from "react-native-maps";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
-import * as Animatable from "react-native-animatable";
-import BottomSheet from "react-native-simple-bottom-sheet";
-import MyStatusBar from "../../components/myStatusBar";
-import Header from "../../components/header";
+// import * as Animatable from "react-native-animatable";
+// import BottomSheet from "react-native-simple-bottom-sheet";
+import MyStatusBar from "../../../components/myStatusBar";
+import Header from "../../../components/header";
 import DashedLine from "react-native-dashed-line";
 
 const pessengersList = [
   {
     id: "1",
-    profile: require("../../assets/images/user/user6.png"),
+    profile: require("../../../assets/images/user/user6.png"),
     name: "Cameron Williamson",
   },
   {
     id: "2",
-    profile: require("../../assets/images/user/user5.png"),
+    profile: require("../../../assets/images/user/user5.png"),
     name: "Brooklyn Simmons",
   },
   {
     id: "3",
-    profile: require("../../assets/images/user/user2.png"),
+    profile: require("../../../assets/images/user/user2.png"),
     name: "leslie alexander",
   },
   {
     id: "4",
-    profile: require("../../assets/images/user/user3.png"),
+    profile: require("../../../assets/images/user/user3.png"),
     name: "Jacob jones",
   },
 ];
@@ -254,7 +254,7 @@ const StartRideScreen = ({ navigation }) => {
                 </View>
               ) : (
                 <Image
-                  source={require("../../assets/images/icons/car.png")}
+                  source={require("../../../assets/images/icons/car.png")}
                   style={styles.sheetCarImage}
                 />
               )}
@@ -377,7 +377,7 @@ const StartRideScreen = ({ navigation }) => {
                 </View>
               ) : (
                 <Image
-                  source={require("../../assets/images/icons/car.png")}
+                  source={require("../../../assets/images/icons/car.png")}
                   style={{ width: 20.0, height: 20.0, resizeMode: "contain" }}
                 />
               )}

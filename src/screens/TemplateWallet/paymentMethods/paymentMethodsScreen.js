@@ -7,29 +7,29 @@ import {
   TouchableOpacity,
 } from "react-native";
 import React, { useState } from "react";
-import { Colors, Fonts, Sizes, CommonStyles } from "../../constants/styles";
-import MyStatusBar from "../../components/myStatusBar";
-import Header from "../../components/header";
+import { Colors, Fonts, Sizes, CommonStyles } from "../../../constants/styles";
+import MyStatusBar from "../../../components/myStatusBar";
+import Header from "../../../components/header";
 
 const paymentMethodsList = [
   {
     id: "1",
-    paymentIcon: require("../../assets/images/payment/credit_card.png"),
+    paymentIcon: require("../../../assets/images/payment/credit_card.png"),
     paymentType: "Credit card",
   },
   {
     id: "2",
-    paymentIcon: require("../../assets/images/payment/paypal.png"),
+    paymentIcon: require("../../../assets/images/payment/paypal.png"),
     paymentType: "Paypal",
   },
   {
     id: "3",
-    paymentIcon: require("../../assets/images/payment/google_pay.png"),
+    paymentIcon: require("../../../assets/images/payment/google_pay.png"),
     paymentType: "Google pay",
   },
   {
     id: "4",
-    paymentIcon: require("../../assets/images/payment/visa.png"),
+    paymentIcon: require("../../../assets/images/payment/visa.png"),
     paymentType: "Visa card",
   },  
 ];

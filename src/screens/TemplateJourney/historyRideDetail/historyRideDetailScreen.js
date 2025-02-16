@@ -56,7 +56,7 @@ const HistoryRideDetailScreen = ({ navigation }) => {
           >
             <View style={{ alignItems: "center" }}>
               <Image
-                source={require("../../assets/images/rating.png")}
+                source={require("../../../assets/images/rating.png")}
                 style={{ width: 90.0, height: 90.0, resizeMode: "contain" }}
               />
               <Text
@@ -313,7 +313,7 @@ const HistoryRideDetailScreen = ({ navigation }) => {
         }}
       >
         <Image
-          source={require("../../assets/images/user/user9.png")}
+          source={require("../../../assets/images/user/user9.png")}
           style={{
             width: 80.0,
             height: 80.0,

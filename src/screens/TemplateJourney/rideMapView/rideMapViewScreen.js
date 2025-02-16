@@ -6,15 +6,15 @@ import {
   ScrollView,
 } from "react-native";
 import React from "react";
-import { Colors, Fonts, Sizes, screenHeight } from "../../constants/styles";
-import MapViewDirections from "react-native-maps-directions";
-import { Key } from "../../constants/key";
-import MapView, { PROVIDER_GOOGLE, Marker } from "react-native-maps";
+import { Colors, Fonts, Sizes, screenHeight } from "../../../constants/styles";
+// import MapViewDirections from "react-native-maps-directions";
+// import { Key } from "../../constants/key";
+// import MapView, { PROVIDER_GOOGLE, Marker } from "react-native-maps";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
-import * as Animatable from "react-native-animatable";
-import BottomSheet from "react-native-simple-bottom-sheet";
-import MyStatusBar from "../../components/myStatusBar";
-import Header from "../../components/header";
+// import * as Animatable from "react-native-animatable";
+// import BottomSheet from "react-native-simple-bottom-sheet";
+import MyStatusBar from "../../../components/myStatusBar";
+import Header from "../../../components/header";
 import DashedLine from "react-native-dashed-line";
 
 const RideMapViewScreen = ({ navigation }) => {
@@ -64,7 +64,7 @@ const RideMapViewScreen = ({ navigation }) => {
                 <View>
                   <View style={{ width: 16.0, alignItems: "center" }}>
                     <Image
-                      source={require("../../assets/images/icons/car.png")}
+                      source={require("../../../assets/images/icons/car.png")}
                       style={{
                         width: 16.0,
                         height: 16.0,
@@ -129,7 +129,7 @@ const RideMapViewScreen = ({ navigation }) => {
                 <View>
                   <View style={{ width: 16.0, alignItems: "center" }}>
                     <Image
-                      source={require("../../assets/images/icons/car.png")}
+                      source={require("../../../assets/images/icons/car.png")}
                       style={{
                         width: 16.0,
                         height: 16.0,
@@ -196,7 +196,7 @@ const RideMapViewScreen = ({ navigation }) => {
               <View style={{ flexDirection: "row" }}>
                 <View style={{ width: 16.0, alignItems: "center" }}>
                   <Image
-                    source={require("../../assets/images/icons/car.png")}
+                    source={require("../../../assets/images/icons/car.png")}
                     style={{ width: 16.0, height: 16.0, resizeMode: "contain" }}
                   />
                 </View>
@@ -308,7 +308,7 @@ const RideMapViewScreen = ({ navigation }) => {
         />
         <Marker coordinate={startPoint}>
           <Image
-            source={require("../../assets/images/icons/car.png")}
+            source={require("../../../assets/images/icons/car.png")}
             style={{ width: 35.0, height: 35.0, resizeMode: "contain" }}
           />
         </Marker>
@@ -353,7 +353,7 @@ const RideMapViewScreen = ({ navigation }) => {
         </Marker>
         <Marker coordinate={endPoint}>
           <Image
-            source={require("../../assets/images/icons/car.png")}
+            source={require("../../../assets/images/icons/car.png")}
             style={{ width: 35.0, height: 35.0, resizeMode: "contain" }}
           />
         </Marker>

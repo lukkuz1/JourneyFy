@@ -25,7 +25,7 @@ import { BottomSheet } from "@rneui/themed";
 const requestUsers = [
   {
     id: "1",
-    profile: require("../../assets/images/user/user3.png"),
+    profile: require("../../../assets/images/user/user3.png"),
     name: "Leslie Alexander",
     pickup: "Mumbai,2464 Royal Lnord",
     drop: "Pune, 2464 Royal Ln. Mesa",
@@ -34,7 +34,7 @@ const requestUsers = [
   },
   {
     id: "2",
-    profile: require("../../assets/images/user/user2.png"),
+    profile: require("../../../assets/images/user/user2.png"),
     name: "Albert Flores",
     pickup: "Mumbai,2464 Royal Lnord",
     drop: "Pune, 2464 Royal Ln. Mesa",
@@ -43,7 +43,7 @@ const requestUsers = [
   },
   {
     id: "3",
-    profile: require("../../assets/images/user/user15.png"),
+    profile: require("../../../assets/images/user/user15.png"),
     name: "Annette Black",
     pickup: "Mumbai,2464 Royal Lnord",
     drop: "Pune, 2464 Royal Ln. Mesa",
@@ -52,7 +52,7 @@ const requestUsers = [
   },
   {
     id: "4",
-    profile: require("../../assets/images/user/user8.png"),
+    profile: require("../../../assets/images/user/user8.png"),
     name: "Guy Hawkins",
     pickup: "Mumbai,2464 Royal Lnord",
     drop: "Pune, 2464 Royal Ln. Mesa",
@@ -72,22 +72,22 @@ const rideRequestsList = [
     passengerList: [
       {
         id: "1p",
-        profile: require("../../assets/images/user/user3.png"),
+        profile: require("../../../assets/images/user/user3.png"),
         name: "Savannah Nguyen",
       },
       {
         id: "p2",
-        profile: require("../../assets/images/user/user2.png"),
+        profile: require("../../../assets/images/user/user2.png"),
         name: "Brooklyn Simmons",
       },
       {
         id: "3p",
-        profile: require("../../assets/images/user/user6.png"),
+        profile: require("../../../assets/images/user/user6.png"),
         name: "Savannah Nguyen",
       },
       {
         id: "42",
-        profile: require("../../assets/images/user/user17.png"),
+        profile: require("../../../assets/images/user/user17.png"),
         name: "Brooklyn Simmons",
       },
     ],
@@ -102,12 +102,12 @@ const rideRequestsList = [
     passengerList: [
       {
         id: "1p",
-        profile: require("../../assets/images/user/user10.png"),
+        profile: require("../../../assets/images/user/user10.png"),
         name: "Savannah Nguyen",
       },
       {
         id: "p2",
-        profile: require("../../assets/images/user/user1.jpeg"),
+        profile: require("../../../assets/images/user/user1.jpeg"),
         name: "Brooklyn Simmons",
       },
     ],
@@ -122,17 +122,17 @@ const rideRequestsList = [
     passengerList: [
       {
         id: "1p",
-        profile: require("../../assets/images/user/user10.png"),
+        profile: require("../../../assets/images/user/user10.png"),
         name: "Savannah Nguyen",
       },
       {
         id: "p2",
-        profile: require("../../assets/images/user/user1.jpeg"),
+        profile: require("../../../assets/images/user/user1.jpeg"),
         name: "Brooklyn Simmons",
       },
       {
         id: "p3",
-        profile: require("../../assets/images/user/user9.png"),
+        profile: require("../../../assets/images/user/user9.png"),
         name: "Brooklyn Simmons",
       },
     ],
@@ -147,7 +147,7 @@ const rideRequestsList = [
     passengerList: [
       {
         id: "1p",
-        profile: require("../../assets/images/user/user7.png"),
+        profile: require("../../../assets/images/user/user7.png"),
         name: "Savannah Nguyen",
       },
     ],
@@ -162,17 +162,17 @@ const rideRequestsList = [
     passengerList: [
       {
         id: "1p",
-        profile: require("../../assets/images/user/user8.png"),
+        profile: require("../../../assets/images/user/user8.png"),
         name: "Savannah Nguyen",
       },
       {
         id: "p2",
-        profile: require("../../assets/images/user/user12.png"),
+        profile: require("../../../assets/images/user/user12.png"),
         name: "Brooklyn Simmons",
       },
       {
         id: "p3",
-        profile: require("../../assets/images/user/user5.png"),
+        profile: require("../../../assets/images/user/user5.png"),
         name: "Brooklyn Simmons",
       },
     ],
@@ -445,7 +445,7 @@ const RideRequestScreen = ({ navigation }) => {
                 source={
                   innerIndex <= item.passengerList.length - 1
                     ? item.passengerList[innerIndex].profile
-                    : require("../../assets/images/icons/empty.png")
+                    : require("../../../assets/images/icons/empty.png")
                 }
                 style={{
                   width: 25.0,

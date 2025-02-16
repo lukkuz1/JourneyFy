@@ -234,7 +234,7 @@ const ProfileScreen = ({ navigation }) => {
         }}
       >
         <Image
-          source={require("../../assets/images/user/user1.jpeg")}
+          source={require("../../../assets/images/user/user1.jpeg")}
           style={{ width: 70.0, height: 70.0, borderRadius: 35.0 }}
         />
         <View style={{ flex: 1, marginHorizontal: Sizes.fixPadding + 3.0 }}>
