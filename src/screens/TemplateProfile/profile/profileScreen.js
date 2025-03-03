@@ -11,8 +11,10 @@ import { Colors, Fonts, Sizes, CommonStyles } from "../../../constants/styles";
 import MyStatusBar from "../../../components/myStatusBar";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import { Overlay } from "@rneui/themed";
+import { useAuth } from "../../../hooks/useAuth";
 
 const ProfileScreen = ({ navigation }) => {
+  const auth = useAuth();
   const [showLogoutDialog, setshowLogoutDialog] = useState(false);
 
   return (
@@ -61,7 +63,7 @@ const ProfileScreen = ({ navigation }) => {
             activeOpacity={0.8}
             onPress={() => {
               setshowLogoutDialog(false);
-              navigation.push("Login");
+              auth.signOut();
             }}
             style={styles.dialogButton}
           >
@@ -103,7 +105,7 @@ const ProfileScreen = ({ navigation }) => {
           option: "Terms and condition",
           detail: "Know our terms and condition",
           onPress: () => {
-            navigation.push("TermsAndConditions");
+            navigation.navigate("TermsAndConditionsScreen");
           },
         })}
         {divider()}
@@ -130,7 +132,7 @@ const ProfileScreen = ({ navigation }) => {
           option: "Customer support",
           detail: "Connect us for any issue",
           onPress: () => {
-            navigation.push("CustomerSupport");
+            navigation.navigate("CustomerSupportScreen");
           },
         })}
         {divider()}
@@ -248,7 +250,7 @@ const ProfileScreen = ({ navigation }) => {
           color={Colors.secondaryColor}
           size={24}
           onPress={() => {
-            navigation.push("EditProfile");
+            navigation.navigate("EditProfileScreen");
           }}
         />
       </View>

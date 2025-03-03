@@ -32,7 +32,7 @@ export default function JourneyNavigation() {
       initialRouteName="Journey"
     >
       <Stack.Screen name="Journey" component={Journey} />
-      {/* <Stack.Screen name="AddVehicleScreen" component={AddVehicleScreen} />
+      <Stack.Screen name="AddVehicleScreen" component={AddVehicleScreen} />
       <Stack.Screen name="AvailableRidesScreen" component={AvailableRidesScreen} />
       <Stack.Screen name="ConfirmPoolingScreen" component={ConfirmPoolingScreen} />
       <Stack.Screen name="EndRideScreen" component={EndRideScreen} />
@@ -48,7 +48,7 @@ export default function JourneyNavigation() {
       <Stack.Screen name="RidesScreen" component={RidesScreen} />
       <Stack.Screen name="StartRideScreen" component={StartRideScreen} />
       <Stack.Screen name="UserVehiclesScreen" component={UserVehiclesScreen} />
-      <Stack.Screen name="MessageScreen" component={MessageScreen} /> */}
+      <Stack.Screen name="MessageScreen" component={MessageScreen} />
     </Stack.Navigator>
   );
 }
