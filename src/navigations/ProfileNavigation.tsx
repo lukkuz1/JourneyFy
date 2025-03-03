@@ -9,21 +9,26 @@ import TermsAndConditionsScreen from "../screens/TemplateProfile/termsAndConditi
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
 
-
 export default function ProfileNavigation() {
-    return (
-        <Stack.Navigator
-          screenOptions={{
-            headerShown: false,
-            animationEnabled: false,
-            presentation: "modal",
-          }}
-          initialRouteName="ProfileScreen"
-        >
-          <Stack.Screen name="ProfileScreen" component={ProfileScreen} />
-          <Stack.Screen name="EditProfileScreen" component={EditProfileScreen} />
-          <Stack.Screen name="CustomerSupportScreen" component={CustomerSupportScreen} />
-          <Stack.Screen name="EditProfileScreen" component={TermsAndConditionsScreen} />
-        </Stack.Navigator>
-      );
+  return (
+    <Stack.Navigator
+      screenOptions={{
+        headerShown: false,
+        animationEnabled: false,
+        presentation: "modal",
+      }}
+      initialRouteName="Profile"
+    >
+      <Stack.Screen name="Profile" component={ProfileScreen} />
+      <Stack.Screen name="EditProfileScreen" component={EditProfileScreen} />
+      <Stack.Screen
+        name="CustomerSupportScreen"
+        component={CustomerSupportScreen}
+      />
+      <Stack.Screen
+        name="TermsAndConditionsScreen"
+        component={TermsAndConditionsScreen}
+      />
+    </Stack.Navigator>
+  );
 }

@@ -20,8 +20,8 @@ export default function AdditionalNavigation() {
           initialRouteName="FaqScreen"
         >
           <Stack.Screen name="FaqScreen" component={FaqScreen} />
-          <Stack.Screen name="PrivacyPolicyScreen" component={PrivacyPolicyScreen} />
-          <Stack.Screen name="ReviewsScreen" component={ReviewsScreen} />
+          {/* <Stack.Screen name="PrivacyPolicyScreen" component={PrivacyPolicyScreen} />
+          <Stack.Screen name="ReviewsScreen" component={ReviewsScreen} /> */}
 
 
         </Stack.Navigator>

@@ -6,20 +6,19 @@ import EntryNavigation from "../navigations/EntryNavigation";
 import { useAuth } from "../hooks/useAuth";
 import { useUser } from "../hooks/useUser";
 
-const Stack = createStackNavigator();
-
 export default function AppNavigation() {
   const auth = useAuth();
   const user = useUser();
 
+  if (!auth || !user) {
+    return null;
+  }
+  
+
   return (
     <NavigationContainer>
-      {auth.loggedIn &&
-      user.initialized /* && firebase.auth.currentUser.emailVerified */ ? (
-        <MainNavigation />
-      ) : (
-        <EntryNavigation />
-      )}
+      {auth.loggedIn && user.initialized ? <MainNavigation /> : <EntryNavigation />}
     </NavigationContainer>
   );
+  
 }
