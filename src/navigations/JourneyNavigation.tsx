@@ -11,12 +11,12 @@ import OnboardingScreen from "../screens/TemplateJourney/onboarding/onboardingSc
 import PickLocationScreen from "../screens/TemplateJourney/pickLocation/pickLocationScreen";
 import RideCompleteScreen from "../screens/TemplateJourney/rideComplete/rideCompleteScreen";
 import RideDetailScreen from "../screens/TemplateJourney/rideDetail/rideDetailScreen";
-import RideHistoryScreen from "../screens/TemplateJourney/rideHistory/rideHistoryScreen";
+import RideHistoryScreen from "../screens/TemplateProfile/rideHistory/rideHistoryScreen";
 import RideMapViewScreen from "../screens/TemplateJourney/rideMapView/rideMapViewScreen";
 import RideRequestScreen from "../screens/TemplateJourney/rideRequest/rideRequestScreen";
 import RidesScreen from "../screens/TemplateJourney/rides/ridesScreen";
 import StartRideScreen from "../screens/TemplateJourney/startRide/startRideScreen";
-import UserVehiclesScreen from "../screens/TemplateJourney/userVehicles/userVehiclesScreen";
+import UserVehiclesScreen from "../screens/TemplateProfile/userVehicles/userVehiclesScreen";
 import MessageScreen from "../screens/TemplateJourney/message/messageScreen";
 
 const Stack = createStackNavigator();

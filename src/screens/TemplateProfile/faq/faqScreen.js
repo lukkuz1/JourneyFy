@@ -1,8 +1,8 @@
 import { StyleSheet, Text, View, FlatList } from "react-native";
 import React from "react";
-import { Colors, Fonts, Sizes } from "../../constants/styles";
-import MyStatusBar from "../../components/myStatusBar";
-import Header from "../../components/header";
+import { Colors, Fonts, Sizes } from "../../../constants/styles";
+import MyStatusBar from "../../../components/myStatusBar";
+import Header from "../../../components/header";
 
 const dummyAnswer =
   "Lorem ipsum dolor sit amet, consecte adipiscindf elitj. Eu scelerisque neque nevesti bulumaugued enullalkll quis mauris. solliciegesta pellentesqueg adipiscing. Leo aliquam, aliquam novalaoreethg";

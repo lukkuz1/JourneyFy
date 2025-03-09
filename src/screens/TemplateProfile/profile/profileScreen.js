@@ -87,7 +87,7 @@ const ProfileScreen = ({ navigation }) => {
           option: "My vehicle",
           detail: "Add vehicle information",
           onPress: () => {
-            navigation.push("UserVehicles");
+            navigation.navigate("UserVehiclesScreen");
           },
         })}
         {divider()}
@@ -96,7 +96,7 @@ const ProfileScreen = ({ navigation }) => {
           option: "Ride history",
           detail: "See your ride history",
           onPress: () => {
-            navigation.push("RideHistory");
+            navigation.navigate("RideHistoryScreen");
           },
         })}
         {divider()}
@@ -114,7 +114,7 @@ const ProfileScreen = ({ navigation }) => {
           option: "Privacy policy",
           detail: "Know our policy",
           onPress: () => {
-            navigation.push("PrivacyPolicy");
+            navigation.navigate("PrivacyPolicyScreen");
           },
         })}
         {divider()}
@@ -123,7 +123,7 @@ const ProfileScreen = ({ navigation }) => {
           option: "FAQs",
           detail: "Get your question answer",
           onPress: () => {
-            navigation.push("Faq");
+            navigation.navigate("FaqScreen");
           },
         })}
         {divider()}

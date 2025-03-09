@@ -1,8 +1,8 @@
 import { ScrollView, StyleSheet, Text, View, Image } from "react-native";
 import React from "react";
-import { Colors, Fonts, Sizes } from "../../constants/styles";
-import MyStatusBar from "../../components/myStatusBar";
-import Header from "../../components/header";
+import { Colors, Fonts, Sizes } from "../../../constants/styles";
+import MyStatusBar from "../../../components/myStatusBar";
+import Header from "../../../components/header";
 
 const privacyPolicies = [
   "Lorem ipsum dolor sit amet consectetdsuspendisse orci cras amet. Viverra massa amet etd diam a nisiac aliquet felis. Duis sagittis neque hen dreritmaecenas suspendisse scelerisque. Eu exst bibendum ornare ",
@@ -52,7 +52,7 @@ const PrivacyPolicyScreen = ({ navigation }) => {
         }}
       >
         <Image
-          source={require("../../assets/images/app_color_icon.png")}
+          source={require("../../../assets/images/app_color_icon.png")}
           style={styles.appIcon}
         />
         <Text style={{ ...Fonts.secondaryColor24SemiBold }}>Go Poolar</Text>

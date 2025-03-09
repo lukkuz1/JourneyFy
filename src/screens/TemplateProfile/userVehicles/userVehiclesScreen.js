@@ -10,7 +10,6 @@ import React, { useState } from "react";
 import { Colors, Fonts, Sizes } from "../../../constants/styles";
 import MyStatusBar from "../../../components/myStatusBar";
 import Header from "../../../components/header";
-// import LinearGradient from 'react-native-linear-gradient';
 import Ionicons from "react-native-vector-icons/Ionicons";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import { Snackbar } from "react-native-paper";
@@ -94,10 +93,6 @@ const UserVehiclesScreen = ({ navigation }) => {
           style={{ width: "100%", height: 178.0 }}
           borderRadius={Sizes.fixPadding}
         >
-          <LinearGradient
-            colors={["rgba(255, 255, 255, 0)", "rgba(28, 28, 28, 0.5)"]}
-            style={styles.vehicleImageOverlay}
-          >
             <Ionicons
               name="trash"
               color={Colors.redColor}
@@ -121,7 +116,6 @@ const UserVehiclesScreen = ({ navigation }) => {
                 {item.capacityOfPerson} person
               </Text>
             </View>
-          </LinearGradient>
         </ImageBackground>
       </View>
     );
