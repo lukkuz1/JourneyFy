@@ -24,7 +24,7 @@ export default function MainInfo() {
   const [username, setUsername] = useState("");
   const [name, setName] = useState("");
   const [surname, setSurname] = useState("");
-  const [age, setAge] = useState("");
+  const [dateOfBirth, setDateOfBirth] = useState("");
   const [error, setError] = useState("");
 
   const navigation = useNavigation();
@@ -32,7 +32,7 @@ export default function MainInfo() {
   const user = auth.currentUser;
 
   const handleInfo = async () => {
-    if (!username || !name || !surname || !age) {
+    if (!username || !name || !surname || !dateOfBirth) {
       setError("Užpildykite visus laukus");
       return;
     }
@@ -42,7 +42,7 @@ export default function MainInfo() {
         username,
         name,
         surname,
-        age: parseInt(age),
+        dateOfBirth,
       });
       Alert.alert(
         "Sėkmės pranešimas",
@@ -52,7 +52,7 @@ export default function MainInfo() {
       setUsername("");
       setName("");
       setSurname("");
-      setAge("");
+      setDateOfBirth("");
       setError("");
     } catch (error) {
       console.error("Error adding document: ", error);
@@ -92,12 +92,12 @@ export default function MainInfo() {
               onChangeText={(text) => setSurname(text)}
             />
             <EntryInputField
-              headerText="Amžius"
-              placeholderText="Įveskite savo amžių"
+              headerText="Gimimo data"
+              placeholderText="YYYY-MM-DD"
               isPassword={false}
               keyboardType="numeric"
               margin={[0, 20, 0, 0]}
-              onChangeText={(text) => setAge(text)}
+              onChangeText={(text) => setDateOfBirth(text)}
             />
             <EntryButton
               text="Pateikti"
@@ -119,7 +119,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "transparent", // Transparent background
+    backgroundColor: "transparent",
   },
   scrollViewContent: {
     flexGrow: 1,
@@ -130,7 +130,7 @@ const styles = StyleSheet.create({
   formContainer: {
     width: "90%",
     padding: 20,
-    backgroundColor: "transparent", // No background color to match Login and Register pages
+    backgroundColor: "transparent",
     alignItems: "center",
   },
   label: {
