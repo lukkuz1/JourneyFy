@@ -433,7 +433,7 @@ const HomeScreen = ({ navigation, route }) => {
           <TouchableOpacity
             activeOpacity={0.8}
             onPress={() => {
-              navigation.push("PickLocation", { addressFor: "pickup" });
+              navigation.navigate("PickLocationScreen");
             }}
             style={{
               marginVertical: Sizes.fixPadding * 2.0,

@@ -105,7 +105,7 @@ const RideHistoryScreen = ({ navigation }) => {
       <TouchableOpacity
         activeOpacity={0.8}
         onPress={() => {
-          navigation.push("HistoryRideDetail");
+          navigation.navigate("HistoryRideDetailScreen");
         }}
         style={styles.rideWrapper}
       >

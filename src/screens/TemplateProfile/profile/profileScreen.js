@@ -6,16 +6,62 @@ import {
   Image,
   TouchableOpacity,
 } from "react-native";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Colors, Fonts, Sizes, CommonStyles } from "../../../constants/styles";
 import MyStatusBar from "../../../components/myStatusBar";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import { Overlay } from "@rneui/themed";
+import { getAuth } from "firebase/auth";
+import { doc, getDoc, setDoc } from "firebase/firestore";
+import firebaseServices from "../../../services/firebase";
 import { useAuth } from "../../../hooks/useAuth";
 
+const { db } = firebaseServices;
+
 const ProfileScreen = ({ navigation }) => {
-  const auth = useAuth();
+  const auth = getAuth();
+  const logoutAuth = useAuth();
   const [showLogoutDialog, setshowLogoutDialog] = useState(false);
+  const currentUserId = auth.currentUser.uid;
+  const [userName, setUserName] = useState("");
+  const [email, setEmail] = useState("");
+  const [profileImage, setProfileImage] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+
+   const fetchUserProfile = async () => {
+    try {
+      if (!auth.currentUser) {
+        console.error("User not authenticated");
+        setLoading(false);
+        return;
+      }
+  
+      const userRef = doc(db, "users", currentUserId);
+      const userDoc = await getDoc(userRef);
+  
+      if (userDoc.exists()) {
+        const data = userDoc.data();
+        setUserName(data.username || "");
+        setEmail(data.email || "");
+      } else {
+        await setDoc(userRef, {
+          username: "",
+          email: auth.currentUser.email || "",
+        });
+        setUserName("");
+      }
+    } catch (error) {
+      console.error("Error fetching user data:", error);
+    }
+    setLoading(false);
+  };
+
+  useEffect(() => {
+    fetchUserProfile();
+  }, []);
+
+
 
   return (
     <View style={{ flex: 1, backgroundColor: Colors.bodyBackColor }}>
@@ -63,7 +109,7 @@ const ProfileScreen = ({ navigation }) => {
             activeOpacity={0.8}
             onPress={() => {
               setshowLogoutDialog(false);
-              auth.signOut();
+              logoutAuth.signOut();
             }}
             style={styles.dialogButton}
           >
@@ -237,19 +283,15 @@ const ProfileScreen = ({ navigation }) => {
       >
         <Image
           source={
-            auth.user?.profileImage
-              ? { uri: auth.user.profileImage }
+            profileImage
+              ? { uri: profileImage }
               : require("../../../assets/images/user/user1.jpeg")
           }
           style={{ width: 70.0, height: 70.0, borderRadius: 35.0 }}
         />
         <View style={{ flex: 1, marginHorizontal: Sizes.fixPadding + 3.0 }}>
-          <Text style={{ ...Fonts.blackColor17SemiBold }}>
-            {auth.user?.name || "User Name"}
-          </Text>
-          <Text style={{ ...Fonts.grayColor16SemiBold }}>
-            {auth.user?.email || "user@email.com"}
-          </Text>
+          <Text style={{ ...Fonts.blackColor17SemiBold }}>{userName}</Text>
+          <Text style={{ ...Fonts.grayColor16SemiBold }}>{email}</Text>
         </View>
         <MaterialCommunityIcons
           name="square-edit-outline"

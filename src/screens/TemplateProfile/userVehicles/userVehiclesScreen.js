@@ -64,7 +64,7 @@ const UserVehiclesScreen = ({ navigation }) => {
       <TouchableOpacity
         activeOpacity={0.8}
         onPress={() => {
-          navigation.push("AddVehicle");
+          navigation.navigate("AddVehicleScreen");
         }}
         style={styles.addButtonStyle}
       >

@@ -4,12 +4,7 @@ import { createStackNavigator } from "@react-navigation/stack";
 import { View, Text, StyleSheet, Platform } from "react-native";
 import { SvgXml } from "react-native-svg";
 import { Colors, Fonts, Sizes, CommonStyles } from "../constants/styles";
-import Journey from "../screens/Main/Journey";
-import Home from "../screens/Main/Home";
-import Settings from "../screens/Main/Settings";
-import Wallet from "../screens/Main/Wallet";
-import HomeScreen from "../screens/Main/homeScreen";
-import ProfileScreen from "../screens/TemplateProfile/profile/profileScreen";
+import HomeNavigation from "./HomeNavigation";
 import ProfileNavigation from "./ProfileNavigation";
 import JourneyNavigation from "./JourneyNavigation";
 import WalletNavigation from "./WalletNavigation";
@@ -39,7 +34,7 @@ export default function MainNavigation() {
       })}
       initialRouteName="Home"
     >
-      <Tab.Screen name="Home" component={HomeScreen} />
+      <Tab.Screen name="Home" component={HomeNavigation} />
       <Tab.Screen name="Wallet" component={WalletNavigation} />
       <Tab.Screen name="Journey" component={JourneyNavigation} />
       {/* <Tab.Screen name="Settings" component={Settings} /> */}

@@ -6,174 +6,104 @@ import {
   Image,
   TextInput,
   TouchableOpacity,
+  ActivityIndicator,
+  Alert,
 } from "react-native";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Colors, Sizes, Fonts, CommonStyles } from "../../../constants/styles";
 import MyStatusBar from "../../../components/myStatusBar";
 import Header from "../../../components/header";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import { BottomSheet } from "@rneui/themed";
+import { getAuth } from "firebase/auth";
+import { doc, getDoc, setDoc, updateDoc } from "firebase/firestore";
+import firebaseServices from "../../../services/firebase";
+
+const { db } = firebaseServices;
 
 const EditProfileScreen = ({ navigation }) => {
-  const [userName, setuserName] = useState("Johnwilson");
-  const [email, setEmail] = useState("john@mail.com");
-  const [mobileNo, setMobileNo] = useState("+91 1234567890");
-  const [showChangeProfileSheet, setshowChangeProfileSheet] = useState(false);
+  const auth = getAuth();
+  const currentUserId = auth.currentUser.uid;
+  const [userName, setUserName] = useState("");
+  const [email, setEmail] = useState("");
+  const [mobileNo, setMobileNo] = useState("");
+  const [loading, setLoading] = useState(true);
+  const [showChangeProfileSheet, setShowChangeProfileSheet] = useState(false);
+
+  useEffect(() => {
+    fetchUserProfile();
+  }, []);
+
+  const fetchUserProfile = async () => {
+    try {
+      const userRef = doc(db, "users", currentUserId);
+      const userDoc = await getDoc(userRef);
+  
+      if (userDoc.exists()) {
+        const data = userDoc.data();
+        setUserName(data.username || "");
+        setEmail(data.email || "");
+        setMobileNo(data.mobileNo || "");
+      } else {
+        await setDoc(userRef, {
+          username: "",
+          email: auth.currentUser.email || "",
+          mobileNo: "",
+        });
+        setUserName("");
+        setEmail(auth.currentUser.email || "");
+        setMobileNo("");
+      }
+    } catch (error) {
+      console.error("Error fetching user data:", error);
+    }
+    setLoading(false);
+  };
+
+  const handleUpdateProfile = async () => {
+    try {
+      await updateDoc(doc(db, "users", currentUserId), {
+        username: userName,
+        email: email,
+        mobileNo: mobileNo,
+      });
+      Alert.alert("Success", "Profile updated successfully");
+    } catch (error) {
+      console.error("Error updating profile:", error);
+      Alert.alert("Error", "Profile update failed");
+    }
+  };
+
+  if (loading) {
+    return <ActivityIndicator size="large" color={Colors.primaryColor} />;
+  }
 
   return (
     <View style={{ flex: 1, backgroundColor: Colors.bodyBackColor }}>
       <MyStatusBar />
-      <View style={{ flex: 1 }}>
-        <Header title={"Edit profile"} navigation={navigation} />
-        <ScrollView
-          showsVerticalScrollIndicator={false}
-          automaticallyAdjustKeyboardInsets={true}
-        >
-          {profilePic()}
-          {userNameInfo()}
-          {emailInfo()}
-          {mobileNoInfo()}
-        </ScrollView>
-      </View>
+      <Header title={"Edit Profile"} navigation={navigation} />
+      <ScrollView showsVerticalScrollIndicator={false}>
+        {profilePic()}
+        {userInfo("User name", userName, setUserName)}
+        {userInfo("Email address", email, setEmail, "email-address")}
+        {userInfo("Mobile number", mobileNo, setMobileNo, "phone-pad")}
+      </ScrollView>
       {updateButton()}
-      {changePicSheet()}
     </View>
   );
 
-  function changePicSheet() {
-    return (
-      <BottomSheet
-        isVisible={showChangeProfileSheet}
-        onBackdropPress={() => {
-          setshowChangeProfileSheet(false);
-        }}
-      >
-        <View style={{ ...styles.sheetStyle }}>
-          <Text
-            style={{
-              ...Fonts.blackColor18SemiBold,
-              marginBottom: Sizes.fixPadding,
-            }}
-          >
-            Change profile image
-          </Text>
-          {chagePicOptionSort({
-            icon: "camera-alt",
-            option: "Camera",
-            color: Colors.primaryColor,
-          })}
-          {chagePicOptionSort({
-            icon: "photo",
-            option: "Gallery",
-            color: Colors.greenColor,
-          })}
-          {chagePicOptionSort({
-            icon: "delete",
-            option: "Remove image",
-            color: Colors.redColor,
-          })}
-        </View>
-      </BottomSheet>
-    );
-  }
-
-  function chagePicOptionSort({ icon, option, color }) {
-    return (
-      <TouchableOpacity
-        activeOpacity={0.8}
-        onPress={() => {
-          setshowChangeProfileSheet(false);
-        }}
-        style={{
-          ...CommonStyles.rowAlignCenter,
-          marginVertical: Sizes.fixPadding,
-        }}
-      >
-        <View style={styles.circle40}>
-          <MaterialIcons name={icon} color={color} size={22} />
-        </View>
-        <Text
-          numberOfLines={1}
-          style={{
-            ...Fonts.blackColor16Medium,
-            flex: 1,
-            marginLeft: Sizes.fixPadding + 5.0,
-          }}
-        >
-          {option}
-        </Text>
-      </TouchableOpacity>
-    );
-  }
-
-  function updateButton() {
-    return (
-      <TouchableOpacity
-        activeOpacity={0.8}
-        onPress={() => {
-          navigation.pop();
-        }}
-        style={{ ...CommonStyles.button, margin: Sizes.fixPadding * 2.0 }}
-      >
-        <Text style={{ ...Fonts.whiteColor18Bold }}>Update</Text>
-      </TouchableOpacity>
-    );
-  }
-
-  function mobileNoInfo() {
+  function userInfo(label, value, setter, keyboardType = "default") {
     return (
       <View style={{ margin: Sizes.fixPadding * 2.0 }}>
-        <Text style={{ ...Fonts.blackColor15SemiBold }}>Mobile number</Text>
+        <Text style={{ ...Fonts.blackColor15SemiBold }}>{label}</Text>
         <TextInput
-          placeholder="Enter Mobile number"
+          placeholder={`Enter ${label.toLowerCase()}`}
           style={styles.textFieldStyle}
-          value={mobileNo}
-          onChangeText={(value) => setMobileNo(value)}
+          value={value}
+          onChangeText={setter}
           placeholderTextColor={Colors.grayColor}
-          cursorColor={Colors.primaryColor}
-          selectionColor={Colors.primaryColor}
-          keyboardType="phone-pad"
-        />
-      </View>
-    );
-  }
-
-  function emailInfo() {
-    return (
-      <View
-        style={{
-          marginHorizontal: Sizes.fixPadding * 2.0,
-          marginVertical: Sizes.fixPadding,
-        }}
-      >
-        <Text style={{ ...Fonts.blackColor15SemiBold }}>Email address</Text>
-        <TextInput
-          placeholder="Enter Email address"
-          style={styles.textFieldStyle}
-          value={email}
-          onChangeText={(value) => setEmail(value)}
-          placeholderTextColor={Colors.grayColor}
-          cursorColor={Colors.primaryColor}
-          selectionColor={Colors.primaryColor}
-          keyboardType="email-address"
-        />
-      </View>
-    );
-  }
-
-  function userNameInfo() {
-    return (
-      <View style={{ margin: Sizes.fixPadding * 2.0 }}>
-        <Text style={{ ...Fonts.blackColor15SemiBold }}>User name</Text>
-        <TextInput
-          placeholder="Enter User name"
-          style={styles.textFieldStyle}
-          value={userName}
-          onChangeText={(value) => setuserName(value)}
-          placeholderTextColor={Colors.grayColor}
-          cursorColor={Colors.primaryColor}
-          selectionColor={Colors.primaryColor}
+          keyboardType={keyboardType}
         />
       </View>
     );
@@ -184,22 +114,26 @@ const EditProfileScreen = ({ navigation }) => {
       <View style={styles.profilePicWrapper}>
         <Image
           source={require("../../../assets/images/user/user1.jpeg")}
-          style={{ width: 100.0, height: 100.0, borderRadius: 50.0 }}
+          style={{ width: 100, height: 100, borderRadius: 50 }}
         />
         <TouchableOpacity
-          activeOpacity={0.9}
-          onPress={() => {
-            setshowChangeProfileSheet(true);
-          }}
           style={styles.changePhotoCircleWrapper}
+          onPress={() => setShowChangeProfileSheet(true)}
         >
-          <Ionicons
-            name="camera-outline"
-            color={Colors.secondaryColor}
-            size={20}
-          />
+          <Ionicons name="camera-outline" color={Colors.secondaryColor} size={20} />
         </TouchableOpacity>
       </View>
+    );
+  }
+
+  function updateButton() {
+    return (
+      <TouchableOpacity
+        style={{ ...CommonStyles.button, margin: Sizes.fixPadding * 2 }}
+        onPress={handleUpdateProfile}
+      >
+        <Text style={{ ...Fonts.whiteColor18Bold }}>Update</Text>
+      </TouchableOpacity>
     );
   }
 };
@@ -207,46 +141,25 @@ const EditProfileScreen = ({ navigation }) => {
 export default EditProfileScreen;
 
 const styles = StyleSheet.create({
-  sheetStyle: {
-    backgroundColor: Colors.whiteColor,
-    borderTopLeftRadius: Sizes.fixPadding * 2.0,
-    borderTopRightRadius: Sizes.fixPadding * 2.0,
-    paddingTop: Sizes.fixPadding * 2.5,
-    paddingHorizontal: Sizes.fixPadding * 2.0,
-    paddingBottom:Sizes.fixPadding*1.5
-  },
-  changePhotoCircleWrapper: {
-    width: 40.0,
-    height: 40.0,
-    borderRadius: 20.0,
-    backgroundColor: Colors.bodyBackColor,
-    position: "absolute",
-    right: -5.0,
-    bottom: -5.0,
-    alignItems: "center",
-    justifyContent: "center",
-  },
   profilePicWrapper: {
     alignItems: "center",
+    margin: Sizes.fixPadding * 3,
+  },
+  changePhotoCircleWrapper: {
+    position: "absolute",
+    right: -5,
+    bottom: -5,
+    width: 40,
+    height: 40,
+    borderRadius: 20,
+    backgroundColor: Colors.bodyBackColor,
+    alignItems: "center",
     justifyContent: "center",
-    margin: Sizes.fixPadding * 3.0,
-    alignSelf: "center",
   },
   textFieldStyle: {
     ...Fonts.blackColor15Medium,
-    marginTop: Sizes.fixPadding - 2.0,
-    padding: 0,
-    paddingBottom: Sizes.fixPadding - 5.0,
     borderBottomColor: Colors.lightGrayColor,
-    borderBottomWidth: 1.0,
-  },
-  circle40: {
-    width: 40.0,
-    height: 40.0,
-    borderRadius: 20.0,
-    backgroundColor: Colors.whiteColor,
-    ...CommonStyles.shadow,
-    alignItems: "center",
-    justifyContent: "center",
+    borderBottomWidth: 1,
+    paddingBottom: Sizes.fixPadding - 5,
   },
 });

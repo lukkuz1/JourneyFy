@@ -33,8 +33,7 @@ export default function Register() {
         "Verifikacijos nuoroda išsiųsta",
         "Patvirtinkite savo el. paštą, kad galėtumėte prisijungti prie programėlės."
       );
-      // navigation.navigate("Login");
-      navigation.navigate("MainInfo");
+      navigation.navigate("Login");
     } else {
       console.log("Unexpected status: ", status);
     }
