@@ -15,6 +15,8 @@ import { getAuth } from "firebase/auth";
 import { doc, getDoc, setDoc } from "firebase/firestore";
 import firebaseServices from "../../../services/firebase";
 import { useAuth } from "../../../hooks/useAuth";
+import { useFocusEffect } from "@react-navigation/native";
+import { RefreshControl } from "react-native";
 
 const { db } = firebaseServices;
 
@@ -22,24 +24,31 @@ const ProfileScreen = ({ navigation }) => {
   const auth = getAuth();
   const logoutAuth = useAuth();
   const [showLogoutDialog, setshowLogoutDialog] = useState(false);
-  const currentUserId = auth.currentUser.uid;
   const [userName, setUserName] = useState("");
   const [email, setEmail] = useState("");
   const [profileImage, setProfileImage] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [refreshing, setRefreshing] = useState(false);
 
+  // Auto-refresh when screen is focused
+  useFocusEffect(
+    React.useCallback(() => {
+      fetchUserProfile();
+    }, [])
+  );
 
-   const fetchUserProfile = async () => {
+  // Fetch user data
+  const fetchUserProfile = async () => {
     try {
       if (!auth.currentUser) {
         console.error("User not authenticated");
         setLoading(false);
         return;
       }
-  
-      const userRef = doc(db, "users", currentUserId);
+
+      const userRef = doc(db, "users", auth.currentUser.uid);
       const userDoc = await getDoc(userRef);
-  
+
       if (userDoc.exists()) {
         const data = userDoc.data();
         setUserName(data.username || "");
@@ -55,20 +64,24 @@ const ProfileScreen = ({ navigation }) => {
       console.error("Error fetching user data:", error);
     }
     setLoading(false);
+    setRefreshing(false);
   };
 
-  useEffect(() => {
+  // Pull-to-refresh handler
+  const onRefresh = () => {
+    setRefreshing(true);
     fetchUserProfile();
-  }, []);
-
-
+  };
 
   return (
     <View style={{ flex: 1, backgroundColor: Colors.bodyBackColor }}>
       <MyStatusBar />
       <View style={{ flex: 1 }}>
         {header()}
-        <ScrollView showsVerticalScrollIndicator={false}>
+        <ScrollView
+          showsVerticalScrollIndicator={false}
+          refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}
+        >
           {profileInfo()}
           {profileOptions()}
         </ScrollView>
