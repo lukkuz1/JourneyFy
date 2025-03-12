@@ -236,13 +236,19 @@ const ProfileScreen = ({ navigation }) => {
         }}
       >
         <Image
-          source={require("../../../assets/images/user/user1.jpeg")}
+          source={
+            auth.user?.profileImage
+              ? { uri: auth.user.profileImage }
+              : require("../../../assets/images/user/user1.jpeg")
+          }
           style={{ width: 70.0, height: 70.0, borderRadius: 35.0 }}
         />
         <View style={{ flex: 1, marginHorizontal: Sizes.fixPadding + 3.0 }}>
-          <Text style={{ ...Fonts.blackColor17SemiBold }}>John Wilson</Text>
+          <Text style={{ ...Fonts.blackColor17SemiBold }}>
+            {auth.user?.name || "User Name"}
+          </Text>
           <Text style={{ ...Fonts.grayColor16SemiBold }}>
-            johnwilson@mail.com
+            {auth.user?.email || "user@email.com"}
           </Text>
         </View>
         <MaterialCommunityIcons
