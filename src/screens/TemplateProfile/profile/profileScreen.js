@@ -6,72 +6,22 @@ import {
   Image,
   TouchableOpacity,
 } from "react-native";
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Colors, Fonts, Sizes, CommonStyles } from "../../../constants/styles";
 import MyStatusBar from "../../../components/myStatusBar";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import { Overlay } from "@rneui/themed";
 import { getAuth } from "firebase/auth";
-import { doc, getDoc, setDoc } from "firebase/firestore";
-import firebaseServices from "../../../services/firebase";
 import { useAuth } from "../../../hooks/useAuth";
-import { useFocusEffect } from "@react-navigation/native";
-import { RefreshControl } from "react-native";
-
-const { db } = firebaseServices;
+import { RefreshControl, onRefresh } from "react-native";
 
 const ProfileScreen = ({ navigation }) => {
   const auth = getAuth();
   const logoutAuth = useAuth();
+  const currentUser = auth.currentUser;
   const [showLogoutDialog, setshowLogoutDialog] = useState(false);
-  const [userName, setUserName] = useState("");
-  const [email, setEmail] = useState("");
-  const [profileImage, setProfileImage] = useState(null);
   const [loading, setLoading] = useState(true);
   const [refreshing, setRefreshing] = useState(false);
-
-  // Auto-refresh when screen is focused
-  useFocusEffect(
-    React.useCallback(() => {
-      fetchUserProfile();
-    }, [])
-  );
-
-  // Fetch user data
-  const fetchUserProfile = async () => {
-    try {
-      if (!auth.currentUser) {
-        console.error("User not authenticated");
-        setLoading(false);
-        return;
-      }
-
-      const userRef = doc(db, "users", auth.currentUser.uid);
-      const userDoc = await getDoc(userRef);
-
-      if (userDoc.exists()) {
-        const data = userDoc.data();
-        setUserName(data.username || "");
-        setEmail(data.email || "");
-      } else {
-        await setDoc(userRef, {
-          username: "",
-          email: auth.currentUser.email || "",
-        });
-        setUserName("");
-      }
-    } catch (error) {
-      console.error("Error fetching user data:", error);
-    }
-    setLoading(false);
-    setRefreshing(false);
-  };
-
-  // Pull-to-refresh handler
-  const onRefresh = () => {
-    setRefreshing(true);
-    fetchUserProfile();
-  };
 
   return (
     <View style={{ flex: 1, backgroundColor: Colors.bodyBackColor }}>
@@ -80,7 +30,9 @@ const ProfileScreen = ({ navigation }) => {
         {header()}
         <ScrollView
           showsVerticalScrollIndicator={false}
-          refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}
+          refreshControl={
+            <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+          }
         >
           {profileInfo()}
           {profileOptions()}
@@ -296,15 +248,19 @@ const ProfileScreen = ({ navigation }) => {
       >
         <Image
           source={
-            profileImage
-              ? { uri: profileImage }
+            currentUser?.photoURL
+              ? { uri: currentUser.photoURL }
               : require("../../../assets/images/user/user1.jpeg")
           }
           style={{ width: 70.0, height: 70.0, borderRadius: 35.0 }}
         />
         <View style={{ flex: 1, marginHorizontal: Sizes.fixPadding + 3.0 }}>
-          <Text style={{ ...Fonts.blackColor17SemiBold }}>{userName}</Text>
-          <Text style={{ ...Fonts.grayColor16SemiBold }}>{email}</Text>
+          <Text style={{ ...Fonts.blackColor17SemiBold }}>
+            {currentUser.email}
+          </Text>
+          <Text style={{ ...Fonts.grayColor16SemiBold }}>
+            {currentUser.displayName}
+          </Text>
         </View>
         <MaterialCommunityIcons
           name="square-edit-outline"

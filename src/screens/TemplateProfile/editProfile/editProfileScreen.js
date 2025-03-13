@@ -4,7 +4,6 @@ import {
   Text,
   View,
   Image,
-  TextInput,
   TouchableOpacity,
   ActivityIndicator,
   Alert,
@@ -14,22 +13,34 @@ import { Colors, Sizes, Fonts, CommonStyles } from "../../../constants/styles";
 import MyStatusBar from "../../../components/myStatusBar";
 import Header from "../../../components/header";
 import Ionicons from "react-native-vector-icons/Ionicons";
-import MaterialIcons from "react-native-vector-icons/MaterialIcons";
-import { BottomSheet } from "@rneui/themed";
 import { getAuth } from "firebase/auth";
-import { doc, getDoc, setDoc, updateDoc } from "firebase/firestore";
+import { doc, getDoc, setDoc, updateDoc, Timestamp } from "firebase/firestore";
 import firebaseServices from "../../../services/firebase";
+import ProfileInputField, {
+  validateName,
+  validatePhoneNumber,
+  validateDateOfBirth,
+} from "../../../components/Profile/ProfileInputField";
 
 const { db } = firebaseServices;
 
 const EditProfileScreen = ({ navigation }) => {
   const auth = getAuth();
-  const currentUserId = auth.currentUser.uid;
-  const [userName, setUserName] = useState("");
-  const [email, setEmail] = useState("");
-  const [mobileNo, setMobileNo] = useState("");
+  const currentUserId = auth.currentUser ? auth.currentUser.uid : null;
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState("");
+  const [dateOfBirth, setDateOfBirth] = useState("");
   const [loading, setLoading] = useState(true);
-  const [showChangeProfileSheet, setShowChangeProfileSheet] = useState(false);
+
+
+  const [errors, setErrors] = useState({
+    firstName: "",
+    lastName: "",
+    phoneNumber: "",
+    dateOfBirth: "",
+  });
+
 
   useEffect(() => {
     fetchUserProfile();
@@ -37,23 +48,26 @@ const EditProfileScreen = ({ navigation }) => {
 
   const fetchUserProfile = async () => {
     try {
+      if (!currentUserId) return;
+
       const userRef = doc(db, "users", currentUserId);
       const userDoc = await getDoc(userRef);
-  
+
       if (userDoc.exists()) {
         const data = userDoc.data();
-        setUserName(data.username || "");
-        setEmail(data.email || "");
-        setMobileNo(data.mobileNo || "");
+        setFirstName(data.firstName || "");
+        setLastName(data.lastName || "");
+        setPhoneNumber(data.phoneNumber || "");
+        setDateOfBirth(
+          data.dateOfBirth ? data.dateOfBirth.toDate().toISOString().split("T")[0] : ""
+        );
       } else {
         await setDoc(userRef, {
-          username: "",
-          email: auth.currentUser.email || "",
-          mobileNo: "",
+          firstName: "",
+          lastName: "",
+          phoneNumber: "",
+          dateOfBirth: null,
         });
-        setUserName("");
-        setEmail(auth.currentUser.email || "");
-        setMobileNo("");
       }
     } catch (error) {
       console.error("Error fetching user data:", error);
@@ -61,17 +75,63 @@ const EditProfileScreen = ({ navigation }) => {
     setLoading(false);
   };
 
+
+
   const handleUpdateProfile = async () => {
+    if (!currentUserId) {
+      Alert.alert("Error", "User not authenticated.");
+      console.log("🚨 No user ID found");
+      return;
+    }
+  
+    // Validate fields before updating
+    const newErrors = {
+      firstName: validateName(firstName),
+      lastName: validateName(lastName),
+      phoneNumber: validatePhoneNumber(phoneNumber),
+      dateOfBirth: validateDateOfBirth(dateOfBirth),
+    };
+  
+    setErrors(newErrors);
+    console.log("🔍 Validation Errors:", newErrors);
+  
+    // Check if there are validation errors
+    if (Object.values(newErrors).some((error) => error)) {
+      Alert.alert("Validation Error", "Please fix the errors before updating.");
+      console.log("❌ Validation failed, stopping update.");
+      return;
+    }
+  
     try {
-      await updateDoc(doc(db, "users", currentUserId), {
-        username: userName,
-        email: email,
-        mobileNo: mobileNo,
-      });
-      Alert.alert("Success", "Profile updated successfully");
+      console.log("🔥 Starting update...");
+  
+      const userRef = doc(db, "users", currentUserId);
+      const userDoc = await getDoc(userRef);
+  
+      if (!userDoc.exists()) {
+        console.log("📄 User document not found, creating one.");
+        await setDoc(userRef, {
+          firstName,
+          lastName,
+          phoneNumber,
+          dateOfBirth: dateOfBirth ? Timestamp.fromDate(new Date(dateOfBirth)) : null,
+        });
+      } else {
+        console.log("📌 Updating existing user document.");
+        await updateDoc(userRef, {
+          firstName,
+          lastName,
+          phoneNumber,
+          dateOfBirth: dateOfBirth ? Timestamp.fromDate(new Date(dateOfBirth)) : null,
+        });
+      }
+  
+      Alert.alert("Success", "Profile updated successfully!");
+      console.log("✅ Profile updated:", { firstName, lastName, phoneNumber, dateOfBirth });
+  
     } catch (error) {
-      console.error("Error updating profile:", error);
-      Alert.alert("Error", "Profile update failed");
+      console.error("❌ Error updating profile:", error);
+      Alert.alert("Error", "Profile update failed. Check console for details.");
     }
   };
 
@@ -85,29 +145,14 @@ const EditProfileScreen = ({ navigation }) => {
       <Header title={"Edit Profile"} navigation={navigation} />
       <ScrollView showsVerticalScrollIndicator={false}>
         {profilePic()}
-        {userInfo("User name", userName, setUserName)}
-        {userInfo("Email address", email, setEmail, "email-address")}
-        {userInfo("Mobile number", mobileNo, setMobileNo, "phone-pad")}
+        <ProfileInputField label="First Name" value={firstName} setter={setFirstName} validate={validateName} />
+        <ProfileInputField label="Last Name" value={lastName} setter={setLastName} validate={validateName} />
+        <ProfileInputField label="Phone Number" value={phoneNumber} setter={setPhoneNumber} keyboardType="phone-pad" validate={validatePhoneNumber} />
+        <ProfileInputField label="Date of Birth" value={dateOfBirth} setter={setDateOfBirth} keyboardType="default" validate={validateDateOfBirth} />
       </ScrollView>
       {updateButton()}
     </View>
   );
-
-  function userInfo(label, value, setter, keyboardType = "default") {
-    return (
-      <View style={{ margin: Sizes.fixPadding * 2.0 }}>
-        <Text style={{ ...Fonts.blackColor15SemiBold }}>{label}</Text>
-        <TextInput
-          placeholder={`Enter ${label.toLowerCase()}`}
-          style={styles.textFieldStyle}
-          value={value}
-          onChangeText={setter}
-          placeholderTextColor={Colors.grayColor}
-          keyboardType={keyboardType}
-        />
-      </View>
-    );
-  }
 
   function profilePic() {
     return (
@@ -116,10 +161,7 @@ const EditProfileScreen = ({ navigation }) => {
           source={require("../../../assets/images/user/user1.jpeg")}
           style={{ width: 100, height: 100, borderRadius: 50 }}
         />
-        <TouchableOpacity
-          style={styles.changePhotoCircleWrapper}
-          onPress={() => setShowChangeProfileSheet(true)}
-        >
+        <TouchableOpacity style={styles.changePhotoCircleWrapper}>
           <Ionicons name="camera-outline" color={Colors.secondaryColor} size={20} />
         </TouchableOpacity>
       </View>
@@ -155,11 +197,5 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.bodyBackColor,
     alignItems: "center",
     justifyContent: "center",
-  },
-  textFieldStyle: {
-    ...Fonts.blackColor15Medium,
-    borderBottomColor: Colors.lightGrayColor,
-    borderBottomWidth: 1,
-    paddingBottom: Sizes.fixPadding - 5,
   },
 });
