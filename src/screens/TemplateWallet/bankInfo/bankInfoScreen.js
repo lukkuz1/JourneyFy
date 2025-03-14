@@ -20,7 +20,7 @@ const BankInfoScreen = ({ navigation }) => {
     <View style={{ flex: 1, backgroundColor: Colors.bodyBackColor }}>
       <MyStatusBar />
       <View style={{ flex: 1 }}>
-        <Header title={"Bank information"} navigation={navigation} />
+        <Header title={"Banko informacija"} navigation={navigation} />
         <ScrollView
           showsVerticalScrollIndicator={false}
           automaticallyAdjustKeyboardInsets={true}
@@ -63,7 +63,7 @@ const BankInfoScreen = ({ navigation }) => {
             marginBottom: Sizes.fixPadding,
           }}
         >
-          Account number
+          Sąskaitos numeris
         </Text>
         <View style={styles.valueBox}>
           <TextInput
@@ -90,11 +90,11 @@ const BankInfoScreen = ({ navigation }) => {
             marginBottom: Sizes.fixPadding,
           }}
         >
-          Branch code
+          Filialo kodas
         </Text>
         <View style={styles.valueBox}>
           <TextInput
-            placeholder="Enter branch code"
+            placeholder="Įveskite filialo kodą"
             style={styles.textFieldStyle}
             placeholderTextColor={Colors.grayColor}
             selectionColor={Colors.primaryColor}
@@ -116,11 +116,11 @@ const BankInfoScreen = ({ navigation }) => {
             marginBottom: Sizes.fixPadding,
           }}
         >
-          Bank name
+          Banko pavadinimas
         </Text>
         <View style={styles.valueBox}>
           <TextInput
-            placeholder="Enter bank name"
+            placeholder="Įveskite banko pavadinimą"
             style={styles.textFieldStyle}
             placeholderTextColor={Colors.grayColor}
             selectionColor={Colors.primaryColor}
@@ -142,11 +142,11 @@ const BankInfoScreen = ({ navigation }) => {
             marginBottom: Sizes.fixPadding,
           }}
         >
-          Account holder name
+          Sąskaitos savininko vardas
         </Text>
         <View style={styles.valueBox}>
           <TextInput
-            placeholder="Enter account holder name"
+            placeholder="Įveskite sąskaitos savininko vardą"
             style={styles.textFieldStyle}
             placeholderTextColor={Colors.grayColor}
             selectionColor={Colors.primaryColor}

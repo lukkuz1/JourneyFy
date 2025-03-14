@@ -76,7 +76,7 @@ const ReviewsScreen = ({ navigation }) => {
     <View style={{ flex: 1, backgroundColor: Colors.bodyBackColor }}>
       <MyStatusBar />
       <View style={{ flex: 1 }}>
-        <Header title={"Review"} navigation={navigation} />
+        <Header title={"Atsiliepimai"} navigation={navigation} />
         {allReviews()}
       </View>
     </View>

@@ -73,7 +73,7 @@ const RideDetailScreen = ({ navigation, route }) => {
   function header() {
     return (
       <View style={{ justifyContent: "center" }}>
-        <Header title={"Ride detail"} navigation={navigation} />
+        <Header title={"Kelionės aprašymas"} navigation={navigation} />
         {route?.params?.id ? (
           <MaterialIcons
             name="call"
@@ -100,7 +100,7 @@ const RideDetailScreen = ({ navigation, route }) => {
           }}
         >
           <Text style={{ ...Fonts.blackColor16SemiBold, textAlign: "center" }}>
-            Are you sure you want to cancel your ride?
+          Ar tikrai norite atšaukti kelionę?
           </Text>
         </View>
         <View style={{ ...CommonStyles.rowAlignCenter }}>
@@ -147,7 +147,7 @@ const RideDetailScreen = ({ navigation, route }) => {
             style={styles.cancelRideButton}
           >
             <Text numberOfLines={1} style={{ ...Fonts.primaryColor18Bold }}>
-              Cancel ride
+              Atšaukti kelionę
             </Text>
           </TouchableOpacity>
         ) : (
@@ -163,7 +163,7 @@ const RideDetailScreen = ({ navigation, route }) => {
             }}
           >
             <Text numberOfLines={1} style={{ ...Fonts.whiteColor18Bold }}>
-              Request ride
+              Kelionės prašymas
             </Text>
           </TouchableOpacity>
         )}
@@ -180,7 +180,7 @@ const RideDetailScreen = ({ navigation, route }) => {
           }}
         >
           <Text numberOfLines={1} style={{ ...Fonts.whiteColor18Bold }}>
-            Message
+            Pranešti
           </Text>
         </TouchableOpacity>
       </View>
@@ -190,9 +190,9 @@ const RideDetailScreen = ({ navigation, route }) => {
   function vehicleInfo() {
     return (
       <View style={styles.vehicleInfoWrapper}>
-        <Text style={{ ...Fonts.secondaryColor17SemiBold }}>Vehicle info</Text>
+        <Text style={{ ...Fonts.secondaryColor17SemiBold }}>Automobilio informacija</Text>
         <View style={{ marginVertical: Sizes.fixPadding + 5.0 }}>
-          <Text style={{ ...Fonts.grayColor14SemiBold }}>Car model</Text>
+          <Text style={{ ...Fonts.grayColor14SemiBold }}>Automobilio modelis</Text>
           <Text
             style={{
               ...Fonts.blackColor14Medium,
@@ -203,7 +203,7 @@ const RideDetailScreen = ({ navigation, route }) => {
           </Text>
         </View>
         <View>
-          <Text style={{ ...Fonts.grayColor14SemiBold }}>Facilities</Text>
+          <Text style={{ ...Fonts.grayColor14SemiBold }}>Įranga</Text>
           <Text
             style={{
               ...Fonts.blackColor14Medium,
@@ -233,7 +233,7 @@ const RideDetailScreen = ({ navigation, route }) => {
           }}
         >
           <Text style={{ flex: 1, ...Fonts.secondaryColor17SemiBold }}>
-            Review
+            Atsiliepimas
           </Text>
           <Text
             onPress={() => {
@@ -241,7 +241,7 @@ const RideDetailScreen = ({ navigation, route }) => {
             }}
             style={{ ...Fonts.primaryColor16SemiBold }}
           >
-            View all
+            Peržiūrėti visus
           </Text>
         </View>
         {reviewsList.map((item, index) => (
@@ -329,7 +329,7 @@ const RideDetailScreen = ({ navigation, route }) => {
         >
           {index <= passengerList.length - 1
             ? passengerList[index].name
-            : "Empty seat"}
+            : "Tuščia vieta"}
         </Text>
       </View>
     );
@@ -341,7 +341,7 @@ const RideDetailScreen = ({ navigation, route }) => {
             marginBottom: Sizes.fixPadding * 1.5,
           }}
         >
-          <Text style={{ ...Fonts.secondaryColor17SemiBold }}>Passenger</Text>
+          <Text style={{ ...Fonts.secondaryColor17SemiBold }}>Keleiviai</Text>
           <Text
             style={{
               ...Fonts.grayColor16Medium,
@@ -378,7 +378,7 @@ const RideDetailScreen = ({ navigation, route }) => {
               numberOfLines={1}
               style={{ flex: 1, ...Fonts.secondaryColor17SemiBold }}
             >
-              Rider detail
+              Pavežėjo informacija
             </Text>
             <Text
               onPress={() => {
@@ -389,7 +389,7 @@ const RideDetailScreen = ({ navigation, route }) => {
                 textDecorationLine: "underline",
               }}
             >
-              Map view
+              Žemėlapio peržiūra
             </Text>
           </View>
         </View>
@@ -467,7 +467,7 @@ const RideDetailScreen = ({ navigation, route }) => {
         >
           <View style={{ flex: 1, alignItems: "center" }}>
             <Text numberOfLines={1} style={{ ...Fonts.blackColor14SemiBold }}>
-              Start time
+              Pradžios laikas
             </Text>
             <Text
               numberOfLines={1}
@@ -484,7 +484,7 @@ const RideDetailScreen = ({ navigation, route }) => {
 
           <View style={{ flex: 1, alignItems: "center" }}>
             <Text numberOfLines={1} style={{ ...Fonts.blackColor14SemiBold }}>
-              Return time
+              Grįžimo laikas
             </Text>
             <Text
               numberOfLines={1}
@@ -501,7 +501,7 @@ const RideDetailScreen = ({ navigation, route }) => {
 
           <View style={{ flex: 0.7, alignItems: "center" }}>
             <Text numberOfLines={1} style={{ ...Fonts.blackColor14SemiBold }}>
-              Ride with
+              Kelionė su
             </Text>
             <Text
               numberOfLines={1}

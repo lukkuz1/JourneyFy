@@ -37,7 +37,7 @@ const UserVehiclesScreen = ({ navigation }) => {
     <View style={{ flex: 1, backgroundColor: Colors.bodyBackColor }}>
       <MyStatusBar />
       <View style={{ flex: 1 }}>
-        <Header title={"My vehicle"} navigation={navigation} />
+        <Header title={"Mano automobilis"} navigation={navigation} />
         {vehiclesInfo()}
       </View>
       {addButton()}
@@ -54,7 +54,7 @@ const UserVehiclesScreen = ({ navigation }) => {
         duration={1000}
         onDismiss={() => setShowSnackBar(false)}
       >
-        <Text style={{ ...Fonts.whiteColor14Medium }}>Vehicle Removed</Text>
+        <Text style={{ ...Fonts.whiteColor14Medium }}>Automobilis pašalintas</Text>
       </Snackbar>
     );
   }
@@ -113,7 +113,7 @@ const UserVehiclesScreen = ({ navigation }) => {
                   ...Fonts.whiteColor15Medium,
                 }}
               >
-                {item.capacityOfPerson} person
+                {item.capacityOfPerson} žmogus
               </Text>
             </View>
         </ImageBackground>

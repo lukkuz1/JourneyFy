@@ -18,7 +18,7 @@ const TermsAndConditionsScreen = ({ navigation }) => {
     <View style={{ flex: 1, backgroundColor: Colors.bodyBackColor }}>
       <MyStatusBar />
       <View style={{ flex: 1 }}>
-        <Header title={"Terms and condition"} navigation={navigation} />
+        <Header title={"Sąlygos ir sutikimai"} navigation={navigation} />
         {termsAndConditionsInfo()}
       </View>
     </View>

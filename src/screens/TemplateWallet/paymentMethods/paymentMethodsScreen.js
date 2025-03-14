@@ -41,7 +41,7 @@ const PaymentMethodsScreen = ({ navigation }) => {
     <View style={{ flex: 1, backgroundColor: Colors.bodyBackColor }}>
       <MyStatusBar />
       <View style={{ flex: 1 }}>
-        <Header title={"Payment method"} navigation={navigation} />
+        <Header title={"Mokėjimo metodas"} navigation={navigation} />
         {paymentMethods()}
       </View>
       {addAmountButton()}

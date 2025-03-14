@@ -27,7 +27,7 @@ const AddVehicleScreen = ({ navigation }) => {
     <View style={{ flex: 1, backgroundColor: Colors.bodyBackColor }}>
       <MyStatusBar />
       <View style={{ flex: 1 }}>
-        <Header title={"Add vehicle"} navigation={navigation} />
+        <Header title={"Pridėti mašiną"} navigation={navigation} />
         <ScrollView
           showsVerticalScrollIndicator={false}
           automaticallyAdjustKeyboardInsets={true}
@@ -61,7 +61,7 @@ const AddVehicleScreen = ({ navigation }) => {
               marginBottom: Sizes.fixPadding,
             }}
           >
-            Add image
+            Pridėti nuotrauką
           </Text>
           {chagePicOptionSort({
             icon: "camera-alt",
@@ -119,7 +119,7 @@ const AddVehicleScreen = ({ navigation }) => {
           marginVertical: Sizes.fixPadding * 2.0,
         }}
       >
-        <Text style={{ ...Fonts.whiteColor18Bold }}>Add</Text>
+        <Text style={{ ...Fonts.whiteColor18Bold }}>Pridėti</Text>
       </TouchableOpacity>
     );
   }
@@ -133,11 +133,11 @@ const AddVehicleScreen = ({ navigation }) => {
             marginBottom: Sizes.fixPadding,
           }}
         >
-          Facilities(i.e. AC, music)
+          Įranga (pvz., kondicionierius, muzika)
         </Text>
         <View style={styles.valueBox}>
           <TextInput
-            placeholder="Enter facilities"
+            placeholder="Įveskite įrangą"
             style={styles.textFieldStyle}
             placeholderTextColor={Colors.grayColor}
             selectionColor={Colors.primaryColor}
@@ -159,11 +159,11 @@ const AddVehicleScreen = ({ navigation }) => {
             marginBottom: Sizes.fixPadding,
           }}
         >
-          Seat offering
+          Vietų pasiūlymai
         </Text>
         <View style={styles.valueBox}>
           <TextInput
-            placeholder="Enter available seat"
+            placeholder="Įveskite laisvų vietų sk."
             style={styles.textFieldStyle}
             placeholderTextColor={Colors.grayColor}
             selectionColor={Colors.primaryColor}
@@ -186,11 +186,11 @@ const AddVehicleScreen = ({ navigation }) => {
             marginBottom: Sizes.fixPadding,
           }}
         >
-          Vehicle colour
+          Mašinos spalva
         </Text>
         <View style={styles.valueBox}>
           <TextInput
-            placeholder="Enter vehicle colour"
+            placeholder="Įveskite mašinos spalvą"
             style={styles.textFieldStyle}
             placeholderTextColor={Colors.grayColor}
             selectionColor={Colors.primaryColor}
@@ -212,11 +212,11 @@ const AddVehicleScreen = ({ navigation }) => {
             marginBottom: Sizes.fixPadding,
           }}
         >
-          Vehicle reg. number
+          Mašinos reg. nr.
         </Text>
         <View style={styles.valueBox}>
           <TextInput
-            placeholder="Enter vehicle reg.number"
+            placeholder="Įveskite mašinos reg. nr."
             style={styles.textFieldStyle}
             placeholderTextColor={Colors.grayColor}
             selectionColor={Colors.primaryColor}
@@ -238,11 +238,11 @@ const AddVehicleScreen = ({ navigation }) => {
             marginBottom: Sizes.fixPadding,
           }}
         >
-          Vehicle type
+          Mašinos tipas
         </Text>
         <View style={styles.valueBox}>
           <TextInput
-            placeholder="Enter vehicle type"
+            placeholder="Įveskite mašinos tipą"
             style={styles.textFieldStyle}
             placeholderTextColor={Colors.grayColor}
             selectionColor={Colors.primaryColor}
@@ -269,11 +269,11 @@ const AddVehicleScreen = ({ navigation }) => {
             marginBottom: Sizes.fixPadding,
           }}
         >
-          Vehicle name
+          Mašinos pavadinimas
         </Text>
         <View style={styles.valueBox}>
           <TextInput
-            placeholder="Enter vehicle name"
+            placeholder="Įveskite mašinos pavadinimą"
             style={styles.textFieldStyle}
             placeholderTextColor={Colors.grayColor}
             selectionColor={Colors.primaryColor}
@@ -301,7 +301,7 @@ const AddVehicleScreen = ({ navigation }) => {
             marginTop: Sizes.fixPadding - 5.0,
           }}
         >
-          Add vehicle image
+          Pridėkite mašinos nuotrauką
         </Text>
       </TouchableOpacity>
     );

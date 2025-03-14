@@ -25,7 +25,7 @@ const AddAndSendMoneyScreen = ({ navigation, route }) => {
       <View style={{ flex: 1 }}>
         <Header
           title={
-            route?.params?.addFor == "money" ? "Add money" : "Send to bank"
+            route?.params?.addFor == "money" ? "Pridėti pinigus" : "Siųsti į banką"
           }
           navigation={navigation}
         />
@@ -55,7 +55,7 @@ const AddAndSendMoneyScreen = ({ navigation, route }) => {
           marginVertical: Sizes.fixPadding * 2.0,
         }}
       >
-        <Text style={{ ...Fonts.whiteColor18Bold }}>Continue</Text>
+        <Text style={{ ...Fonts.whiteColor18Bold }}>Tęsti</Text>
       </TouchableOpacity>
     );
   }
@@ -70,12 +70,12 @@ const AddAndSendMoneyScreen = ({ navigation, route }) => {
           }}
         >
           {route?.params?.addFor == "money"
-            ? "Add amount"
-            : "Add amount to send"}
+            ? "Pridėti sumą"
+            : "Pridėkite siunčiamą sumą"}
         </Text>
         <View style={styles.valueBox}>
           <TextInput
-            placeholder="Enter amount to add"
+            placeholder="Įveskite sumą, kurią norite pridėti"
             style={{
               ...Fonts.blackColor15Medium,
               height: 20.0,

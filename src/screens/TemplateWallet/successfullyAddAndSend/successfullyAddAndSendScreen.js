@@ -54,7 +54,7 @@ const SuccessfullyAddAndSendScreen = ({ navigation, route }) => {
           alignSelf: "center",
         }}
       >
-        Back to home
+        Grįžti į pradžią
       </Text>
     );
   }
@@ -82,8 +82,8 @@ const SuccessfullyAddAndSendScreen = ({ navigation, route }) => {
           }}
         >
           {route?.params?.successFor == "money"
-            ? "Congratulation your money successfully added into wallet"
-            : "Congratulation your money successfully send in your bank"}
+            ? "Sveikiname, pinigai sėkmingai įvesti į piniginę"
+            : "Sveikiname, pinigai sėkmingai įvesti į banką"}
         </Text>
       </View>
     );

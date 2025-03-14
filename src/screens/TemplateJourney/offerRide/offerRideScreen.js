@@ -70,7 +70,7 @@ const OfferRideScreen = ({ navigation }) => {
         }}
       >
         <View style={{ ...styles.sheetStyle }}>
-          <Text style={styles.sheetHeader}>No of seat</Text>
+          <Text style={styles.sheetHeader}>Vietų sk.</Text>
           <ScrollView
             showsVerticalScrollIndicator={false}
             contentContainerStyle={{ paddingBottom: Sizes.fixPadding * 2.0 }}
@@ -90,7 +90,7 @@ const OfferRideScreen = ({ navigation }) => {
                       textAlign: "center",
                     }}
                   >
-                    {item} Seat
+                    {item} Vieta
                   </Text>
                   {index == seats.length - 1 ? null : (
                     <View
@@ -120,7 +120,7 @@ const OfferRideScreen = ({ navigation }) => {
         }}
       >
         <View style={{ ...styles.sheetStyle }}>
-          <Text style={styles.sheetHeader}>Select your car</Text>
+          <Text style={styles.sheetHeader}>Pasirinkite savo automobilį</Text>
           <ScrollView
             showsVerticalScrollIndicator={false}
             contentContainerStyle={{ paddingBottom: Sizes.fixPadding * 2.0 }}
@@ -171,7 +171,7 @@ const OfferRideScreen = ({ navigation }) => {
             marginVertical: Sizes.fixPadding * 2.0,
           }}
         >
-          <Text style={{ ...Fonts.whiteColor18Bold }}>Continue</Text>
+          <Text style={{ ...Fonts.whiteColor18Bold }}>Tęsti</Text>
         </TouchableOpacity>
       </View>
     );
@@ -191,11 +191,11 @@ const OfferRideScreen = ({ navigation }) => {
             marginBottom: Sizes.fixPadding,
           }}
         >
-          Facility (i.e Ac, Music etc)
+          Įranga (pvz: muzika, šildymas)
         </Text>
         <View style={styles.valueBox}>
           <TextInput
-            placeholder="Enter  facility"
+            placeholder="Įveskite įranga"
             style={{
               ...Fonts.blackColor15Medium,
               height: Platform.OS == "ios" ? 70.0 : null,
@@ -222,7 +222,7 @@ const OfferRideScreen = ({ navigation }) => {
             marginBottom: Sizes.fixPadding,
           }}
         >
-          Available seat
+          Laisva vieta
         </Text>
         <TouchableOpacity
           activeOpacity={0.8}
@@ -240,7 +240,7 @@ const OfferRideScreen = ({ navigation }) => {
                 : { ...Fonts.grayColor15Medium }),
             }}
           >
-            {selectedSeat ? `${selectedSeat} Seat` : "Select available seat"}
+            {selectedSeat ? `${selectedSeat} Vieta` : "Pasirinkite laisvą vietą"}
           </Text>
           <Ionicons name="chevron-down" color={Colors.grayColor} size={20.5} />
         </TouchableOpacity>
@@ -257,7 +257,7 @@ const OfferRideScreen = ({ navigation }) => {
             marginBottom: Sizes.fixPadding,
           }}
         >
-          Your car
+          Mano automobilis
         </Text>
         <TouchableOpacity
           activeOpacity={0.8}
@@ -275,7 +275,7 @@ const OfferRideScreen = ({ navigation }) => {
                 : { ...Fonts.grayColor15Medium }),
             }}
           >
-            {selectedCar ? selectedCar : "Select your car"}
+            {selectedCar ? selectedCar : "Pasirinkite savo automobilį"}
           </Text>
           <Ionicons name="chevron-down" color={Colors.grayColor} size={20.5} />
         </TouchableOpacity>
@@ -292,11 +292,11 @@ const OfferRideScreen = ({ navigation }) => {
             marginBottom: Sizes.fixPadding,
           }}
         >
-          Price
+          Kaina
         </Text>
         <View style={styles.valueBox}>
           <TextInput
-            placeholder="Write price per seat"
+            placeholder="Įveskite savo kainą už vietą"
             style={{
               ...Fonts.blackColor15Medium,
               height: 20.0,
@@ -342,7 +342,7 @@ const OfferRideScreen = ({ navigation }) => {
           </View>
           <View style={{ flex: 1, marginLeft: Sizes.fixPadding + 5.0 }}>
             <Text numberOfLines={1} style={{ ...Fonts.blackColor15SemiBold }}>
-              Pick up location
+              Paėmimo taškas
             </Text>
             <Text
               numberOfLines={2}
@@ -383,7 +383,7 @@ const OfferRideScreen = ({ navigation }) => {
           </View>
           <View style={{ flex: 1, marginLeft: Sizes.fixPadding + 5.0 }}>
             <Text numberOfLines={1} style={{ ...Fonts.blackColor15SemiBold }}>
-              Destination location
+              Kelionės tikslas
             </Text>
             <Text
               numberOfLines={2}

@@ -58,7 +58,7 @@ const NotificationsScreen = ({ navigation }) => {
     <View style={{ flex: 1, backgroundColor: Colors.bodyBackColor }}>
       <MyStatusBar />
       <View style={{ flex: 1 }}>
-        <Header title={"Notification"} navigation={navigation} />
+        <Header title={"Pranešimai"} navigation={navigation} />
         {listData.length == 0 ? noNotificationInfo() : notificationsInfo()}
       </View>
       {snackBar()}
@@ -78,7 +78,7 @@ const NotificationsScreen = ({ navigation }) => {
             marginTop: Sizes.fixPadding,
           }}
         >
-          No new notification
+          Nėra naujų pranešimų
         </Text>
       </View>
     );
@@ -93,7 +93,7 @@ const NotificationsScreen = ({ navigation }) => {
         onDismiss={() => setShowSnackBar(false)}
       >
         <Text style={{ ...Fonts.whiteColor14Medium }}>
-          Notification Dismissed!
+          Pranešimas Atmestas!
         </Text>
       </Snackbar>
     );

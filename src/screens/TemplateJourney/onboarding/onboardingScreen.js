@@ -103,7 +103,7 @@ const OnboardingScreen = ({ navigation }) => {
         }}
         style={styles.skipTextStyle}
       >
-        Skip
+        Praleisti
       </Text>
     );
   }
@@ -228,7 +228,7 @@ const OnboardingScreen = ({ navigation }) => {
     return backClickCount == 1 ? (
       <View style={styles.exitInfoWrapStyle}>
         <Text style={{ ...Fonts.whiteColor14Medium }}>
-          Press Back Once Again To Exit!
+        Norėdami išeiti, dar kartą paspauskite Atgal!
         </Text>
       </View>
     ) : null;

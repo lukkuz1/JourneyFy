@@ -181,7 +181,7 @@ const EndRideScreen = ({ navigation }) => {
     <View style={{ flex: 1, backgroundColor: Colors.bodyBackColor }}>
       <MyStatusBar />
       <View style={{ flex: 1 }}>
-        <Header title={"Roadmap"} navigation={navigation} />
+        <Header title={"Kelių planas"} navigation={navigation} />
         {directionInfo()}
         {rideInfoSheet()}
         {endRideButton()}
@@ -202,7 +202,7 @@ const EndRideScreen = ({ navigation }) => {
             marginVertical: Sizes.fixPadding * 2.0,
           }}
         >
-          <Text style={{ ...Fonts.whiteColor18Bold }}>End ride</Text>
+          <Text style={{ ...Fonts.whiteColor18Bold }}>Užbaigti kelionę</Text>
         </TouchableOpacity>
       </View>
     );

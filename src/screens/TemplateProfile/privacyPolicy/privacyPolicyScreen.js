@@ -18,7 +18,7 @@ const PrivacyPolicyScreen = ({ navigation }) => {
     <View style={{ flex: 1, backgroundColor: Colors.bodyBackColor }}>
       <MyStatusBar />
       <View style={{ flex: 1 }}>
-        <Header title={"Privacy policy"} navigation={navigation} />
+        <Header title={"Privatumo politika"} navigation={navigation} />
         <ScrollView
           showsVerticalScrollIndicator={false}
           contentContainerStyle={{ paddingBottom: Sizes.fixPadding * 1.5 }}
@@ -55,7 +55,7 @@ const PrivacyPolicyScreen = ({ navigation }) => {
           source={require("../../../assets/images/app_color_icon.png")}
           style={styles.appIcon}
         />
-        <Text style={{ ...Fonts.secondaryColor24SemiBold }}>Go Poolar</Text>
+        <Text style={{ ...Fonts.secondaryColor24SemiBold }}>JourneyFy</Text>
       </View>
     );
   }

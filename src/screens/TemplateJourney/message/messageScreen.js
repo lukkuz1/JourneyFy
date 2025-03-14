@@ -195,7 +195,7 @@ const MessageScreen = ({ navigation }) => {
           cursorColor={Colors.primaryColor}
           value={message}
           onChangeText={setMessage}
-          placeholder="Type your message here..."
+          placeholder="Įveskite savo žinutę......"
           style={styles.messageFiedlStyle}
           placeholderTextColor={Colors.grayColor}
           selectionColor={Colors.primaryColor}

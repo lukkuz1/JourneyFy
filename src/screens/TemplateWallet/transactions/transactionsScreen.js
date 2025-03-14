@@ -96,7 +96,7 @@ const TransactionsScreen = ({ navigation }) => {
     <View style={{ flex: 1, backgroundColor: Colors.bodyBackColor }}>
       <MyStatusBar />
       <View style={{ flex: 1 }}>
-        <Header title={"Transaction"} navigation={navigation} />
+        <Header title={"Sandoris"} navigation={navigation} />
         {transactionInfo()}
       </View>
     </View>

@@ -22,7 +22,7 @@ const RideMapViewScreen = ({ navigation }) => {
     <View style={{ flex: 1, backgroundColor: Colors.bodyBackColor }}>
       <MyStatusBar />
       <View style={{ flex: 1 }}>
-        <Header title={"Map view"} navigation={navigation} />
+        <Header title={"Žemėlapio peržiūra"} navigation={navigation} />
         {directionInfo()}
         {rideInfoSheet()}
       </View>
@@ -79,7 +79,7 @@ const RideMapViewScreen = ({ navigation }) => {
                     numberOfLines={1}
                     style={{ ...Fonts.grayColor14Medium }}
                   >
-                    Ride start
+                    Kelionės pradžia
                   </Text>
                   <Text
                     numberOfLines={1}
@@ -144,7 +144,7 @@ const RideMapViewScreen = ({ navigation }) => {
                     numberOfLines={1}
                     style={{ ...Fonts.grayColor14Medium }}
                   >
-                    Drive
+                    Vairuoti
                   </Text>
                   <Text
                     numberOfLines={1}

@@ -96,7 +96,7 @@ const Journey: React.FC<JourneyProps> = ({ navigation, route }) => {
     return (
       <View style={styles.emptyPage}>
         <Image source={require("../../assets/images/empty_ride.png")} style={styles.emptyRideImage} />
-        <Text style={styles.emptyText}>Empty ride list</Text>
+        <Text style={styles.emptyText}>Tuščias kelionių sąrašas</Text>
       </View>
     );
   }
@@ -116,7 +116,7 @@ const Journey: React.FC<JourneyProps> = ({ navigation, route }) => {
   function header() {
     return (
       <View style={styles.header}>
-        <Text style={styles.headerTitle}>My Journeys</Text>
+        <Text style={styles.headerTitle}>Mano kelionės</Text>
         <View style={styles.accountIconWrapper}>
           <MaterialIcons
             name="account-circle"

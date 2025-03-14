@@ -34,7 +34,7 @@ const Wallet: React.FC<WalletScreenProps> = ({ navigation }) => {
       <View style={styles.balanceInfoWrapper}>
         <View style={{ alignItems: 'center', margin: Sizes.fixPadding * 4.0 }}>
           <Text style={{ ...Fonts.primaryColor30Medium }}>$150</Text>
-          <Text style={{ ...Fonts.grayColor18Medium }}>Available balance</Text>
+          <Text style={{ ...Fonts.grayColor18Medium }}>Galimas likutis</Text>
         </View>
 
         <TouchableOpacity
@@ -52,7 +52,7 @@ const Wallet: React.FC<WalletScreenProps> = ({ navigation }) => {
           </View>
           <View style={{ flex: 1, marginHorizontal: Sizes.fixPadding }}>
             <Text numberOfLines={1} style={{ ...Fonts.blackColor16SemiBold }}>
-              Transaction
+              Sandoris
             </Text>
             <Text
               numberOfLines={1}
@@ -60,7 +60,7 @@ const Wallet: React.FC<WalletScreenProps> = ({ navigation }) => {
                 ...Fonts.grayColor14Medium,
                 marginTop: Sizes.fixPadding - 8.0,
               }}>
-              View all transaction list
+              Peržiūrėkite visų operacijų sąrašą
             </Text>
           </View>
           <Ionicons
@@ -85,7 +85,7 @@ const Wallet: React.FC<WalletScreenProps> = ({ navigation }) => {
           </View>
           <View style={{ flex: 1, marginHorizontal: Sizes.fixPadding }}>
             <Text numberOfLines={1} style={{ ...Fonts.blackColor16SemiBold }}>
-              Add money
+              Pridėkite pinigų
             </Text>
             <Text
               numberOfLines={1}
@@ -93,7 +93,7 @@ const Wallet: React.FC<WalletScreenProps> = ({ navigation }) => {
                 ...Fonts.grayColor14Medium,
                 marginTop: Sizes.fixPadding - 8.0,
               }}>
-              You can easily add money
+              Galite lengvai pridėti pinigų
             </Text>
           </View>
           <Ionicons
@@ -118,7 +118,7 @@ const Wallet: React.FC<WalletScreenProps> = ({ navigation }) => {
           </View>
           <View style={{ flex: 1, marginHorizontal: Sizes.fixPadding }}>
             <Text numberOfLines={1} style={{ ...Fonts.blackColor16SemiBold }}>
-              Send to bank
+              Siųsti į banką
             </Text>
             <Text
               numberOfLines={1}
@@ -126,7 +126,7 @@ const Wallet: React.FC<WalletScreenProps> = ({ navigation }) => {
                 ...Fonts.grayColor14Medium,
                 marginTop: Sizes.fixPadding - 8.0,
               }}>
-              Easily send money to the bank
+              Lengvai nusiųskite pinigus į banką
             </Text>
           </View>
           <Ionicons
@@ -151,7 +151,7 @@ const Wallet: React.FC<WalletScreenProps> = ({ navigation }) => {
   function header() {
     return (
       <View style={styles.header}>
-        <Text style={{ ...Fonts.whiteColor20SemiBold }}>Wallet</Text>
+        <Text style={{ ...Fonts.whiteColor20SemiBold }}>Piniginė</Text>
       </View>
     );
   }

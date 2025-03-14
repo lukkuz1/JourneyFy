@@ -56,7 +56,7 @@ const ProfileScreen = ({ navigation }) => {
           }}
         >
           <Text style={{ ...Fonts.blackColor16SemiBold, textAlign: "center" }}>
-            Are you sure you want to logout this account?
+           Ar tikrai norite atsijungti nuo šios paskyros?
           </Text>
         </View>
         <View style={{ ...CommonStyles.rowAlignCenter }}>
@@ -67,7 +67,7 @@ const ProfileScreen = ({ navigation }) => {
             }}
             style={styles.dialogButton}
           >
-            <Text style={{ ...Fonts.whiteColor18SemiBold }}>No</Text>
+            <Text style={{ ...Fonts.whiteColor18SemiBold }}>Ne</Text>
           </TouchableOpacity>
           <View style={{ backgroundColor: Colors.whiteColor, width: 2.0 }} />
           <TouchableOpacity
@@ -78,7 +78,7 @@ const ProfileScreen = ({ navigation }) => {
             }}
             style={styles.dialogButton}
           >
-            <Text style={{ ...Fonts.whiteColor18SemiBold }}>Logout</Text>
+            <Text style={{ ...Fonts.whiteColor18SemiBold }}>Atsijungti</Text>
           </TouchableOpacity>
         </View>
       </Overlay>
@@ -95,8 +95,8 @@ const ProfileScreen = ({ navigation }) => {
       >
         {profileOptionSort({
           icon: "car-outline",
-          option: "My vehicle",
-          detail: "Add vehicle information",
+          option: "Mano automobilis",
+          detail: "Pridėti automobilio informaciją",
           onPress: () => {
             navigation.navigate("UserVehiclesScreen");
           },
@@ -104,8 +104,8 @@ const ProfileScreen = ({ navigation }) => {
         {divider()}
         {profileOptionSort({
           icon: "history",
-          option: "Ride history",
-          detail: "See your ride history",
+          option: "Kelionių istoriją",
+          detail: "Peržiūrėkite kelionių istoriją",
           onPress: () => {
             navigation.navigate("RideHistoryScreen");
           },
@@ -113,8 +113,8 @@ const ProfileScreen = ({ navigation }) => {
         {divider()}
         {profileOptionSort({
           icon: "text-box-outline",
-          option: "Terms and condition",
-          detail: "Know our terms and condition",
+          option: "Sąlygos ir sutikimai",
+          detail: "Žinokite mūsų sąlygas",
           onPress: () => {
             navigation.navigate("TermsAndConditionsScreen");
           },
@@ -122,8 +122,8 @@ const ProfileScreen = ({ navigation }) => {
         {divider()}
         {profileOptionSort({
           icon: "shield-alert-outline",
-          option: "Privacy policy",
-          detail: "Know our policy",
+          option: "Privatumo politika",
+          detail: "Žinokite mūsų politiką",
           onPress: () => {
             navigation.navigate("PrivacyPolicyScreen");
           },
@@ -131,8 +131,8 @@ const ProfileScreen = ({ navigation }) => {
         {divider()}
         {profileOptionSort({
           icon: "help-circle-outline",
-          option: "FAQs",
-          detail: "Get your question answer",
+          option: "D.U.K.",
+          detail: "Gauti atsakymus į savo klausimus",
           onPress: () => {
             navigation.navigate("FaqScreen");
           },
@@ -140,8 +140,8 @@ const ProfileScreen = ({ navigation }) => {
         {divider()}
         {profileOptionSort({
           icon: "headphones",
-          option: "Customer support",
-          detail: "Connect us for any issue",
+          option: "Klientų aptarnavimas",
+          detail: "Susisiekite su mumis dėl bet kokių problemų",
           onPress: () => {
             navigation.navigate("CustomerSupportScreen");
           },
@@ -168,7 +168,7 @@ const ProfileScreen = ({ navigation }) => {
         />
         <View style={{ flex: 1, marginHorizontal: Sizes.fixPadding }}>
           <Text numberOfLines={1} style={{ ...Fonts.redColor16SemiBold }}>
-            Logout
+            Atsijungti
           </Text>
           <Text
             numberOfLines={1}
@@ -177,7 +177,7 @@ const ProfileScreen = ({ navigation }) => {
               marginTop: Sizes.fixPadding - 8.0,
             }}
           >
-            Logout your account
+            Atsijungti nuo paskyros
           </Text>
         </View>
         <MaterialCommunityIcons
@@ -283,7 +283,7 @@ const ProfileScreen = ({ navigation }) => {
         }}
       >
         <Text style={{ ...Fonts.whiteColor20SemiBold, textAlign: "center" }}>
-          Profile
+          Profilis
         </Text>
       </View>
     );

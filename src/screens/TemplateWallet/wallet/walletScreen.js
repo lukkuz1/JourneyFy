@@ -39,13 +39,13 @@ const WalletScreen = ({navigation}) => {
       <View style={styles.balanceInfoWrapper}>
         <View style={{alignItems: 'center', margin: Sizes.fixPadding * 4.0}}>
           <Text style={{...Fonts.primaryColor30Medium}}>$150</Text>
-          <Text style={{...Fonts.grayColor18Medium}}>Available balance</Text>
+          <Text style={{...Fonts.grayColor18Medium}}>Galimas likutis</Text>
         </View>
 
         <TouchableOpacity
           activeOpacity={0.8}
           onPress={() => {
-            navigation.push('Transactions');
+            navigation.push('Sandoriai');
           }}
           style={styles.optionWrapper}>
           <View style={styles.circle40}>
@@ -57,7 +57,7 @@ const WalletScreen = ({navigation}) => {
           </View>
           <View style={{flex: 1, marginHorizontal: Sizes.fixPadding}}>
             <Text numberOfLines={1} style={{...Fonts.blackColor16SemiBold}}>
-              Transaction
+              Sandoris
             </Text>
             <Text
               numberOfLines={1}
@@ -65,7 +65,7 @@ const WalletScreen = ({navigation}) => {
                 ...Fonts.grayColor14Medium,
                 marginTop: Sizes.fixPadding - 8.0,
               }}>
-              View all transaction list
+              Peržiūrėti visų sandorių sąrašą
             </Text>
           </View>
           <Ionicons
@@ -93,7 +93,7 @@ const WalletScreen = ({navigation}) => {
           </View>
           <View style={{flex: 1, marginHorizontal: Sizes.fixPadding}}>
             <Text numberOfLines={1} style={{...Fonts.blackColor16SemiBold}}>
-              Add money
+              Pridėti pinigus
             </Text>
             <Text
               numberOfLines={1}
@@ -101,7 +101,7 @@ const WalletScreen = ({navigation}) => {
                 ...Fonts.grayColor14Medium,
                 marginTop: Sizes.fixPadding - 8.0,
               }}>
-              You can easily add money
+              Galite lengvai pridėti pinigų
             </Text>
           </View>
           <Ionicons
@@ -126,7 +126,7 @@ const WalletScreen = ({navigation}) => {
           </View>
           <View style={{flex: 1, marginHorizontal: Sizes.fixPadding}}>
             <Text numberOfLines={1} style={{...Fonts.blackColor16SemiBold}}>
-              Send to bank
+              Siųsti į banką
             </Text>
             <Text
               numberOfLines={1}
@@ -134,7 +134,7 @@ const WalletScreen = ({navigation}) => {
                 ...Fonts.grayColor14Medium,
                 marginTop: Sizes.fixPadding - 8.0,
               }}>
-              Easily send money in bank
+              Lengvai siųskite pinigus į banką
             </Text>
           </View>
           <Ionicons
@@ -159,7 +159,7 @@ const WalletScreen = ({navigation}) => {
   function header() {
     return (
       <View style={styles.header}>
-        <Text style={{...Fonts.whiteColor20SemiBold}}>Wallet</Text>
+        <Text style={{...Fonts.whiteColor20SemiBold}}>Piniginė</Text>
       </View>
     );
   }

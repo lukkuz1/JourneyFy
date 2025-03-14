@@ -88,7 +88,7 @@ const HomeScreen = ({ navigation, route }) => {
   function pickAddressMessage() {
     return pickAlert ? (
       <Text style={styles.alertTextStyle}>
-        Please pick the correct locations
+        Prašome pasirinkti tinkamas vietas
       </Text>
     ) : null;
   }
@@ -103,7 +103,7 @@ const HomeScreen = ({ navigation, route }) => {
         }}
       >
         <View style={{ ...styles.sheetStyle }}>
-          <Text style={styles.sheetHeader}>No of seat</Text>
+          <Text style={styles.sheetHeader}>Vietų sk.</Text>
           <ScrollView
             showsVerticalScrollIndicator={false}
             contentContainerStyle={{ paddingBottom: Sizes.fixPadding * 2.0 }}
@@ -123,7 +123,7 @@ const HomeScreen = ({ navigation, route }) => {
                       textAlign: "center",
                     }}
                   >
-                    {item} Seat
+                    {item} Vieta
                   </Text>
                   {index == seats.length - 1 ? null : (
                     <View
@@ -157,7 +157,7 @@ const HomeScreen = ({ navigation, route }) => {
           <Text
             style={{ ...styles.sheetHeader, marginBottom: Sizes.fixPadding }}
           >
-            Select date & time
+            Pasirinkite datą ir laiką
           </Text>
 
           <ScrollView showsVerticalScrollIndicator={false}>
@@ -279,7 +279,7 @@ const HomeScreen = ({ navigation, route }) => {
                 marginBottom: Sizes.fixPadding * 2.0,
               }}
             >
-              <Text style={{ ...Fonts.whiteColor18Bold }}>Okay</Text>
+              <Text style={{ ...Fonts.whiteColor18Bold }}>Gerai</Text>
             </TouchableOpacity>
           </ScrollView>
         </View>
@@ -405,7 +405,7 @@ const HomeScreen = ({ navigation, route }) => {
                     : { ...Fonts.grayColor15SemiBold }
                 }
               >
-                Find ride
+                Rasti kelionę
               </Text>
             </TouchableOpacity>
             <TouchableOpacity
@@ -425,7 +425,7 @@ const HomeScreen = ({ navigation, route }) => {
                     : { ...Fonts.grayColor15SemiBold }
                 }
               >
-                Offer ride
+                Pasiūlykite kelionę
               </Text>
             </TouchableOpacity>
           </View>
@@ -454,7 +454,7 @@ const HomeScreen = ({ navigation, route }) => {
             </View>
             <View style={{ flex: 1, marginLeft: Sizes.fixPadding + 5.0 }}>
               <Text numberOfLines={1} style={{ ...Fonts.blackColor15SemiBold }}>
-                Pick up location
+                Paėmimo vieta
               </Text>
               {pickupAddress ? (
                 <Text
@@ -491,7 +491,7 @@ const HomeScreen = ({ navigation, route }) => {
             </View>
             <View style={{ flex: 1, marginLeft: Sizes.fixPadding + 5.0 }}>
               <Text numberOfLines={1} style={{ ...Fonts.blackColor15SemiBold }}>
-                Destination location
+                Paskirties vieta
               </Text>
               {destinationAddress ? (
                 <Text
@@ -571,7 +571,7 @@ const HomeScreen = ({ navigation, route }) => {
                     marginLeft: Sizes.fixPadding,
                   }}
                 >
-                  {selectedSeat ? `${selectedSeat} Seat` : "No. of seat"}
+                  {selectedSeat ? `${selectedSeat} Vieta` : "Vietų sk."}
                 </Text>
               </TouchableOpacity>
             ) : null}
@@ -594,7 +594,7 @@ const HomeScreen = ({ navigation, route }) => {
           style={{ ...CommonStyles.button, ...styles.dialogButton }}
         >
           <Text style={{ ...Fonts.whiteColor18Bold }}>
-            {selectedTabIndex == 1 ? " Find ride" : "Continue"}
+            {selectedTabIndex == 1 ? " Rasti kelionę" : "Tęsti"}
           </Text>
         </TouchableOpacity>
       </View>
@@ -626,7 +626,7 @@ const HomeScreen = ({ navigation, route }) => {
           />
           <View style={{ flex: 1, marginLeft: Sizes.fixPadding }}>
             <Text numberOfLines={1} style={{ ...Fonts.whiteColor16SemiBold }}>
-              Welcome john
+              Labas,
             </Text>
             <View
               style={{
@@ -647,7 +647,7 @@ const HomeScreen = ({ navigation, route }) => {
                   marginLeft: Sizes.fixPadding - 5.0,
                 }}
               >
-                Mumbai
+                Šalis
               </Text>
             </View>
           </View>

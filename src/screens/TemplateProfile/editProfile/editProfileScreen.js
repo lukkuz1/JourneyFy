@@ -142,13 +142,13 @@ const EditProfileScreen = ({ navigation }) => {
   return (
     <View style={{ flex: 1, backgroundColor: Colors.bodyBackColor }}>
       <MyStatusBar />
-      <Header title={"Edit Profile"} navigation={navigation} />
+      <Header title={"Redaguoti Profilį"} navigation={navigation} />
       <ScrollView showsVerticalScrollIndicator={false}>
         {profilePic()}
-        <ProfileInputField label="First Name" value={firstName} setter={setFirstName} validate={validateName} />
-        <ProfileInputField label="Last Name" value={lastName} setter={setLastName} validate={validateName} />
-        <ProfileInputField label="Phone Number" value={phoneNumber} setter={setPhoneNumber} keyboardType="phone-pad" validate={validatePhoneNumber} />
-        <ProfileInputField label="Date of Birth" value={dateOfBirth} setter={setDateOfBirth} keyboardType="default" validate={validateDateOfBirth} />
+        <ProfileInputField label="Vardas" value={firstName} setter={setFirstName} validate={validateName} />
+        <ProfileInputField label="Pavardė" value={lastName} setter={setLastName} validate={validateName} />
+        <ProfileInputField label="Telefonas" value={phoneNumber} setter={setPhoneNumber} keyboardType="phone-pad" validate={validatePhoneNumber} />
+        <ProfileInputField label="Gimimo data" value={dateOfBirth} setter={setDateOfBirth} keyboardType="default" validate={validateDateOfBirth} />
       </ScrollView>
       {updateButton()}
     </View>
@@ -174,7 +174,7 @@ const EditProfileScreen = ({ navigation }) => {
         style={{ ...CommonStyles.button, margin: Sizes.fixPadding * 2 }}
         onPress={handleUpdateProfile}
       >
-        <Text style={{ ...Fonts.whiteColor18Bold }}>Update</Text>
+        <Text style={{ ...Fonts.whiteColor18Bold }}>Atnaujinti</Text>
       </TouchableOpacity>
     );
   }

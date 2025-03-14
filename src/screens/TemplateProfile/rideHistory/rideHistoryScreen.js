@@ -94,7 +94,7 @@ const RideHistoryScreen = ({ navigation }) => {
     <View style={{ flex: 1, backgroundColor: Colors.bodyBackColor }}>
       <MyStatusBar />
       <View style={{ flex: 1 }}>
-        <Header title={"Ride history"} navigation={navigation} />
+        <Header title={"Kelionių istorija"} navigation={navigation} />
         {ridesInfo()}
       </View>
     </View>

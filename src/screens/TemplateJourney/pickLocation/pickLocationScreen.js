@@ -86,7 +86,7 @@ const PickLocationScreen = ({navigation, route}) => {
             style={{marginTop: Sizes.fixPadding - 3.0}}
           />
           <GooglePlacesAutocomplete
-            placeholder={'Search location here'}
+            placeholder={'Ieškokite vietos čia'}
             onPress={data => {
               setSearch(data.description);
               setTheMarkerAccordingSearch({address: data.description});
@@ -175,7 +175,7 @@ const PickLocationScreen = ({navigation, route}) => {
           ...CommonStyles.button,
           marginVertical: Sizes.fixPadding * 2.0,
         }}>
-        <Text style={{...Fonts.whiteColor18Bold}}>Pick this location</Text>
+        <Text style={{...Fonts.whiteColor18Bold}}>Pasirinkite šią vietą</Text>
       </TouchableOpacity>
     );
   }

@@ -54,7 +54,7 @@ const CreditCardScreen = ({ navigation }) => {
           marginVertical: Sizes.fixPadding * 2.0,
         }}
       >
-        <Text style={{ ...Fonts.whiteColor18Bold }}>Continue</Text>
+        <Text style={{ ...Fonts.whiteColor18Bold }}>Tęsti</Text>
       </TouchableOpacity>
     );
   }

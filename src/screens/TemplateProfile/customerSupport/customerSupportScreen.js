@@ -25,7 +25,7 @@ const CustomerSupportScreen = ({ navigation }) => {
     <View style={{ flex: 1, backgroundColor: Colors.bodyBackColor }}>
       <MyStatusBar />
       <View style={{ flex: 1 }}>
-        <Header title={"Customer support"} navigation={navigation} />
+        <Header title={"Klientų aptarnavimas"} navigation={navigation} />
         <ScrollView
           showsVerticalScrollIndicator={false}
           automaticallyAdjustKeyboardInsets={true}
@@ -50,7 +50,7 @@ const CustomerSupportScreen = ({ navigation }) => {
         }}
         style={{ ...CommonStyles.button, margin: Sizes.fixPadding * 2.0 }}
       >
-        <Text style={{ ...Fonts.whiteColor18Bold }}>Submit</Text>
+        <Text style={{ ...Fonts.whiteColor18Bold }}>Pateikti</Text>
       </TouchableOpacity>
     );
   }
@@ -64,7 +64,7 @@ const CustomerSupportScreen = ({ navigation }) => {
             marginBottom: Sizes.fixPadding,
           }}
         >
-          Message
+          Žinutė
         </Text>
         <View style={styles.valueBox}>
           <TextInput
@@ -95,11 +95,11 @@ const CustomerSupportScreen = ({ navigation }) => {
             marginBottom: Sizes.fixPadding,
           }}
         >
-          Email address
+          E. paštas
         </Text>
         <View style={styles.valueBox}>
           <TextInput
-            placeholder="Enter your email address"
+            placeholder="Įveskite savo e. paštą"
             style={styles.textFieldStyle}
             placeholderTextColor={Colors.grayColor}
             selectionColor={Colors.primaryColor}
@@ -120,11 +120,11 @@ const CustomerSupportScreen = ({ navigation }) => {
             marginBottom: Sizes.fixPadding,
           }}
         >
-          Name
+          Vardas
         </Text>
         <View style={styles.valueBox}>
           <TextInput
-            placeholder="Enter your name"
+            placeholder="Įveskite savo vardą"
             style={styles.textFieldStyle}
             placeholderTextColor={Colors.grayColor}
             selectionColor={Colors.primaryColor}
@@ -153,7 +153,7 @@ const CustomerSupportScreen = ({ navigation }) => {
               ...Fonts.primaryColor16SemiBold,
             }}
           >
-            Call us
+            Paskambinkite mums
           </Text>
         </View>
         <View style={styles.callAndMailButtonStyle}>
@@ -165,7 +165,7 @@ const CustomerSupportScreen = ({ navigation }) => {
               ...Fonts.primaryColor16SemiBold,
             }}
           >
-            Mail us
+            Parašykite mums
           </Text>
         </View>
       </View>
@@ -195,7 +195,7 @@ const CustomerSupportScreen = ({ navigation }) => {
             marginTop: Sizes.fixPadding * 2.0,
           }}
         >
-          Get in touch
+          Susitikime
         </Text>
       </View>
     );

@@ -49,7 +49,7 @@ const RideCompleteScreen = ({ navigation }) => {
           alignSelf: "center",
         }}
       >
-        Back to home
+        Atgal į pradžią
       </Text>
     );
   }
@@ -68,7 +68,7 @@ const RideCompleteScreen = ({ navigation }) => {
             marginBottom: Sizes.fixPadding - 2.0,
           }}
         >
-          Ride Ended
+          Kelionė užbaigta
         </Text>
         <Text style={{ ...Fonts.grayColor14SemiBold, textAlign: "center" }}>
           Hope you have a great car pooing experience You have earn $50.00 from

@@ -49,7 +49,7 @@ const ConfirmPoolingScreen = ({ navigation }) => {
           alignSelf: "center",
         }}
       >
-        Back to home
+        Atgal į Pradžią
       </Text>
     );
   }
@@ -68,10 +68,10 @@ const ConfirmPoolingScreen = ({ navigation }) => {
             marginBottom: Sizes.fixPadding - 2.0,
           }}
         >
-          Congratulation
+          Sveikiname
         </Text>
         <Text style={{ ...Fonts.grayColor14SemiBold, textAlign: "center" }}>
-          Your car pooing has been{`\n`}confirmed
+          Jūsų automobilio pasiūlymas yra{`\n`}patvirtintas
         </Text>
       </View>
     );

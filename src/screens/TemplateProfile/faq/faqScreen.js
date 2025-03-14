@@ -45,7 +45,7 @@ const FaqScreen = ({ navigation }) => {
     <View style={{ flex: 1, backgroundColor: Colors.bodyBackColor }}>
       <MyStatusBar />
       <View style={{ flex: 1 }}>
-        <Header title={"FAQs"} navigation={navigation} />
+        <Header title={"D.U.K."} navigation={navigation} />
         {faqsInfo()}
       </View>
     </View>
