@@ -5,6 +5,7 @@ import {
   Image,
   TouchableOpacity,
   ScrollView,
+  Alert,
 } from "react-native";
 import React, { useState, useEffect } from "react";
 import {
@@ -22,12 +23,15 @@ import { BottomSheet } from "@rneui/themed";
 import { Calendar } from "react-native-calendars";
 import ScrollPicker from "react-native-wheel-scrollview-picker";
 import DashedLine from "react-native-dashed-line";
+import { getAuth } from "firebase/auth";
+import useCreateJourney from "../../hooks/useCreateJourney";
+import useFindMatchingJourneys from "../../hooks/useFindMatchingJourneys";
 
-const hoursList = [...range(1, 12)];
+const hoursList = [...range(1, 24)];
 
 const minutesList = [...range(0, 59)];
 
-const seats = [...range(1, 8)];
+const seats = [...range(1, 7)];
 
 function range(start, end) {
   return Array(end - start + 1)
@@ -36,6 +40,13 @@ function range(start, end) {
 }
 
 const HomeScreen = ({ navigation, route }) => {
+  const { createJourney, loading, error } = useCreateJourney();
+  const {
+    findMatchingJourneys,
+    loading: findingJourneys,
+    error: findError,
+  } = useFindMatchingJourneys();
+  const auth = getAuth();
   useEffect(() => {
     if (route.params?.address) {
       if (route.params.addressFor === "pickup") {
@@ -60,7 +71,7 @@ const HomeScreen = ({ navigation, route }) => {
   const [showDateTimeSheet, setshowDateTimeSheet] = useState(false);
   const [defaultDate, setdefaultDate] = useState(new Date().getDate());
   const [selectedHour, setselectedHour] = useState(
-    hoursList[new Date().getHours()%12 - 1]
+    hoursList[(new Date().getHours() % 12) - 1]
   );
   const [selectedMinute, setselectedMinute] = useState(
     minutesList[new Date().getMinutes()]
@@ -123,7 +134,7 @@ const HomeScreen = ({ navigation, route }) => {
                       textAlign: "center",
                     }}
                   >
-                    {item} Vieta
+                    {item}
                   </Text>
                   {index == seats.length - 1 ? null : (
                     <View
@@ -433,7 +444,9 @@ const HomeScreen = ({ navigation, route }) => {
           <TouchableOpacity
             activeOpacity={0.8}
             onPress={() => {
-              navigation.navigate("PickLocationScreen");
+              navigation.navigate("PickLocationScreen", {
+                addressFor: "pickup",
+              });
             }}
             style={{
               marginVertical: Sizes.fixPadding * 2.0,
@@ -473,7 +486,9 @@ const HomeScreen = ({ navigation, route }) => {
           <TouchableOpacity
             activeOpacity={0.8}
             onPress={() => {
-              navigation.push("PickLocation", { addressFor: "destination" });
+              navigation.navigate("PickLocationScreen", {
+                addressFor: "destination",
+              });
             }}
             style={{ ...styles.locationBox }}
           >
@@ -542,7 +557,7 @@ const HomeScreen = ({ navigation, route }) => {
                   marginLeft: Sizes.fixPadding,
                 }}
               >
-                {selectedDateAndTime ? selectedDateAndTime : "Date & Time"}
+                {selectedDateAndTime ? selectedDateAndTime : "Data ir Laikas"}
               </Text>
             </TouchableOpacity>
             {selectedTabIndex == 1 ? (
@@ -579,22 +594,68 @@ const HomeScreen = ({ navigation, route }) => {
         </View>
         <TouchableOpacity
           activeOpacity={0.8}
-          onPress={() => {
-            if (pickupAddress && destinationAddress) {
-              selectedTabIndex == 1
-                ? console.log("")
-                : console.log("")
+          onPress={async () => {
+            if (pickupAddress && destinationAddress && selectedDateAndTime) {
+              if (selectedTabIndex === 1) {
+                // FIND journey logic (search existing journeys)
+                const matchingJourneys = await findMatchingJourneys({
+                  pickupAddress,
+                  destinationAddress,
+                  journeyDateTime: selectedDateAndTime,
+                  seats: selectedSeat || 1,
+                });
+
+                if (matchingJourneys.length > 0) {
+                  console.log("Matching journeys found:", matchingJourneys);
+                  navigation.navigate("AvailableRidesScreen", {
+                    journeys: matchingJourneys,
+                  });
+                } else {
+                  console.log("No matching journeys found.");
+                  navigation.navigate("AvailableRidesScreen", {
+                    journeys: matchingJourneys,
+                  });
+                  setpickAlert(true);
+                  setTimeout(() => setpickAlert(false), 2000);
+                }
+              } else if (selectedTabIndex === 2) {
+                // OFFER journey logic (create new journey)
+                const journeyId = await createJourney({
+                  pickupAddress,
+                  destinationAddress,
+                  journeyDateTime: selectedDateAndTime,
+                  seats: selectedSeat || 1,
+                  journeyType: "offer",
+                });
+
+                if (journeyId) {
+                  console.log("Journey created successfully:", journeyId);
+                  navigation.navigate("OfferRideScreen", {
+                  });
+                  // Reset fields after successful creation
+                  setPickupAddress("");
+                  setDestinationAddress("");
+                  setselectedDateAndTime("");
+                  setselectedSeat(undefined);
+                  setselectedDate("");
+                  setselectedHour(hoursList[(new Date().getHours() % 12) - 1]);
+                  setselectedMinute(minutesList[new Date().getMinutes()]);
+                  setselectedAmPm(new Date().toLocaleTimeString().slice(-2));
+                } else {
+                  console.error("Error creating journey:", error);
+                  setpickAlert(true);
+                  setTimeout(() => setpickAlert(false), 2000);
+                }
+              }
             } else {
               setpickAlert(true);
-              setTimeout(() => {
-                setpickAlert(false);
-              }, 2000);
+              setTimeout(() => setpickAlert(false), 2000);
             }
           }}
           style={{ ...CommonStyles.button, ...styles.dialogButton }}
         >
           <Text style={{ ...Fonts.whiteColor18Bold }}>
-            {selectedTabIndex == 1 ? " Rasti kelionę" : "Tęsti"}
+            {selectedTabIndex === 1 ? "Rasti kelionę" : "Tęsti"}
           </Text>
         </TouchableOpacity>
       </View>
@@ -605,10 +666,10 @@ const HomeScreen = ({ navigation, route }) => {
     return (
       <MapView
         region={{
-          latitude: 37.78825,
-          longitude: -122.4324,
-          latitudeDelta: 0.025,
-          longitudeDelta: 0.025,
+          latitude: 54.6872,
+          longitude: 25.2797,
+          latitudeDelta: 0.05,
+          longitudeDelta: 0.05,
         }}
         style={{ flex: 1 }}
         provider={PROVIDER_GOOGLE}
@@ -626,7 +687,7 @@ const HomeScreen = ({ navigation, route }) => {
           />
           <View style={{ flex: 1, marginLeft: Sizes.fixPadding }}>
             <Text numberOfLines={1} style={{ ...Fonts.whiteColor16SemiBold }}>
-              Labas,
+              Labas, {auth.currentUser.email}
             </Text>
             <View
               style={{
@@ -647,7 +708,7 @@ const HomeScreen = ({ navigation, route }) => {
                   marginLeft: Sizes.fixPadding - 5.0,
                 }}
               >
-                Šalis
+                Lietuva
               </Text>
             </View>
           </View>

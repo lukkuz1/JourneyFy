@@ -3,373 +3,329 @@ import {
   View,
   Text,
   StyleSheet,
-  Pressable,
-  Modal,
   TouchableOpacity,
-  Alert,
-  Button,
-  KeyboardAvoidingView,
-  Platform,
+  Modal,
   ScrollView,
   ActivityIndicator,
+  Alert,
+  Image,
 } from "react-native";
-import { useNavigation } from "@react-navigation/native";
-import { SvgXml } from "react-native-svg";
 import { getAuth, deleteUser } from "firebase/auth";
-import { doc, getDoc, updateDoc } from "firebase/firestore";
+import { doc, getDoc, setDoc } from "firebase/firestore";
 import firebaseServices from "../../services/firebase";
 import { useAuth } from "../../hooks/useAuth";
-import Colors from "../../constants/Colors";
-import { logout_icon_xml } from "../../assets/xml/svg";
-import { password_icon_xml } from "../../assets/xml/svg";
-import { delete_icon_xml } from "../../assets/xml/svg";
-import { profile_icon_xml } from "../../assets/xml/svg";
+import { Colors } from "../../constants/styles";
 import EntryInputField from "../../components/Entry/EntryInputField";
+import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 
 const { db } = firebaseServices;
 
 export default function Settings() {
-  const navigation = useNavigation();
   const auth = useAuth();
-  const [isModalVisible, setIsModalVisible] = useState(false);
-  const [passwordModalVisible, setPasswordModalVisible] = useState(false);
-  const [newPassword, setNewPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
-  const [emailModalVisible, setEmailModalVisible] = useState(false);
-  const [newEmail, setNewEmail] = useState("");
-  const [profileModalVisible, setProfileModalVisible] = useState(false);
+  const currentUser = getAuth().currentUser;
+  const currentUserId = currentUser ? currentUser.uid : null;
+
+  const [isDeleteModalVisible, setIsDeleteModalVisible] = useState(false);
+  const [isPasswordModalVisible, setIsPasswordModalVisible] = useState(false);
+  const [isMapModalVisible, setIsMapModalVisible] = useState(false);
   const [loading, setLoading] = useState(true);
 
-  const [username, setUsername] = useState("");
-  const [name, setName] = useState("");
-  const [surname, setSurname] = useState("");
-  const [age, setAge] = useState("");
-  const [populateusername, setpopulateUsername] = useState("");
-  const [populatename, setpopulateName] = useState("");
-  const [populatesurname, setpopulateSurname] = useState("");
-  const [populateage, setpopulateAge] = useState("");
-  const currentUserId = getAuth().currentUser.uid;
+  const [newPassword, setNewPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [radius, setRadius] = useState("");
+  const [stops, setStops] = useState("");
+  const [populateRadius, setPopulateRadius] = useState("");
+  const [populateStops, setPopulateStops] = useState("");
 
-  const fetchUser = async () => {
+  const fetchMapData = async () => {
     try {
-      const userDoc = await getDoc(doc(db, "users", currentUserId));
-      if (userDoc.exists()) {
-        const data = userDoc.data();
-        setpopulateUsername(data.username);
-        setpopulateName(data.name);
-        setpopulateSurname(data.surname);
-        setpopulateAge(data.age.toString());
+      if (!currentUserId) {
+        setLoading(false);
+        return;
+      }
+      const mapDoc = await getDoc(doc(db, "map_data", currentUserId));
+      if (mapDoc.exists()) {
+        const data = mapDoc.data();
+        setPopulateRadius(data.radius.toString());
+        setPopulateStops(data.stops.toString());
       }
     } catch (error) {
-      console.error("Error fetching user data: ", error);
+      console.error("Error fetching map data:", error);
+    } finally {
+      setLoading(false);
     }
-    setLoading(false);
   };
 
   useEffect(() => {
-    fetchUser();
+    fetchMapData();
   }, [currentUserId]);
 
-  const handleProfileUpdate = async () => {
+  const handleUpdateMapData = async () => {
     try {
-      await updateDoc(doc(db, "users", currentUserId), {
-        username,
-        name,
-        surname,
-        age: parseInt(age),
+      if (!currentUserId) {
+        Alert.alert("Error", "User not logged in");
+        return;
+      }
+      await setDoc(doc(db, "map_data", currentUserId), {
+        radius: parseFloat(radius),
+        stops: parseInt(stops),
       });
-      fetchUser();
-      Alert.alert("Sėkmės pranešimas", "Profilis sėkmingai atnaujintas");
-      setProfileModalVisible(false);
+      fetchMapData();
+      Alert.alert("Success", "Map data updated successfully");
+      setIsMapModalVisible(false);
     } catch (error) {
-      console.error("Error updating profile: ", error);
-      Alert.alert("Klaida", "Profilio atnaujinimas nepavyko");
+      console.error("Error updating map data:", error);
+      Alert.alert("Error", "Failed to update map data");
     }
-  };
-
-  const handleLogoutPress = () => {
-    auth.signOut();
   };
 
   const handlePasswordChange = () => {
-    setPasswordModalVisible(true);
-  };
-
-  const handlePasswordSubmit = () => {
     if (newPassword !== confirmPassword) {
-      alert("Slaptažodžiai nesutampa");
+      Alert.alert("Error", "Passwords do not match");
       return;
     }
-    if (newPassword === "" || newPassword.length < 6) {
-      alert("Slaptažodis privalo būti bent 6 simbolių");
+    if (newPassword.length < 6) {
+      Alert.alert("Error", "Password must be at least 6 characters");
       return;
     }
     auth.updatePassword(newPassword);
-    setPasswordModalVisible(false);
-    alert("Slaptažodis sėkmingai pakeistas");
+    setIsPasswordModalVisible(false);
+    Alert.alert("Success", "Password changed successfully");
   };
 
   const handleDeleteAccount = () => {
     const user = getAuth().currentUser;
     deleteUser(user)
       .then(() => {
-        navigation.navigate("Login");
-        Alert.alert("Paskyra ištrinta", "Paskyra sėkmingai ištrinta.");
+        auth.signOut();
+        Alert.alert("Account Deleted", "Your account has been deleted.");
       })
       .catch((error) => {
-        console.error("Error deleting user:", error);
+        console.error("Error deleting account:", error);
       });
   };
 
-  const handleProfile = () => {
-    setProfileModalVisible(true);
-  };
-
-  const handleChangeEmail = () => {
-    if (!newEmail) {
-      Alert.alert("Error", "Prašome įvesti el. paštą ir slaptažodį.");
-      return;
-    }
-    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailPattern.test(newEmail)) {
-      Alert.alert("Error", "Įvestas el. pašto adresas yra neteisingas.");
-      return;
-    }
-    auth.updateEmail(newEmail);
-    setEmailModalVisible(false);
-    alert("El. paštas pakeistas");
-  };
-
   if (loading) {
-    return <ActivityIndicator size="large" color="#0000ff" />;
+    return (
+      <View style={styles.loadingContainer}>
+        <ActivityIndicator size="large" color={Colors.primaryColor} />
+      </View>
+    );
   }
 
   return (
-    <KeyboardAvoidingView
-      style={styles.container}
-      behavior={Platform.OS === "ios" ? "padding" : null}
-    >
-      <View style={styles.container}>
-        <Pressable onPress={handlePasswordChange} style={styles.DefaultButton}>
-          <SvgXml xml={password_icon_xml} width={24} height={24} />
-          <Text style={styles.defaultText}>Pakeisti slaptažodį</Text>
-        </Pressable>
+    <View style={styles.container}>
+      <ScrollView>
+        {/* Header */}
+        <View style={styles.header}>
+          <Text style={styles.headerText}>Nustatymai</Text>
+        </View>
 
-        <Pressable onPress={handleProfile} style={styles.DefaultButton}>
-          <SvgXml xml={profile_icon_xml} width={24} height={24} />
-          <Text style={styles.defaultText}>Profilis</Text>
-        </Pressable>
+        {/* Profile Section */}
+        <View style={styles.profileSection}>
+          <Image
+            source={
+              currentUser?.photoURL
+                ? { uri: currentUser.photoURL }
+                : require("../../assets/images/user/user1.jpeg")
+            }
+            style={styles.profileImage}
+          />
+          <View style={styles.profileInfo}>
+            <Text style={styles.profileName}>{currentUser?.displayName || "Naudotojas"}</Text>
+            <Text style={styles.profileEmail}>{currentUser?.email}</Text>
+          </View>
+        </View>
 
-        <Pressable onPress={handleLogoutPress} style={styles.DefaultButton}>
-          <SvgXml xml={logout_icon_xml} width={24} height={24} />
-          <Text style={styles.logoutButtonText}>Atsijungti</Text>
-        </Pressable>
+        {/* Options */}
+        <View style={styles.optionsContainer}>
+          <TouchableOpacity
+            style={styles.option}
+            onPress={() => setIsPasswordModalVisible(true)}
+          >
+            <MaterialCommunityIcons name="lock-reset" size={24} color={Colors.grayColor} />
+            <Text style={styles.optionText}>Pakeisti slaptažodį</Text>
+            <MaterialCommunityIcons name="chevron-right" size={24} color={Colors.grayColor} />
+          </TouchableOpacity>
 
-        <Pressable
-          onPress={() => setIsModalVisible(true)}
-          style={styles.DefaultButton}
-        >
-          <SvgXml xml={delete_icon_xml} width={24} height={24} />
-          <Text style={styles.logoutButtonText}>Ištrinti paskyrą</Text>
-        </Pressable>
+          <TouchableOpacity
+            style={styles.option}
+            onPress={() => setIsMapModalVisible(true)}
+          >
+            <MaterialCommunityIcons name="map-marker-radius" size={24} color={Colors.grayColor} />
+            <Text style={styles.optionText}>Žemėlapio nustatymai</Text>
+            <MaterialCommunityIcons name="chevron-right" size={24} color={Colors.grayColor} />
+          </TouchableOpacity>
 
-        <Modal
-          animationType="slide"
-          transparent={true}
-          visible={emailModalVisible}
-          onRequestClose={() => setEmailModalVisible(!emailModalVisible)}
-        >
-          <ScrollView contentContainerStyle={styles.scrollViewContent}>
-            <View style={styles.modalOverlay}>
-              <View style={styles.modalContainer}>
-                <Text style={styles.modalTitle}>El. pašto pakeitimas</Text>
+          <TouchableOpacity
+            style={styles.option}
+            onPress={() => setIsDeleteModalVisible(true)}
+          >
+            <MaterialCommunityIcons name="account-remove" size={24} color={Colors.redColor} />
+            <Text style={[styles.optionText, { color: Colors.redColor }]}>Paskyros ištrinimas</Text>
+            <MaterialCommunityIcons name="chevron-right" size={24} color={Colors.grayColor} />
+          </TouchableOpacity>
+        </View>
+      </ScrollView>
 
-                <EntryInputField
-                  headerText="Naujas el. paštas"
-                  placeholderText="Įveskite naują el. paštą"
-                  keyboardType="email-address"
-                  isPassword={false}
-                  margin={[0, 20, 0, 0]}
-                  onChangeText={(text) => setNewEmail(text)}
-                />
-                <View style={styles.buttonContainer}>
-                  <Button title="Pakeisti" onPress={handleChangeEmail} />
-                  <Button
-                    title="Atšaukti"
-                    onPress={() => setEmailModalVisible(false)}
-                    color="red"
-                  />
-                </View>
-              </View>
+      {/* Map Settings Modal */}
+      <Modal visible={isMapModalVisible} transparent animationType="slide">
+        <View style={styles.modalOverlay}>
+          <View style={styles.modalContent}>
+            <Text style={styles.modalTitle}>Map Settings</Text>
+            <EntryInputField
+              headerText="Radius (km)"
+              placeholderText={populateRadius || "Enter radius"}
+              keyboardType="numeric"
+              isPassword={false}
+              onChangeText={(text) => setRadius(text)}
+            />
+            <EntryInputField
+              headerText="Max Stops"
+              placeholderText={populateStops || "Enter max stops"}
+              keyboardType="numeric"
+              isPassword={false}
+              onChangeText={(text) => setStops(text)}
+            />
+            <View style={styles.modalButtons}>
+              <TouchableOpacity
+                style={styles.modalButton}
+                onPress={handleUpdateMapData}
+              >
+                <Text style={styles.modalButtonText}>Save</Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={[styles.modalButton, styles.modalCancelButton]}
+                onPress={() => setIsMapModalVisible(false)}
+              >
+                <Text style={styles.modalButtonText}>Cancel</Text>
+              </TouchableOpacity>
             </View>
-          </ScrollView>
-        </Modal>
+          </View>
+        </View>
+      </Modal>
 
-        <Modal
-          transparent={true}
-          animationType="slide"
-          visible={isModalVisible}
-          onRequestClose={() => setIsModalVisible(false)}
-        >
-          <ScrollView contentContainerStyle={styles.scrollViewContent}>
-            <View style={styles.modalOverlay}>
-              <View style={styles.modalContent}>
-                <Text style={styles.modalText}>
-                  Ar tikrai norite ištrinti paskyrą?
-                </Text>
-                <View style={styles.buttonContainer}>
-                  <TouchableOpacity
-                    style={[styles.button, styles.confirmButton]}
-                    onPress={() => {
-                      handleDeleteAccount();
-                      setIsModalVisible(false);
-                    }}
-                  >
-                    <Text style={styles.buttonText}>Taip</Text>
-                  </TouchableOpacity>
-                  <TouchableOpacity
-                    style={[styles.button, styles.cancelButton]}
-                    onPress={() => setIsModalVisible(false)}
-                  >
-                    <Text style={styles.buttonText}>Ne</Text>
-                  </TouchableOpacity>
-                </View>
-              </View>
+      {/* Password Modal */}
+      <Modal visible={isPasswordModalVisible} transparent animationType="slide">
+        <View style={styles.modalOverlay}>
+          <View style={styles.modalContent}>
+            <Text style={styles.modalTitle}>Change Password</Text>
+            <EntryInputField
+              headerText="New Password"
+              placeholderText="Enter new password"
+              isPassword
+              onChangeText={(text) => setNewPassword(text)}
+            />
+            <EntryInputField
+              headerText="Confirm Password"
+              placeholderText="Confirm new password"
+              isPassword
+              onChangeText={(text) => setConfirmPassword(text)}
+            />
+            <View style={styles.modalButtons}>
+              <TouchableOpacity
+                style={styles.modalButton}
+                onPress={handlePasswordChange}
+              >
+                <Text style={styles.modalButtonText}>Submit</Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={[styles.modalButton, styles.modalCancelButton]}
+                onPress={() => setIsPasswordModalVisible(false)}
+              >
+                <Text style={styles.modalButtonText}>Cancel</Text>
+              </TouchableOpacity>
             </View>
-          </ScrollView>
-        </Modal>
+          </View>
+        </View>
+      </Modal>
 
-        <Modal
-          animationType="slide"
-          transparent={true}
-          visible={passwordModalVisible}
-          onRequestClose={() => {
-            setPasswordModalVisible(!passwordModalVisible);
-          }}
-        >
-          <ScrollView contentContainerStyle={styles.scrollViewContent}>
-            <View style={styles.modalOverlay}>
-              <View style={styles.modalContainer}>
-                <Text style={styles.modalTitle}>Slaptažodžio pakeitimas</Text>
-
-                <EntryInputField
-                  headerText="Naujas slaptažodis"
-                  placeholderText="Įveskite savo naują slaptažodį"
-                  isPassword={true}
-                  margin={[0, 20, 0, 0]}
-                  onChangeText={(text) => setNewPassword(text)}
-                />
-
-                <EntryInputField
-                  headerText="Patvirtinkite slaptažodį"
-                  placeholderText="Patvirtinkite savo naują slaptažodį"
-                  isPassword={true}
-                  margin={[0, 20, 0, 0]}
-                  onChangeText={(text) => setConfirmPassword(text)}
-                />
-                <View style={styles.buttonContainer}>
-                  <Button title="Pakeisti" onPress={handlePasswordSubmit} />
-                  <Button
-                    title="Atšaukti"
-                    onPress={() => setPasswordModalVisible(false)}
-                    color="red"
-                  />
-                </View>
-              </View>
+      {/* Delete Account Modal */}
+      <Modal visible={isDeleteModalVisible} transparent animationType="slide">
+        <View style={styles.modalOverlay}>
+          <View style={styles.modalContent}>
+            <Text style={styles.modalTitle}>Delete Account</Text>
+            <Text style={styles.modalText}>
+              Are you sure you want to delete your account? This action cannot be undone.
+            </Text>
+            <View style={styles.modalButtons}>
+              <TouchableOpacity
+                style={styles.modalButton}
+                onPress={handleDeleteAccount}
+              >
+                <Text style={styles.modalButtonText}>Delete</Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={[styles.modalButton, styles.modalCancelButton]}
+                onPress={() => setIsDeleteModalVisible(false)}
+              >
+                <Text style={styles.modalButtonText}>Cancel</Text>
+              </TouchableOpacity>
             </View>
-          </ScrollView>
-        </Modal>
-
-        <Modal
-          animationType="slide"
-          transparent={true}
-          visible={profileModalVisible}
-          onRequestClose={() => setProfileModalVisible(false)}
-        >
-          <ScrollView contentContainerStyle={styles.scrollViewContent}>
-            <View style={styles.modalOverlay}>
-              <View style={styles.modalContainer}>
-                <Text style={styles.modalTitle}>Atnaujinkite profilį</Text>
-                <EntryInputField
-                  headerText="Slapyvardis"
-                  placeholderText={
-                    populateusername || "Įveskite savo slapyvardį"
-                  }
-                  isPassword={false}
-                  onChangeText={(text) => setUsername(text)}
-                  margin={[0, 20, 0, 0]}
-                />
-                <EntryInputField
-                  headerText="Vardas"
-                  placeholderText={populatename || "Įveskite savo vardą"}
-                  isPassword={false}
-                  onChangeText={setName}
-                  margin={[0, 20, 0, 0]}
-                />
-                <EntryInputField
-                  headerText="Pavardė"
-                  placeholderText={populatesurname || "Įveskite savo pavardę"}
-                  isPassword={false}
-                  onChangeText={setSurname}
-                  margin={[0, 20, 0, 0]}
-                />
-                <EntryInputField
-                  headerText="Amžius"
-                  placeholderText={populateage || "Įveskite savo amžių"}
-                  isPassword={false}
-                  onChangeText={setAge}
-                  keyboardType="numeric"
-                  margin={[0, 20, 0, 0]}
-                />
-                <View style={styles.buttonContainer}>
-                  <Button title="Išsaugoti" onPress={handleProfileUpdate} />
-                  <Button
-                    title="Atšaukti"
-                    onPress={() => setProfileModalVisible(false)}
-                    color="red"
-                  />
-                </View>
-              </View>
-            </View>
-          </ScrollView>
-        </Modal>
-      </View>
-    </KeyboardAvoidingView>
+          </View>
+        </View>
+      </Modal>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: Colors.bodyBackColor,
+  },
+  loadingContainer: {
+    flex: 1,
     justifyContent: "center",
     alignItems: "center",
   },
-  DefaultButton: {
+  header: {
+    backgroundColor: Colors.primaryColor,
+    padding: 20,
+  },
+  headerText: {
+    color: Colors.whiteColor,
+    fontSize: 20,
+    fontWeight: "bold",
+    textAlign: "center",
+  },
+  profileSection: {
     flexDirection: "row",
     alignItems: "center",
-    justifyContent: "center",
-    marginTop: 20,
-    backgroundColor: "transparent",
-    padding: 10,
-    borderRadius: 5,
+    padding: 20,
+    backgroundColor: Colors.whiteColor,
   },
-  scrollViewContent: {
-    flexGrow: 1,
-    justifyContent: "center",
+  profileImage: {
+    width: 70,
+    height: 70,
+    borderRadius: 35,
+  },
+  profileInfo: {
+    marginLeft: 15,
+  },
+  profileName: {
+    fontSize: 18,
+    fontWeight: "bold",
+  },
+  profileEmail: {
+    fontSize: 14,
+    color: Colors.grayColor,
+  },
+  optionsContainer: {
+    marginTop: 10,
+    backgroundColor: Colors.whiteColor,
+  },
+  option: {
+    flexDirection: "row",
     alignItems: "center",
-    paddingBottom: 40,
+    padding: 15,
+    borderBottomWidth: 1,
+    borderBottomColor: Colors.lightGrayColor,
   },
-  logoutButtonText: {
+  optionText: {
+    flex: 1,
     marginLeft: 10,
     fontSize: 16,
-    fontWeight: "bold",
-    color: "red",
-  },
-  defaultText: {
-    marginLeft: 10,
-    fontSize: 16,
-    fontWeight: "bold",
-    color: Colors.LightBlue,
   },
   modalOverlay: {
     flex: 1,
@@ -378,40 +334,10 @@ const styles = StyleSheet.create({
     backgroundColor: "rgba(0, 0, 0, 0.5)",
   },
   modalContent: {
-    width: 600,
-    padding: 20,
-    backgroundColor: "white",
+    width: "80%",
+    backgroundColor: Colors.whiteColor,
     borderRadius: 10,
-    alignItems: "center",
-  },
-  modalText: {
-    fontSize: 18,
-    marginBottom: 20,
-    textAlign: "center",
-  },
-  buttonContainer: {
-    flexDirection: "row",
-  },
-  button: {
-    padding: 10,
-    margin: 10,
-    borderRadius: 5,
-  },
-  confirmButton: {
-    backgroundColor: "red",
-  },
-  cancelButton: {
-    backgroundColor: "gray",
-  },
-  buttonText: {
-    color: "white",
-    fontSize: 16,
-  },
-  modalContainer: {
-    width: 800,
     padding: 20,
-    backgroundColor: "white",
-    borderRadius: 10,
     alignItems: "center",
   },
   modalTitle: {
@@ -419,12 +345,30 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     marginBottom: 10,
   },
-  input: {
+  modalText: {
+    fontSize: 14,
+    color: Colors.grayColor,
+    textAlign: "center",
+    marginBottom: 20,
+  },
+  modalButtons: {
+    flexDirection: "row",
+    justifyContent: "space-between",
     width: "100%",
+  },
+  modalButton: {
+    flex: 1,
+    backgroundColor: Colors.primaryColor,
     padding: 10,
-    marginVertical: 5,
-    borderWidth: 1,
-    borderColor: "#ccc",
+    margin: 5,
     borderRadius: 5,
+    alignItems: "center",
+  },
+  modalCancelButton: {
+    backgroundColor: Colors.redColor,
+  },
+  modalButtonText: {
+    color: Colors.whiteColor,
+    fontSize: 16,
   },
 });

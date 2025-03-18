@@ -18,6 +18,7 @@ import RidesScreen from "../screens/TemplateJourney/rides/ridesScreen";
 import StartRideScreen from "../screens/TemplateJourney/startRide/startRideScreen";
 import UserVehiclesScreen from "../screens/TemplateProfile/userVehicles/userVehiclesScreen";
 import MessageScreen from "../screens/TemplateJourney/message/messageScreen";
+import Settings from "../screens/Main/Settings";
 
 const Stack = createStackNavigator();
 
@@ -49,6 +50,7 @@ export default function JourneyNavigation() {
       <Stack.Screen name="StartRideScreen" component={StartRideScreen} />
       <Stack.Screen name="UserVehiclesScreen" component={UserVehiclesScreen} />
       <Stack.Screen name="MessageScreen" component={MessageScreen} />
+      <Stack.Screen name="Settings" component={Settings} />
     </Stack.Navigator>
   );
 }

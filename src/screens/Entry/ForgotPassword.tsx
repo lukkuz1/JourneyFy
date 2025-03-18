@@ -11,7 +11,7 @@ import {
   Alert,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
-import Colors from "../../constants/Colors";
+import { Colors } from "../../constants/styles";
 import EntryInputField from "../../components/Entry/EntryInputField";
 import EntryButton from "../../components/Entry/EntryButton";
 import { sendPasswordResetEmail } from "firebase/auth";
@@ -57,6 +57,9 @@ export default function ForgotPassword() {
       behavior={Platform.OS === "ios" ? "padding" : "height"}
     >
       <ScrollView contentContainerStyle={styles.scrollViewContent}>
+              <View style={styles.header}>
+                            <Text style={styles.headerText}>JourneyFy</Text>
+                          </View>
         <View style={styles.logoContainer}>
           <Image
             source={require("../../../assets/journeyfy_logo.png")}
@@ -75,8 +78,8 @@ export default function ForgotPassword() {
           />
           <EntryButton
             text="Priminti slaptažodį"
-            textColor={Colors.White}
-            buttonColor={Colors.Blue}
+          textColor={Colors.whiteColor}
+          buttonColor={Colors.primaryColor}
             margin={[30, 75, 0, 0]}
             onPress={() => handleForgotPassword()}
             style={{ elevation: 5 }}
@@ -98,7 +101,17 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "transparent", // Background transparent as per your request
+    backgroundColor: "transparent",
+  },
+  header: {
+    backgroundColor: "transparent",
+    padding: 10,
+  },
+  headerText: {
+    color: Colors.primaryColor,
+    fontSize: 20,
+    fontWeight: "bold",
+    textAlign: "center",
   },
   scrollViewContent: {
     flexGrow: 1,

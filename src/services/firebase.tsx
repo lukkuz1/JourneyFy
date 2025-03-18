@@ -3,17 +3,29 @@ import { initializeAuth, getReactNativePersistence } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
 import ReactNativeAsyncStorage from "@react-native-async-storage/async-storage";
 import { getDatabase } from "firebase/database";
+import {
+  FIREBASE_API_KEY,
+  FIREBASE_AUTH_DOMAIN,
+  FIREBASE_DATABASE_URL,
+  FIREBASE_PROJECT_ID,
+  FIREBASE_STORAGE_BUCKET,
+  FIREBASE_MESSAGING_SENDER_ID,
+  FIREBASE_APP_ID,
+  FIREBASE_MEASUREMENT_ID,
+  SECONDARY_API_KEY,
+} from "@env";
+
+
 
 const firebaseConfig = {
-  apiKey: "AIzaSyAcN-kGs1M22h3qiCNByFqmqEBr_trftqE",
-  authDomain: "journeyfy-a90b4.firebaseapp.com",
-  databaseURL:
-    "https://journeyfy-a90b4-default-rtdb.europe-west1.firebasedatabase.app",
-  projectId: "journeyfy-a90b4",
-  storageBucket: "journeyfy-a90b4.appspot.com",
-  messagingSenderId: "1075210035793",
-  appId: "1:1075210035793:web:353fa19466ab353476ce70",
-  measurementId: "G-3VKT0EZKKJ",
+  apiKey: FIREBASE_API_KEY,
+  authDomain: FIREBASE_AUTH_DOMAIN,
+  databaseURL: FIREBASE_DATABASE_URL,
+  projectId: FIREBASE_PROJECT_ID,
+  storageBucket: FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: FIREBASE_MESSAGING_SENDER_ID,
+  appId: FIREBASE_APP_ID,
+  measurementId: FIREBASE_MEASUREMENT_ID,
 };
 
 export const app = initializeApp(firebaseConfig);

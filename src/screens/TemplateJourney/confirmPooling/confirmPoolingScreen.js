@@ -11,7 +11,7 @@ const ConfirmPoolingScreen = ({ navigation }) => {
         e.preventDefault();
       });
     } else {
-      navigation.push("BottomTabBar");
+      navigation.navigate("HomeScreen");
       return true;
     }
   };
@@ -41,7 +41,7 @@ const ConfirmPoolingScreen = ({ navigation }) => {
     return (
       <Text
         onPress={() => {
-          navigation.push("BottomTabBar");
+          navigation.navigate("HomeScreen");
         }}
         style={{
           ...Fonts.primaryColor16SemiBold,

@@ -1,3 +1,4 @@
+import "react-native-get-random-values";
 import {
   StyleSheet,
   Text,
@@ -6,8 +7,8 @@ import {
   TouchableOpacity,
   Platform,
   KeyboardAvoidingView,
-} from 'react-native';
-import React, {useState, useEffect} from 'react';
+} from "react-native";
+import React, { useState, useEffect } from "react";
 import {
   Colors,
   Fonts,
@@ -15,42 +16,70 @@ import {
   CommonStyles,
   screenHeight,
   screenWidth,
-} from '../../../constants/styles';
-import MapView, {Marker, PROVIDER_GOOGLE} from 'react-native-maps';
-import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-import Ionicons from 'react-native-vector-icons/Ionicons';
-// import {GooglePlacesAutocomplete} from 'react-native-google-places-autocomplete';
-// import Key from '../../constants/key';
-import {Input} from '@rneui/themed';
-import MyStatusBar from '../../../components/myStatusBar';
-// import Geocoder from 'react-native-geocoding';
+} from "../../../constants/styles";
+import MapView, { Marker, PROVIDER_GOOGLE } from "react-native-maps";
+import MaterialIcons from "react-native-vector-icons/MaterialIcons";
+import Ionicons from "react-native-vector-icons/Ionicons";
+import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
+import { Key } from "../../../constants/key";
+import { Input } from "@rneui/themed";
+import MyStatusBar from "../../../components/myStatusBar";
+import Geocoder from "react-native-geocoding";
+import * as Location from "expo-location";
 
-const LATITUDE = 37.78825;
-const LONGITUDE = -122.4324;
+const LATITUDE = 35.78825;
+const LONGITUDE = -121.4324;
 const SPACE = 0.01;
 const ASPECT_RATIO = screenWidth / screenHeight;
 const LATITUDE_DELTA = 0.1;
 const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO;
 
-const PickLocationScreen = ({navigation, route}) => {
+const PickLocationScreen = ({ navigation, route }) => {
   const [currentmarker, setCurrentMarker] = useState({
     latitude: LATITUDE - SPACE,
     longitude: LONGITUDE - SPACE,
   });
-  const [address, setAddress] = useState('');
-  const [search, setSearch] = useState('');
+  const [address, setAddress] = useState("");
+  const [search, setSearch] = useState("");
+
+  // ✅ Ensure route.params is always defined
+  const params = route?.params || {};
+  const addressFor = params.addressFor || "unknown";
 
   useEffect(() => {
-    Geocoder.init(Key.apiKey);
-    getAddress({location: currentmarker});
+    (async () => {
+      let { status } = await Location.requestForegroundPermissionsAsync();
+      if (status !== "granted") {
+        console.warn("Permission to access location was denied");
+        return;
+      }
+  
+      let location = await Location.getCurrentPositionAsync({});
+      const { latitude, longitude } = location.coords;
+  
+      console.log("Device location:", latitude, longitude);
+  
+      // Update marker and fetch address
+      setCurrentMarker({ latitude, longitude });
+    })();
   }, []);
+  
+  useEffect(() => {
+    Geocoder.init(Key.apiKey);
+  
+    if (currentmarker.latitude && currentmarker.longitude) {
+      getAddress(currentmarker);
+    }
+  }, [currentmarker]); // Ensure it runs when the marker updates
+
 
   return (
-    <View style={{flex: 1, backgroundColor: Colors.bodyBackColor}}>
+    <View style={{ flex: 1, backgroundColor: Colors.bodyBackColor }}>
       <MyStatusBar />
       <KeyboardAvoidingView
-        behavior={Platform.OS == 'ios' ? 'padding' : null}
-        style={{flex: 1}}>
+        behavior={Platform.OS === "ios" ? "padding" : undefined}
+        style={{ flex: 1 }}
+      >
         {headerBg()}
         {header()}
         {mapView()}
@@ -73,54 +102,64 @@ const PickLocationScreen = ({navigation, route}) => {
           name="arrow-back-ios"
           color={Colors.whiteColor}
           size={24}
-          style={{marginTop: Sizes.fixPadding}}
-          onPress={() => {
-            navigation.pop();
-          }}
+          style={{ marginTop: Sizes.fixPadding }}
+          onPress={() => navigation.goBack()}
         />
         <View style={styles.searchFieldWrapStyle}>
           <Ionicons
             name="search"
             color={Colors.grayColor}
             size={20}
-            style={{marginTop: Sizes.fixPadding - 3.0}}
+            style={{ marginTop: Sizes.fixPadding - 3.0 }}
           />
           <GooglePlacesAutocomplete
-            placeholder={'Ieškokite vietos čia'}
-            onPress={data => {
-              setSearch(data.description);
-              setTheMarkerAccordingSearch({address: data.description});
-            }}
-            styles={{
-              textInput: {height: 40, marginRight: -20.0},
-            }}
-            query={{
-              key: Key.apiKey,
-              language: 'en',
-            }}
-            textInputProps={{
-              InputComp: Input,
-              value: search,
-              onChangeText: value => {
-                setSearch(value);
-              },
-              inputContainerStyle: {borderBottomWidth: 0.0, height: 40.0},
-              inputStyle: {...Fonts.blackColor16SemiBold},
-              containerStyle: {marginLeft: -Sizes.fixPadding, height: 40.0},
-              selectionColor: Colors.primaryColor,
-            }}
-          />
-          {search && Platform.OS == 'android' ? (
+  placeholder={"Ieškokite vietos čia"}
+  minLength={2} // Ensures a minimum of 2 characters before searching
+  fetchDetails={true} // ✅ Must be true to get location details
+  onPress={(data, details = null) => {
+    if (details) {
+      setSearch(data.description);
+      setTheMarkerAccordingSearch(data.description);
+    }
+  }}
+  query={{
+    key: Key.apiKey,
+    language: "en",
+    components: "country:us",
+  }}
+  styles={{
+    textInput: { height: 40, marginRight: -20.0 },
+    listView: { 
+      backgroundColor: "white", 
+      zIndex: 1000, // ✅ Ensures dropdown appears above other components
+      elevation: 5, // ✅ Adds shadow for visibility
+    },
+  }}
+  listViewDisplayed="auto" // ✅ Ensures list appears
+  textInputProps={{
+    InputComp: Input,
+    value: search,
+    onChangeText: setSearch,
+    inputContainerStyle: { borderBottomWidth: 0.0, height: 40.0 },
+    inputStyle: { ...Fonts.blackColor16SemiBold },
+    containerStyle: { marginLeft: -Sizes.fixPadding, height: 40.0 },
+    selectionColor: Colors.primaryColor,
+  }}
+/>
+          {search && Platform.OS === "android" && (
             <MaterialIcons
               name="close"
               size={20}
               color={Colors.grayColor}
-              style={{marginTop: Sizes.fixPadding - 3.0}}
-              onPress={() => {
-                setSearch('');
+              style={{ marginTop: Sizes.fixPadding - 3.0 }}
+              onPress={(data, details = null) => {
+                if (details) {
+                  setSearch(data.description);
+                  setTheMarkerAccordingSearch(details.geometry.location); // ✅ Corrected
+                }
               }}
             />
-          ) : null}
+          )}
         </View>
       </View>
     );
@@ -128,21 +167,18 @@ const PickLocationScreen = ({navigation, route}) => {
 
   function locationInfo() {
     return (
-      <View style={{...styles.locationInfoWrapStyle}}>
+      <View style={styles.locationInfoWrapStyle}>
         <View
           style={{
             borderColor:
-              route.params.addressFor == 'pickup'
-                ? Colors.greenColor
-                : Colors.redColor,
+              addressFor === "pickup" ? Colors.greenColor : Colors.redColor,
             ...styles.locationIconWrapper,
-          }}>
+          }}
+        >
           <MaterialIcons
             name="location-pin"
             color={
-              route.params.addressFor == 'pickup'
-                ? Colors.greenColor
-                : Colors.redColor
+              addressFor === "pickup" ? Colors.greenColor : Colors.redColor
             }
             size={18}
           />
@@ -153,8 +189,9 @@ const PickLocationScreen = ({navigation, route}) => {
             marginLeft: Sizes.fixPadding,
             flex: 1,
             ...Fonts.blackColor14Medium,
-          }}>
-          {address}
+          }}
+        >
+          {address || "Adresas nepasirinktas"}
         </Text>
       </View>
     );
@@ -165,69 +202,80 @@ const PickLocationScreen = ({navigation, route}) => {
       <TouchableOpacity
         activeOpacity={0.8}
         onPress={() => {
-          navigation.navigate({
-            name: 'Home',
-            params: {address: address, addressFor: route.params.addressFor},
-            merge: true,
+          console.log("Selected Address:", address);
+          navigation.navigate("HomeScreen", {
+            address: address,
+            addressFor: addressFor,
           });
         }}
         style={{
           ...CommonStyles.button,
           marginVertical: Sizes.fixPadding * 2.0,
-        }}>
-        <Text style={{...Fonts.whiteColor18Bold}}>Pasirinkite šią vietą</Text>
+        }}
+      >
+        <Text style={{ ...Fonts.whiteColor18Bold }}>Pasirinkite šią vietą</Text>
       </TouchableOpacity>
     );
   }
 
-  async function setTheMarkerAccordingSearch({address}) {
-    Geocoder.from(address)
-    .then(json => {
-      var location = json.results[0].geometry.location;
-      const userSearchLocation = {
+  async function setTheMarkerAccordingSearch(location) {
+    try {
+      if (!location) {
+        console.warn("Invalid location data");
+        return;
+      }
+  
+      console.log("Setting marker for:", location);
+  
+      // Update the marker
+      setCurrentMarker({
         latitude: location.lat,
         longitude: location.lng,
-      };
-      setCurrentMarker(userSearchLocation);
-      setAddress(address);
-    })
-    .catch(error => console.warn(error));
+      });
+  
+      getAddress({ latitude: location.lat, longitude: location.lng }); // ✅ Fetch address
+    } catch (error) {
+      console.warn("Geocoding error:", error);
+    }
   }
 
   function mapView() {
     return (
       <MapView
-        style={{flex: 1}}
+        style={{ flex: 1 }}
         region={{
           latitude: currentmarker.latitude,
           longitude: currentmarker.longitude,
           latitudeDelta: LATITUDE_DELTA,
           longitudeDelta: LONGITUDE_DELTA,
         }}
-        provider={PROVIDER_GOOGLE}>
+        provider={PROVIDER_GOOGLE}
+      >
         <Marker
           coordinate={currentmarker}
-          onDragEnd={e => {
-            setCurrentMarker(e.nativeEvent.coordinate);
-            getAddress({location: e.nativeEvent.coordinate});
+          onDragEnd={(e) => {
+            const newLocation = e.nativeEvent.coordinate;
+            setCurrentMarker(newLocation);
+            getAddress(newLocation);
           }}
-          draggable>
+          draggable
+        >
           <Image
-            source={require('../../../assets/images/icons/marker.png')}
-            style={{width: 40.0, height: 40.0, resizeMode: 'contain'}}
+            source={require("../../../assets/images/icons/marker.png")}
+            style={{ width: 40.0, height: 40.0, resizeMode: "contain" }}
           />
         </Marker>
       </MapView>
     );
   }
 
-  function getAddress({location}) {
+  function getAddress(location) {
     Geocoder.from(location.latitude, location.longitude)
-      .then(json => {
-        var addressComponent = json.results[0].formatted_address;
+      .then((json) => {
+        const addressComponent = json.results[0].formatted_address;
         setAddress(addressComponent);
       })
-      .catch(error => console.warn(error));
+      .catch((error) => console.warn("Geocoder error:", error));
   }
 };
 
@@ -248,12 +296,12 @@ const styles = StyleSheet.create({
     paddingHorizontal: Sizes.fixPadding * 2.0,
     paddingVertical: Sizes.fixPadding + 5.0,
     marginHorizontal: Sizes.fixPadding * 2.0,
-    justifyContent: 'center',
+    justifyContent: "center",
     ...CommonStyles.rowAlignCenter,
     ...CommonStyles.shadow,
   },
   searchFieldWrapStyle: {
-    flexDirection: 'row',
+    flexDirection: "row",
     flex: 1,
     backgroundColor: Colors.whiteColor,
     borderRadius: Sizes.fixPadding,
@@ -267,12 +315,12 @@ const styles = StyleSheet.create({
     height: 24.0,
     borderRadius: 12.0,
     borderWidth: 1.0,
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
   },
   headerBg: {
     backgroundColor: Colors.primaryColor,
-    position: 'absolute',
+    position: "absolute",
     left: 0,
     right: 0,
     top: 0,
@@ -280,8 +328,8 @@ const styles = StyleSheet.create({
     zIndex: 90,
   },
   header: {
-    flexDirection: 'row',
-    position: 'absolute',
+    flexDirection: "row",
+    position: "absolute",
     left: 0,
     right: 0,
     top: 0,

@@ -90,7 +90,7 @@ const OfferRideScreen = ({ navigation }) => {
                       textAlign: "center",
                     }}
                   >
-                    {item} Vieta
+                    {item}
                   </Text>
                   {index == seats.length - 1 ? null : (
                     <View
@@ -164,7 +164,7 @@ const OfferRideScreen = ({ navigation }) => {
         <TouchableOpacity
           activeOpacity={0.8}
           onPress={() => {
-            navigation.push("ConfirmPooling");
+            navigation.navigate("ConfirmPoolingScreen");
           }}
           style={{
             ...CommonStyles.button,
@@ -222,7 +222,7 @@ const OfferRideScreen = ({ navigation }) => {
             marginBottom: Sizes.fixPadding,
           }}
         >
-          Laisva vieta
+          Laisvų vietų sk.
         </Text>
         <TouchableOpacity
           activeOpacity={0.8}
@@ -240,7 +240,7 @@ const OfferRideScreen = ({ navigation }) => {
                 : { ...Fonts.grayColor15Medium }),
             }}
           >
-            {selectedSeat ? `${selectedSeat} Vieta` : "Pasirinkite laisvą vietą"}
+            {selectedSeat ? `${selectedSeat} ` : "Pasirinkite laisvų vietų sk."}
           </Text>
           <Ionicons name="chevron-down" color={Colors.grayColor} size={20.5} />
         </TouchableOpacity>

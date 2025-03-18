@@ -1,22 +1,26 @@
 import React, { useEffect, useState } from "react";
-import { FlatList, StyleSheet, Text, View, Image, TouchableOpacity, ViewStyle } from "react-native";
+import { FlatList, StyleSheet, Text, View, Image, TouchableOpacity, ViewStyle, Alert } from "react-native";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import DashedLine from "react-native-dashed-line";
 import { Colors, Sizes, Fonts, CommonStyles } from "../../constants/styles";
 import MyStatusBar from "../../components/myStatusBar";
+import { getFirestore, collection, getDocs } from "firebase/firestore";
 
 type RideItem = {
   id: string;
-  profile: any;
-  name: string;
-  date: string;
-  time: string;
-  pickup: string;
-  drop: string;
+  profile: string; // Placeholder or static image for now
+  name: string; // Derived from userEmail
+  date: string; // Derived from journeyDateTime
+  time: string; // Derived from journeyDateTime
+  pickup: string; // pickupAddress
+  drop: string; // destinationAddress
+  journeyType: string; // Added for journey type (e.g., "offer")
+  seats: number; // Number of seats
 };
 
 type NavigationProps = {
   push: (screen: string, params?: object) => void;
+  navigate: (screen: string, params?: object) => void;
 };
 
 type RouteParams = {
@@ -28,29 +32,45 @@ type JourneyProps = {
   route: { params?: RouteParams };
 };
 
-const ridesList: RideItem[] = [
-  {
-    id: "1",
-    profile: require("../../assets/images/user/user8.png"),
-    name: "Jenny Wilsom",
-    date: "Today",
-    time: "9:00 am",
-    pickup: "Mumbai,2464 Royal Lnord",
-    drop: "Pune, 2464 Royal Ln. Mesa",
-  },
-  {
-    id: "2",
-    profile: require("../../assets/images/user/user3.png"),
-    name: "Devon Lane",
-    date: "22 jan 2023",
-    time: "9:00 am",
-    pickup: "Mumbai,2464 Royal Lnord",
-    drop: "Pune, 2464 Royal Ln. Mesa",
-  },
-];
-
 const Journey: React.FC<JourneyProps> = ({ navigation, route }) => {
-  const [rides, setRides] = useState<RideItem[]>(ridesList);
+  const [rides, setRides] = useState<RideItem[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
+
+  const fetchJourneys = async () => {
+    setLoading(true);
+    try {
+      const db = getFirestore();
+      const journeysRef = collection(db, "journeys");
+      const snapshot = await getDocs(journeysRef);
+
+      const fetchedRides: RideItem[] = snapshot.docs.map((doc) => {
+        const data = doc.data();
+        const [date, time] = data.journeyDateTime.split(" "); // Split journeyDateTime into date and time
+        return {
+          id: doc.id,
+          profile: "https://via.placeholder.com/82", // Replace with a real profile image if available
+          name: data.userEmail.split("@")[0], // Derive name from email
+          date: date,
+          time: time,
+          pickup: data.pickupAddress,
+          drop: data.destinationAddress,
+          journeyType: data.journeyType,
+          seats: data.seats,
+        };
+      });
+
+      setRides(fetchedRides);
+    } catch (error) {
+      console.error("Error fetching journeys:", error);
+      Alert.alert("Error", "Failed to fetch journeys. Please try again later.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchJourneys();
+  }, []);
 
   useEffect(() => {
     if (route.params?.id) {
@@ -63,13 +83,14 @@ const Journey: React.FC<JourneyProps> = ({ navigation, route }) => {
     <TouchableOpacity
       activeOpacity={0.8}
       onPress={() => {
-        // Add menu action
+        navigation.navigate("RideDetailScreen");
       }}
       style={styles.rideWrapper}
     >
-      <Image source={item.profile as any} style={styles.profileImage} />
+      <Image source={{ uri: item.profile }} style={styles.profileImage} />
       <View style={styles.rideDetailWrapper}>
         <Text style={Fonts.blackColor15SemiBold}>{item.name}</Text>
+        <Text style={Fonts.grayColor14Medium}>{`${item.date}, ${item.time}`}</Text>
         <DashedLine
           axis="vertical"
           dashLength={2}
@@ -78,6 +99,10 @@ const Journey: React.FC<JourneyProps> = ({ navigation, route }) => {
           dashColor={Colors.grayColor}
           style={styles.dashedLine}
         />
+        <Text style={Fonts.grayColor14Medium}>Pickup: {item.pickup}</Text>
+        <Text style={Fonts.grayColor14Medium}>Drop: {item.drop}</Text>
+        <Text style={Fonts.grayColor14Medium}>Seats: {item.seats}</Text>
+        <Text style={Fonts.grayColor14Medium}>Type: {item.journeyType}</Text>
       </View>
     </TouchableOpacity>
   );
@@ -87,16 +112,24 @@ const Journey: React.FC<JourneyProps> = ({ navigation, route }) => {
       <MyStatusBar />
       <View style={{ flex: 1 }}>
         {header()}
-        {rides.length === 0 ? noRidesInfo() : ridesInfo()}
+        {loading ? loadingIndicator() : rides.length === 0 ? noRidesInfo() : ridesInfo()}
       </View>
     </View>
   );
+
+  function loadingIndicator() {
+    return (
+      <View style={styles.emptyPage}>
+        <Text style={Fonts.grayColor16SemiBold}>Loading...</Text>
+      </View>
+    );
+  }
 
   function noRidesInfo() {
     return (
       <View style={styles.emptyPage}>
         <Image source={require("../../assets/images/empty_ride.png")} style={styles.emptyRideImage} />
-        <Text style={styles.emptyText}>Tuščias kelionių sąrašas</Text>
+        <Text style={styles.emptyText}>No journeys found</Text>
       </View>
     );
   }
@@ -116,14 +149,14 @@ const Journey: React.FC<JourneyProps> = ({ navigation, route }) => {
   function header() {
     return (
       <View style={styles.header}>
-        <Text style={styles.headerTitle}>Mano kelionės</Text>
+        <Text style={styles.headerTitle}>My Journeys</Text>
         <View style={styles.accountIconWrapper}>
           <MaterialIcons
             name="account-circle"
             color={Colors.whiteColor}
             size={29}
             onPress={() => {
-              // Add menu action
+              navigation.navigate("RideDetailScreen");
             }}
           />
           <View style={styles.headerAccountBadge}></View>

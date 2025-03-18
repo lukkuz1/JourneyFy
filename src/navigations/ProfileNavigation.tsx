@@ -24,6 +24,7 @@ import RideRequestScreen from "../screens/TemplateJourney/rideRequest/rideReques
 import RidesScreen from "../screens/TemplateJourney/rides/ridesScreen";
 import StartRideScreen from "../screens/TemplateJourney/startRide/startRideScreen";
 import MessageScreen from "../screens/TemplateJourney/message/messageScreen";
+import Settings from "../screens/Main/Settings";
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -80,6 +81,7 @@ export default function ProfileNavigation() {
       <Stack.Screen name="RidesScreen" component={RidesScreen} />
       <Stack.Screen name="StartRideScreen" component={StartRideScreen} />
       <Stack.Screen name="MessageScreen" component={MessageScreen} />
+      <Stack.Screen name="Settings" component={Settings} />
     </Stack.Navigator>
   );
 }

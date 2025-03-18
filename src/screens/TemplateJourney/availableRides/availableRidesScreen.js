@@ -89,7 +89,7 @@ const AvailableRidesScreen = ({ navigation }) => {
       <TouchableOpacity
         activeOpacity={0.8}
         onPress={() => {
-          navigation.push("RideDetail");
+          navigation.navigate("RideDetailScreen");
         }}
         style={styles.rideWrapper}
       >

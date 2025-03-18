@@ -112,11 +112,11 @@ const ProfileScreen = ({ navigation }) => {
         })}
         {divider()}
         {profileOptionSort({
-          icon: "text-box-outline",
-          option: "Sąlygos ir sutikimai",
-          detail: "Žinokite mūsų sąlygas",
+          icon: "cog-outline",
+          option: "Nustatymai",
+          detail: "Pakeiskite savo nustatymus",
           onPress: () => {
-            navigation.navigate("TermsAndConditionsScreen");
+            navigation.navigate("Settings");
           },
         })}
         {divider()}

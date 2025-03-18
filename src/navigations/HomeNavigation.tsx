@@ -18,6 +18,7 @@ import RidesScreen from "../screens/TemplateJourney/rides/ridesScreen";
 import StartRideScreen from "../screens/TemplateJourney/startRide/startRideScreen";
 import UserVehiclesScreen from "../screens/TemplateProfile/userVehicles/userVehiclesScreen";
 import MessageScreen from "../screens/TemplateJourney/message/messageScreen";
+import PickLocationTestScreen from "../screens/TemplateJourney/pickLocation/pickLocationTestScreen";
 
 const Stack = createStackNavigator();
 

@@ -119,7 +119,7 @@ const RideDetailScreen = ({ navigation, route }) => {
             onPress={() => {
               setshowCancelDialog(false);
               navigation.navigate({
-                name: "Rides",
+                name: "RidesScreen",
                 params: {
                   id: route.params.id,
                 },
@@ -154,7 +154,7 @@ const RideDetailScreen = ({ navigation, route }) => {
           <TouchableOpacity
             activeOpacity={0.8}
             onPress={() => {
-              navigation.push("ConfirmPooling");
+              navigation.navigate("ConfirmPoolingScreen");
             }}
             style={{
               flex: 1,
@@ -171,7 +171,7 @@ const RideDetailScreen = ({ navigation, route }) => {
         <TouchableOpacity
           activeOpacity={0.8}
           onPress={() => {
-            navigation.push("Message");
+            navigation.navigate("MessageScreen");
           }}
           style={{
             flex: 1,
@@ -237,7 +237,7 @@ const RideDetailScreen = ({ navigation, route }) => {
           </Text>
           <Text
             onPress={() => {
-              navigation.push("Reviews");
+              navigation.navigate("ReviewsScreen");
             }}
             style={{ ...Fonts.primaryColor16SemiBold }}
           >
@@ -382,7 +382,7 @@ const RideDetailScreen = ({ navigation, route }) => {
             </Text>
             <Text
               onPress={() => {
-                navigation.push("RideMapView");
+                navigation.navigate("RideMapViewScreen");
               }}
               style={{
                 ...Fonts.greenColor14SemiBold,

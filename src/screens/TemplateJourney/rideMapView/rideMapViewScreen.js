@@ -7,12 +7,12 @@ import {
 } from "react-native";
 import React from "react";
 import { Colors, Fonts, Sizes, screenHeight } from "../../../constants/styles";
-// import MapViewDirections from "react-native-maps-directions";
-// import { Key } from "../../constants/key";
-// import MapView, { PROVIDER_GOOGLE, Marker } from "react-native-maps";
+import MapViewDirections from "react-native-maps-directions";
+import { Key } from "../../../constants/key";
+import MapView, { PROVIDER_GOOGLE, Marker } from "react-native-maps";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
-// import * as Animatable from "react-native-animatable";
-// import BottomSheet from "react-native-simple-bottom-sheet";
+import * as Animatable from "react-native-animatable";
+import BottomSheet from "react-native-simple-bottom-sheet";
 import MyStatusBar from "../../../components/myStatusBar";
 import Header from "../../../components/header";
 import DashedLine from "react-native-dashed-line";

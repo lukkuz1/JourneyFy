@@ -11,7 +11,7 @@ import {
   Alert,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
-import Colors from "../../constants/Colors";
+import { Colors } from "../../constants/styles";
 import EntryInputField from "../../components/Entry/EntryInputField";
 import EntryButton from "../../components/Entry/EntryButton";
 import { useAuth } from "../../hooks/useAuth";
@@ -45,7 +45,11 @@ export default function Register() {
       behavior={Platform.OS === "ios" ? "padding" : "height"}
     >
       <ScrollView contentContainerStyle={styles.scrollViewContent}>
+      <View style={styles.header}>
+                    <Text style={styles.headerText}>JourneyFy</Text>
+                  </View>
         <View style={styles.logoContainer}>
+
           <Image
             source={require("../../assets/images/auth.png")}
             style={styles.logo}
@@ -72,8 +76,8 @@ export default function Register() {
           />
           <EntryButton
             text="Registruotis"
-            textColor={Colors.White}
-            buttonColor={Colors.Blue}
+          textColor={Colors.whiteColor}
+          buttonColor={Colors.primaryColor}
             margin={[30, 75, 0, 0]}
             onPress={() => handleSignUp()}
             style={{ elevation: 5 }}
@@ -96,6 +100,16 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     backgroundColor: "transparent",
+  },
+  header: {
+    backgroundColor: "transparent",
+    padding: 10,
+  },
+  headerText: {
+    color: Colors.primaryColor,
+    fontSize: 20,
+    fontWeight: "bold",
+    textAlign: "center",
   },
   scrollViewContent: {
     flexGrow: 1,
