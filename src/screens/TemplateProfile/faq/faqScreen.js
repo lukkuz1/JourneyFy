@@ -4,39 +4,36 @@ import { Colors, Fonts, Sizes } from "../../../constants/styles";
 import MyStatusBar from "../../../components/myStatusBar";
 import Header from "../../../components/header";
 
-const dummyAnswer =
-  "Lorem ipsum dolor sit amet, consecte adipiscindf elitj. Eu scelerisque neque nevesti bulumaugued enullalkll quis mauris. solliciegesta pellentesqueg adipiscing. Leo aliquam, aliquam novalaoreethg";
-
 const faqsList = [
   {
     id: "1",
-    question: "How to find ride?",
-    answer: dummyAnswer,
+    question: "Kaip rasti kelionę?",
+    answer:
+      "Norėdami rasti kelionę, tiesiog įveskite savo pradinę vietą ir kelionės tikslą paieškos juostoje. Pamatysite sąrašą galimų kelionių, atitinkančių jūsų kriterijus. Galite filtruoti rezultatus pagal laiką, kainą ar vairuotojo įvertinimus.",
   },
   {
     id: "2",
-    question: "How to find ride?",
-    answer: dummyAnswer,
+    question: "Kaip užsisakyti kelionę?",
+    answer:
+      "Kai rasite kelionę, kuri atitinka jūsų poreikius, spustelėkite ją, kad pamatytumėte daugiau informacijos. Tada paspauskite mygtuką „Užsisakyti kelionę“ ir patvirtinkite užsakymą. Jūs gausite patvirtinimo pranešimą su vairuotojo kontaktais.",
   },
   {
     id: "3",
-    question: "How to add money in wallet?",
-    answer: dummyAnswer,
+    question: "Kaip papildyti piniginę?",
+    answer:
+      "Norėdami papildyti piniginę, eikite į programėlės skiltį „Piniginė“. Pasirinkite „Papildyti pinigus“, įveskite norimą sumą ir pasirinkite mokėjimo būdą (kredito kortelė, debeto kortelė ar kitos palaikomos parinktys). Sekite ekrane pateikiamus nurodymus, kad užbaigtumėte operaciją.",
   },
   {
     id: "4",
-    question: "How to chat with rider?",
-    answer: dummyAnswer,
+    question: "Kaip bendrauti su vairuotoju?",
+    answer:
+      "Užsisakę kelionę, galite bendrauti su vairuotoju, eidami į skiltį „Mano kelionės“ ir pasirinkdami savo dabartinę kelionę. Spustelėkite mygtuką „Susirašinėti“, kad siųstumėte pranešimus tiesiogiai vairuotojui.",
   },
   {
     id: "5",
-    question: "How to send money in bank?",
-    answer: dummyAnswer,
-  },
-  {
-    id: "6",
-    question: "How to add my vehicle?",
-    answer: dummyAnswer,
+    question: "Kaip pridėti savo transporto priemonę kaip vairuotojas?",
+    answer:
+      "Norėdami pridėti savo transporto priemonę, eikite į skiltį „Profilis“ ir pasirinkite „Pridėti transporto priemonę“. Užpildykite reikiamą informaciją, pvz., transporto priemonės tipą, registracijos numerį ir draudimo dokumentus. Pateikus informaciją, jūsų transporto priemonė bus peržiūrėta ir patvirtinta mūsų komandos.",
   },
 ];
 

@@ -5,12 +5,19 @@ import MyStatusBar from "../../../components/myStatusBar";
 import Header from "../../../components/header";
 
 const privacyPolicies = [
-  "Lorem ipsum dolor sit amet consectetdsuspendisse orci cras amet. Viverra massa amet etd diam a nisiac aliquet felis. Duis sagittis neque hen dreritmaecenas suspendisse scelerisque. Eu exst bibendum ornare ",
-  "Lorem ipsum dolor sit amet consecv tetsuspendisse orci cras amet. Viverra massa xamet et diam a nisiac aliquet felis. Duis sagittis ne que hendreritmaecenas suspendisse scelerisque. Exaucest bibendum ornare lacinia in. Turpis rutrum conguxe sollicitudin viverra. Suscipit sagittis cursus arcuxgfh kest mattis. Blandit quam vitae id nunc ornare nec morbi. Sapien massa sed lectus a erat in cras dui ut. Id ut bibendum eget ultrices in nunc. Pretium amet adipiscing mattis",
-  "Lorem ipsum dolor sit amet consec textsuspendisse orci cras amet. Vivxerra massa amet et diam a nisiac aliquet felis. Duis sagittis neque hendreritmaecenas suspendisse scelerisque. Eu est bibxendums ornare lacinia in. Turpis rutrum congue sollic citudin viverra. Suscipit sagittis cursus arcugfh kest mattis. Blaxndit quam vitae id nunc ornare nec morbi. Sapien massa sed lectus a erat in cras dui ut. Id ut  bibendum eget ultrices in nunc. Pretium amet adipis cinsadg mattis Lorem ipsum dolor sit amet consectets uspendisse orci cras amet. Viverra massa amet etx diam a nisiac aliquet felis. Duis sagittis neque hendrerit maecenas suspendisse scelerisque. Eu est biaxbendum ornare lacinia in. Turpis rutrum conxgue sollicitudin viverra. Suscipit sagittis cursus arcuxgfh kest mattis. Blandit quam vitae id nunc ornare nec morbi. Sapien massa sed lectus a erat in cras dui ut. Id ut bibendum eget ultrices in nunc. Pretium amet adipiscing mattis",
-  "Lorem ipsum dolor sit amet consectetdsuspendisse orci cras amet. Viverra massa amet etd diam a nisiac aliquet felis. Duis sagittis neque hen dreritmaecenas suspendisse scelerisque. Eu exst bibendum ornare",
-  "Lorem ipsum dolor sit amet consecv tetsuspendisse orci cras amet. Viverra massa xamet et diam a nisiac aliquet felis. Duis sagittis ne que hendreritmaecenas suspendisse scelerisque. Exaucest bibendum ornare lacinia in. Turpis rutrum conguxe sollicitudin viverra. Suscipit sagittis cursus arcuxgfh kest mattis. Blandit quam vitae id nunc ornare nec morbi. Sapien massa sed lectus a erat in cras dui ut. Id ut bibendum eget ultrices in nunc. Pretium amet adipiscing mattis",
-  "Lorem ipsum dolor sit amet consec textsuspendisse orci cras amet. Vivxerra massa amet et diam a nisiac aliquet felis. Duis sagittis neque hendreritmaecenas suspendisse scelerisque. Eu est bibxendums ornare lacinia in. Turpis rutrum congue sollic citudin viverra. Suscipit sagittis cursus arcugfh kest mattis. Blaxndit quam vitae id nunc ornare nec morbi. Sapien massa sed lectus a erat in cras dui ut. Id ut  bibendum eget ultrices in nunc. Pretium amet adipis cinsadg mattis Lorem ipsum dolor sit amet consectets uspendisse orci cras amet. Viverra massa amet etx diam a nisiac aliquet felis. Duis sagittis neque hendrerit maecenas suspendisse scelerisque. Eu est biaxbendum ornare lacinia in. Turpis rutrum conxgue sollicitudin viverra. Suscipit sagittis cursus arcuxgfh kest mattis. Blandit quam vitae id nunc ornare nec morbi. Sapien massa sed lectus a erat in cras dui ut. Id ut bibendum eget ultrices in nunc. Pretium amet adipiscing mattis",
+  "Privatumo Politika",
+  "Paskutinį kartą atnaujinta: 2025-03-18",
+  "Mes, „JourneyFy“, gerbiame Jūsų privatumą ir įsipareigojame apsaugoti Jūsų asmens duomenis. Ši privatumo politika paaiškina, kaip renkame, naudojame, saugome ir dalijamės Jūsų informacija, kai naudojatės mūsų mobiliąja programėle.",
+  "Naudodamiesi „JourneyFy“, galime rinkti šiuos Jūsų asmens duomenis:",
+  "Registracijos duomenys: vardas, pavardė, el. pašto adresas, telefono numeris.",
+  "Kelionių informacija: Jūsų sukurti kelionių maršrutai, kelionių datos, vietos, kurias lankote.",
+  "Mokėjimų duomenys: mokėjimo kortelės informacija (tvarkoma per saugius trečiųjų šalių mokėjimų tiekėjus).",
+  "Techniniai duomenys: IP adresas, įrenginio tipas, operacinė sistema, programėlės naudojimo statistika.",
+  "Vietos duomenys: Jūsų buvimo vieta, jei suteikiate leidimą.",
+  "Kiek laiko saugome Jūsų duomenis?",
+  "Jūsų asmens duomenis saugome tik tiek, kiek būtina tikslams, dėl kurių jie buvo surinkti, arba tiek, kiek reikalauja įstatymai. Pasibaigus šiam laikotarpiui, duomenys bus saugiai ištrinti arba anonimizuoti.",
+  "Pastaba:",
+  "Šios privatumo politikos tekstas yra bendrinis ir turėtų būti pritaikytas pagal konkrečius „JourneyFy“ veiklos reikalavimus bei suderintas su teisininkais, kad atitiktų GDPR ir kitus teisės aktus."
 ];
 
 const PrivacyPolicyScreen = ({ navigation }) => {
