@@ -7,7 +7,7 @@ const ProfilePicture = () => (
   <View style={styles.profilePicWrapper}>
     <Image
       source={require("../../assets/images/user/user1.jpeg")}
-      style={styles.profileImage}
+      style={styles.profilePicture}
     />
     <TouchableOpacity style={styles.changePhotoCircleWrapper}>
       <Ionicons name="camera-outline" color={Colors.secondaryColor} size={20} />
@@ -15,14 +15,12 @@ const ProfilePicture = () => (
   </View>
 );
 
-export default ProfilePicture;
-
 const styles = StyleSheet.create({
   profilePicWrapper: {
     alignItems: "center",
     margin: Sizes.fixPadding * 3,
   },
-  profileImage: {
+  profilePicture: {
     width: 100,
     height: 100,
     borderRadius: 50,
@@ -39,3 +37,5 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
 });
+
+export default ProfilePicture;
