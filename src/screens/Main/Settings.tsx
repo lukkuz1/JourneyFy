@@ -17,10 +17,11 @@ import { useAuth } from "../../hooks/useAuth";
 import { Colors } from "../../constants/styles";
 import EntryInputField from "../../components/Entry/EntryInputField";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
+import Header from "../../components/header";
 
 const { db } = firebaseServices;
 
-export default function Settings() {
+export default function Settings({ navigation }) {
   const auth = useAuth();
   const currentUser = getAuth().currentUser;
   const currentUserId = currentUser ? currentUser.uid : null;
@@ -117,9 +118,7 @@ export default function Settings() {
     <View style={styles.container}>
       <ScrollView>
         {/* Header */}
-        <View style={styles.header}>
-          <Text style={styles.headerText}>Nustatymai</Text>
-        </View>
+        <Header title={"Nustatymai"} navigation={navigation} />
 
         {/* Profile Section */}
         <View style={styles.profileSection}>
