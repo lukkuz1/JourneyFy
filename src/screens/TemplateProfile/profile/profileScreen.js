@@ -140,7 +140,20 @@ const ProfileOptions = ({ navigation, setShowLogoutDialog }) => {
     <View style={styles.profileOptionsContainer}>
       {options.map((item, index) => (
         <React.Fragment key={index}>
-          <ProfileOption {...item} />
+          <TouchableOpacity
+            onPress={item.onPress}
+            style={styles.profileOptionContainer}
+          >
+            <MaterialCommunityIcons
+              name={item.icon}
+              size={24}
+              color={item.icon === "logout" ? "#FF0000" : Colors.primaryColor}
+            />
+            <View style={styles.textContainer}>
+              <Text style={styles.optionText}>{item.option}</Text>
+              <Text style={styles.detailText}>{item.detail}</Text>
+            </View>
+          </TouchableOpacity>
           {index < options.length - 1 && <Divider />}
         </React.Fragment>
       ))}
@@ -167,5 +180,20 @@ const styles = StyleSheet.create({
   profileOptionsContainer: {
     backgroundColor: Colors.whiteColor,
     padding: Sizes.fixPadding * 2.0,
+  },
+  profileOptionContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  textContainer: {
+    marginLeft: 16,
+  },
+  optionText: {
+    fontSize: 16,
+    fontWeight: "bold",
+  },
+  detailText: {
+    fontSize: 14,
+    color: "#666",
   },
 });
