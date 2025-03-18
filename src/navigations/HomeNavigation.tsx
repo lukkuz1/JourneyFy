@@ -34,10 +34,19 @@ export default function HomeNavigation() {
     >
       <Stack.Screen name="HomeScreen" component={HomeScreen} />
       <Stack.Screen name="AddVehicleScreen" component={AddVehicleScreen} />
-      <Stack.Screen name="AvailableRidesScreen" component={AvailableRidesScreen} />
-      <Stack.Screen name="ConfirmPoolingScreen" component={ConfirmPoolingScreen} />
+      <Stack.Screen
+        name="AvailableRidesScreen"
+        component={AvailableRidesScreen}
+      />
+      <Stack.Screen
+        name="ConfirmPoolingScreen"
+        component={ConfirmPoolingScreen}
+      />
       <Stack.Screen name="EndRideScreen" component={EndRideScreen} />
-      <Stack.Screen name="HistoryRideDetailScreen" component={HistoryRideDetailScreen} />
+      <Stack.Screen
+        name="HistoryRideDetailScreen"
+        component={HistoryRideDetailScreen}
+      />
       <Stack.Screen name="OfferRideScreen" component={OfferRideScreen} />
       <Stack.Screen name="OnboardingScreen" component={OnboardingScreen} />
       <Stack.Screen name="PickLocationScreen" component={PickLocationScreen} />

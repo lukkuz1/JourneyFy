@@ -64,7 +64,7 @@ const ProfileInputField: React.FC<ProfileInputFieldProps> = ({
             onBlur={handleBlur}
             placeholderTextColor={Colors.grayColor}
             keyboardType={keyboardType}
-            autoFocus={true} 
+            autoFocus={true}
             editable={true} // Ensure it's interactable
             returnKeyType="done" // Allows users to close the keyboard
           />
@@ -83,7 +83,11 @@ export const validateName = (name: string): string => {
 
 export const validatePhoneNumber = (number: string): string => {
   if (!number.trim()) return "Phone number is required";
-  if (!/^\+?(\d{1,4})?[-.\s()]?\(?\d{1,4}\)?[-.\s]?\d{1,4}[-.\s]?\d{1,9}$/.test(number))
+  if (
+    !/^\+?(\d{1,4})?[-.\s()]?\(?\d{1,4}\)?[-.\s]?\d{1,4}[-.\s]?\d{1,9}$/.test(
+      number
+    )
+  )
     return "Enter a valid phone number";
   return "";
 };

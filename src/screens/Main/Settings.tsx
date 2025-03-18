@@ -131,7 +131,9 @@ export default function Settings({ navigation }) {
             style={styles.profileImage}
           />
           <View style={styles.profileInfo}>
-            <Text style={styles.profileName}>{currentUser?.displayName || "Naudotojas"}</Text>
+            <Text style={styles.profileName}>
+              {currentUser?.displayName || "Naudotojas"}
+            </Text>
             <Text style={styles.profileEmail}>{currentUser?.email}</Text>
           </View>
         </View>
@@ -142,27 +144,53 @@ export default function Settings({ navigation }) {
             style={styles.option}
             onPress={() => setIsPasswordModalVisible(true)}
           >
-            <MaterialCommunityIcons name="lock-reset" size={24} color={Colors.grayColor} />
+            <MaterialCommunityIcons
+              name="lock-reset"
+              size={24}
+              color={Colors.grayColor}
+            />
             <Text style={styles.optionText}>Pakeisti slaptažodį</Text>
-            <MaterialCommunityIcons name="chevron-right" size={24} color={Colors.grayColor} />
+            <MaterialCommunityIcons
+              name="chevron-right"
+              size={24}
+              color={Colors.grayColor}
+            />
           </TouchableOpacity>
 
           <TouchableOpacity
             style={styles.option}
             onPress={() => setIsMapModalVisible(true)}
           >
-            <MaterialCommunityIcons name="map-marker-radius" size={24} color={Colors.grayColor} />
+            <MaterialCommunityIcons
+              name="map-marker-radius"
+              size={24}
+              color={Colors.grayColor}
+            />
             <Text style={styles.optionText}>Žemėlapio nustatymai</Text>
-            <MaterialCommunityIcons name="chevron-right" size={24} color={Colors.grayColor} />
+            <MaterialCommunityIcons
+              name="chevron-right"
+              size={24}
+              color={Colors.grayColor}
+            />
           </TouchableOpacity>
 
           <TouchableOpacity
             style={styles.option}
             onPress={() => setIsDeleteModalVisible(true)}
           >
-            <MaterialCommunityIcons name="account-remove" size={24} color={Colors.redColor} />
-            <Text style={[styles.optionText, { color: Colors.redColor }]}>Paskyros ištrinimas</Text>
-            <MaterialCommunityIcons name="chevron-right" size={24} color={Colors.grayColor} />
+            <MaterialCommunityIcons
+              name="account-remove"
+              size={24}
+              color={Colors.redColor}
+            />
+            <Text style={[styles.optionText, { color: Colors.redColor }]}>
+              Paskyros ištrinimas
+            </Text>
+            <MaterialCommunityIcons
+              name="chevron-right"
+              size={24}
+              color={Colors.grayColor}
+            />
           </TouchableOpacity>
         </View>
       </ScrollView>
@@ -245,7 +273,8 @@ export default function Settings({ navigation }) {
           <View style={styles.modalContent}>
             <Text style={styles.modalTitle}>Delete Account</Text>
             <Text style={styles.modalText}>
-              Are you sure you want to delete your account? This action cannot be undone.
+              Are you sure you want to delete your account? This action cannot
+              be undone.
             </Text>
             <View style={styles.modalButtons}>
               <TouchableOpacity

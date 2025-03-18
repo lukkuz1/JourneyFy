@@ -1,7 +1,7 @@
 import React from "react";
 import { View, Text, TouchableOpacity } from "react-native";
 import { Overlay } from "@rneui/themed";
-import { Colors, Fonts, Sizes, CommonStyles } from "../../constants/styles"
+import { Colors, Fonts, Sizes, CommonStyles } from "../../constants/styles";
 
 const LogoutDialog = ({ isVisible, onClose, onLogout }) => (
   <Overlay

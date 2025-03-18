@@ -53,7 +53,7 @@ const PaymentMethodsScreen = ({ navigation }) => {
       <TouchableOpacity
         activeOpacity={0.8}
         onPress={() => {
-          navigation.push("CreditCard");
+          navigation.navigate("CreditCardScreen");
         }}
         style={{
           ...CommonStyles.button,

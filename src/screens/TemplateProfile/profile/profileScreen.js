@@ -16,10 +16,12 @@ import ProfileOption from "../../../components/Profile/ProfileOption";
 import Divider from "../../../components/Profile/Divider";
 import LogoutDialog from "../../../components/Profile/LogoutDialog";
 import { useUserProfile } from "../../../hooks/useUserProfile";
+import { useAuth } from "../../../hooks/useAuth";
 
 const ProfileScreen = ({ navigation }) => {
   const { user, fetchUserProfile, refreshing, onRefresh } = useUserProfile();
   const [showLogoutDialog, setShowLogoutDialog] = useState(false);
+  const logoutAuth = useAuth();
 
   useFocusEffect(
     useCallback(() => {
@@ -39,7 +41,10 @@ const ProfileScreen = ({ navigation }) => {
           }
         >
           <ProfileInfo user={user} navigation={navigation} />
-          <ProfileOptions navigation={navigation} />
+          <ProfileOptions
+            navigation={navigation}
+            setShowLogoutDialog={setShowLogoutDialog}
+          />
         </ScrollView>
       </View>
       <LogoutDialog
@@ -47,7 +52,7 @@ const ProfileScreen = ({ navigation }) => {
         onClose={() => setShowLogoutDialog(false)}
         onLogout={() => {
           setShowLogoutDialog(false);
-          navigation.navigate("LoginScreen");
+          logoutAuth.signOut();
         }}
       />
     </View>
@@ -85,7 +90,7 @@ const ProfileInfo = ({ user, navigation }) => (
   </View>
 );
 
-const ProfileOptions = ({ navigation }) => {
+const ProfileOptions = ({ navigation, setShowLogoutDialog }) => {
   const options = [
     {
       icon: "car-outline",
@@ -122,6 +127,12 @@ const ProfileOptions = ({ navigation }) => {
       option: "Klientų aptarnavimas",
       detail: "Susisiekite su mumis dėl bet kokių problemų",
       onPress: () => navigation.navigate("CustomerSupportScreen"),
+    },
+    {
+      icon: "logout",
+      option: "Atsijungti",
+      detail: "Atsijungti nuo savo paskyros",
+      onPress: () => setShowLogoutDialog(true),
     },
   ];
 

@@ -295,7 +295,6 @@ export const Fonts = {
     fontSize: 16.0,
     fontFamily: "Montserrat-SemiBold",
   },
-
 };
 
 export const Sizes = {
@@ -320,11 +319,10 @@ export const CommonStyles = {
     alignItems: "center",
     justifyContent: "center",
     padding: Sizes.fixPadding + 4.0,
-    marginHorizontal: Sizes.fixPadding * 2.0,    
+    marginHorizontal: Sizes.fixPadding * 2.0,
   },
   rowAlignCenter: {
     flexDirection: "row",
     alignItems: "center",
   },
 };
-

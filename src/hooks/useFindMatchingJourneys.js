@@ -1,6 +1,12 @@
-import { useState } from 'react';
-import { getFirestore, collection, query, where, getDocs } from "firebase/firestore";
-import { Alert } from 'react-native';
+import { useState } from "react";
+import {
+  getFirestore,
+  collection,
+  query,
+  where,
+  getDocs,
+} from "firebase/firestore";
+import { Alert } from "react-native";
 
 const useFindMatchingJourneys = () => {
   const [loading, setLoading] = useState(false);
@@ -17,18 +23,18 @@ const useFindMatchingJourneys = () => {
     setError(null);
 
     try {
-      const journeysRef = collection(db, 'journeys');
+      const journeysRef = collection(db, "journeys");
       const journeysQuery = query(
         journeysRef,
-        where('pickupAddress', '==', pickupAddress),
-        where('destinationAddress', '==', destinationAddress),
-        where('journeyDateTime', '==', journeyDateTime),
-        where('seats', '>=', seats),
-        where('journeyType', '==', 'offer')
+        where("pickupAddress", "==", pickupAddress),
+        where("destinationAddress", "==", destinationAddress),
+        where("journeyDateTime", "==", journeyDateTime),
+        where("seats", ">=", seats),
+        where("journeyType", "==", "offer")
       );
 
       const snapshot = await getDocs(journeysQuery);
-      const journeys = snapshot.docs.map(doc => ({
+      const journeys = snapshot.docs.map((doc) => ({
         id: doc.id,
         ...doc.data(),
       }));
@@ -37,9 +43,9 @@ const useFindMatchingJourneys = () => {
 
       if (journeys.length > 0) {
         Alert.alert(
-          'Journeys Found',
+          "Journeys Found",
           `We found ${journeys.length} matching journey(s).`,
-          [{ text: 'OK' }]
+          [{ text: "OK" }]
         );
       } else {
         // Alert.alert(
@@ -51,14 +57,14 @@ const useFindMatchingJourneys = () => {
 
       return journeys;
     } catch (err) {
-      console.error('Error fetching matching journeys:', err);
+      console.error("Error fetching matching journeys:", err);
       setError(err);
       setLoading(false);
 
       Alert.alert(
-        'Error',
-        'There was an error fetching journeys. Please try again later.',
-        [{ text: 'OK' }]
+        "Error",
+        "There was an error fetching journeys. Please try again later.",
+        [{ text: "OK" }]
       );
 
       return [];

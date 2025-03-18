@@ -30,12 +30,10 @@ export default function Login() {
 
   return (
     <ScrollView contentContainerStyle={styles.scrollViewContent}>
-              <View style={styles.header}>
-          <Text style={styles.headerText}>JourneyFy</Text>
-        </View>
+      <View style={styles.header}>
+        <Text style={styles.headerText}>JourneyFy</Text>
+      </View>
       <View style={styles.logoContainer}>
-
-
         <Image
           source={require("../../assets/images/auth.png")}
           style={styles.logo}

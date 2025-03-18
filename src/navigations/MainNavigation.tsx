@@ -14,7 +14,7 @@ import {
   journey_icon_xml,
   settings_icon_xml,
   wallet_icon_xml,
-  new_profile_icon_xml
+  new_profile_icon_xml,
 } from "../assets/xml/svg";
 
 const Tab = createBottomTabNavigator();
@@ -71,7 +71,6 @@ function tabSort(name, focused, color) {
   );
 }
 
-
 const styles = StyleSheet.create({
   tabBarStyle: {
     backgroundColor: Colors.whiteColor,
@@ -88,4 +87,3 @@ const styles = StyleSheet.create({
     top: -14.0,
   },
 });
-

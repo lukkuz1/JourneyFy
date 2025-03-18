@@ -45,11 +45,10 @@ export default function Register() {
       behavior={Platform.OS === "ios" ? "padding" : "height"}
     >
       <ScrollView contentContainerStyle={styles.scrollViewContent}>
-      <View style={styles.header}>
-                    <Text style={styles.headerText}>JourneyFy</Text>
-                  </View>
+        <View style={styles.header}>
+          <Text style={styles.headerText}>JourneyFy</Text>
+        </View>
         <View style={styles.logoContainer}>
-
           <Image
             source={require("../../assets/images/auth.png")}
             style={styles.logo}
@@ -76,8 +75,8 @@ export default function Register() {
           />
           <EntryButton
             text="Registruotis"
-          textColor={Colors.whiteColor}
-          buttonColor={Colors.primaryColor}
+            textColor={Colors.whiteColor}
+            buttonColor={Colors.primaryColor}
             margin={[30, 75, 0, 0]}
             onPress={() => handleSignUp()}
             style={{ elevation: 5 }}

@@ -9,20 +9,23 @@ import React, { useState } from "react";
 import { Colors, Fonts, Sizes, CommonStyles } from "../../../constants/styles";
 import MyStatusBar from "../../../components/myStatusBar";
 import Header from "../../../components/header";
-// import { CreditCardInput } from "rn-card-input";
+import { CreditCardInput } from "react-native-credit-card-input";
 
 const CreditCardScreen = ({ navigation }) => {
-  const [cardNumberStatus, setcardNumberStatus] = useState("invalid");
-  const [cardExpiryStatus, setcardExpiryStatus] = useState("invalid");
-  const [cardCvcStatus, setcardCvcStatus] = useState("invalid");
-  const [cardHolderStatus, setcardHolderStatus] = useState("invalid");
-  const [saveCard, setsaveCard] = useState(true);
+  const [cardData, setCardData] = useState({
+    number: "invalid",
+    expiry: "invalid",
+    cvc: "invalid",
+    name: "invalid",
+  });
 
   const _onChange = (formData) => {
-    setcardNumberStatus(formData.values.number);
-    setcardExpiryStatus(formData.values.expiry);
-    setcardCvcStatus(formData.values.cvc);
-    setcardHolderStatus(formData.values.name);
+    setCardData({
+      number: formData.values.number,
+      expiry: formData.values.expiry,
+      cvc: formData.values.cvc,
+      name: formData.values.name,
+    });
   };
 
   return (
@@ -47,7 +50,7 @@ const CreditCardScreen = ({ navigation }) => {
       <TouchableOpacity
         activeOpacity={0.8}
         onPress={() => {
-          navigation.push("SuccessfullyAddAndSend", { successFor: "money" });
+          navigation.navigate("SuccessfullyAddAndSendScreen", { successFor: "money" });
         }}
         style={{
           ...CommonStyles.button,
@@ -70,14 +73,10 @@ const CreditCardScreen = ({ navigation }) => {
           marginTop: Sizes.fixPadding * 2.0,
           marginHorizontal: Sizes.fixPadding * 2.0,
         }}
-        cardFontFamily={"Montserrat_SemiBold"}
-        cardScale={1.13}
         validColor={"black"}
         invalidColor={"red"}
         placeholderColor={Colors.grayColor}
         onChange={_onChange}
-        cardImageFront={require("../../../assets/images/card_bg.png")}
-        cardImageBack={require("../../../assets/images/card_bg.png")}
       />
     );
   }

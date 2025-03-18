@@ -630,8 +630,7 @@ const HomeScreen = ({ navigation, route }) => {
 
                 if (journeyId) {
                   console.log("Journey created successfully:", journeyId);
-                  navigation.navigate("OfferRideScreen", {
-                  });
+                  navigation.navigate("OfferRideScreen", {});
                   // Reset fields after successful creation
                   setPickupAddress("");
                   setDestinationAddress("");

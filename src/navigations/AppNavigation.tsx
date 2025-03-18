@@ -30,7 +30,10 @@ export default function AppNavigation() {
             text: "Persiųsti el. pašto patvirtinimą",
             onPress: async () => {
               await sendEmailVerification(currentUser);
-              Alert.alert("Verifikacijos žinutė išsiųsta į e. paštą", "Patikrinkite savo el. paštą.");
+              Alert.alert(
+                "Verifikacijos žinutė išsiųsta į e. paštą",
+                "Patikrinkite savo el. paštą."
+              );
             },
           },
         ]
@@ -40,7 +43,11 @@ export default function AppNavigation() {
 
   return (
     <NavigationContainer>
-      {!auth.loggedIn || !user.initialized || !currentUser.emailVerified ? <EntryNavigation /> : <MainNavigation />}
+      {!auth.loggedIn || !user.initialized || !currentUser.emailVerified ? (
+        <EntryNavigation />
+      ) : (
+        <MainNavigation />
+      )}
     </NavigationContainer>
   );
 }

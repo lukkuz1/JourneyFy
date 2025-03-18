@@ -1,5 +1,14 @@
 import React, { useEffect, useState } from "react";
-import { FlatList, StyleSheet, Text, View, Image, TouchableOpacity, ViewStyle, Alert } from "react-native";
+import {
+  FlatList,
+  StyleSheet,
+  Text,
+  View,
+  Image,
+  TouchableOpacity,
+  ViewStyle,
+  Alert,
+} from "react-native";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import DashedLine from "react-native-dashed-line";
 import { Colors, Sizes, Fonts, CommonStyles } from "../../constants/styles";
@@ -90,7 +99,9 @@ const Journey: React.FC<JourneyProps> = ({ navigation, route }) => {
       <Image source={{ uri: item.profile }} style={styles.profileImage} />
       <View style={styles.rideDetailWrapper}>
         <Text style={Fonts.blackColor15SemiBold}>{item.name}</Text>
-        <Text style={Fonts.grayColor14Medium}>{`${item.date}, ${item.time}`}</Text>
+        <Text
+          style={Fonts.grayColor14Medium}
+        >{`${item.date}, ${item.time}`}</Text>
         <DashedLine
           axis="vertical"
           dashLength={2}
@@ -112,7 +123,11 @@ const Journey: React.FC<JourneyProps> = ({ navigation, route }) => {
       <MyStatusBar />
       <View style={{ flex: 1 }}>
         {header()}
-        {loading ? loadingIndicator() : rides.length === 0 ? noRidesInfo() : ridesInfo()}
+        {loading
+          ? loadingIndicator()
+          : rides.length === 0
+          ? noRidesInfo()
+          : ridesInfo()}
       </View>
     </View>
   );
@@ -128,7 +143,10 @@ const Journey: React.FC<JourneyProps> = ({ navigation, route }) => {
   function noRidesInfo() {
     return (
       <View style={styles.emptyPage}>
-        <Image source={require("../../assets/images/empty_ride.png")} style={styles.emptyRideImage} />
+        <Image
+          source={require("../../assets/images/empty_ride.png")}
+          style={styles.emptyRideImage}
+        />
         <Text style={styles.emptyText}>No journeys found</Text>
       </View>
     );

@@ -1,9 +1,25 @@
-import React from 'react';
-import { ScrollView, StyleSheet, Text, View, Image, TouchableOpacity, ImageStyle, ViewStyle, TextStyle } from 'react-native';
-import MyStatusBar from '../../components/myStatusBar';
-import { Colors, Sizes, Fonts, screenWidth, CommonStyles } from '../../constants/styles';
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import Ionicons from 'react-native-vector-icons/Ionicons';
+import React from "react";
+import {
+  ScrollView,
+  StyleSheet,
+  Text,
+  View,
+  Image,
+  TouchableOpacity,
+  ImageStyle,
+  ViewStyle,
+  TextStyle,
+} from "react-native";
+import MyStatusBar from "../../components/myStatusBar";
+import {
+  Colors,
+  Sizes,
+  Fonts,
+  screenWidth,
+  CommonStyles,
+} from "../../constants/styles";
+import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
+import Ionicons from "react-native-vector-icons/Ionicons";
 
 type NavigationProps = {
   navigate(arg0: string): unknown;
@@ -22,7 +38,8 @@ const Wallet: React.FC<WalletScreenProps> = ({ navigation }) => {
         {header()}
         <ScrollView
           showsVerticalScrollIndicator={false}
-          contentContainerStyle={{ paddingBottom: Sizes.fixPadding }}>
+          contentContainerStyle={{ paddingBottom: Sizes.fixPadding }}
+        >
           {walletImage()}
           {balanceInfo()}
         </ScrollView>
@@ -33,7 +50,7 @@ const Wallet: React.FC<WalletScreenProps> = ({ navigation }) => {
   function balanceInfo() {
     return (
       <View style={styles.balanceInfoWrapper}>
-        <View style={{ alignItems: 'center', margin: Sizes.fixPadding * 4.0 }}>
+        <View style={{ alignItems: "center", margin: Sizes.fixPadding * 4.0 }}>
           <Text style={{ ...Fonts.primaryColor30Medium }}>$150</Text>
           <Text style={{ ...Fonts.grayColor18Medium }}>Galimas likutis</Text>
         </View>
@@ -41,9 +58,10 @@ const Wallet: React.FC<WalletScreenProps> = ({ navigation }) => {
         <TouchableOpacity
           activeOpacity={0.8}
           onPress={() => {
-            navigation.navigate('TransactionsScreen');
+            navigation.navigate("TransactionsScreen");
           }}
-          style={styles.optionWrapper as ViewStyle}>  
+          style={styles.optionWrapper as ViewStyle}
+        >
           <View style={styles.circle40}>
             <MaterialCommunityIcons
               name="swap-vertical"
@@ -60,7 +78,8 @@ const Wallet: React.FC<WalletScreenProps> = ({ navigation }) => {
               style={{
                 ...Fonts.grayColor14Medium,
                 marginTop: Sizes.fixPadding - 8.0,
-              }}>
+              }}
+            >
               Peržiūrėkite visų operacijų sąrašą
             </Text>
           </View>
@@ -74,9 +93,10 @@ const Wallet: React.FC<WalletScreenProps> = ({ navigation }) => {
         <TouchableOpacity
           activeOpacity={0.8}
           onPress={() => {
-            navigation.navigate('AddAndSendMoneyScreen');
+            navigation.navigate("PaymentMethodsScreen");
           }}
-          style={styles.optionWrapper as ViewStyle}>
+          style={styles.optionWrapper as ViewStyle}
+        >
           <View style={styles.circle40}>
             <MaterialCommunityIcons
               name="wallet-plus-outline"
@@ -93,7 +113,8 @@ const Wallet: React.FC<WalletScreenProps> = ({ navigation }) => {
               style={{
                 ...Fonts.grayColor14Medium,
                 marginTop: Sizes.fixPadding - 8.0,
-              }}>
+              }}
+            >
               Galite lengvai pridėti pinigų
             </Text>
           </View>
@@ -107,9 +128,10 @@ const Wallet: React.FC<WalletScreenProps> = ({ navigation }) => {
         <TouchableOpacity
           activeOpacity={0.8}
           onPress={() => {
-            navigation.navigate('AddAndSendMoneyScreen');
+            navigation.navigate("AddAndSendMoneyScreen");
           }}
-          style={styles.optionWrapper as ViewStyle}>
+          style={styles.optionWrapper as ViewStyle}
+        >
           <View style={styles.circle40}>
             <MaterialCommunityIcons
               name="credit-card-plus-outline"
@@ -126,7 +148,8 @@ const Wallet: React.FC<WalletScreenProps> = ({ navigation }) => {
               style={{
                 ...Fonts.grayColor14Medium,
                 marginTop: Sizes.fixPadding - 8.0,
-              }}>
+              }}
+            >
               Lengvai nusiųskite pinigus į banką
             </Text>
           </View>
@@ -143,8 +166,8 @@ const Wallet: React.FC<WalletScreenProps> = ({ navigation }) => {
   function walletImage() {
     return (
       <Image
-        source={require('../../assets/images/wallet.png')}
-        style={styles.walletImageStyle as ImageStyle} 
+        source={require("../../assets/images/wallet.png")}
+        style={styles.walletImageStyle as ImageStyle}
       />
     );
   }
@@ -172,14 +195,14 @@ const styles = StyleSheet.create({
   header: {
     backgroundColor: Colors.primaryColor,
     padding: Sizes.fixPadding * 2.0,
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
   },
   walletImageStyle: {
     width: screenWidth / 2.0,
     height: screenWidth / 2.0,
-    resizeMode: 'contain',
-    alignSelf: 'center',
+    resizeMode: "contain",
+    alignSelf: "center",
     marginHorizontal: Sizes.fixPadding * 2.0,
     marginTop: Sizes.fixPadding * 2.0,
   },
@@ -189,8 +212,8 @@ const styles = StyleSheet.create({
     borderRadius: 20.0,
     backgroundColor: Colors.whiteColor,
     ...CommonStyles.shadow,
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
   },
   optionWrapper: {
     backgroundColor: Colors.whiteColor,
@@ -198,7 +221,7 @@ const styles = StyleSheet.create({
     borderRadius: Sizes.fixPadding,
     paddingHorizontal: Sizes.fixPadding,
     paddingVertical: Sizes.fixPadding + 5.0,
-    flexDirection: 'row',  // Make sure to set flexDirection directly here
-    alignItems: 'center',  // Also set alignItems here, to avoid conflicting styles
+    flexDirection: "row", // Make sure to set flexDirection directly here
+    alignItems: "center", // Also set alignItems here, to avoid conflicting styles
   },
 });

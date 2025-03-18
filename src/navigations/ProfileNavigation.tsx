@@ -49,28 +49,28 @@ export default function ProfileNavigation() {
         name="TermsAndConditionsScreen"
         component={TermsAndConditionsScreen}
       />
-            <Stack.Screen
-        name="UserVehiclesScreen"
-        component={UserVehiclesScreen}
-      />
-            <Stack.Screen
-        name="RideHistoryScreen"
-        component={RideHistoryScreen}
-      />
-            <Stack.Screen
+      <Stack.Screen name="UserVehiclesScreen" component={UserVehiclesScreen} />
+      <Stack.Screen name="RideHistoryScreen" component={RideHistoryScreen} />
+      <Stack.Screen
         name="PrivacyPolicyScreen"
         component={PrivacyPolicyScreen}
       />
-            <Stack.Screen
-        name="FaqScreen"
-        component={FaqScreen}
-      />
+      <Stack.Screen name="FaqScreen" component={FaqScreen} />
 
-     <Stack.Screen name="AddVehicleScreen" component={AddVehicleScreen} />
-      <Stack.Screen name="AvailableRidesScreen" component={AvailableRidesScreen} />
-      <Stack.Screen name="ConfirmPoolingScreen" component={ConfirmPoolingScreen} />
+      <Stack.Screen name="AddVehicleScreen" component={AddVehicleScreen} />
+      <Stack.Screen
+        name="AvailableRidesScreen"
+        component={AvailableRidesScreen}
+      />
+      <Stack.Screen
+        name="ConfirmPoolingScreen"
+        component={ConfirmPoolingScreen}
+      />
       <Stack.Screen name="EndRideScreen" component={EndRideScreen} />
-      <Stack.Screen name="HistoryRideDetailScreen" component={HistoryRideDetailScreen} />
+      <Stack.Screen
+        name="HistoryRideDetailScreen"
+        component={HistoryRideDetailScreen}
+      />
       <Stack.Screen name="OfferRideScreen" component={OfferRideScreen} />
       <Stack.Screen name="OnboardingScreen" component={OnboardingScreen} />
       <Stack.Screen name="PickLocationScreen" component={PickLocationScreen} />

@@ -11,25 +11,32 @@ import Wallet from "../screens/Main/Wallet";
 
 const Stack = createStackNavigator();
 
-
 export default function WalletNavigation() {
-    return (
-        <Stack.Navigator
-          screenOptions={{
-            headerShown: false,
-            animationEnabled: false,
-            presentation: "modal",
-          }}
-          initialRouteName="Wallet"
-        >
-          <Stack.Screen name="Wallet" component={Wallet} />
-          <Stack.Screen name="AddAndSendMoneyScreen" component={AddAndSendMoneyScreen} />
-          <Stack.Screen name="BankInfoScreen" component={BankInfoScreen} />
-          <Stack.Screen name="CreditCardScreen" component={CreditCardScreen} />
-          <Stack.Screen name="PaymentMethodsScreen" component={PaymentMethodsScreen} />
-          <Stack.Screen name="SuccessfullyAddAndSendScreen" component={SuccessfullyAddAndSendScreen} />
-          <Stack.Screen name="TransactionsScreen" component={TransactionsScreen} />
-
-        </Stack.Navigator>
-      );
+  return (
+    <Stack.Navigator
+      screenOptions={{
+        headerShown: false,
+        animationEnabled: false,
+        presentation: "modal",
+      }}
+      initialRouteName="Wallet"
+    >
+      <Stack.Screen name="Wallet" component={Wallet} />
+      <Stack.Screen
+        name="AddAndSendMoneyScreen"
+        component={AddAndSendMoneyScreen}
+      />
+      <Stack.Screen name="BankInfoScreen" component={BankInfoScreen} />
+      <Stack.Screen name="CreditCardScreen" component={CreditCardScreen} />
+      <Stack.Screen
+        name="PaymentMethodsScreen"
+        component={PaymentMethodsScreen}
+      />
+      <Stack.Screen
+        name="SuccessfullyAddAndSendScreen"
+        component={SuccessfullyAddAndSendScreen}
+      />
+      <Stack.Screen name="TransactionsScreen" component={TransactionsScreen} />
+    </Stack.Navigator>
+  );
 }

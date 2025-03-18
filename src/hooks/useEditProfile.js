@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 import { doc, getDoc, setDoc, updateDoc, Timestamp } from "firebase/firestore";
 import firebaseServices from "../services/firebase";
 
-
 const { db } = firebaseServices;
 
 export const useEditProfile = () => {
