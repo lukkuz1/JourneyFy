@@ -45,7 +45,7 @@ const WalletScreen = ({navigation}) => {
         <TouchableOpacity
           activeOpacity={0.8}
           onPress={() => {
-            navigation.push('Sandoriai');
+            navigation.navigate('TransactionsScreen');
           }}
           style={styles.optionWrapper}>
           <View style={styles.circle40}>
@@ -78,7 +78,7 @@ const WalletScreen = ({navigation}) => {
         <TouchableOpacity
           activeOpacity={0.8}
           onPress={() => {
-            navigation.push('AddAndSendMoney', {addFor: 'money'});
+            navigation.navigate('AddAndSendMoneyScreen', {addFor: 'money'});
           }}
           style={{
             ...styles.optionWrapper,
@@ -114,7 +114,7 @@ const WalletScreen = ({navigation}) => {
         <TouchableOpacity
           activeOpacity={0.8}
           onPress={() => {
-            navigation.push('AddAndSendMoney', {addFor: 'bank'});
+            navigation.navigate('AddAndSendMoneyScreen', {addFor: 'bank'});
           }}
           style={{...styles.optionWrapper}}>
           <View style={styles.circle40}>

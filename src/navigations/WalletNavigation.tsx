@@ -23,12 +23,12 @@ export default function WalletNavigation() {
           initialRouteName="Wallet"
         >
           <Stack.Screen name="Wallet" component={Wallet} />
-          {/* <Stack.Screen name="AddAndSendMoneyScreen" component={AddAndSendMoneyScreen} />
+          <Stack.Screen name="AddAndSendMoneyScreen" component={AddAndSendMoneyScreen} />
           <Stack.Screen name="BankInfoScreen" component={BankInfoScreen} />
           <Stack.Screen name="CreditCardScreen" component={CreditCardScreen} />
           <Stack.Screen name="PaymentMethodsScreen" component={PaymentMethodsScreen} />
           <Stack.Screen name="SuccessfullyAddAndSendScreen" component={SuccessfullyAddAndSendScreen} />
-          <Stack.Screen name="TransactionsScreen" component={TransactionsScreen} /> */}
+          <Stack.Screen name="TransactionsScreen" component={TransactionsScreen} />
 
         </Stack.Navigator>
       );

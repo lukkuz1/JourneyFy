@@ -47,8 +47,8 @@ const AddAndSendMoneyScreen = ({ navigation, route }) => {
         activeOpacity={0.8}
         onPress={() => {
           route?.params?.addFor == "money"
-            ? navigation.push("PaymentMethods")
-            : navigation.push("BankInfo");
+            ? navigation.navigate("PaymentMethodsScreen")
+            : navigation.navigate("BankInfoScreen");
         }}
         style={{
           ...CommonStyles.button,

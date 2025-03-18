@@ -40,7 +40,7 @@ const BankInfoScreen = ({ navigation }) => {
       <TouchableOpacity
         activeOpacity={0.8}
         onPress={() => {
-          navigation.push("SuccessfullyAddAndSend", { successFor: "bank" });
+          navigation.navigate("SuccessfullyAddAndSendScreen", { successFor: "bank" });
         }}
         style={{ ...CommonStyles.button, margin: Sizes.fixPadding * 2.0 }}
       >

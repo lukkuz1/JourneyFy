@@ -46,7 +46,7 @@ const SuccessfullyAddAndSendScreen = ({ navigation, route }) => {
     return (
       <Text
         onPress={() => {
-          navigation.push("BottomTabBar");
+          navigation.navigate("Wallet");
         }}
         style={{
           ...Fonts.primaryColor16SemiBold,

@@ -6,6 +6,7 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
 type NavigationProps = {
+  navigate(arg0: string): unknown;
   push: (screen: string, params?: object) => void;
 };
 
@@ -40,7 +41,7 @@ const Wallet: React.FC<WalletScreenProps> = ({ navigation }) => {
         <TouchableOpacity
           activeOpacity={0.8}
           onPress={() => {
-            //add menu here
+            navigation.navigate('TransactionsScreen');
           }}
           style={styles.optionWrapper as ViewStyle}>  
           <View style={styles.circle40}>
@@ -73,7 +74,7 @@ const Wallet: React.FC<WalletScreenProps> = ({ navigation }) => {
         <TouchableOpacity
           activeOpacity={0.8}
           onPress={() => {
-            //add menu here
+            navigation.navigate('AddAndSendMoneyScreen');
           }}
           style={styles.optionWrapper as ViewStyle}>
           <View style={styles.circle40}>
@@ -106,7 +107,7 @@ const Wallet: React.FC<WalletScreenProps> = ({ navigation }) => {
         <TouchableOpacity
           activeOpacity={0.8}
           onPress={() => {
-            //add menu
+            navigation.navigate('AddAndSendMoneyScreen');
           }}
           style={styles.optionWrapper as ViewStyle}>
           <View style={styles.circle40}>
