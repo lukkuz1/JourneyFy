@@ -28,6 +28,7 @@ const EditProfileScreen = ({ navigation }) => {
   const [lastName, setLastName] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
   const [dateOfBirth, setDateOfBirth] = useState("");
+  const [isDateOfBirthSet, setIsDateOfBirthSet] = useState(false);
   const [loading, setLoading] = useState(true);
   const [errors, setErrors] = useState({
     firstName: "",
@@ -46,38 +47,40 @@ const EditProfileScreen = ({ navigation }) => {
     setFirstName(data.firstName || "");
     setLastName(data.lastName || "");
     setPhoneNumber(data.phoneNumber || "");
-    setDateOfBirth(
-      data.dateOfBirth ? data.dateOfBirth.toDate().toISOString().split("T")[0] : ""
-    );
+    
+    if (data.dateOfBirth) {
+      setDateOfBirth(data.dateOfBirth.toDate().toISOString().split("T")[0]);
+      setIsDateOfBirthSet(true); // Mark DOB as set and prevent future updates
+    }
   };
 
   const handleUpdateProfile = async () => {
     if (!currentUserId) {
       Alert.alert("Error", "User not authenticated.");
-      console.log("🚨 No user ID found");
       return;
     }
 
     const validationErrors = validateFields();
     if (Object.values(validationErrors).some((error) => error)) {
       Alert.alert("Validation Error", "Please fix the errors before updating.");
-      console.log("❌ Validation failed, stopping update.");
       return;
     }
 
+    const updateData = {
+      firstName,
+      lastName,
+      phoneNumber,
+    };
+    if (!isDateOfBirthSet && dateOfBirth) {
+      updateData.dateOfBirth = Timestamp.fromDate(new Date(dateOfBirth));
+    }
+
     try {
-      console.log("🔥 Starting update...");
-      await updateProfileInFirestore(currentUserId, {
-        firstName,
-        lastName,
-        phoneNumber,
-        dateOfBirth: dateOfBirth ? Timestamp.fromDate(new Date(dateOfBirth)) : null,
-      });
+      await updateProfileInFirestore(currentUserId, updateData);
       Alert.alert("Success", "Profile updated successfully!");
-      console.log("✅ Profile updated:", { firstName, lastName, phoneNumber, dateOfBirth });
     } catch (error) {
-      console.error("❌ Error updating profile:", error);
-      Alert.alert("Error", "Profile update failed. Check console for details.");
+      console.error("Error updating profile:", error);
+      Alert.alert("Error", "Profile update failed.");
     }
   };
 
@@ -86,11 +89,10 @@ const EditProfileScreen = ({ navigation }) => {
       firstName: validateName(firstName),
       lastName: validateName(lastName),
       phoneNumber: validatePhoneNumber(phoneNumber),
-      dateOfBirth: validateDateOfBirth(dateOfBirth),
+      dateOfBirth: isDateOfBirthSet ? "" : validateDateOfBirth(dateOfBirth),
     };
 
     setErrors(newErrors);
-    console.log("🔍 Validation Errors:", newErrors);
     return newErrors;
   };
 
@@ -107,12 +109,14 @@ const EditProfileScreen = ({ navigation }) => {
           value={firstName}
           setter={setFirstName}
           validate={validateName}
+          placeholder="Įveskite savo vardą"
         />
         <ProfileInputField
           label="Pavardė"
           value={lastName}
           setter={setLastName}
           validate={validateName}
+          placeholder="Įveskite savo pavardę"
         />
         <ProfileInputField
           label="Telefonas"
@@ -120,14 +124,18 @@ const EditProfileScreen = ({ navigation }) => {
           setter={setPhoneNumber}
           keyboardType="phone-pad"
           validate={validatePhoneNumber}
+          placeholder="+370123456789"
         />
-        <ProfileInputField
-          label="Gimimo data"
-          value={dateOfBirth}
-          setter={setDateOfBirth}
-          keyboardType="default"
-          validate={validateDateOfBirth}
-        />
+        {!isDateOfBirthSet && (
+          <ProfileInputField
+            label="Gimimo data"
+            value={dateOfBirth}
+            setter={setDateOfBirth}
+            keyboardType="default"
+            validate={validateDateOfBirth}
+            placeholder="YYYY-MM-DD"
+          />
+        )}
       </ScrollView>
       <UpdateButton onPress={handleUpdateProfile} />
     </View>

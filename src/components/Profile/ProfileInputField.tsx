@@ -18,6 +18,7 @@ interface ProfileInputFieldProps {
   setter: (text: string) => void;
   keyboardType?: KeyboardTypeOptions;
   validate?: (text: string) => string;
+  placeholder?: string; // Added placeholder prop
 }
 
 const ProfileInputField: React.FC<ProfileInputFieldProps> = ({
@@ -26,6 +27,7 @@ const ProfileInputField: React.FC<ProfileInputFieldProps> = ({
   setter,
   keyboardType = "default",
   validate,
+  placeholder, // Accepting placeholder prop
 }) => {
   const [error, setError] = useState<string>("");
 
@@ -57,8 +59,8 @@ const ProfileInputField: React.FC<ProfileInputFieldProps> = ({
         <View style={styles.inputContainer}>
           <Text style={styles.label}>{label}</Text>
           <TextInput
-            placeholder={`Enter ${label.toLowerCase()}`}
             style={styles.textFieldStyle}
+            placeholder={placeholder} // Using the placeholder prop
             value={value}
             onChangeText={handleChange}
             onBlur={handleBlur}
