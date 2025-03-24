@@ -1,0 +1,71 @@
+Date : 2025-03-24 10:31:40
+Directory : c:\Users\Administrator\Desktop\bakalauras\JourneyFy
+Total : 28 files,  304 codes, -12 comments, -10 blanks, all 282 lines
+
+Languages
++----------------+------------+------------+------------+------------+------------+
+| language       | files      | code       | comment    | blank      | total      |
++----------------+------------+------------+------------+------------+------------+
+| JSON           |          2 |        136 |          0 |          0 |        136 |
+| TypeScript JSX |         14 |        121 |         -9 |         -9 |        103 |
+| JavaScript     |         12 |         47 |         -3 |         -1 |         43 |
++----------------+------------+------------+------------+------------+------------+
+
+Directories
++------------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| path                                                                                                             | files      | code       | comment    | blank      | total      |
++------------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| .                                                                                                                |         28 |        304 |        -12 |        -10 |        282 |
+| . (Files)                                                                                                        |          2 |        136 |          0 |          0 |        136 |
+| src                                                                                                              |         26 |        168 |        -12 |        -10 |        146 |
+| src\components                                                                                                   |          3 |         11 |          0 |          5 |         16 |
+| src\components (Files)                                                                                           |          2 |          7 |          0 |          4 |         11 |
+| src\components\Profile                                                                                           |          1 |          4 |          0 |          1 |          5 |
+| src\constants                                                                                                    |          2 |         -2 |          0 |         -2 |         -4 |
+| src\hooks                                                                                                        |          3 |         11 |          0 |          1 |         12 |
+| src\navigations                                                                                                  |          8 |         43 |         -6 |        -11 |         26 |
+| src\screens                                                                                                      |          9 |         69 |         -6 |        -11 |         52 |
+| src\screens\Entry                                                                                                |          2 |          0 |          0 |         -1 |         -1 |
+| src\screens\Main                                                                                                 |          4 |         73 |         -3 |          2 |         72 |
+| src\screens\TemplateProfile                                                                                      |          2 |         -4 |         -2 |        -12 |        -18 |
+| src\screens\TemplateProfile\editProfile                                                                          |          1 |        -43 |         -2 |        -12 |        -57 |
+| src\screens\TemplateProfile\profile                                                                              |          1 |         39 |          0 |          0 |         39 |
+| src\screens\TemplateWallet                                                                                       |          1 |          0 |         -1 |          0 |         -1 |
+| src\screens\TemplateWallet\creditCard                                                                            |          1 |          0 |         -1 |          0 |         -1 |
+| src\services                                                                                                     |          1 |         36 |          0 |          8 |         44 |
++------------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+
+Files
++------------------------------------------------------------------------------------------------------------------+----------------+------------+------------+------------+------------+
+| filename                                                                                                         | language       | code       | comment    | blank      | total      |
++------------------------------------------------------------------------------------------------------------------+----------------+------------+------------+------------+------------+
+| c:\Users\Administrator\Desktop\bakalauras\JourneyFy\package-lock.json                                            | JSON           |        134 |          0 |          0 |        134 |
+| c:\Users\Administrator\Desktop\bakalauras\JourneyFy\package.json                                                 | JSON           |          2 |          0 |          0 |          2 |
+| c:\Users\Administrator\Desktop\bakalauras\JourneyFy\src\components\LoadingIndicator.js                           | JavaScript     |          7 |          0 |          3 |         10 |
+| c:\Users\Administrator\Desktop\bakalauras\JourneyFy\src\components\Profile\ProfileInputField.tsx                 | TypeScript JSX |          4 |          0 |          1 |          5 |
+| c:\Users\Administrator\Desktop\bakalauras\JourneyFy\src\components\myStatusBar.js                                | JavaScript     |          0 |          0 |          1 |          1 |
+| c:\Users\Administrator\Desktop\bakalauras\JourneyFy\src\constants\key.js                                         | JavaScript     |         -2 |          0 |          0 |         -2 |
+| c:\Users\Administrator\Desktop\bakalauras\JourneyFy\src\constants\styles.js                                      | JavaScript     |          0 |          0 |         -2 |         -2 |
+| c:\Users\Administrator\Desktop\bakalauras\JourneyFy\src\hooks\useCreateJourney.js                                | JavaScript     |          5 |          0 |          1 |          6 |
+| c:\Users\Administrator\Desktop\bakalauras\JourneyFy\src\hooks\useEditProfile.js                                  | JavaScript     |          0 |          0 |         -1 |         -1 |
+| c:\Users\Administrator\Desktop\bakalauras\JourneyFy\src\hooks\useFindMatchingJourneys.js                         | JavaScript     |          6 |          0 |          1 |          7 |
+| c:\Users\Administrator\Desktop\bakalauras\JourneyFy\src\navigations\AdditionalNavigation.tsx                     | TypeScript JSX |          0 |          0 |         -3 |         -3 |
+| c:\Users\Administrator\Desktop\bakalauras\JourneyFy\src\navigations\AppNavigation.tsx                            | TypeScript JSX |          7 |          0 |          0 |          7 |
+| c:\Users\Administrator\Desktop\bakalauras\JourneyFy\src\navigations\HomeNavigation.tsx                           | TypeScript JSX |          9 |          0 |          1 |         10 |
+| c:\Users\Administrator\Desktop\bakalauras\JourneyFy\src\navigations\InfoNavigation.tsx                           | TypeScript JSX |          3 |          0 |         -3 |          0 |
+| c:\Users\Administrator\Desktop\bakalauras\JourneyFy\src\navigations\JourneyNavigation.tsx                        | TypeScript JSX |          9 |          0 |          1 |         10 |
+| c:\Users\Administrator\Desktop\bakalauras\JourneyFy\src\navigations\MainNavigation.tsx                           | TypeScript JSX |          0 |          0 |         -2 |         -2 |
+| c:\Users\Administrator\Desktop\bakalauras\JourneyFy\src\navigations\SettingsNavigation.tsx                       | TypeScript JSX |          0 |          0 |         -3 |         -3 |
+| c:\Users\Administrator\Desktop\bakalauras\JourneyFy\src\navigations\WalletNavigation.tsx                         | TypeScript JSX |         15 |         -6 |         -2 |          7 |
+| c:\Users\Administrator\Desktop\bakalauras\JourneyFy\src\screens\Entry\Login.tsx                                  | TypeScript JSX |          0 |          0 |         -2 |         -2 |
+| c:\Users\Administrator\Desktop\bakalauras\JourneyFy\src\screens\Entry\MainInfo.tsx                               | TypeScript JSX |          0 |          0 |          1 |          1 |
+| c:\Users\Administrator\Desktop\bakalauras\JourneyFy\src\screens\Main\Journey.tsx                                 | TypeScript JSX |         18 |          0 |          1 |         19 |
+| c:\Users\Administrator\Desktop\bakalauras\JourneyFy\src\screens\Main\Settings.tsx                                | TypeScript JSX |         29 |          0 |          1 |         30 |
+| c:\Users\Administrator\Desktop\bakalauras\JourneyFy\src\screens\Main\Wallet.tsx                                  | TypeScript JSX |         27 |         -3 |          0 |         24 |
+| c:\Users\Administrator\Desktop\bakalauras\JourneyFy\src\screens\Main\homeScreen.js                               | JavaScript     |         -1 |          0 |          0 |         -1 |
+| c:\Users\Administrator\Desktop\bakalauras\JourneyFy\src\screens\TemplateProfile\editProfile\editProfileScreen.js | JavaScript     |        -43 |         -2 |        -12 |        -57 |
+| c:\Users\Administrator\Desktop\bakalauras\JourneyFy\src\screens\TemplateProfile\profile\profileScreen.js         | JavaScript     |         39 |          0 |          0 |         39 |
+| c:\Users\Administrator\Desktop\bakalauras\JourneyFy\src\screens\TemplateWallet\creditCard\creditCardScreen.js    | JavaScript     |          0 |         -1 |          0 |         -1 |
+| c:\Users\Administrator\Desktop\bakalauras\JourneyFy\src\services\firebaseUserService.js                          | JavaScript     |         36 |          0 |          8 |         44 |
+| Total                                                                                                            |                |        304 |        -12 |        -10 |        282 |
++------------------------------------------------------------------------------------------------------------------+----------------+------------+------------+------------+------------+

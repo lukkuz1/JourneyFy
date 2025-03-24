@@ -1,0 +1,98 @@
+"filename", "language", "JSON", "JSON with Comments", "Markdown", "JavaScript", "TypeScript JSX", "TypeScript", "comment", "blank", "total"
+"c:\Users\Administrator\Desktop\bakalauras\JourneyFy\App.js", "JavaScript", 0, 0, 0, 15, 0, 0, 0, 3, 18
+"c:\Users\Administrator\Desktop\bakalauras\JourneyFy\README.md", "Markdown", 0, 0, 51, 0, 0, 0, 0, 17, 68
+"c:\Users\Administrator\Desktop\bakalauras\JourneyFy\_tests_\App.test.tsx", "TypeScript JSX", 0, 0, 0, 0, 9, 0, 0, 2, 11
+"c:\Users\Administrator\Desktop\bakalauras\JourneyFy\app.json", "JSON", 36, 0, 0, 0, 0, 0, 0, 1, 37
+"c:\Users\Administrator\Desktop\bakalauras\JourneyFy\babel.config.js", "JavaScript", 0, 0, 0, 15, 0, 0, 0, 1, 16
+"c:\Users\Administrator\Desktop\bakalauras\JourneyFy\eas.json", "JSON", 21, 0, 0, 0, 0, 0, 0, 1, 22
+"c:\Users\Administrator\Desktop\bakalauras\JourneyFy\env.d.ts", "TypeScript", 0, 0, 0, 0, 0, 11, 0, 1, 12
+"c:\Users\Administrator\Desktop\bakalauras\JourneyFy\jest.config.js", "JavaScript", 0, 0, 0, 8, 0, 0, 0, 1, 9
+"c:\Users\Administrator\Desktop\bakalauras\JourneyFy\package-lock.json", "JSON", 15528, 0, 0, 0, 0, 0, 0, 1, 15529
+"c:\Users\Administrator\Desktop\bakalauras\JourneyFy\package.json", "JSON", 73, 0, 0, 0, 0, 0, 0, 1, 74
+"c:\Users\Administrator\Desktop\bakalauras\JourneyFy\src\assets\xml\svg.ts", "TypeScript", 0, 0, 0, 0, 0, 62, 0, 11, 73
+"c:\Users\Administrator\Desktop\bakalauras\JourneyFy\src\components\Entry\EntryButton.tsx", "TypeScript JSX", 0, 0, 0, 0, 79, 0, 0, 4, 83
+"c:\Users\Administrator\Desktop\bakalauras\JourneyFy\src\components\Entry\EntryInputField.tsx", "TypeScript JSX", 0, 0, 0, 0, 93, 0, 0, 4, 97
+"c:\Users\Administrator\Desktop\bakalauras\JourneyFy\src\components\LoadingIndicator.js", "JavaScript", 0, 0, 0, 7, 0, 0, 0, 3, 10
+"c:\Users\Administrator\Desktop\bakalauras\JourneyFy\src\components\Profile\Divider.js", "JavaScript", 0, 0, 0, 13, 0, 0, 0, 3, 16
+"c:\Users\Administrator\Desktop\bakalauras\JourneyFy\src\components\Profile\LogoutDialog.js", "JavaScript", 0, 0, 0, 54, 0, 0, 0, 4, 58
+"c:\Users\Administrator\Desktop\bakalauras\JourneyFy\src\components\Profile\ProfileInputField.tsx", "TypeScript JSX", 0, 0, 0, 0, 127, 0, 0, 16, 143
+"c:\Users\Administrator\Desktop\bakalauras\JourneyFy\src\components\Profile\ProfileOption.js", "JavaScript", 0, 0, 0, 34, 0, 0, 0, 3, 37
+"c:\Users\Administrator\Desktop\bakalauras\JourneyFy\src\components\Profile\ProfilePicture.js", "JavaScript", 0, 0, 0, 38, 0, 0, 0, 4, 42
+"c:\Users\Administrator\Desktop\bakalauras\JourneyFy\src\components\Profile\UpdateButton.js", "JavaScript", 0, 0, 0, 12, 0, 0, 0, 3, 15
+"c:\Users\Administrator\Desktop\bakalauras\JourneyFy\src\components\bottomTabBarScreen.js", "JavaScript", 0, 0, 0, 176, 0, 0, 0, 11, 187
+"c:\Users\Administrator\Desktop\bakalauras\JourneyFy\src\components\header.js", "JavaScript", 0, 0, 0, 35, 0, 0, 0, 3, 38
+"c:\Users\Administrator\Desktop\bakalauras\JourneyFy\src\components\myStatusBar.js", "JavaScript", 0, 0, 0, 15, 0, 0, 0, 3, 18
+"c:\Users\Administrator\Desktop\bakalauras\JourneyFy\src\constants\Colors.ts", "TypeScript", 0, 0, 0, 0, 0, 47, 0, 7, 54
+"c:\Users\Administrator\Desktop\bakalauras\JourneyFy\src\constants\key.js", "JavaScript", 0, 0, 0, 4, 0, 0, 0, 2, 6
+"c:\Users\Administrator\Desktop\bakalauras\JourneyFy\src\constants\styles.js", "JavaScript", 0, 0, 0, 277, 0, 0, 0, 52, 329
+"c:\Users\Administrator\Desktop\bakalauras\JourneyFy\src\hooks\i18n.js", "JavaScript", 0, 0, 0, 10, 0, 0, 0, 5, 15
+"c:\Users\Administrator\Desktop\bakalauras\JourneyFy\src\hooks\useAuth.tsx", "TypeScript JSX", 0, 0, 0, 0, 146, 0, 0, 15, 161
+"c:\Users\Administrator\Desktop\bakalauras\JourneyFy\src\hooks\useCreateJourney.js", "JavaScript", 0, 0, 0, 48, 0, 0, 2, 11, 61
+"c:\Users\Administrator\Desktop\bakalauras\JourneyFy\src\hooks\useEditProfile.js", "JavaScript", 0, 0, 0, 90, 0, 0, 0, 13, 103
+"c:\Users\Administrator\Desktop\bakalauras\JourneyFy\src\hooks\useFindMatchingJourneys.js", "JavaScript", 0, 0, 0, 61, 0, 0, 5, 12, 78
+"c:\Users\Administrator\Desktop\bakalauras\JourneyFy\src\hooks\useUser.tsx", "TypeScript JSX", 0, 0, 0, 0, 119, 0, 0, 21, 140
+"c:\Users\Administrator\Desktop\bakalauras\JourneyFy\src\hooks\useUserInfo.tsx", "TypeScript JSX", 0, 0, 0, 0, 30, 0, 0, 6, 36
+"c:\Users\Administrator\Desktop\bakalauras\JourneyFy\src\hooks\useUserProfile.js", "JavaScript", 0, 0, 0, 30, 0, 0, 0, 8, 38
+"c:\Users\Administrator\Desktop\bakalauras\JourneyFy\src\locales\en.js", "JavaScript", 0, 0, 0, 45, 0, 0, 0, 1, 46
+"c:\Users\Administrator\Desktop\bakalauras\JourneyFy\src\locales\lt.js", "JavaScript", 0, 0, 0, 45, 0, 0, 0, 3, 48
+"c:\Users\Administrator\Desktop\bakalauras\JourneyFy\src\navigations\AdditionalNavigation.tsx", "TypeScript JSX", 0, 0, 0, 0, 22, 0, 2, 3, 27
+"c:\Users\Administrator\Desktop\bakalauras\JourneyFy\src\navigations\AppNavigation.tsx", "TypeScript JSX", 0, 0, 0, 0, 48, 0, 0, 6, 54
+"c:\Users\Administrator\Desktop\bakalauras\JourneyFy\src\navigations\EntryNavigation.tsx", "TypeScript JSX", 0, 0, 0, 0, 24, 0, 0, 3, 27
+"c:\Users\Administrator\Desktop\bakalauras\JourneyFy\src\navigations\HomeNavigation.tsx", "TypeScript JSX", 0, 0, 0, 0, 62, 0, 0, 3, 65
+"c:\Users\Administrator\Desktop\bakalauras\JourneyFy\src\navigations\InfoNavigation.tsx", "TypeScript JSX", 0, 0, 0, 0, 23, 0, 0, 3, 26
+"c:\Users\Administrator\Desktop\bakalauras\JourneyFy\src\navigations\JourneyNavigation.tsx", "TypeScript JSX", 0, 0, 0, 0, 63, 0, 0, 3, 66
+"c:\Users\Administrator\Desktop\bakalauras\JourneyFy\src\navigations\MainNavigation.tsx", "TypeScript JSX", 0, 0, 0, 0, 81, 0, 2, 7, 90
+"c:\Users\Administrator\Desktop\bakalauras\JourneyFy\src\navigations\ProfileNavigation.tsx", "TypeScript JSX", 0, 0, 0, 0, 84, 0, 0, 4, 88
+"c:\Users\Administrator\Desktop\bakalauras\JourneyFy\src\navigations\SettingsNavigation.tsx", "TypeScript JSX", 0, 0, 0, 0, 20, 0, 0, 3, 23
+"c:\Users\Administrator\Desktop\bakalauras\JourneyFy\src\navigations\WalletNavigation.tsx", "TypeScript JSX", 0, 0, 0, 0, 40, 0, 0, 3, 43
+"c:\Users\Administrator\Desktop\bakalauras\JourneyFy\src\navigations\navigation.ts", "TypeScript", 0, 0, 0, 0, 0, 3, 0, 0, 3
+"c:\Users\Administrator\Desktop\bakalauras\JourneyFy\src\screens\Entry\ForgotPassword.tsx", "TypeScript JSX", 0, 0, 0, 0, 163, 0, 0, 5, 168
+"c:\Users\Administrator\Desktop\bakalauras\JourneyFy\src\screens\Entry\Login.tsx", "TypeScript JSX", 0, 0, 0, 0, 163, 0, 0, 11, 174
+"c:\Users\Administrator\Desktop\bakalauras\JourneyFy\src\screens\Entry\MainInfo.tsx", "TypeScript JSX", 0, 0, 0, 0, 140, 0, 0, 8, 148
+"c:\Users\Administrator\Desktop\bakalauras\JourneyFy\src\screens\Entry\Register.tsx", "TypeScript JSX", 0, 0, 0, 0, 160, 0, 0, 5, 165
+"c:\Users\Administrator\Desktop\bakalauras\JourneyFy\src\screens\Entry\auth\loginScreen.js", "JavaScript", 0, 0, 0, 174, 0, 0, 0, 14, 188
+"c:\Users\Administrator\Desktop\bakalauras\JourneyFy\src\screens\Entry\auth\registerScreen.js", "JavaScript", 0, 0, 0, 191, 0, 0, 0, 13, 204
+"c:\Users\Administrator\Desktop\bakalauras\JourneyFy\src\screens\Entry\auth\verificationScreen.js", "JavaScript", 0, 0, 0, 236, 0, 0, 0, 17, 253
+"c:\Users\Administrator\Desktop\bakalauras\JourneyFy\src\screens\Main\Home.tsx", "TypeScript JSX", 0, 0, 0, 0, 174, 0, 0, 12, 186
+"c:\Users\Administrator\Desktop\bakalauras\JourneyFy\src\screens\Main\Journey.tsx", "TypeScript JSX", 0, 0, 0, 0, 244, 0, 0, 30, 274
+"c:\Users\Administrator\Desktop\bakalauras\JourneyFy\src\screens\Main\Settings.tsx", "TypeScript JSX", 0, 0, 0, 0, 377, 0, 6, 20, 403
+"c:\Users\Administrator\Desktop\bakalauras\JourneyFy\src\screens\Main\Wallet.tsx", "TypeScript JSX", 0, 0, 0, 0, 216, 0, 0, 12, 228
+"c:\Users\Administrator\Desktop\bakalauras\JourneyFy\src\screens\Main\homeScreen.js", "JavaScript", 0, 0, 0, 809, 0, 0, 4, 30, 843
+"c:\Users\Administrator\Desktop\bakalauras\JourneyFy\src\screens\TemplateAdditional\reviews\reviewsScreen.js", "JavaScript", 0, 0, 0, 145, 0, 0, 0, 5, 150
+"c:\Users\Administrator\Desktop\bakalauras\JourneyFy\src\screens\TemplateInfo\notifications\notificationsScreen.js", "JavaScript", 0, 0, 0, 196, 0, 0, 0, 15, 211
+"c:\Users\Administrator\Desktop\bakalauras\JourneyFy\src\screens\TemplateJourney\addVehicle\addVehicleScreen.js", "JavaScript", 0, 0, 0, 336, 0, 0, 0, 15, 351
+"c:\Users\Administrator\Desktop\bakalauras\JourneyFy\src\screens\TemplateJourney\availableRides\availableRidesScreen.js", "JavaScript", 0, 0, 0, 280, 0, 0, 0, 11, 291
+"c:\Users\Administrator\Desktop\bakalauras\JourneyFy\src\screens\TemplateJourney\confirmPooling\confirmPoolingScreen.js", "JavaScript", 0, 0, 0, 75, 0, 0, 0, 7, 82
+"c:\Users\Administrator\Desktop\bakalauras\JourneyFy\src\screens\TemplateJourney\endRide\endRideScreen.js", "JavaScript", 0, 0, 0, 474, 0, 0, 4, 14, 492
+"c:\Users\Administrator\Desktop\bakalauras\JourneyFy\src\screens\TemplateJourney\historyRideDetail\historyRideDetailScreen.js", "JavaScript", 0, 0, 0, 396, 0, 0, 0, 19, 415
+"c:\Users\Administrator\Desktop\bakalauras\JourneyFy\src\screens\TemplateJourney\message\messageScreen.js", "JavaScript", 0, 0, 0, 260, 0, 0, 0, 13, 273
+"c:\Users\Administrator\Desktop\bakalauras\JourneyFy\src\screens\TemplateJourney\offerRide\offerRideScreen.js", "JavaScript", 0, 0, 0, 425, 0, 0, 0, 17, 442
+"c:\Users\Administrator\Desktop\bakalauras\JourneyFy\src\screens\TemplateJourney\onboarding\onboardingScreen.js", "JavaScript", 0, 0, 0, 292, 0, 0, 0, 16, 308
+"c:\Users\Administrator\Desktop\bakalauras\JourneyFy\src\screens\TemplateJourney\pickLocation\pickLocationScreen.js", "JavaScript", 0, 0, 0, 313, 0, 0, 3, 24, 340
+"c:\Users\Administrator\Desktop\bakalauras\JourneyFy\src\screens\TemplateJourney\pickLocation\pickLocationTestScreen.js", "JavaScript", 0, 0, 0, 130, 0, 0, 1, 14, 145
+"c:\Users\Administrator\Desktop\bakalauras\JourneyFy\src\screens\TemplateJourney\rideComplete\rideCompleteScreen.js", "JavaScript", 0, 0, 0, 76, 0, 0, 0, 7, 83
+"c:\Users\Administrator\Desktop\bakalauras\JourneyFy\src\screens\TemplateJourney\rideDetail\rideDetailScreen.js", "JavaScript", 0, 0, 0, 622, 0, 0, 0, 24, 646
+"c:\Users\Administrator\Desktop\bakalauras\JourneyFy\src\screens\TemplateJourney\rideMapView\rideMapViewScreen.js", "JavaScript", 0, 0, 0, 374, 0, 0, 0, 17, 391
+"c:\Users\Administrator\Desktop\bakalauras\JourneyFy\src\screens\TemplateJourney\rideRequest\rideRequestScreen.js", "JavaScript", 0, 0, 0, 532, 0, 0, 0, 18, 550
+"c:\Users\Administrator\Desktop\bakalauras\JourneyFy\src\screens\TemplateJourney\rides\ridesScreen.js", "JavaScript", 0, 0, 0, 296, 0, 0, 0, 14, 310
+"c:\Users\Administrator\Desktop\bakalauras\JourneyFy\src\screens\TemplateJourney\startRide\startRideScreen.js", "JavaScript", 0, 0, 0, 427, 0, 0, 5, 14, 446
+"c:\Users\Administrator\Desktop\bakalauras\JourneyFy\src\screens\TemplateProfile\customerSupport\customerSupportScreen.js", "JavaScript", 0, 0, 0, 221, 0, 0, 0, 10, 231
+"c:\Users\Administrator\Desktop\bakalauras\JourneyFy\src\screens\TemplateProfile\editProfile\editProfileScreen.js", "JavaScript", 0, 0, 0, 130, 0, 0, 0, 15, 145
+"c:\Users\Administrator\Desktop\bakalauras\JourneyFy\src\screens\TemplateProfile\faq\faqScreen.js", "JavaScript", 0, 0, 0, 85, 0, 0, 0, 6, 91
+"c:\Users\Administrator\Desktop\bakalauras\JourneyFy\src\screens\TemplateProfile\privacyPolicy\privacyPolicyScreen.js", "JavaScript", 0, 0, 0, 80, 0, 0, 0, 7, 87
+"c:\Users\Administrator\Desktop\bakalauras\JourneyFy\src\screens\TemplateProfile\profile\profileScreen.js", "JavaScript", 0, 0, 0, 190, 0, 0, 0, 10, 200
+"c:\Users\Administrator\Desktop\bakalauras\JourneyFy\src\screens\TemplateProfile\rideHistory\rideHistoryScreen.js", "JavaScript", 0, 0, 0, 254, 0, 0, 0, 10, 264
+"c:\Users\Administrator\Desktop\bakalauras\JourneyFy\src\screens\TemplateProfile\termsAndConditions\termsAndConditionsScreen.js", "JavaScript", 0, 0, 0, 47, 0, 0, 0, 6, 53
+"c:\Users\Administrator\Desktop\bakalauras\JourneyFy\src\screens\TemplateProfile\userVehicles\userVehiclesScreen.js", "JavaScript", 0, 0, 0, 150, 0, 0, 0, 10, 160
+"c:\Users\Administrator\Desktop\bakalauras\JourneyFy\src\screens\TemplateWallet\addAndSendMoney\addAndSendMoneyScreen.js", "JavaScript", 0, 0, 0, 115, 0, 0, 0, 7, 122
+"c:\Users\Administrator\Desktop\bakalauras\JourneyFy\src\screens\TemplateWallet\bankInfo\bankInfoScreen.js", "JavaScript", 0, 0, 0, 167, 0, 0, 0, 10, 177
+"c:\Users\Administrator\Desktop\bakalauras\JourneyFy\src\screens\TemplateWallet\creditCard\creditCardScreen.js", "JavaScript", 0, 0, 0, 92, 0, 0, 0, 8, 100
+"c:\Users\Administrator\Desktop\bakalauras\JourneyFy\src\screens\TemplateWallet\paymentMethods\paymentMethodsScreen.js", "JavaScript", 0, 0, 0, 130, 0, 0, 0, 8, 138
+"c:\Users\Administrator\Desktop\bakalauras\JourneyFy\src\screens\TemplateWallet\successfullyAddAndSend\successfullyAddAndSendScreen.js", "JavaScript", 0, 0, 0, 95, 0, 0, 0, 8, 103
+"c:\Users\Administrator\Desktop\bakalauras\JourneyFy\src\screens\TemplateWallet\transactions\transactionsScreen.js", "JavaScript", 0, 0, 0, 152, 0, 0, 0, 5, 157
+"c:\Users\Administrator\Desktop\bakalauras\JourneyFy\src\screens\TemplateWallet\wallet\walletScreen.js", "JavaScript", 0, 0, 0, 201, 0, 0, 0, 10, 211
+"c:\Users\Administrator\Desktop\bakalauras\JourneyFy\src\services\firebase.tsx", "TypeScript JSX", 0, 0, 0, 0, 33, 0, 0, 6, 39
+"c:\Users\Administrator\Desktop\bakalauras\JourneyFy\src\services\firebaseUserService.js", "JavaScript", 0, 0, 0, 36, 0, 0, 0, 8, 44
+"c:\Users\Administrator\Desktop\bakalauras\JourneyFy\src\utils\validation.js", "JavaScript", 0, 0, 0, 18, 0, 0, 0, 3, 21
+"c:\Users\Administrator\Desktop\bakalauras\JourneyFy\tsconfig.json", "JSON with Comments", 0, 4, 0, 0, 0, 0, 0, 1, 5
+"Total", "-", 15658, 4, 51, 10254, 2740, 123, 34, 884, 29748
