@@ -50,7 +50,7 @@ export default function Settings({ navigation }) {
       <MyStatusBar />
       <ScrollView>
         <Header title={"Nustatymai"} navigation={navigation} />
-        <ProfileSection currentUser={currentUser} />
+        <ProfileSection/>
         <OptionsList
           onChangePassword={() => setIsPasswordModalVisible(true)}
           onMapSettings={() => setIsMapModalVisible(true)}

@@ -1,14 +1,23 @@
 import React from "react";
-import { View, Text, TextInput, TouchableOpacity, Image } from "react-native";
-import { Colors, Sizes, Fonts } from "../../constants/styles"
+import { View, Text, TextInput, TouchableOpacity, Image, StyleSheet } from "react-native";
+import { Colors, Sizes, Fonts } from "../../constants/styles";
 import Ionicons from "react-native-vector-icons/Ionicons";
 
-const VehicleForm = ({ vehicleData, onChange, onOpenImagePicker }) => {
+const VehicleForm = ({ 
+  vehicleData, 
+  onChange, 
+  onOpenImagePicker, 
+  onOpenVehicleTypePicker, 
+  onOpenSeatPicker 
+}) => {
   return (
     <View>
       <TouchableOpacity onPress={onOpenImagePicker} style={styles.vehicleImageWrapper}>
         {vehicleData.carImage ? (
-          <Image source={{ uri: vehicleData.carImage }} style={{ width: 100, height: 100, borderRadius: 8 }} />
+          <Image 
+            source={{ uri: vehicleData.carImage }} 
+            style={{ width: 100, height: 100, borderRadius: 8 }} 
+          />
         ) : (
           <>
             <Ionicons name="camera-outline" color={Colors.grayColor} size={35} />
@@ -18,11 +27,26 @@ const VehicleForm = ({ vehicleData, onChange, onOpenImagePicker }) => {
           </>
         )}
       </TouchableOpacity>
+      
       {renderInput("Mašinos pavadinimas", "vehicleName", vehicleData.vehicleName, onChange)}
-      {renderInput("Mašinos tipas", "vehicleType", vehicleData.vehicleType, onChange)}
+      
+      {renderSelectInput(
+        "Mašinos tipas",
+        vehicleData.vehicleType,
+        "Pasirinkite mašinos tipą",
+        onOpenVehicleTypePicker
+      )}
+      
       {renderInput("Mašinos reg. nr.", "regNo", vehicleData.regNo, onChange)}
       {renderInput("Mašinos spalva", "color", vehicleData.color, onChange)}
-      {renderInput("Vietų pasiūlymai", "seat", vehicleData.seat, onChange, "numeric")}
+      
+      {renderSelectInput(
+        "Vietų skaičius",
+        vehicleData.seat ? `${vehicleData.seat} vietų` : "",
+        "Pasirinkite vietų sk.",
+        onOpenSeatPicker
+      )}
+      
       {renderInput("Įranga (pvz., kondicionierius, muzika)", "facility", vehicleData.facility, onChange)}
     </View>
   );
@@ -30,7 +54,9 @@ const VehicleForm = ({ vehicleData, onChange, onOpenImagePicker }) => {
 
 const renderInput = (label, field, value, onChange, keyboardType = "default") => (
   <View style={{ margin: Sizes.fixPadding * 2 }}>
-    <Text style={{ ...Fonts.blackColor15SemiBold, marginBottom: Sizes.fixPadding }}>{label}</Text>
+    <Text style={{ ...Fonts.blackColor15SemiBold, marginBottom: Sizes.fixPadding }}>
+      {label}
+    </Text>
     <View style={styles.valueBox}>
       <TextInput
         placeholder={`Įveskite ${label.toLowerCase()}`}
@@ -46,7 +72,20 @@ const renderInput = (label, field, value, onChange, keyboardType = "default") =>
   </View>
 );
 
-const styles = {
+const renderSelectInput = (label, value, placeholder, onPress) => (
+  <View style={{ margin: Sizes.fixPadding * 2 }}>
+    <Text style={{ ...Fonts.blackColor15SemiBold, marginBottom: Sizes.fixPadding }}>
+      {label}
+    </Text>
+    <TouchableOpacity onPress={onPress} style={styles.selectInput}>
+      <Text style={value ? Fonts.blackColor16SemiBold : Fonts.grayColor16SemiBold}>
+        {value ? value : placeholder}
+      </Text>
+    </TouchableOpacity>
+  </View>
+);
+
+const styles = StyleSheet.create({
   valueBox: {
     backgroundColor: Colors.whiteColor,
     paddingHorizontal: Sizes.fixPadding,
@@ -66,6 +105,11 @@ const styles = {
     alignItems: "center",
     justifyContent: "center",
   },
-};
+  selectInput: {
+    padding: Sizes.fixPadding,
+    backgroundColor: Colors.whiteColor,
+    borderRadius: Sizes.fixPadding,
+  },
+});
 
 export default VehicleForm;

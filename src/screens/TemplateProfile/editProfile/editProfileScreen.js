@@ -1,8 +1,8 @@
+// src/screens/Profile/EditProfileScreen.js
 import React, { useState, useEffect } from "react";
-import { ScrollView, StyleSheet, Text, View, Alert } from "react-native";
+import { ScrollView, StyleSheet, View, Alert } from "react-native";
 import { getAuth } from "firebase/auth";
 import { Timestamp } from "firebase/firestore";
-
 import { Colors, Sizes, Fonts, CommonStyles } from "../../../constants/styles";
 import MyStatusBar from "../../../components/myStatusBar";
 import Header from "../../../components/header";
@@ -37,6 +37,9 @@ const EditProfileScreen = ({ navigation }) => {
     dateOfBirth: "",
   });
 
+  // New state to hold the profile picture URL.
+  const [profilePhoto, setProfilePhoto] = useState(auth.currentUser?.photoURL || "");
+
   useEffect(() => {
     fetchUserProfile(currentUserId, populateUserData, initializeUserProfile).finally(() =>
       setLoading(false)
@@ -47,10 +50,12 @@ const EditProfileScreen = ({ navigation }) => {
     setFirstName(data.firstName || "");
     setLastName(data.lastName || "");
     setPhoneNumber(data.phoneNumber || "");
-    
     if (data.dateOfBirth) {
       setDateOfBirth(data.dateOfBirth.toDate().toISOString().split("T")[0]);
-      setIsDateOfBirthSet(true); // Mark DOB as set and prevent future updates
+      setIsDateOfBirthSet(true);
+    }
+    if (data.photoURL) {
+      setProfilePhoto(data.photoURL);
     }
   };
 
@@ -59,13 +64,11 @@ const EditProfileScreen = ({ navigation }) => {
       Alert.alert("Error", "User not authenticated.");
       return;
     }
-
     const validationErrors = validateFields();
     if (Object.values(validationErrors).some((error) => error)) {
       Alert.alert("Validation Error", "Please fix the errors before updating.");
       return;
     }
-
     const updateData = {
       firstName,
       lastName,
@@ -74,7 +77,9 @@ const EditProfileScreen = ({ navigation }) => {
     if (!isDateOfBirthSet && dateOfBirth) {
       updateData.dateOfBirth = Timestamp.fromDate(new Date(dateOfBirth));
     }
-
+    if (profilePhoto) {
+      updateData.photoURL = profilePhoto;
+    }
     try {
       await updateProfileInFirestore(currentUserId, updateData);
       Alert.alert("Success", "Profile updated successfully!");
@@ -91,7 +96,6 @@ const EditProfileScreen = ({ navigation }) => {
       phoneNumber: validatePhoneNumber(phoneNumber),
       dateOfBirth: isDateOfBirthSet ? "" : validateDateOfBirth(dateOfBirth),
     };
-
     setErrors(newErrors);
     return newErrors;
   };
@@ -103,7 +107,13 @@ const EditProfileScreen = ({ navigation }) => {
       <MyStatusBar />
       <Header title={"Redaguoti Profilį"} navigation={navigation} />
       <ScrollView showsVerticalScrollIndicator={false}>
-        <ProfilePicture />
+        <ProfilePicture
+          currentUser={auth.currentUser}
+          profilePhoto={profilePhoto}
+          onProfileUpdated={(newURL) => {
+            setProfilePhoto(newURL);
+          }}
+        />
         <ProfileInputField
           label="Vardas"
           value={firstName}

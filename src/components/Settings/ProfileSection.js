@@ -1,23 +1,36 @@
-import React from "react";
-import { View, Text, StyleSheet, Image } from "react-native";
+import React, { useEffect, useState } from "react";
+import { View, Text, Image, StyleSheet } from "react-native";
 import { Colors, Fonts, Sizes } from "../../constants/styles";
+import { useUserProfile } from "../../hooks/useUserProfile";
 
-const ProfileSection = ({ currentUser }) => {
+const ProfileSection = () => {
+  const { user, fetchUserProfile } = useUserProfile();
+  const [fullName, setFullName] = useState("");
+
+  useEffect(() => {
+    // Fetch profile data when the component mounts
+    fetchUserProfile();
+  }, []);
+
+  useEffect(() => {
+    // Update fullName when user data changes
+    if (user.firstName || user.lastName) {
+      setFullName(`${user.firstName} ${user.lastName}`.trim());
+    }
+  }, [user]);
+
   return (
     <View style={styles.profileSection}>
       <Image
         source={
-          currentUser?.photoURL
-            ? { uri: currentUser.photoURL }
+          user.photoURL
+            ? { uri: user.photoURL }
             : require("../../assets/images/user/user1.jpeg")
         }
         style={styles.profileImage}
       />
       <View style={styles.profileInfo}>
-        <Text style={styles.profileName}>
-          {currentUser?.displayName || "Naudotojas"}
-        </Text>
-        <Text style={styles.profileEmail}>{currentUser?.email}</Text>
+        <Text style={styles.profileName}>{fullName}</Text>
       </View>
     </View>
   );
@@ -41,10 +54,6 @@ const styles = StyleSheet.create({
   profileName: {
     fontSize: 18,
     fontWeight: "bold",
-  },
-  profileEmail: {
-    fontSize: 14,
-    color: Colors.grayColor,
   },
 });
 

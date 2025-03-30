@@ -5,6 +5,8 @@ import MyStatusBar from "../../../components/myStatusBar";
 import Header from "../../../components/header";
 import VehicleForm from "../../../components/AddVehicle/VehicleForm";
 import ImagePickerBottomSheet from "../../../components/AddVehicle/ImagePickerBottomSheet";
+import NoOfSeatSheet from "../../../components/Home/NoOfSeatSheet";
+import VehicleTypeSheet from "../../../components/AddVehicle/VehicleTypeSheet";
 import { useAddVehicle } from "../../../hooks/useAddVehicle";
 
 const AddVehicleScreen = ({ navigation }) => {
@@ -19,6 +21,8 @@ const AddVehicleScreen = ({ navigation }) => {
   });
 
   const [showVehicleImageSheet, setShowVehicleImageSheet] = useState(false);
+  const [showSeatSheet, setShowSeatSheet] = useState(false);
+  const [showVehicleTypeSheet, setShowVehicleTypeSheet] = useState(false);
   const { uploading, addVehicle } = useAddVehicle();
 
   const handleChange = (field, value) => {
@@ -44,6 +48,8 @@ const AddVehicleScreen = ({ navigation }) => {
             vehicleData={vehicleData}
             onChange={handleChange}
             onOpenImagePicker={() => setShowVehicleImageSheet(true)}
+            onOpenVehicleTypePicker={() => setShowVehicleTypeSheet(true)}
+            onOpenSeatPicker={() => setShowSeatSheet(true)}
           />
         </ScrollView>
       </View>
@@ -61,6 +67,18 @@ const AddVehicleScreen = ({ navigation }) => {
           handleChange("carImage", uri);
           setShowVehicleImageSheet(false);
         }}
+      />
+      <NoOfSeatSheet
+        isVisible={showSeatSheet}
+        onClose={() => setShowSeatSheet(false)}
+        selectedSeat={vehicleData.seat}
+        onSelectSeat={(seat) => handleChange("seat", seat)}
+      />
+      <VehicleTypeSheet
+        isVisible={showVehicleTypeSheet}
+        onClose={() => setShowVehicleTypeSheet(false)}
+        selectedVehicleType={vehicleData.vehicleType}
+        onSelectVehicleType={(type) => handleChange("vehicleType", type)}
       />
       {uploading && (
         <View style={styles.uploadingOverlay}>

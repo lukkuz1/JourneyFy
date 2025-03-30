@@ -1,16 +1,22 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
+import { useFocusEffect } from "@react-navigation/native";
 import { View, Text, Image, StyleSheet } from "react-native";
 import { Colors, Sizes, Fonts } from "../../constants/styles";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import { useUserProfile } from "../../hooks/useUserProfile";
+import { getAuth } from "firebase/auth";
 
 const Header = ({ location = "Lietuva" }) => {
-  const { user, fetchUserProfile } = useUserProfile();
+  const { user, fetchUserProfile, refreshing, onRefresh } = useUserProfile();
+  const auth = getAuth();
+  const currentUser = auth.currentUser;
   const [userName, setUserName] = useState("Naudotojas");
-  useEffect(() => {
-    fetchUserProfile();
-  }, []);
 
+  useFocusEffect(
+    useCallback(() => {
+      fetchUserProfile();
+    }, [])
+  );
   useEffect(() => {
     if (user.firstName || user.lastName) {
       setUserName(`${user.firstName} ${user.lastName}`.trim());
@@ -20,10 +26,14 @@ const Header = ({ location = "Lietuva" }) => {
   return (
     <View style={styles.header}>
       <View style={{ flexDirection: "row", alignItems: "center" }}>
-        <Image
-          source={require("../../assets/images/user/user1.jpeg")}
-          style={{ width: 45, height: 45, borderRadius: 22.5 }}
-        />
+    <Image
+      source={
+        user?.photoURL
+          ? { uri: user.photoURL }
+          : require("../../assets/images/user/user1.jpeg")
+      }
+      style={styles.profileImage}
+    />
         <View style={{ flex: 1, marginLeft: Sizes.fixPadding }}>
           <Text numberOfLines={1} style={Fonts.whiteColor16SemiBold}>
             Labas, {userName}
@@ -63,6 +73,11 @@ const styles = StyleSheet.create({
     flex: 1,
     ...Fonts.whiteColor14Medium,
     marginLeft: Sizes.fixPadding - 5,
+  },
+  profileImage: {
+    width: 40.0,
+    height: 40.0,
+    borderRadius: 35.0,
   },
 });
 

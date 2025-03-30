@@ -42,7 +42,7 @@ const VehicleItem = ({ vehicle, deleteVehicle, openStatusModal }) => {
             numberOfLines={1}
             style={[Fonts.whiteColor15Medium, { marginTop: Sizes.fixPadding - 8 }]}
           >
-            {vehicle.capacityOfPerson} žmogus
+            {vehicle.capacityOfPerson} vietų
           </Text>
         </View>
       </ImageBackground>

@@ -42,7 +42,6 @@ const PickLocationScreen = ({ navigation, route }) => {
   const [address, setAddress] = useState("");
   const [search, setSearch] = useState("");
 
-  // ✅ Ensure route.params is always defined
   const params = route?.params || {};
   const addressFor = params.addressFor || "unknown";
 
@@ -243,7 +242,7 @@ const PickLocationScreen = ({ navigation, route }) => {
     return (
       <MapView
         style={{ flex: 1 }}
-        region={{
+        initialRegion={{
           latitude: currentmarker.latitude,
           longitude: currentmarker.longitude,
           latitudeDelta: LATITUDE_DELTA,
@@ -253,21 +252,22 @@ const PickLocationScreen = ({ navigation, route }) => {
       >
         <Marker
           coordinate={currentmarker}
+          draggable
           onDragEnd={(e) => {
             const newLocation = e.nativeEvent.coordinate;
             setCurrentMarker(newLocation);
             getAddress(newLocation);
           }}
-          draggable
         >
           <Image
             source={require("../../../assets/images/icons/marker.png")}
-            style={{ width: 40.0, height: 40.0, resizeMode: "contain" }}
+            style={{ width: 40, height: 40, resizeMode: "contain" }}
           />
         </Marker>
       </MapView>
     );
   }
+  
 
   function getAddress(location) {
     Geocoder.from(location.latitude, location.longitude)
