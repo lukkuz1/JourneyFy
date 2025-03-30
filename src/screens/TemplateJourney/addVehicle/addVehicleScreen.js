@@ -5,6 +5,8 @@ import {
   View,
   TextInput,
   TouchableOpacity,
+  Image,
+  ActivityIndicator,
 } from "react-native";
 import React, { useState } from "react";
 import { Colors, Sizes, Fonts, CommonStyles } from "../../../constants/styles";
@@ -13,15 +15,108 @@ import Header from "../../../components/header";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import { BottomSheet } from "@rneui/themed";
+import { getFirestore, collection, addDoc } from "firebase/firestore";
+import { getAuth } from "firebase/auth";
+import {
+  getStorage,
+  ref as storageRef,
+  uploadBytes,
+  getDownloadURL,
+} from "firebase/storage";
+import * as ImagePicker from "expo-image-picker";
 
 const AddVehicleScreen = ({ navigation }) => {
+  const db = getFirestore();
+  const auth = getAuth();
+  const storage = getStorage();
+
   const [vehicleName, setvehicleName] = useState("");
   const [vehicleType, setvehicleType] = useState("");
   const [regNo, setregNo] = useState("");
   const [color, setcolor] = useState("");
   const [seat, setseat] = useState("");
   const [facility, setfacility] = useState("");
+  // Initially, carImage stores the local URI; later we update it with the remote URL.
+  const [carImage, setCarImage] = useState(null);
+  const [uploading, setUploading] = useState(false);
   const [showVehicleImageSheet, setshowVehicleImageSheet] = useState(false);
+
+  const uploadImageAsync = async (uri) => {
+    const response = await fetch(uri);
+    const blob = await response.blob();
+    const currentUser = auth.currentUser;
+    const imageRef = storageRef(storage, `cars/${currentUser.uid}/${Date.now()}`);
+    await uploadBytes(imageRef, blob);
+    const downloadURL = await getDownloadURL(imageRef);
+    return downloadURL;
+  };
+
+  const addVehicleToFirestore = async () => {
+    const currentUser = auth.currentUser;
+    if (!currentUser) {
+      console.error("User not logged in");
+      return;
+    }
+    setUploading(true);
+    try {
+      let imageUrl = "";
+      if (carImage) {
+        // Upload image and get remote URL
+        imageUrl = await uploadImageAsync(carImage);
+        // Update the state so that the UI shows the remote image URL instead of the local URI
+        setCarImage(imageUrl);
+      }
+      await addDoc(collection(db, "cars"), {
+        userId: currentUser.uid,
+        vehicleName,
+        vehicleType,
+        regNo,
+        color,
+        seat,
+        facility,
+        imageUrl, // will be an empty string if no image was selected
+        // Optionally add a timestamp here
+      });
+      navigation.pop(); // Navigate back after adding
+    } catch (error) {
+      console.error("Error adding vehicle: ", error);
+      // Check your Firestore security rules and authentication if you see permission errors.
+    } finally {
+      setUploading(false);
+    }
+  };
+
+  // Image picking functions
+  const pickImageFromGallery = async () => {
+    const permissionResult = await ImagePicker.requestMediaLibraryPermissionsAsync();
+    if (!permissionResult.granted) {
+      alert("Permission to access gallery is required!");
+      return;
+    }
+    const result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaType.Images,
+      quality: 0.7,
+    });
+    if (!result.cancelled) {
+      setCarImage(result.uri);
+    }
+    setshowVehicleImageSheet(false);
+  };
+
+  const takeImageFromCamera = async () => {
+    const permissionResult = await ImagePicker.requestCameraPermissionsAsync();
+    if (!permissionResult.granted) {
+      alert("Permission to access camera is required!");
+      return;
+    }
+    const result = await ImagePicker.launchCameraAsync({
+      quality: 0.7,
+    });
+    if (!result.cancelled) {
+      setCarImage(result.uri);
+    }
+    setshowVehicleImageSheet(false);
+  };
 
   return (
     <View style={{ flex: 1, backgroundColor: Colors.bodyBackColor }}>
@@ -43,6 +138,11 @@ const AddVehicleScreen = ({ navigation }) => {
       </View>
       {addButton()}
       {changePicSheet()}
+      {uploading && (
+        <View style={styles.uploadingOverlay}>
+          <ActivityIndicator size="large" color={Colors.primaryColor} />
+        </View>
+      )}
     </View>
   );
 
@@ -50,9 +150,7 @@ const AddVehicleScreen = ({ navigation }) => {
     return (
       <BottomSheet
         isVisible={showVehicleImageSheet}
-        onBackdropPress={() => {
-          setshowVehicleImageSheet(false);
-        }}
+        onBackdropPress={() => setshowVehicleImageSheet(false)}
       >
         <View style={{ ...styles.sheetStyle }}>
           <Text
@@ -67,24 +165,24 @@ const AddVehicleScreen = ({ navigation }) => {
             icon: "camera-alt",
             option: "Camera",
             color: Colors.primaryColor,
+            onPress: takeImageFromCamera,
           })}
           {chagePicOptionSort({
             icon: "photo",
             option: "Gallery",
             color: Colors.greenColor,
+            onPress: pickImageFromGallery,
           })}
         </View>
       </BottomSheet>
     );
   }
 
-  function chagePicOptionSort({ icon, option, color }) {
+  function chagePicOptionSort({ icon, option, color, onPress }) {
     return (
       <TouchableOpacity
         activeOpacity={0.8}
-        onPress={() => {
-          setshowVehicleImageSheet(false);
-        }}
+        onPress={onPress}
         style={{
           ...CommonStyles.rowAlignCenter,
           marginVertical: Sizes.fixPadding,
@@ -111,9 +209,7 @@ const AddVehicleScreen = ({ navigation }) => {
     return (
       <TouchableOpacity
         activeOpacity={0.8}
-        onPress={() => {
-          navigation.pop();
-        }}
+        onPress={addVehicleToFirestore}
         style={{
           ...CommonStyles.button,
           marginVertical: Sizes.fixPadding * 2.0,
@@ -143,7 +239,7 @@ const AddVehicleScreen = ({ navigation }) => {
             selectionColor={Colors.primaryColor}
             cursorColor={Colors.primaryColor}
             value={facility}
-            onChangeText={(value) => setfacility(value)}
+            onChangeText={setfacility}
           />
         </View>
       </View>
@@ -170,7 +266,7 @@ const AddVehicleScreen = ({ navigation }) => {
             cursorColor={Colors.primaryColor}
             keyboardType="numeric"
             value={seat}
-            onChangeText={(value) => setseat(value)}
+            onChangeText={setseat}
           />
         </View>
       </View>
@@ -196,7 +292,7 @@ const AddVehicleScreen = ({ navigation }) => {
             selectionColor={Colors.primaryColor}
             cursorColor={Colors.primaryColor}
             value={color}
-            onChangeText={(value) => setcolor(value)}
+            onChangeText={setcolor}
           />
         </View>
       </View>
@@ -222,7 +318,7 @@ const AddVehicleScreen = ({ navigation }) => {
             selectionColor={Colors.primaryColor}
             cursorColor={Colors.primaryColor}
             value={regNo}
-            onChangeText={(value) => setregNo(value)}
+            onChangeText={setregNo}
           />
         </View>
       </View>
@@ -248,7 +344,7 @@ const AddVehicleScreen = ({ navigation }) => {
             selectionColor={Colors.primaryColor}
             cursorColor={Colors.primaryColor}
             value={vehicleType}
-            onChangeText={(value) => setvehicleType(value)}
+            onChangeText={setvehicleType}
           />
         </View>
       </View>
@@ -279,7 +375,7 @@ const AddVehicleScreen = ({ navigation }) => {
             selectionColor={Colors.primaryColor}
             cursorColor={Colors.primaryColor}
             value={vehicleName}
-            onChangeText={(value) => setvehicleName(value)}
+            onChangeText={setvehicleName}
           />
         </View>
       </View>
@@ -293,16 +389,25 @@ const AddVehicleScreen = ({ navigation }) => {
         onPress={() => setshowVehicleImageSheet(true)}
         style={styles.vehicleImageWrapper}
       >
-        <Ionicons name="camera-outline" color={Colors.grayColor} size={35} />
-        <Text
-          numberOfLines={1}
-          style={{
-            ...Fonts.grayColor14SemiBold,
-            marginTop: Sizes.fixPadding - 5.0,
-          }}
-        >
-          Pridėkite mašinos nuotrauką
-        </Text>
+        {carImage ? (
+          <Image
+            source={{ uri: carImage }}
+            style={{ width: 100, height: 100, borderRadius: 8 }}
+          />
+        ) : (
+          <>
+            <Ionicons name="camera-outline" color={Colors.grayColor} size={35} />
+            <Text
+              numberOfLines={1}
+              style={{
+                ...Fonts.grayColor14SemiBold,
+                marginTop: Sizes.fixPadding - 5.0,
+              }}
+            >
+              Pridėkite mašinos nuotrauką
+            </Text>
+          </>
+        )}
       </TouchableOpacity>
     );
   }
@@ -329,6 +434,7 @@ const styles = StyleSheet.create({
     padding: Sizes.fixPadding * 4.0,
     margin: Sizes.fixPadding * 2.0,
     alignItems: "center",
+    justifyContent: "center",
   },
   sheetStyle: {
     backgroundColor: Colors.whiteColor,
@@ -344,6 +450,16 @@ const styles = StyleSheet.create({
     borderRadius: 20.0,
     backgroundColor: Colors.whiteColor,
     ...CommonStyles.shadow,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  uploadingOverlay: {
+    position: "absolute",
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    backgroundColor: "rgba(0,0,0,0.3)",
     alignItems: "center",
     justifyContent: "center",
   },

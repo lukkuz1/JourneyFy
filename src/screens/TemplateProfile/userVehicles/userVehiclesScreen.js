@@ -6,32 +6,101 @@ import {
   ImageBackground,
   TouchableOpacity,
 } from "react-native";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Colors, Fonts, Sizes } from "../../../constants/styles";
 import MyStatusBar from "../../../components/myStatusBar";
 import Header from "../../../components/header";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import { Snackbar } from "react-native-paper";
-
-const vehiclesList = [
-  {
-    id: "1",
-    image: require("../../../assets/images/vehicle/vehicle1.png"),
-    name: "Mercedes-Benz AMG A35",
-    capacityOfPerson: 2,
-  },
-  {
-    id: "2",
-    image: require("../../../assets/images/vehicle/vehicle2.png"),
-    name: "Toyota Matrix | KJ 5454 | Black colour",
-    capacityOfPerson: 2,
-  },
-];
+import { getFirestore, collection, onSnapshot, deleteDoc, doc, query, where } from "firebase/firestore";
+import { getAuth } from "firebase/auth";
+const defaultVehicleImage = require("../../../assets/images/vehicle/vehicle1.png");
 
 const UserVehiclesScreen = ({ navigation }) => {
-  const [vehicles, setvehicles] = useState(vehiclesList);
+  const db = getFirestore();
+  const auth = getAuth();
+  const [vehicles, setVehicles] = useState([]);
   const [showSnackBar, setShowSnackBar] = useState(false);
+  useEffect(() => {
+    const currentUser = auth.currentUser;
+    if (!currentUser) return;
+
+    const q = query(
+      collection(db, "cars"),
+      where("userId", "==", currentUser.uid)
+    );
+
+    const unsubscribe = onSnapshot(q, (snapshot) => {
+      const fetchedVehicles = snapshot.docs.map((docSnapshot) => {
+        const data = docSnapshot.data();
+        return {
+          id: docSnapshot.id,
+          image: data.imageUrl,
+          name: data.vehicleName,
+          capacityOfPerson: data.seat,
+        };
+      });
+      setVehicles(fetchedVehicles);
+    }, (error) => {
+      console.error("Error fetching vehicles: ", error);
+    });
+
+    return () => unsubscribe();
+  }, [auth.currentUser?.uid, db]);
+
+  const deleteVehicle = ({ id }) => {
+    deleteDoc(doc(db, "cars", id))
+      .then(() => {
+        setShowSnackBar(true);
+      })
+      .catch((error) => {
+        console.error("Error deleting vehicle: ", error);
+      });
+  };
+
+  const vehiclesInfo = () => {
+    const renderItem = ({ item }) => (
+      <View style={styles.vehicleItemContainer}>
+        <ImageBackground
+          source={
+            item.image && item.image.trim() !== ""
+              ? { uri: item.image }
+              : defaultVehicleImage
+          }
+          style={styles.vehicleImage}
+          imageStyle={{ borderRadius: Sizes.fixPadding }}
+        >
+          <TouchableOpacity
+            onPress={() => deleteVehicle({ id: item.id })}
+            style={styles.trashIconContainer}
+          >
+            <Ionicons name="trash" color={Colors.redColor} size={20} />
+          </TouchableOpacity>
+          <View style={styles.vehicleInfoContainer}>
+            <Text numberOfLines={1} style={Fonts.whiteColor15SemiBold}>
+              {item.name}
+            </Text>
+            <Text
+              numberOfLines={1}
+              style={[Fonts.whiteColor15Medium, { marginTop: Sizes.fixPadding - 8.0 }]}
+            >
+              {item.capacityOfPerson} žmogus
+            </Text>
+          </View>
+        </ImageBackground>
+      </View>
+    );
+    return (
+      <FlatList
+        data={vehicles}
+        keyExtractor={(item) => `${item.id}`}
+        renderItem={renderItem}
+        showsVerticalScrollIndicator={false}
+        contentContainerStyle={styles.flatListContainer}
+      />
+    );
+  };
 
   return (
     <View style={{ flex: 1, backgroundColor: Colors.bodyBackColor }}>
@@ -54,7 +123,7 @@ const UserVehiclesScreen = ({ navigation }) => {
         duration={1000}
         onDismiss={() => setShowSnackBar(false)}
       >
-        <Text style={{ ...Fonts.whiteColor14Medium }}>Automobilis pašalintas</Text>
+        <Text style={Fonts.whiteColor14Medium}>Automobilis pašalintas</Text>
       </Snackbar>
     );
   }
@@ -63,73 +132,11 @@ const UserVehiclesScreen = ({ navigation }) => {
     return (
       <TouchableOpacity
         activeOpacity={0.8}
-        onPress={() => {
-          navigation.navigate("AddVehicleScreen");
-        }}
+        onPress={() => navigation.navigate("AddVehicleScreen")}
         style={styles.addButtonStyle}
       >
         <MaterialIcons name="add" color={Colors.whiteColor} size={40} />
       </TouchableOpacity>
-    );
-  }
-
-  function deleteVehicle({ id }) {
-    const copyData = vehicles;
-    const newData = copyData.filter((item) => item.id !== id);
-    setShowSnackBar(true);
-    setvehicles(newData);
-  }
-
-  function vehiclesInfo() {
-    const renderItem = ({ item }) => (
-      <View
-        style={{
-          marginHorizontal: Sizes.fixPadding * 2.0,
-          marginBottom: Sizes.fixPadding * 2.0,
-        }}
-      >
-        <ImageBackground
-          source={item.image}
-          style={{ width: "100%", height: 178.0 }}
-          borderRadius={Sizes.fixPadding}
-        >
-            <Ionicons
-              name="trash"
-              color={Colors.redColor}
-              size={20}
-              style={{ alignSelf: "flex-end" }}
-              onPress={() => {
-                deleteVehicle({ id: item.id });
-              }}
-            />
-            <View>
-              <Text numberOfLines={1} style={{ ...Fonts.whiteColor15SemiBold }}>
-                {item.name}
-              </Text>
-              <Text
-                numberOfLines={1}
-                style={{
-                  marginTop: Sizes.fixPadding - 8.0,
-                  ...Fonts.whiteColor15Medium,
-                }}
-              >
-                {item.capacityOfPerson} žmogus
-              </Text>
-            </View>
-        </ImageBackground>
-      </View>
-    );
-    return (
-      <FlatList
-        data={vehicles}
-        keyExtractor={(item) => `${item.id}`}
-        renderItem={renderItem}
-        showsVerticalScrollIndicator={false}
-        contentContainerStyle={{
-          paddingTop: Sizes.fixPadding * 2.0,
-          paddingBottom: Sizes.fixPadding * 7.0,
-        }}
-      />
     );
   }
 };
@@ -137,12 +144,27 @@ const UserVehiclesScreen = ({ navigation }) => {
 export default UserVehiclesScreen;
 
 const styles = StyleSheet.create({
-  vehicleImageOverlay: {
+  vehicleItemContainer: {
+    marginHorizontal: Sizes.fixPadding * 2.0,
+    marginBottom: Sizes.fixPadding * 2.0,
+  },
+  vehicleImage: {
     width: "100%",
-    height: "100%",
+    height: 178.0,
     borderRadius: Sizes.fixPadding,
+    overflow: "hidden",
     justifyContent: "space-between",
     padding: Sizes.fixPadding + 5.0,
+  },
+  trashIconContainer: {
+    alignSelf: "flex-end",
+  },
+  vehicleInfoContainer: {
+    // Additional styling if needed for the vehicle info section
+  },
+  flatListContainer: {
+    paddingTop: Sizes.fixPadding * 2.0,
+    paddingBottom: Sizes.fixPadding * 7.0,
   },
   addButtonStyle: {
     position: "absolute",

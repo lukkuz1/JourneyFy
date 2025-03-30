@@ -1,52 +1,37 @@
-import {
-  StyleSheet,
-  Text,
-  View,
-  Image,
-  TouchableOpacity,
-  ScrollView,
-  Alert,
-} from "react-native";
 import React, { useState, useEffect } from "react";
-import {
-  Colors,
-  Sizes,
-  Fonts,
-  CommonStyles,
-  screenHeight,
-} from "../../constants/styles";
-import MyStatusBar from "../../components/myStatusBar";
-import Ionicons from "react-native-vector-icons/Ionicons";
-import MaterialIcons from "react-native-vector-icons/MaterialIcons";
-import MapView, { PROVIDER_GOOGLE } from "react-native-maps";
-import { BottomSheet } from "@rneui/themed";
-import { Calendar } from "react-native-calendars";
-import ScrollPicker from "react-native-wheel-scrollview-picker";
-import DashedLine from "react-native-dashed-line";
+import { View } from "react-native";
 import { getAuth } from "firebase/auth";
+import Header from "../../components/Home/Header";
+import MapComponent from "../../components/Home/MapComponent";
+import RideInfoCard from "../../components/Home/RideInfoCard";
+import DateTimePickerSheet from "../../components/Home/DateTimePickerSheet";
+import NoOfSeatSheet from "../../components/Home/NoOfSeatSheet";
+import MyStatusBar from "../../components/myStatusBar";
 import useCreateJourney from "../../hooks/useCreateJourney";
 import useFindMatchingJourneys from "../../hooks/useFindMatchingJourneys";
-
-const hoursList = [...range(1, 24)];
-
-const minutesList = [...range(0, 59)];
-
-const seats = [...range(1, 7)];
-
-function range(start, end) {
-  return Array(end - start + 1)
-    .fill()
-    .map((_, idx) => start + idx);
-}
+import { Colors, Sizes } from "../../constants/styles";
 
 const HomeScreen = ({ navigation, route }) => {
-  const { createJourney, loading, error } = useCreateJourney();
-  const {
-    findMatchingJourneys,
-    loading: findingJourneys,
-    error: findError,
-  } = useFindMatchingJourneys();
   const auth = getAuth();
+  const { createJourney } = useCreateJourney();
+  const { findMatchingJourneys } = useFindMatchingJourneys();
+
+  const [pickupAddress, setPickupAddress] = useState("");
+  const [destinationAddress, setDestinationAddress] = useState("");
+  const [pickAlert, setPickAlert] = useState(false);
+  const [selectedTabIndex, setselectedTabIndex] = useState(1);
+  const [selectedDateAndTime, setselectedDateAndTime] = useState("");
+  const [selectedDate, setselectedDate] = useState("");
+  const [defaultDate, setdefaultDate] = useState(new Date().getDate());
+  const [selectedHour, setselectedHour] = useState(new Date().getHours());
+  const [selectedMinute, setselectedMinute] = useState(new Date().getMinutes());
+  const [selectedAmPm, setselectedAmPm] = useState(new Date().toLocaleTimeString().slice(-2));
+  const [showDateTimeSheet, setshowDateTimeSheet] = useState(false);
+  const [showNoOfSeatSheet, setshowNoOfSeatSheet] = useState(false);
+  const [selectedSeat, setselectedSeat] = useState();
+
+  const todayDate = `${new Date().getFullYear()}-${new Date().getMonth() + 1}-${new Date().getDate()}`;
+
   useEffect(() => {
     if (route.params?.address) {
       if (route.params.addressFor === "pickup") {
@@ -57,786 +42,102 @@ const HomeScreen = ({ navigation, route }) => {
     }
   }, [route.params?.address]);
 
-  const [pickupAddress, setPickupAddress] = useState("");
-  const [destinationAddress, setDestinationAddress] = useState("");
-  const [pickAlert, setpickAlert] = useState(false);
+  const handleDateTimeConfirm = (dateTime) => {
+    setselectedDateAndTime(dateTime);
+  };
 
-  const todayDate = `${new Date().getFullYear()}-${
-    new Date().getMonth() + 1
-  }-${new Date().getDate()}`;
-
-  const [selectedTabIndex, setselectedTabIndex] = useState(1);
-  const [selectedDateAndTime, setselectedDateAndTime] = useState("");
-  const [selectedDate, setselectedDate] = useState("");
-  const [showDateTimeSheet, setshowDateTimeSheet] = useState(false);
-  const [defaultDate, setdefaultDate] = useState(new Date().getDate());
-  const [selectedHour, setselectedHour] = useState(
-    hoursList[(new Date().getHours() % 12) - 1]
-  );
-  const [selectedMinute, setselectedMinute] = useState(
-    minutesList[new Date().getMinutes()]
-  );
-  const [selectedAmPm, setselectedAmPm] = useState(
-    new Date().toLocaleTimeString().slice(-2)
-  );
-  const [showNoOfSeatSheet, setshowNoOfSeatSheet] = useState(false);
-  const [selectedSeat, setselectedSeat] = useState();
+  const handleSubmit = async () => {
+    if (pickupAddress && destinationAddress && selectedDateAndTime) {
+      if (selectedTabIndex === 1) {
+        // FIND journey logic (search existing journeys)
+        const matchingJourneys = await findMatchingJourneys({
+          pickupAddress,
+          destinationAddress,
+          journeyDateTime: selectedDateAndTime,
+          seats: selectedSeat || 1,
+        });
+        if (matchingJourneys.length > 0) {
+          navigation.navigate("AvailableRidesScreen", { journeys: matchingJourneys });
+        } else {
+          navigation.navigate("AvailableRidesScreen", { journeys: matchingJourneys });
+          setPickAlert(true);
+          setTimeout(() => setPickAlert(false), 2000);
+        }
+      } else if (selectedTabIndex === 2) {
+        // OFFER journey logic (create new journey)
+        const journeyId = await createJourney({
+          pickupAddress,
+          destinationAddress,
+          journeyDateTime: selectedDateAndTime,
+          seats: selectedSeat || 1,
+          journeyType: "offer",
+        });
+        if (journeyId) {
+          navigation.navigate("OfferRideScreen", {});
+          // Reset fields after successful creation
+          setPickupAddress("");
+          setDestinationAddress("");
+          setselectedDateAndTime("");
+          setselectedSeat(undefined);
+          setselectedDate("");
+          setselectedHour(new Date().getHours());
+          setselectedMinute(new Date().getMinutes());
+          setselectedAmPm(new Date().toLocaleTimeString().slice(-2));
+        } else {
+          setPickAlert(true);
+          setTimeout(() => setPickAlert(false), 2000);
+        }
+      }
+    } else {
+      setPickAlert(true);
+      setTimeout(() => setPickAlert(false), 2000);
+    }
+  };
 
   return (
     <View style={{ flex: 1, backgroundColor: Colors.bodyBackColor }}>
       <MyStatusBar />
       <View style={{ flex: 1 }}>
-        {header()}
-        {map()}
-        {findAndOfferRideInfo()}
+        <Header userEmail={auth.currentUser?.email} />
+        <MapComponent />
+        <RideInfoCard
+          selectedTabIndex={selectedTabIndex}
+          setselectedTabIndex={setselectedTabIndex}
+          navigation={navigation}
+          pickupAddress={pickupAddress}
+          destinationAddress={destinationAddress}
+          selectedDateAndTime={selectedDateAndTime}
+          selectedSeat={selectedSeat}
+          onDateTimePress={() => setshowDateTimeSheet(true)}
+          onSeatPress={() => setshowNoOfSeatSheet(true)}
+          onSubmit={handleSubmit}
+          pickAlert={pickAlert}
+        />
       </View>
-      {dateTimePicker()}
-      {noOfSeatSheet()}
-      {pickAddressMessage()}
+      <DateTimePickerSheet
+        isVisible={showDateTimeSheet}
+        onClose={() => setshowDateTimeSheet(false)}
+        selectedDate={selectedDate}
+        onSelectDate={setselectedDate}
+        defaultDate={defaultDate}
+        setDefaultDate={setdefaultDate}
+        selectedHour={selectedHour}
+        onSelectHour={setselectedHour}
+        selectedMinute={selectedMinute}
+        onSelectMinute={setselectedMinute}
+        selectedAmPm={selectedAmPm}
+        onSelectAmPm={setselectedAmPm}
+        onConfirm={handleDateTimeConfirm}
+        todayDate={todayDate}
+      />
+      <NoOfSeatSheet
+        isVisible={showNoOfSeatSheet}
+        onClose={() => setshowNoOfSeatSheet(false)}
+        selectedSeat={selectedSeat}
+        onSelectSeat={setselectedSeat}
+      />
     </View>
   );
-
-  function pickAddressMessage() {
-    return pickAlert ? (
-      <Text style={styles.alertTextStyle}>
-        Prašome pasirinkti tinkamas vietas
-      </Text>
-    ) : null;
-  }
-
-  function noOfSeatSheet() {
-    return (
-      <BottomSheet
-        scrollViewProps={{ scrollEnabled: false }}
-        isVisible={showNoOfSeatSheet}
-        onBackdropPress={() => {
-          setshowNoOfSeatSheet(false);
-        }}
-      >
-        <View style={{ ...styles.sheetStyle }}>
-          <Text style={styles.sheetHeader}>Vietų sk.</Text>
-          <ScrollView
-            showsVerticalScrollIndicator={false}
-            contentContainerStyle={{ paddingBottom: Sizes.fixPadding * 2.0 }}
-          >
-            <View>
-              {seats.map((item, index) => (
-                <View key={`${index}`}>
-                  <Text
-                    onPress={() => {
-                      setselectedSeat(item);
-                      setshowNoOfSeatSheet(false);
-                    }}
-                    style={{
-                      ...(selectedSeat == item
-                        ? { ...Fonts.secondaryColor16SemiBold }
-                        : { ...Fonts.blackColor16SemiBold }),
-                      textAlign: "center",
-                    }}
-                  >
-                    {item}
-                  </Text>
-                  {index == seats.length - 1 ? null : (
-                    <View
-                      style={{
-                        height: 1.0,
-                        backgroundColor: Colors.lightGrayColor,
-                        marginVertical: Sizes.fixPadding * 2.0,
-                      }}
-                    />
-                  )}
-                </View>
-              ))}
-            </View>
-          </ScrollView>
-        </View>
-      </BottomSheet>
-    );
-  }
-
-  function dateTimePicker() {
-    return (
-      <BottomSheet
-        modalProps={{ height: 200.0 }}
-        scrollViewProps={{ scrollEnabled: false }}
-        isVisible={showDateTimeSheet}
-        onBackdropPress={() => {
-          setshowDateTimeSheet(false);
-        }}
-      >
-        <View style={styles.sheetStyle}>
-          <Text
-            style={{ ...styles.sheetHeader, marginBottom: Sizes.fixPadding }}
-          >
-            Pasirinkite datą ir laiką
-          </Text>
-
-          <ScrollView showsVerticalScrollIndicator={false}>
-            <Calendar
-              monthFormat={`MMMM  yyyy`}
-              renderArrow={(direction) =>
-                direction == "left" ? (
-                  <MaterialIcons
-                    name="arrow-back-ios"
-                    color={Colors.grayColor}
-                    size={18}
-                  />
-                ) : (
-                  <MaterialIcons
-                    name="arrow-forward-ios"
-                    color={Colors.grayColor}
-                    size={18}
-                  />
-                )
-              }
-              hideExtraDays={true}
-              disableMonthChange={true}
-              firstDay={1}
-              onPressArrowLeft={(subtractMonth) => subtractMonth()}
-              onPressArrowRight={(addMonth) => addMonth()}
-              enableSwipeMonths={true}
-              dayComponent={({ date, state }) => {
-                return (
-                  <TouchableOpacity
-                    activeOpacity={0.9}
-                    onPress={() => {
-                      setselectedDate(`${date.year}-${date.month}-${date.day}`);
-                      setdefaultDate(date.day);
-                    }}
-                    style={{
-                      ...styles.calenderDateWrapStyle,
-                      borderColor:
-                        date.day == defaultDate
-                          ? Colors.secondaryColor
-                          : Colors.whiteColor,
-                    }}
-                  >
-                    <Text
-                      style={
-                        date.day == defaultDate
-                          ? { ...Fonts.secondaryColor16SemiBold }
-                          : { ...Fonts.blackColor16SemiBold }
-                      }
-                    >
-                      {date.day}
-                    </Text>
-                  </TouchableOpacity>
-                );
-              }}
-              theme={{
-                calendarBackground: Colors.whiteColor,
-                textSectionTitleColor: Colors.grayColor,
-                monthTextColor: Colors.blackColor,
-                textMonthFontFamily: "Montserrat-SemiBold",
-                textDayHeaderFontFamily: "Montserrat-Medium",
-                textMonthFontSize: 16,
-                textDayHeaderFontSize: 12,
-              }}
-            />
-
-            <DashedLine
-              dashLength={3}
-              dashThickness={1}
-              dashColor={Colors.grayColor}
-              style={{ marginVertical: Sizes.fixPadding * 2.0 }}
-            />
-
-            <View style={styles.timeWrapper}>
-              {hourPicker()}
-              <Text
-                style={{
-                  ...Fonts.primaryColor18SemiBold,
-                  marginHorizontal: Sizes.fixPadding * 2.0,
-                }}
-              >
-                :
-              </Text>
-              {minutePicker()}
-              <Text
-                style={{
-                  ...Fonts.primaryColor18SemiBold,
-                  marginHorizontal: Sizes.fixPadding * 2.0,
-                }}
-              >
-                :
-              </Text>
-              {amPmPicker()}
-            </View>
-
-            <TouchableOpacity
-              activeOpacity={0.8}
-              onPress={() => {
-                const displayHour = `${
-                  selectedHour.toString().length == 1
-                    ? `0${selectedHour}`
-                    : selectedHour
-                }`;
-                const displayMinute = `${
-                  selectedMinute.toString().length == 1
-                    ? `0${selectedMinute}`
-                    : selectedMinute
-                }`;
-                const displayTime = `${displayHour}:${displayMinute} ${selectedAmPm}`;
-                setselectedDateAndTime(
-                  `${selectedDate ? selectedDate : todayDate}` +
-                    ` ` +
-                    `${displayTime}`
-                );
-                setshowDateTimeSheet(false);
-              }}
-              style={{
-                ...CommonStyles.button,
-                marginHorizontal: Sizes.fixPadding * 2.0,
-                marginBottom: Sizes.fixPadding * 2.0,
-              }}
-            >
-              <Text style={{ ...Fonts.whiteColor18Bold }}>Gerai</Text>
-            </TouchableOpacity>
-          </ScrollView>
-        </View>
-      </BottomSheet>
-    );
-  }
-
-  function amPmPicker() {
-    const list = ["AM", "PM"];
-    return (
-      <ScrollPicker
-        dataSource={list}
-        selectedIndex={list.indexOf(selectedAmPm)}
-        renderItem={(data) => {
-          return (
-            <Text
-              style={
-                data == selectedAmPm
-                  ? { ...Fonts.primaryColor18SemiBold }
-                  : { ...Fonts.grayColor15SemiBold }
-              }
-            >
-              {data}
-            </Text>
-          );
-        }}
-        onValueChange={(data) => {
-          setselectedAmPm(data);
-        }}
-        wrapperColor={Colors.whiteColor}
-        wrapperHeight={60}
-        itemHeight={60}
-        highlightColor={Colors.grayColor}
-        highlightBorderWidth={1}
-      />
-    );
-  }
-
-  function hourPicker() {
-    return (
-      <ScrollPicker
-        dataSource={hoursList}
-        selectedIndex={hoursList.indexOf(selectedHour)}
-        renderItem={(data) => {
-          return (
-            <Text
-              style={
-                data == selectedHour
-                  ? { ...Fonts.primaryColor18SemiBold }
-                  : { ...Fonts.grayColor15SemiBold }
-              }
-            >
-              {data.toString().length == 1 ? `0${data}` : data}
-            </Text>
-          );
-        }}
-        onValueChange={(data) => {
-          setselectedHour(data);
-        }}
-        wrapperColor={Colors.whiteColor}
-        wrapperHeight={60}
-        itemHeight={60}
-        highlightColor={Colors.grayColor}
-        highlightBorderWidth={1}
-      />
-    );
-  }
-
-  function minutePicker() {
-    return (
-      <ScrollPicker
-        dataSource={minutesList}
-        selectedIndex={minutesList.indexOf(selectedMinute)}
-        renderItem={(data) => {
-          return (
-            <Text
-              style={
-                data == selectedMinute
-                  ? { ...Fonts.primaryColor18SemiBold }
-                  : { ...Fonts.grayColor15SemiBold }
-              }
-            >
-              {data.toString().length == 1 ? `0${data}` : data}
-            </Text>
-          );
-        }}
-        onValueChange={(data) => {
-          setselectedMinute(data);
-        }}
-        wrapperColor={Colors.whiteColor}
-        wrapperHeight={60}
-        itemHeight={60}
-        highlightColor={Colors.grayColor}
-        highlightBorderWidth={1}
-      />
-    );
-  }
-
-  function findAndOfferRideInfo() {
-    return (
-      <View style={styles.findAndOfferRideInfoWrapper}>
-        <View
-          style={{
-            marginHorizontal: Sizes.fixPadding * 2.0,
-            marginVertical: Sizes.fixPadding + 5.0,
-          }}
-        >
-          <View style={styles.findAndOfferRideButtonWrapper}>
-            <TouchableOpacity
-              activeOpacity={0.8}
-              onPress={() => setselectedTabIndex(1)}
-              style={{
-                ...styles.findAndOfferRideButton,
-                ...styles.findRideButton,
-                backgroundColor:
-                  selectedTabIndex == 1 ? Colors.secondaryColor : "transparent",
-              }}
-            >
-              <Text
-                style={
-                  selectedTabIndex == 1
-                    ? { ...Fonts.whiteColor15SemiBold }
-                    : { ...Fonts.grayColor15SemiBold }
-                }
-              >
-                Rasti kelionę
-              </Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              activeOpacity={0.8}
-              onPress={() => setselectedTabIndex(2)}
-              style={{
-                ...styles.findAndOfferRideButton,
-                ...styles.offerRideButton,
-                backgroundColor:
-                  selectedTabIndex == 2 ? Colors.secondaryColor : "transparent",
-              }}
-            >
-              <Text
-                style={
-                  selectedTabIndex == 2
-                    ? { ...Fonts.whiteColor15SemiBold }
-                    : { ...Fonts.grayColor15SemiBold }
-                }
-              >
-                Pasiūlykite kelionę
-              </Text>
-            </TouchableOpacity>
-          </View>
-
-          <TouchableOpacity
-            activeOpacity={0.8}
-            onPress={() => {
-              navigation.navigate("PickLocationScreen", {
-                addressFor: "pickup",
-              });
-            }}
-            style={{
-              marginVertical: Sizes.fixPadding * 2.0,
-              ...styles.locationBox,
-            }}
-          >
-            <View
-              style={{
-                borderColor: Colors.greenColor,
-                ...styles.locationIconWrapper,
-              }}
-            >
-              <MaterialIcons
-                name="location-pin"
-                color={Colors.greenColor}
-                size={18.0}
-              />
-            </View>
-            <View style={{ flex: 1, marginLeft: Sizes.fixPadding + 5.0 }}>
-              <Text numberOfLines={1} style={{ ...Fonts.blackColor15SemiBold }}>
-                Paėmimo vieta
-              </Text>
-              {pickupAddress ? (
-                <Text
-                  numberOfLines={2}
-                  style={{
-                    ...Fonts.grayColor14Medium,
-                    marginTop: Sizes.fixPadding - 5.0,
-                  }}
-                >
-                  {pickupAddress}
-                </Text>
-              ) : null}
-            </View>
-          </TouchableOpacity>
-
-          <TouchableOpacity
-            activeOpacity={0.8}
-            onPress={() => {
-              navigation.navigate("PickLocationScreen", {
-                addressFor: "destination",
-              });
-            }}
-            style={{ ...styles.locationBox }}
-          >
-            <View
-              style={{
-                borderColor: Colors.redColor,
-                ...styles.locationIconWrapper,
-              }}
-            >
-              <MaterialIcons
-                name="location-pin"
-                color={Colors.redColor}
-                size={18.0}
-              />
-            </View>
-            <View style={{ flex: 1, marginLeft: Sizes.fixPadding + 5.0 }}>
-              <Text numberOfLines={1} style={{ ...Fonts.blackColor15SemiBold }}>
-                Paskirties vieta
-              </Text>
-              {destinationAddress ? (
-                <Text
-                  numberOfLines={2}
-                  style={{
-                    ...Fonts.grayColor14Medium,
-                    marginTop: Sizes.fixPadding - 5.0,
-                  }}
-                >
-                  {destinationAddress}
-                </Text>
-              ) : null}
-            </View>
-          </TouchableOpacity>
-
-          <View
-            style={{
-              flexDirection: "row",
-              marginTop: Sizes.fixPadding * 2.0,
-              marginBottom: Sizes.fixPadding,
-            }}
-          >
-            <TouchableOpacity
-              activeOpacity={0.8}
-              onPress={() => {
-                setselectedHour(selectedHour);
-                setselectedMinute(selectedMinute);
-                setselectedAmPm(selectedAmPm);
-                setshowDateTimeSheet(true);
-              }}
-              style={{
-                ...styles.dateAndTimeAndSeatWrapper,
-                marginRight: selectedTabIndex == 1 ? Sizes.fixPadding : 0,
-              }}
-            >
-              <Ionicons
-                name="calendar-outline"
-                color={Colors.grayColor}
-                size={18}
-              />
-              <Text
-                numberOfLines={2}
-                style={{
-                  ...(selectedDateAndTime
-                    ? { ...Fonts.blackColor16SemiBold }
-                    : { ...Fonts.grayColor15SemiBold }),
-                  flex: 1,
-                  marginLeft: Sizes.fixPadding,
-                }}
-              >
-                {selectedDateAndTime ? selectedDateAndTime : "Data ir Laikas"}
-              </Text>
-            </TouchableOpacity>
-            {selectedTabIndex == 1 ? (
-              <TouchableOpacity
-                activeOpacity={0.8}
-                onPress={() => {
-                  setshowNoOfSeatSheet(true);
-                }}
-                style={{
-                  ...styles.dateAndTimeAndSeatWrapper,
-                  marginLeft: Sizes.fixPadding,
-                }}
-              >
-                <Ionicons
-                  name="calendar-outline"
-                  color={Colors.grayColor}
-                  size={18}
-                />
-                <Text
-                  numberOfLines={2}
-                  style={{
-                    ...(selectedSeat
-                      ? { ...Fonts.blackColor16SemiBold }
-                      : { ...Fonts.grayColor15SemiBold }),
-                    flex: 1,
-                    marginLeft: Sizes.fixPadding,
-                  }}
-                >
-                  {selectedSeat ? `${selectedSeat} Vieta` : "Vietų sk."}
-                </Text>
-              </TouchableOpacity>
-            ) : null}
-          </View>
-        </View>
-        <TouchableOpacity
-          activeOpacity={0.8}
-          onPress={async () => {
-            if (pickupAddress && destinationAddress && selectedDateAndTime) {
-              if (selectedTabIndex === 1) {
-                // FIND journey logic (search existing journeys)
-                const matchingJourneys = await findMatchingJourneys({
-                  pickupAddress,
-                  destinationAddress,
-                  journeyDateTime: selectedDateAndTime,
-                  seats: selectedSeat || 1,
-                });
-
-                if (matchingJourneys.length > 0) {
-                  console.log("Matching journeys found:", matchingJourneys);
-                  navigation.navigate("AvailableRidesScreen", {
-                    journeys: matchingJourneys,
-                  });
-                } else {
-                  console.log("No matching journeys found.");
-                  navigation.navigate("AvailableRidesScreen", {
-                    journeys: matchingJourneys,
-                  });
-                  setpickAlert(true);
-                  setTimeout(() => setpickAlert(false), 2000);
-                }
-              } else if (selectedTabIndex === 2) {
-                // OFFER journey logic (create new journey)
-                const journeyId = await createJourney({
-                  pickupAddress,
-                  destinationAddress,
-                  journeyDateTime: selectedDateAndTime,
-                  seats: selectedSeat || 1,
-                  journeyType: "offer",
-                });
-
-                if (journeyId) {
-                  console.log("Journey created successfully:", journeyId);
-                  navigation.navigate("OfferRideScreen", {});
-                  // Reset fields after successful creation
-                  setPickupAddress("");
-                  setDestinationAddress("");
-                  setselectedDateAndTime("");
-                  setselectedSeat(undefined);
-                  setselectedDate("");
-                  setselectedHour(hoursList[(new Date().getHours() % 12) - 1]);
-                  setselectedMinute(minutesList[new Date().getMinutes()]);
-                  setselectedAmPm(new Date().toLocaleTimeString().slice(-2));
-                } else {
-                  console.error("Error creating journey:", error);
-                  setpickAlert(true);
-                  setTimeout(() => setpickAlert(false), 2000);
-                }
-              }
-            } else {
-              setpickAlert(true);
-              setTimeout(() => setpickAlert(false), 2000);
-            }
-          }}
-          style={{ ...CommonStyles.button, ...styles.dialogButton }}
-        >
-          <Text style={{ ...Fonts.whiteColor18Bold }}>
-            {selectedTabIndex === 1 ? "Rasti kelionę" : "Tęsti"}
-          </Text>
-        </TouchableOpacity>
-      </View>
-    );
-  }
-
-  function map() {
-    return (
-      <MapView
-        region={{
-          latitude: 54.6872,
-          longitude: 25.2797,
-          latitudeDelta: 0.05,
-          longitudeDelta: 0.05,
-        }}
-        style={{ flex: 1 }}
-        provider={PROVIDER_GOOGLE}
-      />
-    );
-  }
-
-  function header() {
-    return (
-      <View style={styles.header}>
-        <View style={{ flexDirection: "row", alignItems: "center" }}>
-          <Image
-            source={require("../../assets/images/user/user1.jpeg")}
-            style={{ width: 45.0, height: 45.0, borderRadius: 22.5 }}
-          />
-          <View style={{ flex: 1, marginLeft: Sizes.fixPadding }}>
-            <Text numberOfLines={1} style={{ ...Fonts.whiteColor16SemiBold }}>
-              Labas, {auth.currentUser.email}
-            </Text>
-            <View
-              style={{
-                ...CommonStyles.rowAlignCenter,
-                marginTop: Sizes.fixPadding - 7.0,
-              }}
-            >
-              <Ionicons
-                name="location-outline"
-                size={14}
-                color={Colors.whiteColor}
-              />
-              <Text
-                numberOfLines={1}
-                style={{
-                  flex: 1,
-                  ...Fonts.whiteColor14Medium,
-                  marginLeft: Sizes.fixPadding - 5.0,
-                }}
-              >
-                Lietuva
-              </Text>
-            </View>
-          </View>
-          <Ionicons
-            name="notifications-outline"
-            size={22}
-            color={Colors.whiteColor}
-            onPress={() => {
-              //add menu
-            }}
-          />
-        </View>
-      </View>
-    );
-  }
 };
 
 export default HomeScreen;
-
-const styles = StyleSheet.create({
-  alertTextStyle: {
-    ...Fonts.whiteColor14Medium,
-    backgroundColor: Colors.blackColor,
-    position: "absolute",
-    bottom: 0.0,
-    alignSelf: "center",
-    paddingHorizontal: Sizes.fixPadding + 5.0,
-    paddingVertical: Sizes.fixPadding - 5.0,
-    borderRadius: Sizes.fixPadding - 5.0,
-    overflow: "hidden",
-    zIndex: 100.0,
-  },
-  header: {
-    backgroundColor: Colors.primaryColor,
-    flexDirection: "row",
-    alignItems: "center",
-    paddingHorizontal: Sizes.fixPadding * 2.0,
-    paddingVertical: Sizes.fixPadding + 5.0,
-  },
-  findAndOfferRideInfoWrapper: {
-    position: "absolute",
-    left: 0,
-    right: 0,
-    bottom: 10.0,
-    backgroundColor: Colors.whiteColor,
-    ...CommonStyles.shadow,
-    margin: Sizes.fixPadding * 2.0,
-    borderRadius: Sizes.fixPadding,
-    borderWidth: 0,
-  },
-  findAndOfferRideButtonWrapper: {
-    flexDirection: "row",
-    alignItems: "center",
-    borderRadius: Sizes.fixPadding,
-    backgroundColor: Colors.bodyBackColor,
-    ...CommonStyles.shadow,
-    borderWidth: 0,
-  },
-  findAndOfferRideButton: {
-    flex: 1,
-    padding: Sizes.fixPadding + 3.0,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  findRideButton: {
-    borderTopLeftRadius: Sizes.fixPadding,
-    borderBottomLeftRadius: Sizes.fixPadding,
-  },
-  offerRideButton: {
-    borderTopRightRadius: Sizes.fixPadding,
-    borderBottomRightRadius: Sizes.fixPadding,
-  },
-  locationIconWrapper: {
-    width: 24.0,
-    height: 24.0,
-    borderRadius: 12.0,
-    borderWidth: 1.0,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  locationBox: {
-    backgroundColor: Colors.whiteColor,
-    ...CommonStyles.shadow,
-    borderRadius: Sizes.fixPadding,
-    flexDirection: "row",
-    alignItems: "center",
-    padding: Sizes.fixPadding + 5.0,
-  },
-  dateAndTimeAndSeatWrapper: {
-    flex: 1,
-    backgroundColor: Colors.whiteColor,
-    borderRadius: Sizes.fixPadding,
-    flexDirection: "row",
-    alignItems: "center",
-    ...CommonStyles.shadow,
-    paddingHorizontal: Sizes.fixPadding + 2.0,
-    paddingVertical: Sizes.fixPadding,
-  },
-  calenderDateWrapStyle: {
-    alignItems: "center",
-    justifyContent: "center",
-    width: 28.0,
-    height: 28.0,
-    borderRadius: Sizes.fixPadding - 7.0,
-    borderWidth: 1.5,
-  },
-  dialogButton: {
-    marginHorizontal: 0,
-    borderRadius: 0,
-    borderBottomLeftRadius: Sizes.fixPadding,
-    borderBottomRightRadius: Sizes.fixPadding,
-  },
-  timeWrapper: {
-    flexDirection: "row",
-    alignItems: "center",
-    margin: Sizes.fixPadding * 2.0,
-    marginBottom: Sizes.fixPadding * 4.0,
-  },
-  sheetStyle: {
-    backgroundColor: Colors.whiteColor,
-    borderTopLeftRadius: Sizes.fixPadding * 4.0,
-    borderTopRightRadius: Sizes.fixPadding * 4.0,
-    paddingTop: Sizes.fixPadding * 2.0,
-    maxHeight: screenHeight - 150,
-  },
-  sheetHeader: {
-    marginHorizontal: Sizes.fixPadding * 2.0,
-    textAlign: "center",
-    ...Fonts.primaryColor16SemiBold,
-    marginBottom: Sizes.fixPadding * 2.5,
-  },
-});
