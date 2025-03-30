@@ -1,9 +1,22 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { View, Text, Image, StyleSheet } from "react-native";
 import { Colors, Sizes, Fonts } from "../../constants/styles";
 import Ionicons from "react-native-vector-icons/Ionicons";
+import { useUserProfile } from "../../hooks/useUserProfile";
 
-const Header = ({ userEmail }) => {
+const Header = ({ location = "Lietuva" }) => {
+  const { user, fetchUserProfile } = useUserProfile();
+  const [userName, setUserName] = useState("Naudotojas");
+  useEffect(() => {
+    fetchUserProfile();
+  }, []);
+
+  useEffect(() => {
+    if (user.firstName || user.lastName) {
+      setUserName(`${user.firstName} ${user.lastName}`.trim());
+    }
+  }, [user]);
+
   return (
     <View style={styles.header}>
       <View style={{ flexDirection: "row", alignItems: "center" }}>
@@ -13,16 +26,21 @@ const Header = ({ userEmail }) => {
         />
         <View style={{ flex: 1, marginLeft: Sizes.fixPadding }}>
           <Text numberOfLines={1} style={Fonts.whiteColor16SemiBold}>
-            Labas, {userEmail}
+            Labas, {userName}
           </Text>
           <View style={styles.locationRow}>
             <Ionicons name="location-outline" size={14} color={Colors.whiteColor} />
             <Text numberOfLines={1} style={styles.locationText}>
-              Lietuva
+              {location}
             </Text>
           </View>
         </View>
-        <Ionicons name="notifications-outline" size={22} color={Colors.whiteColor} onPress={() => {}} />
+        <Ionicons
+          name="notifications-outline"
+          size={22}
+          color={Colors.whiteColor}
+          onPress={() => {}}
+        />
       </View>
     </View>
   );

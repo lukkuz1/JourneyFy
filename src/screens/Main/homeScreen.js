@@ -10,11 +10,13 @@ import MyStatusBar from "../../components/myStatusBar";
 import useCreateJourney from "../../hooks/useCreateJourney";
 import useFindMatchingJourneys from "../../hooks/useFindMatchingJourneys";
 import { Colors, Sizes } from "../../constants/styles";
+import { useLocation } from "../../hooks/useLocation";
 
 const HomeScreen = ({ navigation, route }) => {
   const auth = getAuth();
   const { createJourney } = useCreateJourney();
   const { findMatchingJourneys } = useFindMatchingJourneys();
+  const location = useLocation();
 
   const [pickupAddress, setPickupAddress] = useState("");
   const [destinationAddress, setDestinationAddress] = useState("");
@@ -31,6 +33,7 @@ const HomeScreen = ({ navigation, route }) => {
   const [selectedSeat, setselectedSeat] = useState();
 
   const todayDate = `${new Date().getFullYear()}-${new Date().getMonth() + 1}-${new Date().getDate()}`;
+
 
   useEffect(() => {
     if (route.params?.address) {
@@ -74,7 +77,6 @@ const HomeScreen = ({ navigation, route }) => {
         });
         if (journeyId) {
           navigation.navigate("OfferRideScreen", {});
-          // Reset fields after successful creation
           setPickupAddress("");
           setDestinationAddress("");
           setselectedDateAndTime("");
@@ -98,7 +100,9 @@ const HomeScreen = ({ navigation, route }) => {
     <View style={{ flex: 1, backgroundColor: Colors.bodyBackColor }}>
       <MyStatusBar />
       <View style={{ flex: 1 }}>
-        <Header userEmail={auth.currentUser?.email} />
+        <Header 
+          location={location} 
+        />
         <MapComponent />
         <RideInfoCard
           selectedTabIndex={selectedTabIndex}
