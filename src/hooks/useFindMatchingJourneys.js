@@ -26,10 +26,10 @@ const useFindMatchingJourneys = () => {
       const journeysRef = collection(db, "journeys");
       const journeysQuery = query(
         journeysRef,
-        where("pickupAddress", "==", pickupAddress),
-        where("destinationAddress", "==", destinationAddress),
-        where("journeyDateTime", "==", journeyDateTime),
-        where("seats", ">=", seats),
+        // where("pickupAddress", "==", pickupAddress),
+        // where("destinationAddress", "==", destinationAddress),
+        // where("journeyDateTime", "==", journeyDateTime),
+        // where("seats", ">=", seats),
         where("journeyType", "==", "offer")
       );
 

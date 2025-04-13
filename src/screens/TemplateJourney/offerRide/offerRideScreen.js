@@ -1,441 +1,80 @@
-import {
-  StyleSheet,
-  Text,
-  View,
-  ScrollView,
-  TextInput,
-  Platform,
-  TouchableOpacity,
-} from "react-native";
+// src/screens/OfferRideScreen.js
 import React, { useState } from "react";
-import {
-  Colors,
-  Fonts,
-  Sizes,
-  CommonStyles,
-  screenHeight,
-} from "../../../constants/styles";
+import { View, ScrollView } from "react-native";
 import MyStatusBar from "../../../components/myStatusBar";
 import Header from "../../../components/header";
-import MaterialIcons from "react-native-vector-icons/MaterialIcons";
-import Ionicons from "react-native-vector-icons/Ionicons";
-import DashedLine from "react-native-dashed-line";
-import { BottomSheet } from "@rneui/themed";
-
-const carsList = ["Mercedes-Benz", "Toyota matrix", "Audi A4"];
-
-const seats = [...range(1, 8)];
-
-function range(start, end) {
-  return Array(end - start + 1)
-    .fill()
-    .map((_, idx) => start + idx);
-}
+import { Colors } from "../../../constants/styles";
+import LocationInfo from "../../../components/OfferRide/LocationInfo";
+import PriceInfo from "../../../components/OfferRide/PriceInfo";
+import CarInfo from "../../../components/OfferRide/CarInfo";
+import SeatInfo from "../../../components/OfferRide/SeatInfo";
+import FacilityInfo from "../../../components/OfferRide/FacilityInfo";
+import ContinueButton from "../../../components/OfferRide/ContinueButton";
+import CarSelectionSheet from "../../../components/OfferRide/CarSelectionSheet";
+import SeatSelectionSheet from "../../../components/OfferRide/SeatSelectionSheet";
 
 const OfferRideScreen = ({ navigation }) => {
-  const [showCarSheet, setshowCarSheet] = useState(false);
-  const [selectedCar, setselectedCar] = useState("");
-  const [showNoOfSeatSheet, setshowNoOfSeatSheet] = useState(false);
-  const [selectedSeat, setselectedSeat] = useState();
+  const [showCarSheet, setShowCarSheet] = useState(false);
+  const [selectedCar, setSelectedCar] = useState("");
+  const [showSeatSheet, setShowSeatSheet] = useState(false);
+  const [selectedSeat, setSelectedSeat] = useState(null);
+
+  // List of cars to select from
+  const carsList = ["Mercedes-Benz", "Toyota matrix", "Audi A4"];
+  // Generate seat numbers from 1 to 8
+  const seats = Array(8)
+    .fill()
+    .map((_, idx) => idx + 1);
 
   return (
     <View style={{ flex: 1, backgroundColor: Colors.bodyBackColor }}>
       <MyStatusBar />
       <View style={{ flex: 1 }}>
-        <Header title={"Offer ride"} navigation={navigation} />
+        <Header title="Offer ride" navigation={navigation} />
         <ScrollView
           automaticallyAdjustKeyboardInsets={true}
           showsVerticalScrollIndicator={false}
         >
-          {locationInfo()}
-          {priceInfo()}
-          {carInfo()}
-          {seatInfo()}
-          {facilityInfo()}
+          <LocationInfo />
+          <PriceInfo />
+          <CarInfo
+            selectedCar={selectedCar}
+            onPress={() => setShowCarSheet(true)}
+          />
+          <SeatInfo
+            selectedSeat={selectedSeat}
+            onPress={() => setShowSeatSheet(true)}
+          />
+          <FacilityInfo />
         </ScrollView>
       </View>
-      {continueButton()}
-      {cardSheet()}
-      {noOfSeatSheet()}
+      <ContinueButton
+        onPress={() => navigation.navigate("ConfirmPoolingScreen")}
+      />
+
+      <CarSelectionSheet
+        isVisible={showCarSheet}
+        carsList={carsList}
+        selectedCar={selectedCar}
+        onSelect={(car) => {
+          setSelectedCar(car);
+          setShowCarSheet(false);
+        }}
+        onClose={() => setShowCarSheet(false)}
+      />
+
+      <SeatSelectionSheet
+        isVisible={showSeatSheet}
+        seats={seats}
+        selectedSeat={selectedSeat}
+        onSelect={(seat) => {
+          setSelectedSeat(seat);
+          setShowSeatSheet(false);
+        }}
+        onClose={() => setShowSeatSheet(false)}
+      />
     </View>
   );
-
-  function noOfSeatSheet() {
-    return (
-      <BottomSheet
-        scrollViewProps={{ scrollEnabled: false }}
-        isVisible={showNoOfSeatSheet}
-        onBackdropPress={() => {
-          setshowNoOfSeatSheet(false);
-        }}
-      >
-        <View style={{ ...styles.sheetStyle }}>
-          <Text style={styles.sheetHeader}>Vietų sk.</Text>
-          <ScrollView
-            showsVerticalScrollIndicator={false}
-            contentContainerStyle={{ paddingBottom: Sizes.fixPadding * 2.0 }}
-          >
-            <View>
-              {seats.map((item, index) => (
-                <View key={`${index}`}>
-                  <Text
-                    onPress={() => {
-                      setselectedSeat(item);
-                      setshowNoOfSeatSheet(false);
-                    }}
-                    style={{
-                      ...(selectedSeat == item
-                        ? { ...Fonts.secondaryColor16SemiBold }
-                        : { ...Fonts.blackColor16SemiBold }),
-                      textAlign: "center",
-                    }}
-                  >
-                    {item}
-                  </Text>
-                  {index == seats.length - 1 ? null : (
-                    <View
-                      style={{
-                        height: 1.0,
-                        backgroundColor: Colors.lightGrayColor,
-                        marginVertical: Sizes.fixPadding * 2.0,
-                      }}
-                    />
-                  )}
-                </View>
-              ))}
-            </View>
-          </ScrollView>
-        </View>
-      </BottomSheet>
-    );
-  }
-
-  function cardSheet() {
-    return (
-      <BottomSheet
-        scrollViewProps={{ scrollEnabled: false }}
-        isVisible={showCarSheet}
-        onBackdropPress={() => {
-          setshowCarSheet(false);
-        }}
-      >
-        <View style={{ ...styles.sheetStyle }}>
-          <Text style={styles.sheetHeader}>Pasirinkite savo automobilį</Text>
-          <ScrollView
-            showsVerticalScrollIndicator={false}
-            contentContainerStyle={{ paddingBottom: Sizes.fixPadding * 2.0 }}
-          >
-            <View>
-              {carsList.map((item, index) => (
-                <View key={`${index}`}>
-                  <Text
-                    onPress={() => {
-                      setselectedCar(item);
-                      setshowCarSheet(false);
-                    }}
-                    style={{
-                      ...Fonts.blackColor15SemiBold,
-                      textAlign: "center",
-                    }}
-                  >
-                    {item}
-                  </Text>
-                  {index == carsList.length - 1 ? null : (
-                    <View
-                      style={{
-                        backgroundColor: Colors.lightGrayColor,
-                        height: 1.0,
-                        marginVertical: Sizes.fixPadding * 2.0,
-                      }}
-                    />
-                  )}
-                </View>
-              ))}
-            </View>
-          </ScrollView>
-        </View>
-      </BottomSheet>
-    );
-  }
-
-  function continueButton() {
-    return (
-      <View style={{ backgroundColor: Colors.bodyBackColor }}>
-        <TouchableOpacity
-          activeOpacity={0.8}
-          onPress={() => {
-            navigation.navigate("ConfirmPoolingScreen");
-          }}
-          style={{
-            ...CommonStyles.button,
-            marginVertical: Sizes.fixPadding * 2.0,
-          }}
-        >
-          <Text style={{ ...Fonts.whiteColor18Bold }}>Tęsti</Text>
-        </TouchableOpacity>
-      </View>
-    );
-  }
-
-  function facilityInfo() {
-    return (
-      <View
-        style={{
-          marginHorizontal: Sizes.fixPadding * 2.0,
-          marginBottom: Sizes.fixPadding * 2.0,
-        }}
-      >
-        <Text
-          style={{
-            ...Fonts.blackColor15SemiBold,
-            marginBottom: Sizes.fixPadding,
-          }}
-        >
-          Įranga (pvz: muzika, šildymas)
-        </Text>
-        <View style={styles.valueBox}>
-          <TextInput
-            placeholder="Įveskite įranga"
-            style={{
-              ...Fonts.blackColor15Medium,
-              height: Platform.OS == "ios" ? 70.0 : null,
-              padding: 0,
-            }}
-            multiline={true}
-            numberOfLines={3}
-            placeholderTextColor={Colors.grayColor}
-            selectionColor={Colors.primaryColor}
-            cursorColor={Colors.primaryColor}
-            textAlignVertical="top"
-          />
-        </View>
-      </View>
-    );
-  }
-
-  function seatInfo() {
-    return (
-      <View style={{ margin: Sizes.fixPadding * 2.0 }}>
-        <Text
-          style={{
-            ...Fonts.blackColor15SemiBold,
-            marginBottom: Sizes.fixPadding,
-          }}
-        >
-          Laisvų vietų sk.
-        </Text>
-        <TouchableOpacity
-          activeOpacity={0.8}
-          onPress={() => {
-            setshowNoOfSeatSheet(true);
-          }}
-          style={{ ...styles.valueBox, ...CommonStyles.rowAlignCenter }}
-        >
-          <Text
-            numberOfLines={1}
-            style={{
-              flex: 1,
-              ...(selectedSeat
-                ? { ...Fonts.blackColor15Medium }
-                : { ...Fonts.grayColor15Medium }),
-            }}
-          >
-            {selectedSeat ? `${selectedSeat} ` : "Pasirinkite laisvų vietų sk."}
-          </Text>
-          <Ionicons name="chevron-down" color={Colors.grayColor} size={20.5} />
-        </TouchableOpacity>
-      </View>
-    );
-  }
-
-  function carInfo() {
-    return (
-      <View style={{ marginHorizontal: Sizes.fixPadding * 2.0 }}>
-        <Text
-          style={{
-            ...Fonts.blackColor15SemiBold,
-            marginBottom: Sizes.fixPadding,
-          }}
-        >
-          Mano automobilis
-        </Text>
-        <TouchableOpacity
-          activeOpacity={0.8}
-          onPress={() => {
-            setshowCarSheet(true);
-          }}
-          style={{ ...styles.valueBox, ...CommonStyles.rowAlignCenter }}
-        >
-          <Text
-            numberOfLines={1}
-            style={{
-              flex: 1,
-              ...(selectedCar
-                ? { ...Fonts.blackColor15Medium }
-                : { ...Fonts.grayColor15Medium }),
-            }}
-          >
-            {selectedCar ? selectedCar : "Pasirinkite savo automobilį"}
-          </Text>
-          <Ionicons name="chevron-down" color={Colors.grayColor} size={20.5} />
-        </TouchableOpacity>
-      </View>
-    );
-  }
-
-  function priceInfo() {
-    return (
-      <View style={{ margin: Sizes.fixPadding * 2.0 }}>
-        <Text
-          style={{
-            ...Fonts.blackColor15SemiBold,
-            marginBottom: Sizes.fixPadding,
-          }}
-        >
-          Kaina
-        </Text>
-        <View style={styles.valueBox}>
-          <TextInput
-            placeholder="Įveskite savo kainą už vietą"
-            style={{
-              ...Fonts.blackColor15Medium,
-              height: 20.0,
-              padding: 0,
-            }}
-            placeholderTextColor={Colors.grayColor}
-            selectionColor={Colors.primaryColor}
-            cursorColor={Colors.primaryColor}
-            keyboardType="numeric"
-          />
-        </View>
-      </View>
-    );
-  }
-
-  function locationInfo() {
-    return (
-      <View style={styles.locationInfoWrapper}>
-        <View style={{ flexDirection: "row" }}>
-          <View style={{ marginTop: Sizes.fixPadding + 5.0 }}>
-            <View
-              style={{
-                ...styles.locationIconWrapper,
-                borderColor: Colors.greenColor,
-              }}
-            >
-              <MaterialIcons
-                name="location-pin"
-                color={Colors.greenColor}
-                size={18}
-              />
-            </View>
-            <DashedLine
-              axis="vertical"
-              dashLength={3}
-              dashColor={Colors.grayColor}
-              dashThickness={1}
-              style={{
-                height: 40.0,
-                marginLeft: Sizes.fixPadding + 2.0,
-              }}
-            />
-          </View>
-          <View style={{ flex: 1, marginLeft: Sizes.fixPadding + 5.0 }}>
-            <Text numberOfLines={1} style={{ ...Fonts.blackColor15SemiBold }}>
-              Paėmimo taškas
-            </Text>
-            <Text
-              numberOfLines={2}
-              style={{
-                marginTop: Sizes.fixPadding - 8.0,
-                ...Fonts.grayColor14Medium,
-              }}
-            >
-              B 420 Broome station,New york, NY 100013, USA
-            </Text>
-          </View>
-        </View>
-
-        <View style={{ flexDirection: "row" }}>
-          <View>
-            <DashedLine
-              axis="vertical"
-              dashLength={3}
-              dashColor={Colors.grayColor}
-              dashThickness={1}
-              style={{
-                height: 16.0,
-                marginLeft: Sizes.fixPadding + 2.0,
-              }}
-            />
-            <View
-              style={{
-                ...styles.locationIconWrapper,
-                borderColor: Colors.redColor,
-              }}
-            >
-              <MaterialIcons
-                name="location-pin"
-                color={Colors.redColor}
-                size={18}
-              />
-            </View>
-          </View>
-          <View style={{ flex: 1, marginLeft: Sizes.fixPadding + 5.0 }}>
-            <Text numberOfLines={1} style={{ ...Fonts.blackColor15SemiBold }}>
-              Kelionės tikslas
-            </Text>
-            <Text
-              numberOfLines={2}
-              style={{
-                marginTop: Sizes.fixPadding - 8.0,
-                ...Fonts.grayColor14Medium,
-              }}
-            >
-              B 420 Broome station,New york, NY 100013, USA
-            </Text>
-          </View>
-        </View>
-      </View>
-    );
-  }
 };
 
 export default OfferRideScreen;
-
-const styles = StyleSheet.create({
-  locationIconWrapper: {
-    width: 24.0,
-    height: 24.0,
-    borderRadius: 12.0,
-    borderWidth: 1.0,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  locationInfoWrapper: {
-    backgroundColor: Colors.whiteColor,
-    paddingHorizontal: Sizes.fixPadding * 2.0,
-    paddingVertical: Sizes.fixPadding,
-    ...CommonStyles.shadow,
-  },
-  valueBox: {
-    backgroundColor: Colors.whiteColor,
-    paddingHorizontal: Sizes.fixPadding,
-    paddingVertical: Sizes.fixPadding + 5.0,
-    ...CommonStyles.shadow,
-    borderRadius: Sizes.fixPadding,
-  },
-  sheetStyle: {
-    backgroundColor: Colors.whiteColor,
-    borderTopLeftRadius: Sizes.fixPadding * 4.0,
-    borderTopRightRadius: Sizes.fixPadding * 4.0,
-    paddingTop: Sizes.fixPadding * 2.0,
-    maxHeight: screenHeight - 150,
-  },
-  sheetHeader: {
-    marginHorizontal: Sizes.fixPadding * 2.0,
-    textAlign: "center",
-    ...Fonts.primaryColor16SemiBold,
-    marginBottom: Sizes.fixPadding * 2.0,
-  },
-});

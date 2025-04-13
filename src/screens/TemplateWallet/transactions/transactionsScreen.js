@@ -1,8 +1,10 @@
-import { Text, View, FlatList } from "react-native";
+// src/screens/TransactionsScreen.js
 import React from "react";
+import { View } from "react-native";
 import MyStatusBar from "../../../components/myStatusBar";
 import Header from "../../../components/header";
-import { Colors, Fonts, Sizes, CommonStyles } from "../../../constants/styles";
+import { Colors } from "../../../constants/styles";
+import TransactionList from "../../../components/Transactions/TransactionList";
 
 const transactionsList = [
   {
@@ -35,7 +37,7 @@ const transactionsList = [
   },
   {
     id: "5",
-    title: "Add ro wallet",
+    title: "Add to wallet",
     date: "25 jan 2023",
     amount: "$30.00",
     isIncome: true,
@@ -97,60 +99,10 @@ const TransactionsScreen = ({ navigation }) => {
       <MyStatusBar />
       <View style={{ flex: 1 }}>
         <Header title={"Sandoris"} navigation={navigation} />
-        {transactionInfo()}
+        <TransactionList transactions={transactionsList} />
       </View>
     </View>
   );
-
-  function transactionInfo() {
-    const renderItem = ({ item, index }) => (
-      <View style={{ marginHorizontal: Sizes.fixPadding * 2.0 }}>
-        <View style={{ ...CommonStyles.rowAlignCenter }}>
-          <View style={{ flex: 1 }}>
-            <Text numberOfLines={1} style={{ ...Fonts.blackColor15SemiBold }}>
-              {item.title}
-            </Text>
-            <Text
-              numberOfLines={1}
-              style={{
-                ...Fonts.grayColor13SemiBold,
-                marginTop: Sizes.fixPadding - 7.0,
-              }}
-            >
-              Jenny wilsom | {item.date}
-            </Text>
-          </View>
-          <Text
-            style={
-              item.isIncome
-                ? { ...Fonts.greenColor16SemiBold }
-                : { ...Fonts.redColor16SemiBold }
-            }
-          >
-            {item.amount}
-          </Text>
-        </View>
-        {index == transactionsList.length - 1 ? null : (
-          <View
-            style={{
-              backgroundColor: Colors.grayColor,
-              height: 1.0,
-              marginVertical: Sizes.fixPadding * 2.0,
-            }}
-          />
-        )}
-      </View>
-    );
-    return (
-      <FlatList
-        data={transactionsList}
-        keyExtractor={(item) => `${item.id}`}
-        renderItem={renderItem}
-        showsVerticalScrollIndicator={false}
-        contentContainerStyle={{ paddingVertical: Sizes.fixPadding * 2.0 }}
-      />
-    );
-  }
 };
 
 export default TransactionsScreen;

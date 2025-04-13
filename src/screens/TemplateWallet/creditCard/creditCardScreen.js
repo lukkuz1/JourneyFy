@@ -1,15 +1,11 @@
-import {
-  ScrollView,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-} from "react-native";
+// src/screens/CreditCardScreen.js
 import React, { useState } from "react";
-import { Colors, Fonts, Sizes, CommonStyles } from "../../../constants/styles";
+import { View, ScrollView, StyleSheet } from "react-native";
 import MyStatusBar from "../../../components/myStatusBar";
 import Header from "../../../components/header";
-import { CreditCardInput } from "react-native-credit-card-input";
+import { Colors, Sizes } from "../../../constants/styles";
+import CreditCardForm from "../../../components/CreditCard/CreditCardForm";
+import ContinueButton from "../../../components/CreditCard/ContinueButton";
 
 const CreditCardScreen = ({ navigation }) => {
   const [cardData, setCardData] = useState({
@@ -19,7 +15,7 @@ const CreditCardScreen = ({ navigation }) => {
     name: "invalid",
   });
 
-  const _onChange = (formData) => {
+  const handleCardChange = (formData) => {
     setCardData({
       number: formData.values.number,
       expiry: formData.values.expiry,
@@ -32,68 +28,22 @@ const CreditCardScreen = ({ navigation }) => {
     <View style={{ flex: 1, backgroundColor: Colors.bodyBackColor }}>
       <MyStatusBar />
       <View style={{ flex: 1 }}>
-        <Header title={"Credit card"} navigation={navigation} />
+        <Header title="Credit card" navigation={navigation} />
         <ScrollView
           showsVerticalScrollIndicator={false}
           automaticallyAdjustKeyboardInsets={true}
-          contentContainerStyle={{ paddingTop: Sizes.fixPadding * 2.0 }}
+          contentContainerStyle={{ paddingTop: Sizes.fixPadding * 2 }}
         >
-          {cardDetails()}
+          <CreditCardForm onChange={handleCardChange} />
         </ScrollView>
       </View>
-      {continueButton()}
+      <ContinueButton
+        onPress={() =>
+          navigation.navigate("SuccessfullyAddAndSendScreen", { successFor: "money" })
+        }
+      />
     </View>
   );
-
-  function continueButton() {
-    return (
-      <TouchableOpacity
-        activeOpacity={0.8}
-        onPress={() => {
-          navigation.navigate("SuccessfullyAddAndSendScreen", { successFor: "money" });
-        }}
-        style={{
-          ...CommonStyles.button,
-          marginVertical: Sizes.fixPadding * 2.0,
-        }}
-      >
-        <Text style={{ ...Fonts.whiteColor18Bold }}>Tęsti</Text>
-      </TouchableOpacity>
-    );
-  }
-
-  function cardDetails() {
-    return (
-      <CreditCardInput
-        requiresName
-        requiresCVC
-        labelStyle={{ ...Fonts.blackColor16SemiBold }}
-        inputStyle={styles.cardInputFieldStyle}
-        inputContainerStyle={{
-          marginTop: Sizes.fixPadding * 2.0,
-          marginHorizontal: Sizes.fixPadding * 2.0,
-        }}
-        validColor={"black"}
-        invalidColor={"red"}
-        placeholderColor={Colors.grayColor}
-        onChange={_onChange}
-      />
-    );
-  }
 };
 
 export default CreditCardScreen;
-
-const styles = StyleSheet.create({
-  cardInputFieldStyle: {
-    ...Fonts.blackColor16Medium,
-    backgroundColor: Colors.whiteColor,
-    ...CommonStyles.shadow,
-    borderColor: Colors.lightGrayColor,
-    borderWidth: 1.0,
-    paddingHorizontal: Sizes.fixPadding,
-    borderRadius: Sizes.fixPadding - 5.0,
-    height: 50.0,
-    marginTop: Sizes.fixPadding - 2.0,
-  },
-});

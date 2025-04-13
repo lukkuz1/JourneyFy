@@ -7,284 +7,219 @@ import {
   ScrollView,
   TouchableOpacity,
 } from "react-native";
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Colors, CommonStyles, Fonts, Sizes } from "../../../constants/styles";
 import MyStatusBar from "../../../components/myStatusBar";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import DashedLine from "react-native-dashed-line";
 import Header from "../../../components/header";
+import { getFirestore, doc, getDoc } from "firebase/firestore";
 
-const rides = [
-  {
-    id: "1",
-    amount: "$15.00",
-    profile: require("../../../assets/images/user/user8.png"),
-    name: "Jenny Wilson",
-    rating: "4.8",
-    availableSheet: 2,
-  },
-  {
-    id: "2",
-    amount: "$25.00",
-    profile: require("../../../assets/images/user/user2.png"),
-    name: "Guy Hawkins",
-    rating: "4.5",
-    availableSheet: 3,
-  },
-  {
-    id: "3",
-    amount: "$20.00",
-    profile: require("../../../assets/images/user/user3.png"),
-    name: "Jacob Jones",
-    rating: "4.3",
-    availableSheet: 1,
-  },
-  {
-    id: "4",
-    amount: "$30.00",
-    profile: require("../../../assets/images/user/user4.png"),
-    name: "Floyd Miles",
-    rating: "4.5",
-    availableSheet: 2,
-  },
-  {
-    id: "5",
-    amount: "$35.00",
-    profile: require("../../../assets/images/user/user5.png"),
-    name: "Jerome Bell",
-    rating: "4.5",
-    availableSheet: 2,
-  },
-  {
-    id: "6",
-    amount: "$10.00",
-    profile: require("../../../assets/images/user/user6.png"),
-    name: "Jenny Wilsonl",
-    rating: "4.2",
-    availableSheet: 1,
-  },
-  {
-    id: "7",
-    amount: "$15.00",
-    profile: require("../../../assets/images/user/user7.png"),
-    name: "Arlene McCoy",
-    rating: "4.8",
-    availableSheet: 2,
-  },
-];
+const AvailableRidesScreen = ({ navigation, route }) => {
+  // Get rides data passed from Firebase.
+  const ridesFromFirebase = route.params?.journeys || [];
+  // Filter out rides that have available seats.
+  const availableRides = ridesFromFirebase.filter((ride) => ride.seats > 0);
 
-const AvailableRidesScreen = ({ navigation }) => {
+  if (availableRides.length === 0) {
+    return (
+      <View
+        style={{
+          flex: 1,
+          backgroundColor: Colors.bodyBackColor,
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        <MyStatusBar />
+        <Text style={{ ...Fonts.blackColor16SemiBold }}>
+          No available rides found.
+        </Text>
+      </View>
+    );
+  }
+
   return (
     <View style={{ flex: 1, backgroundColor: Colors.bodyBackColor }}>
       <MyStatusBar />
       <View style={{ flex: 1 }}>
-        <Header title={"Rider on 25 June, 10:30 am"} navigation={navigation} />
-        {ridesInfo()}
+        <Header title={"Available Rides"} navigation={navigation} />
+        <FlatList
+          data={availableRides}
+          keyExtractor={(item) => `${item.id}`}
+          renderItem={({ item }) => <RideItem ride={item} navigation={navigation} />}
+          showsVerticalScrollIndicator={false}
+          contentContainerStyle={{ paddingTop: Sizes.fixPadding * 2 }}
+        />
       </View>
     </View>
   );
+};
 
-  function ridesInfo() {
-    const renderItem = ({ item }) => (
-      <TouchableOpacity
-        activeOpacity={0.8}
-        onPress={() => {
-          navigation.navigate("RideDetailScreen");
-        }}
-        style={styles.rideWrapper}
-      >
-        <View
-          style={{
-            paddingHorizontal: Sizes.fixPadding,
-            ...CommonStyles.rowAlignCenter,
-          }}
-        >
-          <View style={{ flex: 1 }}>
-            <View style={{ ...CommonStyles.rowAlignCenter }}>
-              <View
-                style={{
-                  ...styles.locationIconWrapper,
-                  borderColor: Colors.greenColor,
-                }}
-              >
-                <MaterialIcons
-                  name="location-pin"
-                  color={Colors.greenColor}
-                  size={12}
-                />
-              </View>
-              <Text
-                numberOfLines={1}
-                style={{
-                  flex: 1,
-                  ...Fonts.blackColor14Medium,
-                  marginHorizontal: Sizes.fixPadding,
-                }}
-              >
-                Mumbai,2464 Royal South
-              </Text>
+// This component displays ride details along with driver info fetched from Firestore.
+const RideItem = ({ ride, navigation }) => {
+  const [driver, setDriver] = useState(null);
+  const db = getFirestore();
+
+  useEffect(() => {
+    if (ride.userId) {
+      const fetchDriver = async () => {
+        try {
+          const userRef = doc(db, "users", ride.userId);
+          const userSnap = await getDoc(userRef);
+          if (userSnap.exists()) {
+            setDriver(userSnap.data());
+          } else {
+            console.log("No driver found with id: ", ride.userId);
+          }
+        } catch (error) {
+          console.error("Error fetching driver data: ", error);
+        }
+      };
+      fetchDriver();
+    }
+  }, [ride.userId, db]);
+
+  return (
+    <TouchableOpacity
+      activeOpacity={0.8}
+      onPress={() => navigation.navigate("RideDetailScreen", { ride })}
+      style={styles.rideWrapper}
+    >
+      <View style={{ paddingHorizontal: Sizes.fixPadding, ...CommonStyles.rowAlignCenter }}>
+        <View style={{ flex: 1 }}>
+          {/* Pickup address */}
+          <View style={{ ...CommonStyles.rowAlignCenter }}>
+            <View style={{ ...styles.locationIconWrapper, borderColor: Colors.greenColor }}>
+              <MaterialIcons name="location-pin" color={Colors.greenColor} size={12} />
             </View>
-
-            <View style={styles.verticalDashedLine}></View>
-
-            <View style={{ ...CommonStyles.rowAlignCenter }}>
-              <View
-                style={{
-                  ...styles.locationIconWrapper,
-                  borderColor: Colors.redColor,
-                }}
-              >
-                <MaterialIcons
-                  name="location-pin"
-                  color={Colors.redColor}
-                  size={12}
-                />
-              </View>
-              <Text
-                numberOfLines={1}
-                style={{
-                  flex: 1,
-                  ...Fonts.blackColor14Medium,
-                  marginHorizontal: Sizes.fixPadding,
-                }}
-              >
-                Pune, 2464 Royal Ln. Mesa..
-              </Text>
-            </View>
+            <Text
+              numberOfLines={1}
+              style={{ flex: 1, ...Fonts.blackColor14Medium, marginHorizontal: Sizes.fixPadding }}
+            >
+              {ride.pickupAddress}
+            </Text>
           </View>
-          <Text style={{ ...Fonts.primaryColor18SemiBold }}>{item.amount}</Text>
-        </View>
-
-        <DashedLine
-          dashLength={3}
-          dashThickness={1}
-          dashColor={Colors.grayColor}
-          style={{ marginVertical: Sizes.fixPadding, overflow: "hidden" }}
-        />
-
-        <View
-          style={{
-            ...CommonStyles.rowAlignCenter,
-            marginHorizontal: Sizes.fixPadding,
-          }}
-        >
-          <View
-            style={{
-              flex: 1,
-              ...CommonStyles.rowAlignCenter,
-              marginRight: Sizes.fixPadding,
-            }}
-          >
-            <Image
-              source={item.profile}
-              style={{
-                width: 40.0,
-                height: 40.0,
-                borderRadius: Sizes.fixPadding - 5.0,
-              }}
-            />
-            <View style={{ flex: 1, marginHorizontal: Sizes.fixPadding }}>
-              <Text numberOfLines={1} style={{ ...Fonts.blackColor15SemiBold }}>
-                {item.name}
-              </Text>
-              <View
-                style={{
-                  ...CommonStyles.rowAlignCenter,
-                  marginTop: Sizes.fixPadding - 8.0,
-                }}
-              >
-                <Text
-                  numberOfLines={1}
-                  style={{ ...Fonts.grayColor13SemiBold, flex: 1 }}
-                >
-                  25 June, 10:30am
-                </Text>
-                <View style={styles.dateTimeAndRatingDivider}></View>
-                <View style={{ ...CommonStyles.rowAlignCenter }}>
-                  <Text
-                    style={{
-                      ...Fonts.grayColor13SemiBold,
-                      marginRight: Sizes.fixPadding - 8.0,
-                    }}
-                  >
-                    4.8
-                  </Text>
-                  <MaterialIcons
-                    name="star"
-                    color={Colors.secondaryColor}
-                    size={16}
-                  />
-                </View>
-              </View>
+          {/* Dashed line */}
+          <View style={styles.verticalDashedLine}></View>
+          {/* Destination address */}
+          <View style={{ ...CommonStyles.rowAlignCenter }}>
+            <View style={{ ...styles.locationIconWrapper, borderColor: Colors.redColor }}>
+              <MaterialIcons name="location-pin" color={Colors.redColor} size={12} />
             </View>
-          </View>
-
-          <View style={{ width: "30%", alignItems: "flex-end" }}>
-            <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-              {[1, 2, 3, 4].map((no) => (
-                <MaterialIcons
-                  key={`${no}`}
-                  name="event-seat"
-                  color={
-                    no > item.availableSheet
-                      ? Colors.grayColor
-                      : Colors.primaryColor
-                  }
-                  size={16}
-                  style={{
-                    marginLeft: Sizes.fixPadding - 5.0,
-                    alignSelf: "center",
-                  }}
-                />
-              ))}
-            </ScrollView>
+            <Text
+              numberOfLines={1}
+              style={{ flex: 1, ...Fonts.blackColor14Medium, marginHorizontal: Sizes.fixPadding }}
+            >
+              {ride.destinationAddress}
+            </Text>
           </View>
         </View>
-      </TouchableOpacity>
-    );
-    return (
-      <FlatList
-        data={rides}
-        keyExtractor={(item) => `${item.id}`}
-        renderItem={renderItem}
-        showsVerticalScrollIndicator={false}
-        contentContainerStyle={{ paddingTop: Sizes.fixPadding * 2.0 }}
+        <Text style={{ ...Fonts.primaryColor18SemiBold }}>
+          {ride.amount ? `$${ride.amount}` : ""}
+        </Text>
+      </View>
+
+      <DashedLine
+        dashLength={3}
+        dashThickness={1}
+        dashColor={Colors.grayColor}
+        style={{ marginVertical: Sizes.fixPadding, overflow: "hidden" }}
       />
-    );
-  }
+
+      <View style={{ ...CommonStyles.rowAlignCenter, marginHorizontal: Sizes.fixPadding }}>
+        {/* Driver info: photo and name */}
+        <View style={{ flex: 1, ...CommonStyles.rowAlignCenter, marginRight: Sizes.fixPadding }}>
+          <Image
+            source={
+              driver?.photo
+                ? { uri: driver.photo }
+                : require("../../../assets/images/user/user1.jpeg")
+            }
+            style={{
+              width: 40,
+              height: 40,
+              borderRadius: Sizes.fixPadding - 5,
+            }}
+          />
+          <View style={{ flex: 1, marginHorizontal: Sizes.fixPadding }}>
+            <Text numberOfLines={1} style={{ ...Fonts.blackColor15SemiBold }}>
+              {driver ? `${driver.firstName} ${driver.lastName}` : "Driver"}
+            </Text>
+            <View style={{ ...CommonStyles.rowAlignCenter, marginTop: Sizes.fixPadding - 8 }}>
+              <Text numberOfLines={1} style={{ ...Fonts.grayColor13SemiBold, flex: 1 }}>
+                {ride.journeyDateTime || ""}
+              </Text>
+              <View style={styles.dateTimeAndRatingDivider}></View>
+              <View style={{ ...CommonStyles.rowAlignCenter }}>
+                <Text style={{ ...Fonts.grayColor13SemiBold, marginRight: Sizes.fixPadding - 8 }}>
+                  {ride.rating || "0"}
+                </Text>
+                <MaterialIcons name="star" color={Colors.secondaryColor} size={16} />
+              </View>
+            </View>
+          </View>
+        </View>
+        {/* Seat availability */}
+        <View style={{ width: "30%", alignItems: "flex-end" }}>
+          <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+            {[1, 2, 3, 4].map((no) => (
+              <MaterialIcons
+                key={`${no}`}
+                name="event-seat"
+                color={no > ride.seats ? Colors.grayColor : Colors.primaryColor}
+                size={16}
+                style={{
+                  marginLeft: Sizes.fixPadding - 5,
+                  alignSelf: "center",
+                }}
+              />
+            ))}
+          </ScrollView>
+        </View>
+      </View>
+
+      {/* Optionally, you can also display additional driver information such as phone */}
+      {driver?.phoneNumber && (
+        <View style={{ marginTop: Sizes.fixPadding, marginHorizontal: Sizes.fixPadding }}>
+          <Text style={{ ...Fonts.grayColor14Medium }}>Phone: {driver.phoneNumber}</Text>
+        </View>
+      )}
+    </TouchableOpacity>
+  );
 };
 
 export default AvailableRidesScreen;
 
 const styles = StyleSheet.create({
   locationIconWrapper: {
-    width: 18.0,
-    height: 18.0,
-    borderRadius: 9.0,
-    borderWidth: 1.0,
+    width: 18,
+    height: 18,
+    borderRadius: 9,
+    borderWidth: 1,
     alignItems: "center",
     justifyContent: "center",
   },
   verticalDashedLine: {
-    height: 15.0,
-    width: 1.0,
+    height: 15,
+    width: 1,
     borderStyle: "dashed",
     borderColor: Colors.grayColor,
     borderWidth: 0.8,
-    marginLeft: Sizes.fixPadding - 2.0,
+    marginLeft: Sizes.fixPadding - 2,
   },
   rideWrapper: {
     backgroundColor: Colors.whiteColor,
     ...CommonStyles.shadow,
     borderRadius: Sizes.fixPadding,
-    marginHorizontal: Sizes.fixPadding * 2.0,
-    marginBottom: Sizes.fixPadding * 2.0,
+    marginHorizontal: Sizes.fixPadding * 2,
+    marginBottom: Sizes.fixPadding * 2,
     paddingVertical: Sizes.fixPadding,
   },
   dateTimeAndRatingDivider: {
-    width: 1.0,
+    width: 1,
     backgroundColor: Colors.grayColor,
     height: "80%",
-    marginHorizontal: Sizes.fixPadding - 5.0,
+    marginHorizontal: Sizes.fixPadding - 5,
   },
 });

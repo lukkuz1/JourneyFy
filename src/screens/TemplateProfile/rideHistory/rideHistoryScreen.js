@@ -1,20 +1,13 @@
-import {
-  StyleSheet,
-  Text,
-  View,
-  Image,
-  TouchableOpacity,
-  FlatList,
-} from "react-native";
-import React from "react";
-import { Colors, Fonts, Sizes, CommonStyles } from "../../../constants/styles";
+// src/screens/RideHistoryScreen.js
+import React, { useEffect, useState } from "react";
+import { View, StyleSheet } from "react-native";
 import MyStatusBar from "../../../components/myStatusBar";
-import Header from "../../../components/header";
-import DashedLine from "react-native-dashed-line";
-import MaterialIcons from "react-native-vector-icons/MaterialIcons";
-import Ionicons from "react-native-vector-icons/Ionicons";
+import { Colors } from "../../../constants/styles";
+import RidesHeader from "../../../components/RideHistory/RidesHeader";
+import RideHistoryList from "../../../components/RideHistory/RideHistoryList";
+import EmptyRideList from "../../../components/RideHistory/EmptyRideList";
 
-const ridesList = [
+const ridesListInitial = [
   {
     id: "1",
     profile: require("../../../assets/images/user/user17.png"),
@@ -89,175 +82,32 @@ const ridesList = [
   },
 ];
 
-const RideHistoryScreen = ({ navigation }) => {
+const RideHistoryScreen = ({ navigation, route }) => {
+  const [rides, setRides] = useState(ridesListInitial);
+
+  // If route.params?.id exists (for example, after deletion), filter that ride out:
+  useEffect(() => {
+    if (route.params?.id) {
+      setRides((prev) => prev.filter((item) => item.id !== route.params.id));
+    }
+  }, [route.params?.id]);
+
   return (
     <View style={{ flex: 1, backgroundColor: Colors.bodyBackColor }}>
       <MyStatusBar />
       <View style={{ flex: 1 }}>
-        <Header title={"Kelionių istorija"} navigation={navigation} />
-        {ridesInfo()}
+        <RidesHeader navigation={navigation} />
+        {rides.length === 0 ? (
+          <EmptyRideList />
+        ) : (
+          <RideHistoryList rides={rides} navigation={navigation} />
+        )}
       </View>
     </View>
   );
-
-  function ridesInfo() {
-    const renderItem = ({ item }) => (
-      <TouchableOpacity
-        activeOpacity={0.8}
-        onPress={() => {
-          navigation.navigate("HistoryRideDetailScreen");
-        }}
-        style={styles.rideWrapper}
-      >
-        <Image
-          source={item.profile}
-          style={{
-            width: 82.0,
-            height: 82.0,
-            borderRadius: Sizes.fixPadding - 5.0,
-          }}
-        />
-        <View style={styles.rideDetailWrapper}>
-          <Text style={{ ...Fonts.blackColor15SemiBold }}>{item.name}</Text>
-
-          <View style={{ ...CommonStyles.rowAlignCenter }}>
-            <Ionicons
-              name="calendar-outline"
-              color={Colors.blackColor}
-              size={14}
-            />
-            <Text
-              numberOfLines={1}
-              style={{
-                maxWidth: "50%",
-                ...Fonts.blackColor12Medium,
-                marginLeft: Sizes.fixPadding - 5.0,
-              }}
-            >
-              {item.date}
-            </Text>
-            <View style={styles.dateTimeDivider}></View>
-            <Ionicons name="time-outline" color={Colors.blackColor} size={14} />
-            <Text
-              numberOfLines={1}
-              style={{
-                flex: 1,
-                ...Fonts.blackColor12Medium,
-                marginLeft: Sizes.fixPadding - 5.0,
-              }}
-            >
-              {item.time}
-            </Text>
-          </View>
-
-          <View>
-            <View style={{ ...CommonStyles.rowAlignCenter }}>
-              <View
-                style={{
-                  ...styles.locationIconWrapper,
-                  borderColor: Colors.greenColor,
-                }}
-              >
-                <MaterialIcons
-                  name="location-pin"
-                  color={Colors.greenColor}
-                  size={7}
-                />
-              </View>
-              <Text
-                numberOfLines={1}
-                style={{
-                  flex: 1,
-                  ...Fonts.grayColor12Medium,
-                  marginLeft: Sizes.fixPadding,
-                }}
-              >
-                {item.pickup}
-              </Text>
-            </View>
-
-            <DashedLine
-              axis="vertical"
-              dashLength={2}
-              dashThickness={1}
-              dashGap={1.5}
-              dashColor={Colors.grayColor}
-              style={{
-                height: 5.0,
-                marginLeft: Sizes.fixPadding - 4.0,
-              }}
-            />
-
-            <View style={{ ...CommonStyles.rowAlignCenter }}>
-              <View
-                style={{
-                  ...styles.locationIconWrapper,
-                  borderColor: Colors.redColor,
-                }}
-              >
-                <MaterialIcons
-                  name="location-pin"
-                  color={Colors.redColor}
-                  size={7}
-                />
-              </View>
-              <Text
-                numberOfLines={1}
-                style={{
-                  flex: 1,
-                  ...Fonts.grayColor12Medium,
-                  marginLeft: Sizes.fixPadding,
-                }}
-              >
-                {item.drop}
-              </Text>
-            </View>
-          </View>
-        </View>
-      </TouchableOpacity>
-    );
-    return (
-      <FlatList
-        data={ridesList}
-        keyExtractor={(item) => `${item.id}`}
-        renderItem={renderItem}
-        showsVerticalScrollIndicator={false}
-        contentContainerStyle={{ paddingTop: Sizes.fixPadding * 2.0 }}
-      />
-    );
-  }
 };
 
 export default RideHistoryScreen;
 
-const styles = StyleSheet.create({
-  rideDetailWrapper: {
-    flex: 1,
-    marginLeft: Sizes.fixPadding,
-    height: 82.0,
-    justifyContent: "space-between",
-  },
-  rideWrapper: {
-    backgroundColor: Colors.whiteColor,
-    ...CommonStyles.rowAlignCenter,
-    ...CommonStyles.shadow,
-    borderRadius: Sizes.fixPadding,
-    padding: Sizes.fixPadding,
-    marginHorizontal: Sizes.fixPadding * 2.0,
-    marginBottom: Sizes.fixPadding * 2.0,
-  },
-  locationIconWrapper: {
-    width: 12.0,
-    height: 12.0,
-    borderRadius: 6.0,
-    borderWidth: 1.0,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  dateTimeDivider: {
-    marginHorizontal: Sizes.fixPadding - 5.0,
-    width: 1.0,
-    backgroundColor: Colors.blackColor,
-    height: "100%",
-  },
-});
+
+const styles = StyleSheet.create({});
