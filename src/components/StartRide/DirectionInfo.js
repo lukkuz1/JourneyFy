@@ -1,6 +1,6 @@
 // src/components/DirectionInfo.js
 import React from "react";
-import { Image } from "react-native";
+import { Image, View } from "react-native";
 import MapView, { PROVIDER_GOOGLE, Marker } from "react-native-maps";
 import MapViewDirections from "react-native-maps-directions";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";

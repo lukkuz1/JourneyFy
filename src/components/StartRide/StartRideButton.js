@@ -8,7 +8,7 @@ const StartRideButton = ({ navigation }) => {
     <View style={{ backgroundColor: Colors.whiteColor }}>
       <TouchableOpacity
         activeOpacity={0.8}
-        onPress={() => navigation.push("EndRide")}
+        onPress={() => navigation.push("EndRideScreen")}
         style={{ ...CommonStyles.button, marginVertical: Sizes.fixPadding * 2 }}
       >
         <Text style={{ ...Fonts.whiteColor18Bold }}>Start ride</Text>

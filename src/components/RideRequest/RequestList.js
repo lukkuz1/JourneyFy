@@ -8,7 +8,7 @@ const RequestList = ({ requests, onRequestPress, navigation }) => {
   const renderItem = ({ item }) => (
     <RequestItem
       item={item}
-      onPress={() => navigation.push("StartRide")}
+      onPress={() => navigation.push("StartRideScreen")}
       onRequestSheetPress={() => onRequestPress(item.requestCount)}
     />
   );

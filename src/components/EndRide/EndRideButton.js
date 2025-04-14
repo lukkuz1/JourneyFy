@@ -8,7 +8,7 @@ const EndRideButton = ({ navigation }) => {
     <View style={{ backgroundColor: Colors.whiteColor }}>
       <TouchableOpacity
         activeOpacity={0.8}
-        onPress={() => navigation.push("RideComplete")}
+        onPress={() => navigation.push("RideCompleteScreen")}
         style={{ ...CommonStyles.button, marginVertical: Sizes.fixPadding * 2.0 }}
       >
         <Text style={{ ...Fonts.whiteColor18Bold }}>Užbaigti kelionę</Text>
