@@ -28,7 +28,7 @@ const LogoutDialog = ({ isVisible, onClose, onLogout }) => (
       <TouchableOpacity
         activeOpacity={0.8}
         onPress={onClose}
-        style={styles.dialogButton}
+        style={styles.negativeDialogButton}
       >
         <Text style={{ ...Fonts.whiteColor18SemiBold }}>Ne</Text>
       </TouchableOpacity>
@@ -48,6 +48,13 @@ const styles = {
   dialogButton: {
     flex: 1,
     backgroundColor: Colors.secondaryColor,
+    alignItems: "center",
+    justifyContent: "center",
+    padding: Sizes.fixPadding + 2.0,
+  },
+  negativeDialogButton: {
+    flex: 1,
+    backgroundColor: Colors.redColor,
     alignItems: "center",
     justifyContent: "center",
     padding: Sizes.fixPadding + 2.0,

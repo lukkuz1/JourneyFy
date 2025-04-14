@@ -17,7 +17,6 @@ const VehicleItem = ({ vehicle, deleteVehicle, openStatusModal }) => {
         style={styles.vehicleImage}
         imageStyle={{ borderRadius: Sizes.fixPadding }}
       >
-        {/* Status icon wrapped in a pressable */}
         <TouchableOpacity
           style={styles.approvedIconContainer}
           onPress={() => openStatusModal(vehicle.approvedByAdmin)}
@@ -28,6 +27,7 @@ const VehicleItem = ({ vehicle, deleteVehicle, openStatusModal }) => {
             <Ionicons name="close-circle" size={24} color={Colors.redColor} />
           )}
         </TouchableOpacity>
+
         <TouchableOpacity
           onPress={() => deleteVehicle({ id: vehicle.id })}
           style={styles.trashIconContainer}

@@ -174,7 +174,7 @@ const RideRequestScreen = ({ navigation }) => {
     <View style={{ flex: 1, backgroundColor: Colors.bodyBackColor }}>
       <MyStatusBar />
       <View style={{ flex: 1 }}>
-        <Header title="Request for ride" navigation={navigation} />
+        <Header title="Kelionių prašymai" navigation={navigation} />
         <RequestList
           requests={rideRequestsList}
           onRequestPress={(requestCount) => {
