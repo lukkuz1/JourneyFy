@@ -1,16 +1,16 @@
 // src/screens/RidesScreen.js
 import React, { useEffect, useState } from "react";
 import { View, StyleSheet } from "react-native";
-import MyStatusBar from "../../../components/myStatusBar";
-import { Colors } from "../../../constants/styles";
-import RidesHeader from "../../../components/Rides/RidesHeader";
-import NoRidesInfo from "../../../components/Rides/NoRidesInfo";
-import RidesList from "../../../components/Rides/RidesList";
+import MyStatusBar from "../../components/myStatusBar";
+import { Colors } from "../../constants/styles";
+import RidesHeader from "../../components/Rides/RidesHeader";
+import NoRidesInfo from "../../components/Rides/NoRidesInfo";
+import RidesList from "../../components/Rides/RidesList";
 
 const initialRides = [
   {
     id: "1",
-    profile: require("../../../assets/images/user/user8.png"),
+    profile: require("../../assets/images/user/user8.png"),
     name: "Jenny wilsom",
     date: "Today",
     time: "9:00 am",
@@ -19,7 +19,7 @@ const initialRides = [
   },
   {
     id: "2",
-    profile: require("../../../assets/images/user/user3.png"),
+    profile: require("../../assets/images/user/user3.png"),
     name: "Devon Lane",
     date: "22 jan 2023",
     time: "9:00 am",
@@ -28,7 +28,7 @@ const initialRides = [
   },
   {
     id: "3",
-    profile: require("../../../assets/images/user/user16.png"),
+    profile: require("../../assets/images/user/user16.png"),
     name: "Leslie Alexander",
     date: "23 jan 2023",
     time: "9:00 am",
@@ -37,7 +37,7 @@ const initialRides = [
   },
   {
     id: "4",
-    profile: require("../../../assets/images/user/user2.png"),
+    profile: require("../../assets/images/user/user2.png"),
     name: "Guy Hawkins",
     date: "24 jan 2023",
     time: "9:00 am",
@@ -46,7 +46,7 @@ const initialRides = [
   },
   {
     id: "5",
-    profile: require("../../../assets/images/user/user17.png"),
+    profile: require("../../assets/images/user/user17.png"),
     name: "Savannah Nguyen",
     date: "25 jan 2023",
     time: "9:00 am",

@@ -21,7 +21,7 @@ import RideCompleteScreen from "../screens/TemplateJourney/rideComplete/rideComp
 import RideDetailScreen from "../screens/TemplateJourney/rideDetail/rideDetailScreen";
 import RideMapViewScreen from "../screens/TemplateJourney/rideMapView/rideMapViewScreen";
 import RideRequestScreen from "../screens/TemplateJourney/rideRequest/rideRequestScreen";
-import RidesScreen from "../screens/TemplateJourney/rides/ridesScreen";
+import RidesScreen from "../screens/Main/ridesScreen";
 import StartRideScreen from "../screens/TemplateJourney/startRide/startRideScreen";
 import MessageScreen from "../screens/TemplateJourney/message/messageScreen";
 import Settings from "../screens/Main/Settings";

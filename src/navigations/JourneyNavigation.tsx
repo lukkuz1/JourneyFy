@@ -1,6 +1,5 @@
 import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
-import Journey from "../screens/Main/Journey";
 import AddVehicleScreen from "../screens/TemplateJourney/addVehicle/addVehicleScreen";
 import AvailableRidesScreen from "../screens/TemplateJourney/availableRides/availableRidesScreen";
 import ConfirmPoolingScreen from "../screens/TemplateJourney/confirmPooling/confirmPoolingScreen";
@@ -14,7 +13,7 @@ import RideDetailScreen from "../screens/TemplateJourney/rideDetail/rideDetailSc
 import RideHistoryScreen from "../screens/TemplateProfile/rideHistory/rideHistoryScreen";
 import RideMapViewScreen from "../screens/TemplateJourney/rideMapView/rideMapViewScreen";
 import RideRequestScreen from "../screens/TemplateJourney/rideRequest/rideRequestScreen";
-import RidesScreen from "../screens/TemplateJourney/rides/ridesScreen";
+import RidesScreen from "../screens/Main/ridesScreen";
 import StartRideScreen from "../screens/TemplateJourney/startRide/startRideScreen";
 import UserVehiclesScreen from "../screens/TemplateProfile/userVehicles/userVehiclesScreen";
 import MessageScreen from "../screens/TemplateJourney/message/messageScreen";
@@ -32,7 +31,6 @@ export default function JourneyNavigation() {
       }}
       initialRouteName="Journey"
     >
-      {/* <Stack.Screen name="Journey" component={Journey} /> */}
       <Stack.Screen name="AddVehicleScreen" component={AddVehicleScreen} />
       <Stack.Screen
         name="AvailableRidesScreen"
