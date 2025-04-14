@@ -14,14 +14,14 @@ const RidesHeader = ({ navigation }) => {
           textAlign: "center",
         }}
       >
-        My Rides
+        Mano kelionės
       </Text>
       <View style={styles.headerIconContainer}>
         <MaterialIcons
           name="account-circle"
           color={Colors.whiteColor}
           size={29}
-          onPress={() => navigation.push("RideRequest")}
+          onPress={() => navigation.push("RideRequestScreen")}
         />
         <View style={styles.badge} />
       </View>

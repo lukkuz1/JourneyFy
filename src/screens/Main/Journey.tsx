@@ -174,7 +174,7 @@ const Journey: React.FC<JourneyProps> = ({ navigation, route }) => {
             color={Colors.whiteColor}
             size={29}
             onPress={() => {
-              navigation.navigate("RideDetailScreen");
+              navigation.navigate("RideRequestScreen");
             }}
           />
           <View style={styles.headerAccountBadge}></View>

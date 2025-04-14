@@ -43,7 +43,7 @@ const AvailableRidesScreen = ({ navigation, route }) => {
     <View style={{ flex: 1, backgroundColor: Colors.bodyBackColor }}>
       <MyStatusBar />
       <View style={{ flex: 1 }}>
-        <Header title={"Available Rides"} navigation={navigation} />
+        <Header title={"Surastos kelionės"} navigation={navigation} />
         <FlatList
           data={availableRides}
           keyExtractor={(item) => `${item.id}`}

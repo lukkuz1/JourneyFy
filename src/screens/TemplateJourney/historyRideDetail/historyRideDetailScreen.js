@@ -17,7 +17,7 @@ const HistoryRideDetailScreen = ({ navigation }) => {
     <View style={{ flex: 1, backgroundColor: Colors.bodyBackColor }}>
       <MyStatusBar />
       <View style={{ flex: 1 }}>
-        <Header title="Ride detail" navigation={navigation} />
+        <Header title="Kelionės aprašymas" navigation={navigation} />
         <ScrollView showsVerticalScrollIndicator={false}>
           <RiderInfo />
           <RiderDetail />

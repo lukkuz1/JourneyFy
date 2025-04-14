@@ -6,7 +6,7 @@ import { Colors, CommonStyles, Sizes, Fonts } from "../../constants/styles";
 const RideDetailFooter = ({ ride, navigation, onCancelPress }) => {
   return (
     <View style={styles.footer}>
-      {ride.isDriver ? (
+      {!ride.isDriver ? (
         <TouchableOpacity
           activeOpacity={0.8}
           onPress={onCancelPress}
@@ -25,7 +25,7 @@ const RideDetailFooter = ({ ride, navigation, onCancelPress }) => {
           style={{ flex: 1, ...CommonStyles.button, marginHorizontal: Sizes.fixPadding }}
         >
           <Text numberOfLines={1} style={{ ...Fonts.whiteColor18Bold }}>
-            Kelionės prašymas
+            Keliauti
           </Text>
         </TouchableOpacity>
       )}
@@ -37,7 +37,7 @@ const RideDetailFooter = ({ ride, navigation, onCancelPress }) => {
         style={{ flex: 1, ...CommonStyles.button, marginHorizontal: Sizes.fixPadding }}
       >
         <Text numberOfLines={1} style={{ ...Fonts.whiteColor18Bold }}>
-          Pranešti
+          Žinutės
         </Text>
       </TouchableOpacity>
     </View>

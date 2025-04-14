@@ -11,7 +11,7 @@ const RideCompleteScreen = ({ navigation }) => {
         e.preventDefault();
       });
     } else {
-      navigation.navigate("Profile");
+      navigation.navigate("Journey");
       return true;
     }
   };
@@ -41,7 +41,7 @@ const RideCompleteScreen = ({ navigation }) => {
     return (
       <Text
         onPress={() => {
-          navigation.navigate("Profile");
+          navigation.navigate("Journey");
         }}
         style={{
           ...Fonts.primaryColor16SemiBold,

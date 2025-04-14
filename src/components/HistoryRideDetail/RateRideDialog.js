@@ -14,7 +14,7 @@ const RateRideDialog = ({ isVisible, onClose, rating, setRating }) => {
               source={require("../../assets/images/rating.png")}
               style={{ width: 90.0, height: 90.0, resizeMode: "contain" }}
             />
-            <Text style={{ ...Fonts.primaryColor17Bold, marginTop: Sizes.fixPadding }}>Rate your ride</Text>
+            <Text style={{ ...Fonts.primaryColor17Bold, marginTop: Sizes.fixPadding }}>Vertinti savo kelionę</Text>
             <View style={{ flexDirection: "row", alignItems: "center", marginVertical: Sizes.fixPadding * 2.0 }}>
               <RatingStar no={1} rating={rating} setRating={setRating} />
               <RatingStar no={2} rating={rating} setRating={setRating} />
@@ -24,7 +24,7 @@ const RateRideDialog = ({ isVisible, onClose, rating, setRating }) => {
             </View>
           </View>
           <TextInput
-            placeholder="Say something"
+            placeholder="Įveskite atsiliepimą..."
             placeholderTextColor={Colors.grayColor}
             style={styles.reviewFieldStyle}
             multiline={true}

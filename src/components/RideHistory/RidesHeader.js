@@ -11,17 +11,8 @@ const RidesHeader = ({ navigation }) => {
         <MaterialIcons name="arrow-back-ios" size={24} color={Colors.whiteColor} />
       </TouchableOpacity>
       <Text style={{ ...Fonts.whiteColor20SemiBold, maxWidth: "85%", textAlign: "center" }}>
-        My Rides
+        Kelionių istorija
       </Text>
-      <View style={styles.headerIconContainer}>
-        <MaterialIcons
-          name="account-circle"
-          color={Colors.whiteColor}
-          size={29}
-          onPress={() => navigation.navigate("RideRequestScreen")}
-        />
-        <View style={styles.badge} />
-      </View>
     </View>
   );
 };

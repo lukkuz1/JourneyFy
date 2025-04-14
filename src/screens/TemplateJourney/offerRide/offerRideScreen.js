@@ -30,7 +30,7 @@ const OfferRideScreen = ({ navigation }) => {
     <View style={{ flex: 1, backgroundColor: Colors.bodyBackColor }}>
       <MyStatusBar />
       <View style={{ flex: 1 }}>
-        <Header title="Offer ride" navigation={navigation} />
+        <Header title="Kelionės pasiūlymas" navigation={navigation} />
         <ScrollView
           automaticallyAdjustKeyboardInsets={true}
           showsVerticalScrollIndicator={false}

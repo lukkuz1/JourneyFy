@@ -10,7 +10,7 @@ const RideItem = ({ item, navigation }) => {
   return (
     <TouchableOpacity
       activeOpacity={0.8}
-      onPress={() => navigation.push("RideDetail", { id: item.id })}
+      onPress={() => navigation.push("RideDetailScreen", { id: item.id })}
       style={styles.rideWrapper}
     >
       <Image

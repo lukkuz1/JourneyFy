@@ -1,0 +1,305 @@
+Date : 2025-04-14 10:48:48
+Directory : c:\Users\Administrator\Desktop\bakalauras\JourneyFy
+Total : 197 files,  28876 codes, 133 comments, 1107 blanks, all 30116 lines
+
+Languages
++--------------------+------------+------------+------------+------------+------------+
+| language           | files      | code       | comment    | blank      | total      |
++--------------------+------------+------------+------------+------------+------------+
+| JSON               |          4 |     15,681 |          0 |          4 |     15,685 |
+| JavaScript         |        161 |     10,563 |        129 |        862 |     11,554 |
+| TypeScript JSX     |         26 |      2,454 |          4 |        204 |      2,662 |
+| TypeScript         |          4 |        123 |          0 |         19 |        142 |
+| Markdown           |          1 |         51 |          0 |         17 |         68 |
+| JSON with Comments |          1 |          4 |          0 |          1 |          5 |
++--------------------+------------+------------+------------+------------+------------+
+
+Directories
++---------------------------------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| path                                                                                                                                  | files      | code       | comment    | blank      | total      |
++---------------------------------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| .                                                                                                                                     |        197 |     28,876 |        133 |      1,107 |     30,116 |
+| . (Files)                                                                                                                             |         10 |     15,785 |          0 |         28 |     15,813 |
+| _tests_                                                                                                                               |          1 |          9 |          0 |          2 |         11 |
+| src                                                                                                                                   |        186 |     13,082 |        133 |      1,077 |     14,292 |
+| src\assets                                                                                                                            |          1 |         62 |          0 |         11 |         73 |
+| src\assets\xml                                                                                                                        |          1 |         62 |          0 |         11 |         73 |
+| src\components                                                                                                                        |        103 |      5,983 |         75 |        449 |      6,507 |
+| src\components (Files)                                                                                                                |          4 |        233 |          0 |         20 |        253 |
+| src\components\AddAndSendMoney                                                                                                        |          3 |         80 |          3 |         12 |         95 |
+| src\components\AddVehicle                                                                                                             |          3 |        293 |          0 |         22 |        315 |
+| src\components\BankInfo                                                                                                               |          5 |        189 |          5 |         19 |        213 |
+| src\components\CreditCard                                                                                                             |          2 |         58 |          2 |          8 |         68 |
+| src\components\CustomerSupport                                                                                                        |          4 |        159 |          4 |         15 |        178 |
+| src\components\EndRide                                                                                                                |          5 |        241 |          5 |         16 |        262 |
+| src\components\Entry                                                                                                                  |          2 |        172 |          0 |          8 |        180 |
+| src\components\HistoryRideDetail                                                                                                      |          5 |        261 |          0 |         18 |        279 |
+| src\components\Home                                                                                                                   |          5 |        538 |          1 |         26 |        565 |
+| src\components\Message                                                                                                                |          4 |        184 |          4 |         16 |        204 |
+| src\components\OfferRide                                                                                                              |          8 |        369 |          8 |         32 |        409 |
+| src\components\PaymentMethods                                                                                                         |          2 |         84 |          2 |          8 |         94 |
+| src\components\PickLocation                                                                                                           |          3 |        202 |          3 |         12 |        217 |
+| src\components\Profile                                                                                                                |          6 |        326 |          1 |         35 |        362 |
+| src\components\RideDetail                                                                                                             |          8 |        436 |          8 |         30 |        474 |
+| src\components\RideHistory                                                                                                            |          4 |        214 |          4 |         13 |        231 |
+| src\components\RideMapView                                                                                                            |          3 |        251 |          3 |         18 |        272 |
+| src\components\RideRequest                                                                                                            |          3 |        317 |          4 |         19 |        340 |
+| src\components\Rides                                                                                                                  |          4 |        212 |          4 |         13 |        229 |
+| src\components\Settings                                                                                                               |          5 |        344 |          2 |         23 |        369 |
+| src\components\StartRide                                                                                                              |          4 |        374 |          4 |         18 |        396 |
+| src\components\Transactions                                                                                                           |          2 |         76 |          2 |          8 |         86 |
+| src\components\UserVehicleScreen                                                                                                      |          5 |        208 |          1 |         20 |        229 |
+| src\components\Wallet                                                                                                                 |          4 |        162 |          5 |         20 |        187 |
+| src\constants                                                                                                                         |          3 |        328 |          0 |         61 |        389 |
+| src\hooks                                                                                                                             |         15 |        807 |         16 |        130 |        953 |
+| src\locales                                                                                                                           |          2 |         90 |          0 |          4 |         94 |
+| src\navigations                                                                                                                       |         11 |        470 |          4 |         38 |        512 |
+| src\screens                                                                                                                           |         46 |      5,240 |         38 |        365 |      5,643 |
+| src\screens\Entry                                                                                                                     |          7 |      1,227 |          0 |         73 |      1,300 |
+| src\screens\Entry (Files)                                                                                                             |          4 |        626 |          0 |         29 |        655 |
+| src\screens\Entry\auth                                                                                                                |          3 |        601 |          0 |         44 |        645 |
+| src\screens\Main                                                                                                                      |          5 |        859 |          2 |         72 |        933 |
+| src\screens\TemplateAdditional                                                                                                        |          1 |        145 |          0 |          5 |        150 |
+| src\screens\TemplateAdditional\reviews                                                                                                |          1 |        145 |          0 |          5 |        150 |
+| src\screens\TemplateInfo                                                                                                              |          1 |        196 |          0 |         15 |        211 |
+| src\screens\TemplateInfo\notifications                                                                                                |          1 |        196 |          0 |         15 |        211 |
+| src\screens\TemplateJourney                                                                                                           |         17 |      1,691 |         25 |        119 |      1,835 |
+| src\screens\TemplateJourney\addVehicle                                                                                                |          1 |         98 |          0 |          7 |        105 |
+| src\screens\TemplateJourney\availableRides                                                                                            |          1 |        211 |          3 |         11 |        225 |
+| src\screens\TemplateJourney\confirmPooling                                                                                            |          1 |         75 |          0 |          7 |         82 |
+| src\screens\TemplateJourney\endRide                                                                                                   |          2 |        178 |          2 |          7 |        187 |
+| src\screens\TemplateJourney\historyRideDetail                                                                                         |          1 |         35 |          0 |          3 |         38 |
+| src\screens\TemplateJourney\message                                                                                                   |          1 |         72 |          1 |          8 |         81 |
+| src\screens\TemplateJourney\offerRide                                                                                                 |          1 |         71 |          3 |          6 |         80 |
+| src\screens\TemplateJourney\onboarding                                                                                                |          1 |        292 |          0 |         16 |        308 |
+| src\screens\TemplateJourney\pickLocation                                                                                              |          2 |        227 |          7 |         25 |        259 |
+| src\screens\TemplateJourney\rideComplete                                                                                              |          1 |         76 |          0 |          7 |         83 |
+| src\screens\TemplateJourney\rideDetail                                                                                                |          1 |         50 |          1 |          5 |         56 |
+| src\screens\TemplateJourney\rideMapView                                                                                               |          1 |         20 |          1 |          2 |         23 |
+| src\screens\TemplateJourney\rideRequest                                                                                               |          1 |        191 |          3 |          7 |        201 |
+| src\screens\TemplateJourney\rides                                                                                                     |          1 |         73 |          3 |          6 |         82 |
+| src\screens\TemplateJourney\startRide                                                                                                 |          1 |         22 |          1 |          2 |         25 |
+| src\screens\TemplateProfile                                                                                                           |          8 |        727 |          5 |         52 |        784 |
+| src\screens\TemplateProfile\customerSupport                                                                                           |          1 |         29 |          1 |          2 |         32 |
+| src\screens\TemplateProfile\editProfile                                                                                               |          1 |        149 |          2 |         11 |        162 |
+| src\screens\TemplateProfile\faq                                                                                                       |          1 |         85 |          0 |          6 |         91 |
+| src\screens\TemplateProfile\privacyPolicy                                                                                             |          1 |         80 |          0 |          7 |         87 |
+| src\screens\TemplateProfile\profile                                                                                                   |          1 |        190 |          0 |         10 |        200 |
+| src\screens\TemplateProfile\rideHistory                                                                                               |          1 |        104 |          2 |          7 |        113 |
+| src\screens\TemplateProfile\termsAndConditions                                                                                        |          1 |         47 |          0 |          6 |         53 |
+| src\screens\TemplateProfile\userVehicles                                                                                              |          1 |         43 |          0 |          3 |         46 |
+| src\screens\TemplateWallet                                                                                                            |          7 |        395 |          6 |         29 |        430 |
+| src\screens\TemplateWallet\addAndSendMoney                                                                                            |          1 |         28 |          1 |          3 |         32 |
+| src\screens\TemplateWallet\bankInfo                                                                                                   |          1 |         39 |          1 |          4 |         44 |
+| src\screens\TemplateWallet\creditCard                                                                                                 |          1 |         44 |          1 |          4 |         49 |
+| src\screens\TemplateWallet\paymentMethods                                                                                             |          1 |         60 |          1 |          5 |         66 |
+| src\screens\TemplateWallet\successfullyAddAndSend                                                                                     |          1 |         95 |          0 |          8 |        103 |
+| src\screens\TemplateWallet\transactions                                                                                               |          1 |        104 |          1 |          3 |        108 |
+| src\screens\TemplateWallet\wallet                                                                                                     |          1 |         25 |          1 |          2 |         28 |
+| src\services                                                                                                                          |          2 |         69 |          0 |         14 |         83 |
+| src\utils                                                                                                                             |          3 |         33 |          0 |          5 |         38 |
++---------------------------------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+
+Files
++---------------------------------------------------------------------------------------------------------------------------------------+--------------------+------------+------------+------------+------------+
+| filename                                                                                                                              | language           | code       | comment    | blank      | total      |
++---------------------------------------------------------------------------------------------------------------------------------------+--------------------+------------+------------+------------+------------+
+| c:\Users\Administrator\Desktop\bakalauras\JourneyFy\App.js                                                                            | JavaScript         |         15 |          0 |          3 |         18 |
+| c:\Users\Administrator\Desktop\bakalauras\JourneyFy\README.md                                                                         | Markdown           |         51 |          0 |         17 |         68 |
+| c:\Users\Administrator\Desktop\bakalauras\JourneyFy\_tests_\App.test.tsx                                                              | TypeScript JSX     |          9 |          0 |          2 |         11 |
+| c:\Users\Administrator\Desktop\bakalauras\JourneyFy\app.json                                                                          | JSON               |         36 |          0 |          1 |         37 |
+| c:\Users\Administrator\Desktop\bakalauras\JourneyFy\babel.config.js                                                                   | JavaScript         |         15 |          0 |          1 |         16 |
+| c:\Users\Administrator\Desktop\bakalauras\JourneyFy\eas.json                                                                          | JSON               |         21 |          0 |          1 |         22 |
+| c:\Users\Administrator\Desktop\bakalauras\JourneyFy\env.d.ts                                                                          | TypeScript         |         11 |          0 |          1 |         12 |
+| c:\Users\Administrator\Desktop\bakalauras\JourneyFy\jest.config.js                                                                    | JavaScript         |          8 |          0 |          1 |          9 |
+| c:\Users\Administrator\Desktop\bakalauras\JourneyFy\package-lock.json                                                                 | JSON               |     15,550 |          0 |          1 |     15,551 |
+| c:\Users\Administrator\Desktop\bakalauras\JourneyFy\package.json                                                                      | JSON               |         74 |          0 |          1 |         75 |
+| c:\Users\Administrator\Desktop\bakalauras\JourneyFy\src\assets\xml\svg.ts                                                             | TypeScript         |         62 |          0 |         11 |         73 |
+| c:\Users\Administrator\Desktop\bakalauras\JourneyFy\src\components\AddAndSendMoney\AmountInfo.js                                      | JavaScript         |         35 |          1 |          4 |         40 |
+| c:\Users\Administrator\Desktop\bakalauras\JourneyFy\src\components\AddAndSendMoney\ContinueButton.js                                  | JavaScript         |         24 |          1 |          4 |         29 |
+| c:\Users\Administrator\Desktop\bakalauras\JourneyFy\src\components\AddAndSendMoney\WalletImage.js                                     | JavaScript         |         21 |          1 |          4 |         26 |
+| c:\Users\Administrator\Desktop\bakalauras\JourneyFy\src\components\AddVehicle\ImagePickerBottomSheet.js                               | JavaScript         |        105 |          0 |          6 |        111 |
+| c:\Users\Administrator\Desktop\bakalauras\JourneyFy\src\components\AddVehicle\VehicleForm.js                                          | JavaScript         |        105 |          0 |         10 |        115 |
+| c:\Users\Administrator\Desktop\bakalauras\JourneyFy\src\components\AddVehicle\VehicleTypeSheet.js                                     | JavaScript         |         83 |          0 |          6 |         89 |
+| c:\Users\Administrator\Desktop\bakalauras\JourneyFy\src\components\BankInfo\AccountHolderInput.js                                     | JavaScript         |         41 |          1 |          4 |         46 |
+| c:\Users\Administrator\Desktop\bakalauras\JourneyFy\src\components\BankInfo\AccountNumberInput.js                                     | JavaScript         |         45 |          1 |          4 |         50 |
+| c:\Users\Administrator\Desktop\bakalauras\JourneyFy\src\components\BankInfo\BankNameInput.js                                          | JavaScript         |         43 |          1 |          4 |         48 |
+| c:\Users\Administrator\Desktop\bakalauras\JourneyFy\src\components\BankInfo\BranchCodeInput.js                                        | JavaScript         |         43 |          1 |          4 |         48 |
+| c:\Users\Administrator\Desktop\bakalauras\JourneyFy\src\components\BankInfo\SubmitButton.js                                           | JavaScript         |         17 |          1 |          3 |         21 |
+| c:\Users\Administrator\Desktop\bakalauras\JourneyFy\src\components\CreditCard\ContinueButton.js                                       | JavaScript         |         22 |          1 |          4 |         27 |
+| c:\Users\Administrator\Desktop\bakalauras\JourneyFy\src\components\CreditCard\CreditCardForm.js                                       | JavaScript         |         36 |          1 |          4 |         41 |
+| c:\Users\Administrator\Desktop\bakalauras\JourneyFy\src\components\CustomerSupport\CallAndMailButtons.js                              | JavaScript         |         40 |          1 |          4 |         45 |
+| c:\Users\Administrator\Desktop\bakalauras\JourneyFy\src\components\CustomerSupport\ContactInfo.js                                     | JavaScript         |         28 |          1 |          4 |         33 |
+| c:\Users\Administrator\Desktop\bakalauras\JourneyFy\src\components\CustomerSupport\SubmitButton.js                                    | JavaScript         |         17 |          1 |          3 |         21 |
+| c:\Users\Administrator\Desktop\bakalauras\JourneyFy\src\components\CustomerSupport\SupportForm.js                                     | JavaScript         |         74 |          1 |          4 |         79 |
+| c:\Users\Administrator\Desktop\bakalauras\JourneyFy\src\components\EndRide\EndRideButton.js                                           | JavaScript         |         17 |          1 |          2 |         20 |
+| c:\Users\Administrator\Desktop\bakalauras\JourneyFy\src\components\EndRide\MapDirection.js                                            | JavaScript         |         71 |          1 |          4 |         76 |
+| c:\Users\Administrator\Desktop\bakalauras\JourneyFy\src\components\EndRide\PassengerList.js                                           | JavaScript         |         38 |          1 |          3 |         42 |
+| c:\Users\Administrator\Desktop\bakalauras\JourneyFy\src\components\EndRide\RideInfoSheet.js                                           | JavaScript         |         43 |          1 |          2 |         46 |
+| c:\Users\Administrator\Desktop\bakalauras\JourneyFy\src\components\EndRide\RouteList.js                                               | JavaScript         |         72 |          1 |          5 |         78 |
+| c:\Users\Administrator\Desktop\bakalauras\JourneyFy\src\components\Entry\EntryButton.tsx                                              | TypeScript JSX     |         79 |          0 |          4 |         83 |
+| c:\Users\Administrator\Desktop\bakalauras\JourneyFy\src\components\Entry\EntryInputField.tsx                                          | TypeScript JSX     |         93 |          0 |          4 |         97 |
+| c:\Users\Administrator\Desktop\bakalauras\JourneyFy\src\components\HistoryRideDetail\RateRideButton.js                                | JavaScript         |         15 |          0 |          2 |         17 |
+| c:\Users\Administrator\Desktop\bakalauras\JourneyFy\src\components\HistoryRideDetail\RateRideDialog.js                                | JavaScript         |         75 |          0 |          5 |         80 |
+| c:\Users\Administrator\Desktop\bakalauras\JourneyFy\src\components\HistoryRideDetail\RiderDetail.js                                   | JavaScript         |        100 |          0 |          3 |        103 |
+| c:\Users\Administrator\Desktop\bakalauras\JourneyFy\src\components\HistoryRideDetail\RiderInfo.js                                     | JavaScript         |         40 |          0 |          4 |         44 |
+| c:\Users\Administrator\Desktop\bakalauras\JourneyFy\src\components\HistoryRideDetail\VehicleInfo.js                                   | JavaScript         |         31 |          0 |          4 |         35 |
+| c:\Users\Administrator\Desktop\bakalauras\JourneyFy\src\components\Home\DateTimePickerSheet.js                                        | JavaScript         |        167 |          1 |          4 |        172 |
+| c:\Users\Administrator\Desktop\bakalauras\JourneyFy\src\components\Home\Header.js                                                     | JavaScript         |         79 |          0 |          6 |         85 |
+| c:\Users\Administrator\Desktop\bakalauras\JourneyFy\src\components\Home\MapComponent.js                                               | JavaScript         |         17 |          0 |          3 |         20 |
+| c:\Users\Administrator\Desktop\bakalauras\JourneyFy\src\components\Home\NoOfSeatSheet.js                                              | JavaScript         |         62 |          0 |          6 |         68 |
+| c:\Users\Administrator\Desktop\bakalauras\JourneyFy\src\components\Home\RideInfoCard.js                                               | JavaScript         |        213 |          0 |          7 |        220 |
+| c:\Users\Administrator\Desktop\bakalauras\JourneyFy\src\components\LoadingIndicator.js                                                | JavaScript         |          7 |          0 |          3 |         10 |
+| c:\Users\Administrator\Desktop\bakalauras\JourneyFy\src\components\Message\MessageHeader.js                                           | JavaScript         |         39 |          1 |          4 |         44 |
+| c:\Users\Administrator\Desktop\bakalauras\JourneyFy\src\components\Message\MessageInput.js                                            | JavaScript         |         66 |          1 |          5 |         72 |
+| c:\Users\Administrator\Desktop\bakalauras\JourneyFy\src\components\Message\MessageItem.js                                             | JavaScript         |         56 |          1 |          4 |         61 |
+| c:\Users\Administrator\Desktop\bakalauras\JourneyFy\src\components\Message\MessageList.js                                             | JavaScript         |         23 |          1 |          3 |         27 |
+| c:\Users\Administrator\Desktop\bakalauras\JourneyFy\src\components\OfferRide\CarInfo.js                                               | JavaScript         |         38 |          1 |          4 |         43 |
+| c:\Users\Administrator\Desktop\bakalauras\JourneyFy\src\components\OfferRide\CarSelectionSheet.js                                     | JavaScript         |         59 |          1 |          4 |         64 |
+| c:\Users\Administrator\Desktop\bakalauras\JourneyFy\src\components\OfferRide\ContinueButton.js                                        | JavaScript         |         17 |          1 |          3 |         21 |
+| c:\Users\Administrator\Desktop\bakalauras\JourneyFy\src\components\OfferRide\FacilityInfo.js                                          | JavaScript         |         37 |          1 |          4 |         42 |
+| c:\Users\Administrator\Desktop\bakalauras\JourneyFy\src\components\OfferRide\LocationInfo.js                                          | JavaScript         |         83 |          1 |          5 |         89 |
+| c:\Users\Administrator\Desktop\bakalauras\JourneyFy\src\components\OfferRide\PriceInfo.js                                             | JavaScript         |         31 |          1 |          4 |         36 |
+| c:\Users\Administrator\Desktop\bakalauras\JourneyFy\src\components\OfferRide\SeatInfo.js                                              | JavaScript         |         40 |          1 |          4 |         45 |
+| c:\Users\Administrator\Desktop\bakalauras\JourneyFy\src\components\OfferRide\SeatSelectionSheet.js                                    | JavaScript         |         64 |          1 |          4 |         69 |
+| c:\Users\Administrator\Desktop\bakalauras\JourneyFy\src\components\PaymentMethods\PaymentMethodItem.js                                | JavaScript         |         59 |          1 |          4 |         64 |
+| c:\Users\Administrator\Desktop\bakalauras\JourneyFy\src\components\PaymentMethods\PaymentMethodList.js                                | JavaScript         |         25 |          1 |          4 |         30 |
+| c:\Users\Administrator\Desktop\bakalauras\JourneyFy\src\components\PickLocation\LocationFooter.js                                     | JavaScript         |         57 |          1 |          4 |         62 |
+| c:\Users\Administrator\Desktop\bakalauras\JourneyFy\src\components\PickLocation\LocationSearchHeader.js                               | JavaScript         |        109 |          1 |          4 |        114 |
+| c:\Users\Administrator\Desktop\bakalauras\JourneyFy\src\components\PickLocation\PickLocationMap.js                                    | JavaScript         |         36 |          1 |          4 |         41 |
+| c:\Users\Administrator\Desktop\bakalauras\JourneyFy\src\components\Profile\Divider.js                                                 | JavaScript         |         13 |          0 |          3 |         16 |
+| c:\Users\Administrator\Desktop\bakalauras\JourneyFy\src\components\Profile\LogoutDialog.js                                            | JavaScript         |         54 |          0 |          4 |         58 |
+| c:\Users\Administrator\Desktop\bakalauras\JourneyFy\src\components\Profile\ProfileInputField.tsx                                      | TypeScript JSX     |        129 |          0 |         16 |        145 |
+| c:\Users\Administrator\Desktop\bakalauras\JourneyFy\src\components\Profile\ProfileOption.js                                           | JavaScript         |         34 |          0 |          3 |         37 |
+| c:\Users\Administrator\Desktop\bakalauras\JourneyFy\src\components\Profile\ProfilePicture.js                                          | JavaScript         |         84 |          1 |          6 |         91 |
+| c:\Users\Administrator\Desktop\bakalauras\JourneyFy\src\components\Profile\UpdateButton.js                                            | JavaScript         |         12 |          0 |          3 |         15 |
+| c:\Users\Administrator\Desktop\bakalauras\JourneyFy\src\components\RideDetail\CancelRideDialog.js                                     | JavaScript         |         52 |          1 |          4 |         57 |
+| c:\Users\Administrator\Desktop\bakalauras\JourneyFy\src\components\RideDetail\PassengerDetail.js                                      | JavaScript         |         50 |          1 |          5 |         56 |
+| c:\Users\Administrator\Desktop\bakalauras\JourneyFy\src\components\RideDetail\ReviewInfo.js                                           | JavaScript         |         74 |          1 |          4 |         79 |
+| c:\Users\Administrator\Desktop\bakalauras\JourneyFy\src\components\RideDetail\RideDetailFooter.js                                     | JavaScript         |         60 |          1 |          4 |         65 |
+| c:\Users\Administrator\Desktop\bakalauras\JourneyFy\src\components\RideDetail\RideDetailHeader.js                                     | JavaScript         |         21 |          1 |          3 |         25 |
+| c:\Users\Administrator\Desktop\bakalauras\JourneyFy\src\components\RideDetail\RiderDetail.js                                          | JavaScript         |         97 |          1 |          3 |        101 |
+| c:\Users\Administrator\Desktop\bakalauras\JourneyFy\src\components\RideDetail\RiderInfo.js                                            | JavaScript         |         51 |          1 |          3 |         55 |
+| c:\Users\Administrator\Desktop\bakalauras\JourneyFy\src\components\RideDetail\VehicleInfo.js                                          | JavaScript         |         31 |          1 |          4 |         36 |
+| c:\Users\Administrator\Desktop\bakalauras\JourneyFy\src\components\RideHistory\EmptyRideList.js                                       | JavaScript         |         25 |          1 |          3 |         29 |
+| c:\Users\Administrator\Desktop\bakalauras\JourneyFy\src\components\RideHistory\RideHistoryItem.js                                     | JavaScript         |        120 |          1 |          4 |        125 |
+| c:\Users\Administrator\Desktop\bakalauras\JourneyFy\src\components\RideHistory\RideHistoryList.js                                     | JavaScript         |         17 |          1 |          3 |         21 |
+| c:\Users\Administrator\Desktop\bakalauras\JourneyFy\src\components\RideHistory\RidesHeader.js                                         | JavaScript         |         52 |          1 |          3 |         56 |
+| c:\Users\Administrator\Desktop\bakalauras\JourneyFy\src\components\RideMapView\DirectionMap.js                                        | JavaScript         |         95 |          1 |          6 |        102 |
+| c:\Users\Administrator\Desktop\bakalauras\JourneyFy\src\components\RideMapView\RideInfoSheet.js                                       | JavaScript         |        140 |          1 |          9 |        150 |
+| c:\Users\Administrator\Desktop\bakalauras\JourneyFy\src\components\RideMapView\VerticalDashLine.js                                    | JavaScript         |         16 |          1 |          3 |         20 |
+| c:\Users\Administrator\Desktop\bakalauras\JourneyFy\src\components\RideRequest\RequestItem.js                                         | JavaScript         |        152 |          1 |          8 |        161 |
+| c:\Users\Administrator\Desktop\bakalauras\JourneyFy\src\components\RideRequest\RequestList.js                                         | JavaScript         |         23 |          1 |          4 |         28 |
+| c:\Users\Administrator\Desktop\bakalauras\JourneyFy\src\components\RideRequest\RequestSheet.js                                        | JavaScript         |        142 |          2 |          7 |        151 |
+| c:\Users\Administrator\Desktop\bakalauras\JourneyFy\src\components\Rides\NoRidesInfo.js                                               | JavaScript         |         25 |          1 |          3 |         29 |
+| c:\Users\Administrator\Desktop\bakalauras\JourneyFy\src\components\Rides\RideItem.js                                                  | JavaScript         |        120 |          1 |          4 |        125 |
+| c:\Users\Administrator\Desktop\bakalauras\JourneyFy\src\components\Rides\RidesHeader.js                                               | JavaScript         |         50 |          1 |          4 |         55 |
+| c:\Users\Administrator\Desktop\bakalauras\JourneyFy\src\components\Rides\RidesList.js                                                 | JavaScript         |         17 |          1 |          2 |         20 |
+| c:\Users\Administrator\Desktop\bakalauras\JourneyFy\src\components\Settings\DeleteAccountModal.js                                     | JavaScript         |         72 |          0 |          4 |         76 |
+| c:\Users\Administrator\Desktop\bakalauras\JourneyFy\src\components\Settings\MapSettingsModal.js                                       | JavaScript         |         89 |          0 |          4 |         93 |
+| c:\Users\Administrator\Desktop\bakalauras\JourneyFy\src\components\Settings\OptionsList.js                                            | JavaScript         |         46 |          0 |          4 |         50 |
+| c:\Users\Administrator\Desktop\bakalauras\JourneyFy\src\components\Settings\PasswordModal.js                                          | JavaScript         |         85 |          0 |          4 |         89 |
+| c:\Users\Administrator\Desktop\bakalauras\JourneyFy\src\components\Settings\ProfileSection.js                                         | JavaScript         |         52 |          2 |          7 |         61 |
+| c:\Users\Administrator\Desktop\bakalauras\JourneyFy\src\components\StartRide\DirectionInfo.js                                         | JavaScript         |        140 |          1 |          4 |        145 |
+| c:\Users\Administrator\Desktop\bakalauras\JourneyFy\src\components\StartRide\RideInfoSheet.js                                         | JavaScript         |        201 |          1 |          8 |        210 |
+| c:\Users\Administrator\Desktop\bakalauras\JourneyFy\src\components\StartRide\StartRideButton.js                                       | JavaScript         |         17 |          1 |          3 |         21 |
+| c:\Users\Administrator\Desktop\bakalauras\JourneyFy\src\components\StartRide\VerticalDashLine.js                                      | JavaScript         |         16 |          1 |          3 |         20 |
+| c:\Users\Administrator\Desktop\bakalauras\JourneyFy\src\components\Transactions\TransactionItem.js                                    | JavaScript         |         56 |          1 |          4 |         61 |
+| c:\Users\Administrator\Desktop\bakalauras\JourneyFy\src\components\Transactions\TransactionList.js                                    | JavaScript         |         20 |          1 |          4 |         25 |
+| c:\Users\Administrator\Desktop\bakalauras\JourneyFy\src\components\UserVehicleScreen\AddVehicleButton.js                              | JavaScript         |         30 |          0 |          4 |         34 |
+| c:\Users\Administrator\Desktop\bakalauras\JourneyFy\src\components\UserVehicleScreen\SnackBarComponent.js                             | JavaScript         |         18 |          0 |          3 |         21 |
+| c:\Users\Administrator\Desktop\bakalauras\JourneyFy\src\components\UserVehicleScreen\StatusModal.js                                   | JavaScript         |         52 |          0 |          4 |         56 |
+| c:\Users\Administrator\Desktop\bakalauras\JourneyFy\src\components\UserVehicleScreen\VehicleItem.js                                   | JavaScript         |         79 |          1 |          5 |         85 |
+| c:\Users\Administrator\Desktop\bakalauras\JourneyFy\src\components\UserVehicleScreen\VehiclesList.js                                  | JavaScript         |         29 |          0 |          4 |         33 |
+| c:\Users\Administrator\Desktop\bakalauras\JourneyFy\src\components\Wallet\BalanceInfo.js                                              | JavaScript         |         58 |          1 |          7 |         66 |
+| c:\Users\Administrator\Desktop\bakalauras\JourneyFy\src\components\Wallet\WalletHeader.js                                             | JavaScript         |         19 |          1 |          4 |         24 |
+| c:\Users\Administrator\Desktop\bakalauras\JourneyFy\src\components\Wallet\WalletImage.js                                              | JavaScript         |         22 |          1 |          4 |         27 |
+| c:\Users\Administrator\Desktop\bakalauras\JourneyFy\src\components\Wallet\WalletOption.js                                             | JavaScript         |         63 |          2 |          5 |         70 |
+| c:\Users\Administrator\Desktop\bakalauras\JourneyFy\src\components\bottomTabBarScreen.js                                              | JavaScript         |        176 |          0 |         11 |        187 |
+| c:\Users\Administrator\Desktop\bakalauras\JourneyFy\src\components\header.js                                                          | JavaScript         |         35 |          0 |          3 |         38 |
+| c:\Users\Administrator\Desktop\bakalauras\JourneyFy\src\components\myStatusBar.js                                                     | JavaScript         |         15 |          0 |          3 |         18 |
+| c:\Users\Administrator\Desktop\bakalauras\JourneyFy\src\constants\Colors.ts                                                           | TypeScript         |         47 |          0 |          7 |         54 |
+| c:\Users\Administrator\Desktop\bakalauras\JourneyFy\src\constants\key.js                                                              | JavaScript         |          4 |          0 |          2 |          6 |
+| c:\Users\Administrator\Desktop\bakalauras\JourneyFy\src\constants\styles.js                                                           | JavaScript         |        277 |          0 |         52 |        329 |
+| c:\Users\Administrator\Desktop\bakalauras\JourneyFy\src\hooks\i18n.js                                                                 | JavaScript         |         10 |          0 |          5 |         15 |
+| c:\Users\Administrator\Desktop\bakalauras\JourneyFy\src\hooks\useAddVehicle.js                                                        | JavaScript         |         43 |          1 |          6 |         50 |
+| c:\Users\Administrator\Desktop\bakalauras\JourneyFy\src\hooks\useAuth.tsx                                                             | TypeScript JSX     |        146 |          0 |         15 |        161 |
+| c:\Users\Administrator\Desktop\bakalauras\JourneyFy\src\hooks\useCreateJourney.js                                                     | JavaScript         |         48 |          2 |         11 |         61 |
+| c:\Users\Administrator\Desktop\bakalauras\JourneyFy\src\hooks\useDeleteAccount.js                                                     | JavaScript         |         18 |          0 |          4 |         22 |
+| c:\Users\Administrator\Desktop\bakalauras\JourneyFy\src\hooks\useDriver.js                                                            | JavaScript         |         26 |          1 |          5 |         32 |
+| c:\Users\Administrator\Desktop\bakalauras\JourneyFy\src\hooks\useEditProfile.js                                                       | JavaScript         |         90 |          0 |         13 |        103 |
+| c:\Users\Administrator\Desktop\bakalauras\JourneyFy\src\hooks\useFindMatchingJourneys.js                                              | JavaScript         |         57 |          9 |         12 |         78 |
+| c:\Users\Administrator\Desktop\bakalauras\JourneyFy\src\hooks\useLocation.js                                                          | JavaScript         |         20 |          3 |          4 |         27 |
+| c:\Users\Administrator\Desktop\bakalauras\JourneyFy\src\hooks\useMapSettings.js                                                       | JavaScript         |         62 |          0 |          7 |         69 |
+| c:\Users\Administrator\Desktop\bakalauras\JourneyFy\src\hooks\usePasswordChange.js                                                    | JavaScript         |         35 |          0 |          4 |         39 |
+| c:\Users\Administrator\Desktop\bakalauras\JourneyFy\src\hooks\useUser.tsx                                                             | TypeScript JSX     |        119 |          0 |         21 |        140 |
+| c:\Users\Administrator\Desktop\bakalauras\JourneyFy\src\hooks\useUserInfo.tsx                                                         | TypeScript JSX     |         30 |          0 |          6 |         36 |
+| c:\Users\Administrator\Desktop\bakalauras\JourneyFy\src\hooks\useUserProfile.js                                                       | JavaScript         |         30 |          0 |          8 |         38 |
+| c:\Users\Administrator\Desktop\bakalauras\JourneyFy\src\hooks\useUserVehicles.js                                                      | JavaScript         |         73 |          0 |          9 |         82 |
+| c:\Users\Administrator\Desktop\bakalauras\JourneyFy\src\locales\en.js                                                                 | JavaScript         |         45 |          0 |          1 |         46 |
+| c:\Users\Administrator\Desktop\bakalauras\JourneyFy\src\locales\lt.js                                                                 | JavaScript         |         45 |          0 |          3 |         48 |
+| c:\Users\Administrator\Desktop\bakalauras\JourneyFy\src\navigations\AdditionalNavigation.tsx                                          | TypeScript JSX     |         22 |          2 |          3 |         27 |
+| c:\Users\Administrator\Desktop\bakalauras\JourneyFy\src\navigations\AppNavigation.tsx                                                 | TypeScript JSX     |         48 |          0 |          6 |         54 |
+| c:\Users\Administrator\Desktop\bakalauras\JourneyFy\src\navigations\EntryNavigation.tsx                                               | TypeScript JSX     |         24 |          0 |          3 |         27 |
+| c:\Users\Administrator\Desktop\bakalauras\JourneyFy\src\navigations\HomeNavigation.tsx                                                | TypeScript JSX     |         62 |          0 |          3 |         65 |
+| c:\Users\Administrator\Desktop\bakalauras\JourneyFy\src\navigations\InfoNavigation.tsx                                                | TypeScript JSX     |         23 |          0 |          3 |         26 |
+| c:\Users\Administrator\Desktop\bakalauras\JourneyFy\src\navigations\JourneyNavigation.tsx                                             | TypeScript JSX     |         63 |          0 |          3 |         66 |
+| c:\Users\Administrator\Desktop\bakalauras\JourneyFy\src\navigations\MainNavigation.tsx                                                | TypeScript JSX     |         81 |          2 |          7 |         90 |
+| c:\Users\Administrator\Desktop\bakalauras\JourneyFy\src\navigations\ProfileNavigation.tsx                                             | TypeScript JSX     |         84 |          0 |          4 |         88 |
+| c:\Users\Administrator\Desktop\bakalauras\JourneyFy\src\navigations\SettingsNavigation.tsx                                            | TypeScript JSX     |         20 |          0 |          3 |         23 |
+| c:\Users\Administrator\Desktop\bakalauras\JourneyFy\src\navigations\WalletNavigation.tsx                                              | TypeScript JSX     |         40 |          0 |          3 |         43 |
+| c:\Users\Administrator\Desktop\bakalauras\JourneyFy\src\navigations\navigation.ts                                                     | TypeScript         |          3 |          0 |          0 |          3 |
+| c:\Users\Administrator\Desktop\bakalauras\JourneyFy\src\screens\Entry\ForgotPassword.tsx                                              | TypeScript JSX     |        163 |          0 |          5 |        168 |
+| c:\Users\Administrator\Desktop\bakalauras\JourneyFy\src\screens\Entry\Login.tsx                                                       | TypeScript JSX     |        163 |          0 |         11 |        174 |
+| c:\Users\Administrator\Desktop\bakalauras\JourneyFy\src\screens\Entry\MainInfo.tsx                                                    | TypeScript JSX     |        140 |          0 |          8 |        148 |
+| c:\Users\Administrator\Desktop\bakalauras\JourneyFy\src\screens\Entry\Register.tsx                                                    | TypeScript JSX     |        160 |          0 |          5 |        165 |
+| c:\Users\Administrator\Desktop\bakalauras\JourneyFy\src\screens\Entry\auth\loginScreen.js                                             | JavaScript         |        174 |          0 |         14 |        188 |
+| c:\Users\Administrator\Desktop\bakalauras\JourneyFy\src\screens\Entry\auth\registerScreen.js                                          | JavaScript         |        191 |          0 |         13 |        204 |
+| c:\Users\Administrator\Desktop\bakalauras\JourneyFy\src\screens\Entry\auth\verificationScreen.js                                      | JavaScript         |        236 |          0 |         17 |        253 |
+| c:\Users\Administrator\Desktop\bakalauras\JourneyFy\src\screens\Main\Home.tsx                                                         | TypeScript JSX     |        174 |          0 |         12 |        186 |
+| c:\Users\Administrator\Desktop\bakalauras\JourneyFy\src\screens\Main\Journey.tsx                                                      | TypeScript JSX     |        244 |          0 |         30 |        274 |
+| c:\Users\Administrator\Desktop\bakalauras\JourneyFy\src\screens\Main\Settings.tsx                                                     | TypeScript JSX     |         89 |          0 |          9 |         98 |
+| c:\Users\Administrator\Desktop\bakalauras\JourneyFy\src\screens\Main\Wallet.tsx                                                       | TypeScript JSX     |        216 |          0 |         12 |        228 |
+| c:\Users\Administrator\Desktop\bakalauras\JourneyFy\src\screens\Main\homeScreen.js                                                    | JavaScript         |        136 |          2 |          9 |        147 |
+| c:\Users\Administrator\Desktop\bakalauras\JourneyFy\src\screens\TemplateAdditional\reviews\reviewsScreen.js                           | JavaScript         |        145 |          0 |          5 |        150 |
+| c:\Users\Administrator\Desktop\bakalauras\JourneyFy\src\screens\TemplateInfo\notifications\notificationsScreen.js                     | JavaScript         |        196 |          0 |         15 |        211 |
+| c:\Users\Administrator\Desktop\bakalauras\JourneyFy\src\screens\TemplateJourney\addVehicle\addVehicleScreen.js                        | JavaScript         |         98 |          0 |          7 |        105 |
+| c:\Users\Administrator\Desktop\bakalauras\JourneyFy\src\screens\TemplateJourney\availableRides\availableRidesScreen.js                | JavaScript         |        211 |          3 |         11 |        225 |
+| c:\Users\Administrator\Desktop\bakalauras\JourneyFy\src\screens\TemplateJourney\confirmPooling\confirmPoolingScreen.js                | JavaScript         |         75 |          0 |          7 |         82 |
+| c:\Users\Administrator\Desktop\bakalauras\JourneyFy\src\screens\TemplateJourney\endRide\EndRideStyles.js                              | JavaScript         |         40 |          0 |          3 |         43 |
+| c:\Users\Administrator\Desktop\bakalauras\JourneyFy\src\screens\TemplateJourney\endRide\endRideScreen.js                              | JavaScript         |        138 |          2 |          4 |        144 |
+| c:\Users\Administrator\Desktop\bakalauras\JourneyFy\src\screens\TemplateJourney\historyRideDetail\historyRideDetailScreen.js          | JavaScript         |         35 |          0 |          3 |         38 |
+| c:\Users\Administrator\Desktop\bakalauras\JourneyFy\src\screens\TemplateJourney\message\messageScreen.js                              | JavaScript         |         72 |          1 |          8 |         81 |
+| c:\Users\Administrator\Desktop\bakalauras\JourneyFy\src\screens\TemplateJourney\offerRide\offerRideScreen.js                          | JavaScript         |         71 |          3 |          6 |         80 |
+| c:\Users\Administrator\Desktop\bakalauras\JourneyFy\src\screens\TemplateJourney\onboarding\onboardingScreen.js                        | JavaScript         |        292 |          0 |         16 |        308 |
+| c:\Users\Administrator\Desktop\bakalauras\JourneyFy\src\screens\TemplateJourney\pickLocation\pickLocationScreen.js                    | JavaScript         |         97 |          6 |         11 |        114 |
+| c:\Users\Administrator\Desktop\bakalauras\JourneyFy\src\screens\TemplateJourney\pickLocation\pickLocationTestScreen.js                | JavaScript         |        130 |          1 |         14 |        145 |
+| c:\Users\Administrator\Desktop\bakalauras\JourneyFy\src\screens\TemplateJourney\rideComplete\rideCompleteScreen.js                    | JavaScript         |         76 |          0 |          7 |         83 |
+| c:\Users\Administrator\Desktop\bakalauras\JourneyFy\src\screens\TemplateJourney\rideDetail\rideDetailScreen.js                        | JavaScript         |         50 |          1 |          5 |         56 |
+| c:\Users\Administrator\Desktop\bakalauras\JourneyFy\src\screens\TemplateJourney\rideMapView\rideMapViewScreen.js                      | JavaScript         |         20 |          1 |          2 |         23 |
+| c:\Users\Administrator\Desktop\bakalauras\JourneyFy\src\screens\TemplateJourney\rideRequest\rideRequestScreen.js                      | JavaScript         |        191 |          3 |          7 |        201 |
+| c:\Users\Administrator\Desktop\bakalauras\JourneyFy\src\screens\TemplateJourney\rides\ridesScreen.js                                  | JavaScript         |         73 |          3 |          6 |         82 |
+| c:\Users\Administrator\Desktop\bakalauras\JourneyFy\src\screens\TemplateJourney\startRide\startRideScreen.js                          | JavaScript         |         22 |          1 |          2 |         25 |
+| c:\Users\Administrator\Desktop\bakalauras\JourneyFy\src\screens\TemplateProfile\customerSupport\customerSupportScreen.js              | JavaScript         |         29 |          1 |          2 |         32 |
+| c:\Users\Administrator\Desktop\bakalauras\JourneyFy\src\screens\TemplateProfile\editProfile\editProfileScreen.js                      | JavaScript         |        149 |          2 |         11 |        162 |
+| c:\Users\Administrator\Desktop\bakalauras\JourneyFy\src\screens\TemplateProfile\faq\faqScreen.js                                      | JavaScript         |         85 |          0 |          6 |         91 |
+| c:\Users\Administrator\Desktop\bakalauras\JourneyFy\src\screens\TemplateProfile\privacyPolicy\privacyPolicyScreen.js                  | JavaScript         |         80 |          0 |          7 |         87 |
+| c:\Users\Administrator\Desktop\bakalauras\JourneyFy\src\screens\TemplateProfile\profile\profileScreen.js                              | JavaScript         |        190 |          0 |         10 |        200 |
+| c:\Users\Administrator\Desktop\bakalauras\JourneyFy\src\screens\TemplateProfile\rideHistory\rideHistoryScreen.js                      | JavaScript         |        104 |          2 |          7 |        113 |
+| c:\Users\Administrator\Desktop\bakalauras\JourneyFy\src\screens\TemplateProfile\termsAndConditions\termsAndConditionsScreen.js        | JavaScript         |         47 |          0 |          6 |         53 |
+| c:\Users\Administrator\Desktop\bakalauras\JourneyFy\src\screens\TemplateProfile\userVehicles\userVehiclesScreen.js                    | JavaScript         |         43 |          0 |          3 |         46 |
+| c:\Users\Administrator\Desktop\bakalauras\JourneyFy\src\screens\TemplateWallet\addAndSendMoney\addAndSendMoneyScreen.js               | JavaScript         |         28 |          1 |          3 |         32 |
+| c:\Users\Administrator\Desktop\bakalauras\JourneyFy\src\screens\TemplateWallet\bankInfo\bankInfoScreen.js                             | JavaScript         |         39 |          1 |          4 |         44 |
+| c:\Users\Administrator\Desktop\bakalauras\JourneyFy\src\screens\TemplateWallet\creditCard\creditCardScreen.js                         | JavaScript         |         44 |          1 |          4 |         49 |
+| c:\Users\Administrator\Desktop\bakalauras\JourneyFy\src\screens\TemplateWallet\paymentMethods\paymentMethodsScreen.js                 | JavaScript         |         60 |          1 |          5 |         66 |
+| c:\Users\Administrator\Desktop\bakalauras\JourneyFy\src\screens\TemplateWallet\successfullyAddAndSend\successfullyAddAndSendScreen.js | JavaScript         |         95 |          0 |          8 |        103 |
+| c:\Users\Administrator\Desktop\bakalauras\JourneyFy\src\screens\TemplateWallet\transactions\transactionsScreen.js                     | JavaScript         |        104 |          1 |          3 |        108 |
+| c:\Users\Administrator\Desktop\bakalauras\JourneyFy\src\screens\TemplateWallet\wallet\walletScreen.js                                 | JavaScript         |         25 |          1 |          2 |         28 |
+| c:\Users\Administrator\Desktop\bakalauras\JourneyFy\src\services\firebase.tsx                                                         | TypeScript JSX     |         33 |          0 |          6 |         39 |
+| c:\Users\Administrator\Desktop\bakalauras\JourneyFy\src\services\firebaseUserService.js                                               | JavaScript         |         36 |          0 |          8 |         44 |
+| c:\Users\Administrator\Desktop\bakalauras\JourneyFy\src\utils\range.js                                                                | JavaScript         |          2 |          0 |          0 |          2 |
+| c:\Users\Administrator\Desktop\bakalauras\JourneyFy\src\utils\uploadImage.js                                                          | JavaScript         |         13 |          0 |          2 |         15 |
+| c:\Users\Administrator\Desktop\bakalauras\JourneyFy\src\utils\validation.js                                                           | JavaScript         |         18 |          0 |          3 |         21 |
+| c:\Users\Administrator\Desktop\bakalauras\JourneyFy\tsconfig.json                                                                     | JSON with Comments |          4 |          0 |          1 |          5 |
+| Total                                                                                                                                 |                    |     28,876 |        133 |      1,107 |     30,116 |
++---------------------------------------------------------------------------------------------------------------------------------------+--------------------+------------+------------+------------+------------+

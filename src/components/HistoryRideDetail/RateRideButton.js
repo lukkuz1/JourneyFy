@@ -9,7 +9,7 @@ const RateRideButton = ({ onPress }) => {
       onPress={onPress}
       style={{ ...CommonStyles.button, margin: Sizes.fixPadding * 2.0 }}
     >
-      <Text style={{ ...Fonts.whiteColor18Bold }}>Rate your ride</Text>
+      <Text style={{ ...Fonts.whiteColor18Bold }}>Įvertinti savo kelionę</Text>
     </TouchableOpacity>
   );
 };

@@ -71,7 +71,7 @@ const ConfirmPoolingScreen = ({ navigation }) => {
           Sveikiname
         </Text>
         <Text style={{ ...Fonts.grayColor14SemiBold, textAlign: "center" }}>
-          Jūsų automobilio pasiūlymas yra{`\n`}patvirtintas
+          Jūsų kelionės pasiūlymas yra{`\n`}patvirtintas
         </Text>
       </View>
     );

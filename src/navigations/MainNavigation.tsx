@@ -37,7 +37,6 @@ export default function MainNavigation() {
       <Tab.Screen name="Home" component={HomeNavigation} />
       <Tab.Screen name="Wallet" component={WalletNavigation} />
       <Tab.Screen name="Journey" component={JourneyNavigation} />
-      {/* <Tab.Screen name="Settings" component={Settings} /> */}
       <Tab.Screen name="Profile" component={ProfileNavigation} />
     </Tab.Navigator>
   );
@@ -48,7 +47,6 @@ function tabSort(name, focused, color) {
     Home: home_icon_xml,
     Journey: journey_icon_xml,
     Wallet: wallet_icon_xml,
-    // Settings: settings_icon_xml,
     Profile: new_profile_icon_xml,
   };
 

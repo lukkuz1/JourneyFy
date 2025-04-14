@@ -20,7 +20,7 @@ const RideDetailScreen = ({ navigation, route }) => {
 
   const handleCancelConfirm = () => {
     setShowCancelDialog(false);
-    navigation.navigate("RidesScreen", { id: ride.id });
+    navigation.goBack();
   };
 
   return (
