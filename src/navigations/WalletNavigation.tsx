@@ -7,7 +7,7 @@ import CreditCardScreen from "../screens/TemplateWallet/creditCard/creditCardScr
 import PaymentMethodsScreen from "../screens/TemplateWallet/paymentMethods/paymentMethodsScreen";
 import SuccessfullyAddAndSendScreen from "../screens/TemplateWallet/successfullyAddAndSend/successfullyAddAndSendScreen";
 import TransactionsScreen from "../screens/TemplateWallet/transactions/transactionsScreen";
-import Wallet from "../screens/Main/Wallet";
+import WalletScreen from "../screens/Main/walletScreen";
 
 const Stack = createStackNavigator();
 
@@ -21,7 +21,7 @@ export default function WalletNavigation() {
       }}
       initialRouteName="Wallet"
     >
-      <Stack.Screen name="Wallet" component={Wallet} />
+      <Stack.Screen name="Wallet" component={WalletScreen} />
       <Stack.Screen
         name="AddAndSendMoneyScreen"
         component={AddAndSendMoneyScreen}

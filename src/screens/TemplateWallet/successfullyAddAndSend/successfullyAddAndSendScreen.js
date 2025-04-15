@@ -1,3 +1,4 @@
+// src/screens/SuccessfullyAddAndSendScreen.js
 import {
   StyleSheet,
   Text,
@@ -10,8 +11,16 @@ import React, { useCallback } from "react";
 import { Colors, Sizes, Fonts } from "../../../constants/styles";
 import MyStatusBar from "../../../components/myStatusBar";
 import { useFocusEffect } from "@react-navigation/native";
+import useUpdateWalletValueFromAmount from "../../../hooks/useUpdateWalletValueFromAmount";
 
 const SuccessfullyAddAndSendScreen = ({ navigation, route }) => {
+  const { successFor, amount } = route.params || {};
+
+  const updatedWalletValue =
+    successFor === "money"
+      ? useUpdateWalletValueFromAmount(amount, "add")
+      : useUpdateWalletValueFromAmount(amount, "subtract");
+
   const backAction = () => {
     if (Platform.OS === "ios") {
       navigation.addListener("beforeRemove", (e) => {
@@ -72,7 +81,9 @@ const SuccessfullyAddAndSendScreen = ({ navigation, route }) => {
             marginTop: Sizes.fixPadding + 8.0,
           }}
         >
-          $150.00 {route?.params?.successFor == "money" ? "added" : "sended"}
+          {successFor === "money"
+            ? `$${parseFloat(amount).toFixed(2)} pridėti`
+            : `$${parseFloat(amount).toFixed(2)} išsiųsti`}
         </Text>
         <Text
           style={{
@@ -81,9 +92,9 @@ const SuccessfullyAddAndSendScreen = ({ navigation, route }) => {
             marginTop: Sizes.fixPadding,
           }}
         >
-          {route?.params?.successFor == "money"
+          {successFor === "money"
             ? "Sveikiname, pinigai sėkmingai įvesti į piniginę"
-            : "Sveikiname, pinigai sėkmingai įvesti į banką"}
+            : "Sveikiname, pinigai sėkmingai nusiųsti"}
         </Text>
       </View>
     );

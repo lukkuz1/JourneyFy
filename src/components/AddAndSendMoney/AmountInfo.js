@@ -1,9 +1,9 @@
-// src/components/AmountInfo.js
+// src/components/AddAndSendMoney/AmountInfo.js
 import React from "react";
-import { View, Text, TextInput, StyleSheet, Platform } from "react-native";
+import { View, Text, TextInput, StyleSheet } from "react-native";
 import { Colors, Fonts, Sizes, CommonStyles } from "../../constants/styles";
 
-const AmountInfo = ({ addFor }) => {
+const AmountInfo = ({ addFor, amount, setAmount }) => {
   return (
     <View style={styles.container}>
       <Text style={{ ...Fonts.blackColor15SemiBold, marginBottom: Sizes.fixPadding }}>
@@ -11,12 +11,14 @@ const AmountInfo = ({ addFor }) => {
       </Text>
       <View style={styles.valueBox}>
         <TextInput
-          placeholder="Įveskite sumą, kurią norite pridėti"
+          placeholder="Įveskite sumą..."
           style={{ ...Fonts.blackColor15Medium, height: 20, padding: 0 }}
           placeholderTextColor={Colors.grayColor}
           selectionColor={Colors.primaryColor}
           cursorColor={Colors.primaryColor}
           keyboardType="numeric"
+          value={amount}
+          onChangeText={setAmount}
         />
       </View>
     </View>

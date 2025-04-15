@@ -1,10 +1,10 @@
-// src/screens/WalletScreen.js
+
 import React from "react";
 import { View, ScrollView } from "react-native";
-import MyStatusBar from "../../../components/myStatusBar";
-import WalletHeader from "../../../components/Wallet/WalletHeader";
-import WalletImage from "../../../components/Wallet/WalletImage";
-import BalanceInfo from "../../../components/Wallet/BalanceInfo";
+import MyStatusBar from "../../components/myStatusBar";
+import WalletHeader from "../../components/Wallet/WalletHeader";
+import WalletImage from "../../components/Wallet/WalletImage";
+import BalanceInfo from "../../components/Wallet/BalanceInfo";
 import { Colors } from "../../constants/styles";
 
 const WalletScreen = ({ navigation }) => {
@@ -15,7 +15,7 @@ const WalletScreen = ({ navigation }) => {
         <WalletHeader title="Piniginė" />
         <ScrollView
           showsVerticalScrollIndicator={false}
-          contentContainerStyle={{ paddingBottom: 16 }} // or use your Sizes.fixPadding value
+          contentContainerStyle={{ paddingBottom: 16 }}
         >
           <WalletImage />
           <BalanceInfo navigation={navigation} />

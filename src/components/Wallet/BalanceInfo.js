@@ -1,25 +1,34 @@
 // src/components/BalanceInfo.js
-import React from "react";
+import React, { useCallback } from "react";
 import { View, Text, StyleSheet } from "react-native";
+import { useFocusEffect } from "@react-navigation/native";
 import { Colors, Fonts, Sizes, CommonStyles } from "../../constants/styles";
 import WalletOption from "./WalletOption";
+import useWalletValue from "../../hooks/useWalletValue";
 
 const BalanceInfo = ({ navigation }) => {
+  const walletValue = useWalletValue();
+  useFocusEffect(
+    useCallback(() => {
+      return () => {};
+    }, [])
+  );
+
   return (
     <View style={styles.balanceInfoWrapper}>
       <View style={styles.balanceView}>
-        <Text style={{ ...Fonts.primaryColor30Medium }}>$150</Text>
+        <Text style={{ ...Fonts.primaryColor30Medium }}>${walletValue}</Text>
         <Text style={{ ...Fonts.grayColor18Medium }}>Galimas likutis</Text>
       </View>
 
-      <WalletOption
+      {/* <WalletOption
         iconName="swap-vertical"
         iconType="MaterialCommunityIcons"
         iconColor={Colors.secondaryColor}
         optionTitle="Sandoris"
         optionSubtitle="Peržiūrėti visų sandorių sąrašą"
         onPress={() => navigation.navigate("TransactionsScreen")}
-      />
+      /> */}
 
       <WalletOption
         iconName="wallet-plus-outline"
@@ -27,7 +36,6 @@ const BalanceInfo = ({ navigation }) => {
         iconColor={Colors.secondaryColor}
         optionTitle="Pridėti pinigus"
         optionSubtitle="Galite lengvai pridėti pinigų"
-        containerStyle={{ marginVertical: Sizes.fixPadding * 2 }}
         onPress={() =>
           navigation.navigate("AddAndSendMoneyScreen", { addFor: "money" })
         }
@@ -37,8 +45,8 @@ const BalanceInfo = ({ navigation }) => {
         iconName="credit-card-plus-outline"
         iconType="MaterialCommunityIcons"
         iconColor={Colors.secondaryColor}
-        optionTitle="Siųsti į banką"
-        optionSubtitle="Lengvai siųskite pinigus į banką"
+        optionTitle="Siųsti pinigus"
+        optionSubtitle="Lengvai siųskite pinigus atgal"
         onPress={() =>
           navigation.navigate("AddAndSendMoneyScreen", { addFor: "bank" })
         }

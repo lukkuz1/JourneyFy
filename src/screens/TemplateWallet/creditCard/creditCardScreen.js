@@ -1,26 +1,23 @@
 // src/screens/CreditCardScreen.js
 import React, { useState } from "react";
-import { View, ScrollView, StyleSheet } from "react-native";
+import { View, ScrollView } from "react-native";
 import MyStatusBar from "../../../components/myStatusBar";
 import Header from "../../../components/header";
 import { Colors, Sizes } from "../../../constants/styles";
-import CreditCardForm from "../../../components/CreditCard/CreditCardForm";
+import PaypalForm from "../../../components/CreditCard/PaypalForm";
 import ContinueButton from "../../../components/CreditCard/ContinueButton";
 
-const CreditCardScreen = ({ navigation }) => {
-  const [cardData, setCardData] = useState({
-    number: "invalid",
-    expiry: "invalid",
-    cvc: "invalid",
-    name: "invalid",
+const CreditCardScreen = ({ navigation, route }) => {
+  const { addFor = "money", amount } = route.params || {};
+  const [paypalData, setPaypalData] = useState({
+    email: "",
+    password: "",
   });
 
-  const handleCardChange = (formData) => {
-    setCardData({
-      number: formData.values.number,
-      expiry: formData.values.expiry,
-      cvc: formData.values.cvc,
-      name: formData.values.name,
+  const handlePaypalChange = (formData) => {
+    setPaypalData({
+      email: formData.email,
+      password: formData.password,
     });
   };
 
@@ -28,18 +25,22 @@ const CreditCardScreen = ({ navigation }) => {
     <View style={{ flex: 1, backgroundColor: Colors.bodyBackColor }}>
       <MyStatusBar />
       <View style={{ flex: 1 }}>
-        <Header title="Credit card" navigation={navigation} />
+        <Header title="PayPal" navigation={navigation} />
         <ScrollView
           showsVerticalScrollIndicator={false}
           automaticallyAdjustKeyboardInsets={true}
           contentContainerStyle={{ paddingTop: Sizes.fixPadding * 2 }}
         >
-          <CreditCardForm onChange={handleCardChange} />
+          <PaypalForm onChange={handlePaypalChange} />
         </ScrollView>
       </View>
       <ContinueButton
         onPress={() =>
-          navigation.navigate("SuccessfullyAddAndSendScreen", { successFor: "money" })
+          navigation.navigate("SuccessfullyAddAndSendScreen", {
+            successFor: addFor,
+            paypalData,
+            amount,
+          })
         }
       />
     </View>
