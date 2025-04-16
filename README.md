@@ -31,15 +31,15 @@ JourneyFy is a mobile application designed to help users plan, book, and complet
 Before running the app, create a `.env` file in the project root and add the following environment variables:
 
 ```bash
-FIREBASE_API_KEY=AIzaSyAcN-kGs1M22h3qiCNByFqmqEBr_trftqE
-FIREBASE_AUTH_DOMAIN=journeyfy-a90b4.firebaseapp.com
-FIREBASE_DATABASE_URL=https://journeyfy-a90b4-default-rtdb.europe-west1.firebasedatabase.app
-FIREBASE_PROJECT_ID=journeyfy-a90b4
-FIREBASE_STORAGE_BUCKET=journeyfy-a90b4.appspot.com
-FIREBASE_MESSAGING_SENDER_ID=1075210035793
-FIREBASE_APP_ID=1:1075210035793:web:353fa19466ab353476ce70
-FIREBASE_MEASUREMENT_ID=G-3VKT0EZKKJ
-SECONDARY_API_KEY=AIzaSyA4i52VuHKrwu3mhPbECdltqmCFi07sy_A (Google Maps API KEY)
+FIREBASE_API_KEY=""
+FIREBASE_AUTH_DOMAIN=""
+FIREBASE_DATABASE_URL=""
+FIREBASE_PROJECT_ID=""
+FIREBASE_STORAGE_BUCKET=""
+FIREBASE_MESSAGING_SENDER_ID=""
+FIREBASE_APP_ID=""
+FIREBASE_MEASUREMENT_ID=""
+SECONDARY_API_KEY="" (Google Maps API KEY)
 ```
 
 ## Installation
