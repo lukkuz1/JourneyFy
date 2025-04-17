@@ -32,22 +32,22 @@ export default function MainNavigation() {
         tabBarHideOnKeyboard: true,
         tabBarIcon: ({ focused, color }) => tabSort(route.name, focused, color),
       })}
-      initialRouteName="Home"
+      initialRouteName="Pradžia"
     >
-      <Tab.Screen name="Home" component={HomeNavigation} />
-      <Tab.Screen name="Wallet" component={WalletNavigation} />
-      <Tab.Screen name="Journey" component={JourneyNavigation} />
-      <Tab.Screen name="Profile" component={ProfileNavigation} />
+      <Tab.Screen name="Pradžia" component={HomeNavigation} />
+      <Tab.Screen name="Piniginė" component={WalletNavigation} />
+      <Tab.Screen name="Kelionės" component={JourneyNavigation} />
+      <Tab.Screen name="Profilis" component={ProfileNavigation} />
     </Tab.Navigator>
   );
 }
 
 function tabSort(name, focused, color) {
   const icons = {
-    Home: home_icon_xml,
-    Journey: journey_icon_xml,
-    Wallet: wallet_icon_xml,
-    Profile: new_profile_icon_xml,
+    Pradžia: home_icon_xml,
+    Piniginė: journey_icon_xml,
+    Kelionės: wallet_icon_xml,
+    Profilis: new_profile_icon_xml,
   };
 
   return (
