@@ -13,7 +13,7 @@ const ProfilePicture = ({ currentUser, profilePhoto, onProfileUpdated }) => {
   const pickImage = async () => {
     const permissionResult = await ImagePicker.requestMediaLibraryPermissionsAsync();
     if (!permissionResult.granted) {
-      Alert.alert("Permission Denied", "Permission to access gallery is required!");
+      Alert.alert("Leidimas atmestas", "Būtinas leidimas patekti į galeriją!");
       return;
     }
     const result = await ImagePicker.launchImageLibraryAsync({
@@ -37,10 +37,10 @@ const ProfilePicture = ({ currentUser, profilePhoto, onProfileUpdated }) => {
       await uploadBytes(storageReference, blob);
       const downloadURL = await getDownloadURL(storageReference);
       onProfileUpdated && onProfileUpdated(downloadURL);
-      Alert.alert("Success", "Profile picture updated!");
+      Alert.alert("Sekmės pranešimas", "Profilio nuotrauka atnaujinta!");
     } catch (error) {
       console.error("Error uploading image:", error);
-      Alert.alert("Upload Error", "Failed to update profile picture.");
+      Alert.alert("Įkėlimo klaida", "Nepavyko atnaujinti profilio nuotraukos.");
     } finally {
       setUploading(false);
     }

@@ -51,7 +51,7 @@ export const useEditProfile = () => {
 
   const handleUpdateProfile = async () => {
     if (!currentUserId) {
-      Alert.alert("Error", "User not authenticated.");
+      Alert.alert("Klaida", "Naudotojas nėra autentifikuotas");
       return;
     }
 
@@ -79,10 +79,10 @@ export const useEditProfile = () => {
         });
       }
 
-      Alert.alert("Success", "Profile updated successfully!");
+      Alert.alert("Sekmės pranešimas", "Profilis sėkmingai atnaujintas!");
     } catch (error) {
       console.error("Error updating profile:", error);
-      Alert.alert("Error", "Profile update failed. Check console for details.");
+      Alert.alert("Klaida", "Nepavyko atnaujinti profilio.");
     }
   };
 

@@ -16,25 +16,25 @@ const PasswordModal = ({
     <Modal visible={visible} transparent animationType="slide">
       <View style={styles.modalOverlay}>
         <View style={styles.modalContent}>
-          <Text style={styles.modalTitle}>Change Password</Text>
+          <Text style={styles.modalTitle}>Pakeisti slaptažodį</Text>
           <EntryInputField
-            headerText="New Password"
-            placeholderText="Enter new password"
+            headerText="Naujas slaptažodis"
+            placeholderText="Įveskite naują slaptažodį"
             isPassword
             onChangeText={onChangeNewPassword}
           />
           <EntryInputField
-            headerText="Confirm Password"
-            placeholderText="Confirm new password"
+            headerText="Patvirtinkite naują slaptažodį"
+            placeholderText="Įveskite naują slaptažodį"
             isPassword
             onChangeText={onChangeConfirmPassword}
           />
           <View style={styles.modalButtons}>
             <TouchableOpacity style={styles.modalButton} onPress={onSubmit}>
-              <Text style={styles.modalButtonText}>Submit</Text>
+              <Text style={styles.modalButtonText}>Patvirtinti</Text>
             </TouchableOpacity>
             <TouchableOpacity style={[styles.modalButton, styles.modalCancelButton]} onPress={onCancel}>
-              <Text style={styles.modalButtonText}>Cancel</Text>
+              <Text style={styles.modalButtonText}>Atšaukti</Text>
             </TouchableOpacity>
           </View>
         </View>
@@ -48,25 +48,25 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "rgba(0, 0, 0, 0.5)",
+    backgroundColor: "rgba(0,0,0,0.5)",
   },
   modalContent: {
-    width: "80%",
+    width: "100%",
     backgroundColor: Colors.whiteColor,
     borderRadius: 10,
-    padding: 20,
+    padding: 30,
     alignItems: "center",
   },
   modalTitle: {
     fontSize: 18,
     fontWeight: "bold",
-    marginBottom: 10,
+    marginBottom: 20,
   },
   modalButtons: {
     flexDirection: "row",
     justifyContent: "space-between",
     width: "100%",
-    marginTop: 10,
+    marginTop: 25,
   },
   modalButton: {
     flex: 1,

@@ -25,20 +25,21 @@ const LogoutDialog = ({ isVisible, onClose, onLogout }) => (
       </Text>
     </View>
     <View style={{ ...CommonStyles.rowAlignCenter }}>
-      <TouchableOpacity
-        activeOpacity={0.8}
-        onPress={onClose}
-        style={styles.negativeDialogButton}
-      >
-        <Text style={{ ...Fonts.whiteColor18SemiBold }}>Ne</Text>
-      </TouchableOpacity>
-      <View style={{ backgroundColor: Colors.whiteColor, width: 2.0 }} />
-      <TouchableOpacity
+
+    <TouchableOpacity
         activeOpacity={0.8}
         onPress={onLogout}
         style={styles.dialogButton}
       >
         <Text style={{ ...Fonts.whiteColor18SemiBold }}>Atsijungti</Text>
+      </TouchableOpacity>
+      <View style={{ backgroundColor: Colors.whiteColor, width: 2.0 }} />
+      <TouchableOpacity
+        activeOpacity={0.8}
+        onPress={onClose}
+        style={styles.negativeDialogButton}
+      >
+        <Text style={{ ...Fonts.whiteColor18SemiBold }}>Atšaukti</Text>
       </TouchableOpacity>
     </View>
   </Overlay>
@@ -47,7 +48,7 @@ const LogoutDialog = ({ isVisible, onClose, onLogout }) => (
 const styles = {
   dialogButton: {
     flex: 1,
-    backgroundColor: Colors.secondaryColor,
+    backgroundColor: Colors.primaryColor,
     alignItems: "center",
     justifyContent: "center",
     padding: Sizes.fixPadding + 2.0,

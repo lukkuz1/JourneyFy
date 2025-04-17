@@ -9,11 +9,11 @@ export const useDeleteAccount = () => {
     deleteUser(user)
       .then(() => {
         auth.signOut();
-        Alert.alert("Account Deleted", "Your account has been deleted.");
+        Alert.alert("Paskyra ištrinta", "Jūsų paskyra ištrinta.");
       })
       .catch((error) => {
         console.error("Error deleting account:", error);
-        Alert.alert("Error", "Failed to delete account.");
+        Alert.alert("Klaida", "Nepavyko ištrinti paskyros.");
       });
   };
 

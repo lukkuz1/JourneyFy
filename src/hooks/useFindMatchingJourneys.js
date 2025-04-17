@@ -43,9 +43,9 @@ const useFindMatchingJourneys = () => {
 
       if (journeys.length > 0) {
         Alert.alert(
-          "Journeys Found",
-          `We found ${journeys.length} matching journey(s).`,
-          [{ text: "OK" }]
+          "Rastos kelionės",
+          `Radome ${journeys.length} atitinkančią kelionę (-es).`,
+          [{ text: "Gerai" }]
         );
       } else {
         // Alert.alert(
@@ -62,9 +62,9 @@ const useFindMatchingJourneys = () => {
       setLoading(false);
 
       Alert.alert(
-        "Error",
-        "There was an error fetching journeys. Please try again later.",
-        [{ text: "OK" }]
+        "Klaida",
+        "Gaunant keliones įvyko klaida. Bandykite dar kartą vėliau.",
+        [{ text: "Gerai" }]
       );
 
       return [];

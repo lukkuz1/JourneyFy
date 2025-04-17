@@ -21,8 +21,15 @@ export const useMapSettings = (currentUserId) => {
       const mapDoc = await getDoc(doc(db, "map_data", currentUserId));
       if (mapDoc.exists()) {
         const data = mapDoc.data();
-        setPopulateRadius(data.radius.toString());
-        setPopulateStops(data.stops.toString());
+        const rStr = data.radius.toString();
+        const sStr = data.stops.toString();
+
+        // for backwards compatibility / placeholders
+        setPopulateRadius(rStr);
+        setPopulateStops(sStr);
+        // now actually pre‑fill the inputs
+        setRadius(rStr);
+        setStops(sStr);
       }
     } catch (error) {
       console.error("Error fetching map data:", error);
@@ -36,21 +43,33 @@ export const useMapSettings = (currentUserId) => {
   }, [currentUserId]);
 
   const handleUpdateMapData = async () => {
-    if (!currentUserId) {
-      Alert.alert("Error", "User not logged in");
+    const r = radius.trim();
+    const s = stops.trim();
+
+    if (r === "" || isNaN(Number(r)) || Number(r) <= 0) {
+      Alert.alert("Klaida", "Įveskite galiojantį spindulį (skaičius didesnis už 0).");
       return false;
     }
+    if (s === "" || !/^\d+$/.test(s) || Number(s) < 1) {
+      Alert.alert("Klaida", "Įveskite galiojantį maksimalių stotelių skaičių (teigiamas sveikasis skaičius).");
+      return false;
+    }
+    if (!currentUserId) {
+      Alert.alert("Klaida", "Naudotojas nėra prisijungęs!");
+      return false;
+    }
+
     try {
       await setDoc(doc(db, "map_data", currentUserId), {
-        radius: parseFloat(radius),
-        stops: parseInt(stops),
+        radius: parseFloat(r),
+        stops: parseInt(s, 10),
       });
-      fetchMapData();
-      Alert.alert("Success", "Map data updated successfully");
+      await fetchMapData();
+      Alert.alert("Sekmės pranešimas", "Žemėlapio nustatymai išsaugoti");
       return true;
     } catch (error) {
       console.error("Error updating map data:", error);
-      Alert.alert("Error", "Failed to update map data");
+      Alert.alert("Klaidos pranešimas", "Nepavyko atnaujinti žemėlapio duomenų");
       return false;
     }
   };

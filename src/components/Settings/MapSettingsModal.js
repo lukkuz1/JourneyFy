@@ -18,27 +18,27 @@ const MapSettingsModal = ({
     <Modal visible={visible} transparent animationType="slide">
       <View style={styles.modalOverlay}>
         <View style={styles.modalContent}>
-          <Text style={styles.modalTitle}>Map Settings</Text>
+          <Text style={styles.modalTitle}>Žemėlapio nustatymai</Text>
           <EntryInputField
-            headerText="Radius (km)"
-            placeholderText={populateRadius || "Enter radius"}
+            headerText="Paskirties vietos spindulys"
+            placeholderText={populateRadius || "Įveskite spindulį"}
             keyboardType="numeric"
             isPassword={false}
             onChangeText={onChangeRadius}
           />
           <EntryInputField
-            headerText="Max Stops"
-            placeholderText={populateStops || "Enter max stops"}
+            headerText="Maksimalus sustojimų skaičius"
+            placeholderText={populateStops || "Įveskite maksimalų sustojimų skaičių"}
             keyboardType="numeric"
             isPassword={false}
             onChangeText={onChangeStops}
           />
           <View style={styles.modalButtons}>
             <TouchableOpacity style={styles.modalButton} onPress={onSave}>
-              <Text style={styles.modalButtonText}>Save</Text>
+              <Text style={styles.modalButtonText}>Išsaugoti</Text>
             </TouchableOpacity>
             <TouchableOpacity style={[styles.modalButton, styles.modalCancelButton]} onPress={onCancel}>
-              <Text style={styles.modalButtonText}>Cancel</Text>
+              <Text style={styles.modalButtonText}>Atšaukti</Text>
             </TouchableOpacity>
           </View>
         </View>
@@ -55,10 +55,10 @@ const styles = StyleSheet.create({
     backgroundColor: "rgba(0, 0, 0, 0.5)",
   },
   modalContent: {
-    width: "80%",
+    width: "100%",
     backgroundColor: Colors.whiteColor,
     borderRadius: 10,
-    padding: 20,
+    padding: 30,
     alignItems: "center",
   },
   modalTitle: {

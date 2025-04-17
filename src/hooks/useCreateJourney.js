@@ -39,16 +39,14 @@ const useCreateJourney = () => {
       const docRef = await addDoc(collection(db, "journeys"), journeyData);
       setLoading(false);
 
-      // ✅ Show success alert
-      Alert.alert("Success", "Journey created successfully!");
+      Alert.alert("Sekmės pranešimas", "Kelionė sėkmingai sukurta!");
 
       return docRef.id;
     } catch (err) {
       setError(err.message);
       setLoading(false);
 
-      // ❌ Show error alert
-      Alert.alert("Error", err.message);
+      Alert.alert("Klaidos pranešimas", err.message);
 
       return null;
     }

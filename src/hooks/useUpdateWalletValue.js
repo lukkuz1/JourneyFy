@@ -8,7 +8,7 @@ const useUpdateWalletValue = () => {
     const auth = getAuth();
     const user = auth.currentUser;
     if (!user) {
-      throw new Error("User not logged in");
+      throw new Error("Naudotojas nėra prisijungęs");
     }
     const walletRef = ref(rtdb, `users/${user.uid}/walletValue`);
     try {

@@ -11,11 +11,11 @@ export const useAddVehicle = () => {
   const addVehicle = async (vehicleData) => {
     const currentUser = auth.currentUser;
     if (!currentUser) {
-      throw new Error("User not logged in");
+      throw new Error("Naudotojas nėra prisijungęs!");
     }
     setUploading(true);
 
-    // Check if the user already has a vehicle added
+
     const vehiclesQuery = query(
       collection(db, "cars"),
       where("userId", "==", currentUser.uid)

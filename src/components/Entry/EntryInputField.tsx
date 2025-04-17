@@ -27,7 +27,7 @@ export default function EntryInputField({
   headerText,
   placeholderText,
   isPassword,
-  margin = [0, 0, 0, 0],
+  margin = [0, 12, 0, 0],
   keyboardType,
   style,
   headerStyle,

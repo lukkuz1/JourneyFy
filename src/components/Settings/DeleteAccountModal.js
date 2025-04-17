@@ -7,16 +7,16 @@ const DeleteAccountModal = ({ visible, onDelete, onCancel }) => {
     <Modal visible={visible} transparent animationType="slide">
       <View style={styles.modalOverlay}>
         <View style={styles.modalContent}>
-          <Text style={styles.modalTitle}>Delete Account</Text>
+          <Text style={styles.modalTitle}>Paskyros ištrinimas</Text>
           <Text style={styles.modalText}>
-            Are you sure you want to delete your account? This action cannot be undone.
+            Ar tikrai norite ištrinti savo paskyrą?
           </Text>
           <View style={styles.modalButtons}>
             <TouchableOpacity style={styles.modalButton} onPress={onDelete}>
-              <Text style={styles.modalButtonText}>Delete</Text>
+              <Text style={styles.modalButtonText}>Ištrinti</Text>
             </TouchableOpacity>
             <TouchableOpacity style={[styles.modalButton, styles.modalCancelButton]} onPress={onCancel}>
-              <Text style={styles.modalButtonText}>Cancel</Text>
+              <Text style={styles.modalButtonText}>Atšaukti</Text>
             </TouchableOpacity>
           </View>
         </View>
@@ -33,10 +33,10 @@ const styles = StyleSheet.create({
     backgroundColor: "rgba(0, 0, 0, 0.5)",
   },
   modalContent: {
-    width: "80%",
+    width: "100%",
     backgroundColor: Colors.whiteColor,
     borderRadius: 10,
-    padding: 20,
+    padding: 30,
     alignItems: "center",
   },
   modalTitle: {

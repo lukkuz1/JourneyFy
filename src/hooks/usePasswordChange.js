@@ -9,25 +9,25 @@ export const usePasswordChange = () => {
 
   const handlePasswordChange = async () => {
     if (newPassword !== confirmPassword) {
-      Alert.alert("Error", "Passwords do not match");
+      Alert.alert("Klaida", "Slaptažodžiai nesutampa");
       return false;
     }
     if (newPassword.length < 6) {
-      Alert.alert("Error", "Password must be at least 6 characters");
+      Alert.alert("Klaida", "Slaptažodį turi sudaryti bent 6 simboliai");
       return false;
     }
     try {
       await updatePassword(auth.currentUser, newPassword);
-      Alert.alert("Success", "Password changed successfully");
+      Alert.alert("Sekmės pranešimas", "Slaptažodis pakeistas sėkmingai");
       return true;
     } catch (error) {
       if (error.code === "auth/requires-recent-login") {
         Alert.alert(
-          "Reauthentication Required",
-          "Please log in again or reauthenticate to change your password."
+          "Reikalingas pakartotinis autentifikavimas",
+          "Prisijunkite dar kartą arba patvirtinkite savo tapatybę, kad pakeistumėte slaptažodį."
         );
       } else {
-        Alert.alert("Error", "Failed to change password");
+        Alert.alert("Klaida", "Nepavyko pakeisti slaptažodžio");
       }
       console.error("Error changing password:", error);
       return false;
