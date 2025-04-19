@@ -1,18 +1,29 @@
-// src/components/PriceInfo.js
+// src/components/OfferRide/PriceInfo.js
 import React from "react";
 import { View, Text, TextInput } from "react-native";
 import { Colors, Fonts, Sizes } from "../../constants/styles";
 
-const PriceInfo = () => {
+const PriceInfo = ({ price, onPriceChange }) => {
   return (
     <View style={{ margin: Sizes.fixPadding * 2.0 }}>
-      <Text style={{ ...Fonts.blackColor15SemiBold, marginBottom: Sizes.fixPadding }}>
+      <Text
+        style={{
+          ...Fonts.blackColor15SemiBold,
+          marginBottom: Sizes.fixPadding,
+        }}
+      >
         Kaina
       </Text>
       <View style={styles.valueBox}>
         <TextInput
           placeholder="Įveskite savo kainą už vietą"
-          style={{ ...Fonts.blackColor15Medium, height: 20.0, padding: 0 }}
+          value={price}
+          onChangeText={onPriceChange}
+          style={{
+            ...Fonts.blackColor15Medium,
+            height: 20.0,
+            padding: 0,
+          }}
           placeholderTextColor={Colors.grayColor}
           selectionColor={Colors.primaryColor}
           cursorColor={Colors.primaryColor}

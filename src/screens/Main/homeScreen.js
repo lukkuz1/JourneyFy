@@ -9,7 +9,7 @@ import NoOfSeatSheet from "../../components/Home/NoOfSeatSheet";
 import MyStatusBar from "../../components/myStatusBar";
 import useCreateJourney from "../../hooks/useCreateJourney";
 import useFindMatchingJourneys from "../../hooks/useFindMatchingJourneys";
-import { Colors, Sizes } from "../../constants/styles";
+import { Colors } from "../../constants/styles";
 import { useLocation } from "../../hooks/useLocation";
 
 const HomeScreen = ({ navigation, route }) => {
@@ -21,19 +21,22 @@ const HomeScreen = ({ navigation, route }) => {
   const [pickupAddress, setPickupAddress] = useState("");
   const [destinationAddress, setDestinationAddress] = useState("");
   const [pickAlert, setPickAlert] = useState(false);
-  const [selectedTabIndex, setselectedTabIndex] = useState(1);
-  const [selectedDateAndTime, setselectedDateAndTime] = useState("");
-  const [selectedDate, setselectedDate] = useState("");
-  const [defaultDate, setdefaultDate] = useState(new Date().getDate());
-  const [selectedHour, setselectedHour] = useState(new Date().getHours());
-  const [selectedMinute, setselectedMinute] = useState(new Date().getMinutes());
-  const [selectedAmPm, setselectedAmPm] = useState(new Date().toLocaleTimeString().slice(-2));
-  const [showDateTimeSheet, setshowDateTimeSheet] = useState(false);
-  const [showNoOfSeatSheet, setshowNoOfSeatSheet] = useState(false);
-  const [selectedSeat, setselectedSeat] = useState();
+  const [selectedTabIndex, setSelectedTabIndex] = useState(1);
 
+  // Date & Time picker state
+  const [selectedDate, setSelectedDate] = useState("");
+  const [defaultDate, setDefaultDate] = useState(new Date().getDate());
+  const [selectedHour, setSelectedHour] = useState(new Date().getHours());
+  const [selectedMinute, setSelectedMinute] = useState(new Date().getMinutes());
+  const [selectedAmPm, setSelectedAmPm] = useState(new Date().toLocaleTimeString().slice(-2));
+  const [selectedDateAndTime, setSelectedDateAndTime] = useState("");
+
+  const [showDateTimeSheet, setShowDateTimeSheet] = useState(false);
+  const [showNoOfSeatSheet, setShowNoOfSeatSheet] = useState(false);
+  const [selectedSeat, setSelectedSeat] = useState();
+
+  // Format today date for picker
   const todayDate = `${new Date().getFullYear()}-${new Date().getMonth() + 1}-${new Date().getDate()}`;
-
 
   useEffect(() => {
     if (route.params?.address) {
@@ -46,53 +49,55 @@ const HomeScreen = ({ navigation, route }) => {
   }, [route.params?.address]);
 
   const handleDateTimeConfirm = (dateTime) => {
-    setselectedDateAndTime(dateTime);
+    setSelectedDateAndTime(dateTime);
+    setShowDateTimeSheet(false);
   };
 
   const handleSubmit = async () => {
-    if (pickupAddress && destinationAddress && selectedDateAndTime) {
-      if (selectedTabIndex === 1) {
-        // FIND journey logic (search existing journeys)
-        const matchingJourneys = await findMatchingJourneys({
-          pickupAddress,
-          destinationAddress,
-          journeyDateTime: selectedDateAndTime,
-          seats: selectedSeat || 1,
-        });
-        if (matchingJourneys.length > 0) {
-          navigation.navigate("AvailableRidesScreen", { journeys: matchingJourneys });
-        } else {
-          navigation.navigate("AvailableRidesScreen", { journeys: matchingJourneys });
-          setPickAlert(true);
-          setTimeout(() => setPickAlert(false), 2000);
-        }
-      } else if (selectedTabIndex === 2) {
-        // OFFER journey logic (create new journey)
-        const journeyId = await createJourney({
+    if (!pickupAddress || !destinationAddress || !selectedDateAndTime) {
+      setPickAlert(true);
+      setTimeout(() => setPickAlert(false), 2000);
+      return;
+    }
+
+    if (selectedTabIndex === 1) {
+      const matchingJourneys = await findMatchingJourneys({
+        pickupAddress,
+        destinationAddress,
+        journeyDateTime: selectedDateAndTime,
+        seats: selectedSeat || 1,
+      });
+      navigation.navigate("AvailableRidesScreen", { journeys: matchingJourneys });
+      if (matchingJourneys.length === 0) {
+        setPickAlert(true);
+        setTimeout(() => setPickAlert(false), 2000);
+      }
+    } else if (selectedTabIndex === 2) {
+      const journeyId = await createJourney({
+        pickupAddress,
+        destinationAddress,
+        journeyDateTime: selectedDateAndTime,
+        seats: selectedSeat || 1,
+        journeyType: "offer",
+      });
+      if (journeyId) {
+        navigation.navigate("OfferRideScreen", {
+          journeyId,
           pickupAddress,
           destinationAddress,
           journeyDateTime: selectedDateAndTime,
           seats: selectedSeat || 1,
           journeyType: "offer",
         });
-        if (journeyId) {
-          navigation.navigate("OfferRideScreen", {});
-          setPickupAddress("");
-          setDestinationAddress("");
-          setselectedDateAndTime("");
-          setselectedSeat(undefined);
-          setselectedDate("");
-          setselectedHour(new Date().getHours());
-          setselectedMinute(new Date().getMinutes());
-          setselectedAmPm(new Date().toLocaleTimeString().slice(-2));
-        } else {
-          setPickAlert(true);
-          setTimeout(() => setPickAlert(false), 2000);
-        }
+        // reset form
+        setPickupAddress("");
+        setDestinationAddress("");
+        setSelectedDateAndTime("");
+        setSelectedSeat(undefined);
+      } else {
+        setPickAlert(true);
+        setTimeout(() => setPickAlert(false), 2000);
       }
-    } else {
-      setPickAlert(true);
-      setTimeout(() => setPickAlert(false), 2000);
     }
   };
 
@@ -100,45 +105,45 @@ const HomeScreen = ({ navigation, route }) => {
     <View style={{ flex: 1, backgroundColor: Colors.bodyBackColor }}>
       <MyStatusBar />
       <View style={{ flex: 1 }}>
-        <Header 
-          location={location} 
-        />
+        <Header location={location} />
         <MapComponent />
         <RideInfoCard
           selectedTabIndex={selectedTabIndex}
-          setselectedTabIndex={setselectedTabIndex}
+          setselectedTabIndex={setSelectedTabIndex}
           navigation={navigation}
           pickupAddress={pickupAddress}
           destinationAddress={destinationAddress}
           selectedDateAndTime={selectedDateAndTime}
           selectedSeat={selectedSeat}
-          onDateTimePress={() => setshowDateTimeSheet(true)}
-          onSeatPress={() => setshowNoOfSeatSheet(true)}
+          onDateTimePress={() => setShowDateTimeSheet(true)}
+          onSeatPress={() => setShowNoOfSeatSheet(true)}
           onSubmit={handleSubmit}
           pickAlert={pickAlert}
         />
       </View>
+
       <DateTimePickerSheet
         isVisible={showDateTimeSheet}
-        onClose={() => setshowDateTimeSheet(false)}
+        onClose={() => setShowDateTimeSheet(false)}
         selectedDate={selectedDate}
-        onSelectDate={setselectedDate}
+        onSelectDate={setSelectedDate}
         defaultDate={defaultDate}
-        setDefaultDate={setdefaultDate}
+        setDefaultDate={setDefaultDate}
         selectedHour={selectedHour}
-        onSelectHour={setselectedHour}
+        onSelectHour={setSelectedHour}
         selectedMinute={selectedMinute}
-        onSelectMinute={setselectedMinute}
+        onSelectMinute={setSelectedMinute}
         selectedAmPm={selectedAmPm}
-        onSelectAmPm={setselectedAmPm}
+        onSelectAmPm={setSelectedAmPm}
         onConfirm={handleDateTimeConfirm}
         todayDate={todayDate}
       />
+
       <NoOfSeatSheet
         isVisible={showNoOfSeatSheet}
-        onClose={() => setshowNoOfSeatSheet(false)}
+        onClose={() => setShowNoOfSeatSheet(false)}
         selectedSeat={selectedSeat}
-        onSelectSeat={setselectedSeat}
+        onSelectSeat={setSelectedSeat}
       />
     </View>
   );

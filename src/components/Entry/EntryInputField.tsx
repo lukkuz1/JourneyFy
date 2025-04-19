@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   View,
   Text,
@@ -8,8 +8,10 @@ import {
   ViewStyle,
   StyleProp,
   TextStyle,
+  Pressable,
 } from "react-native";
 import Colors from "../../constants/Colors";
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 type Props = {
   headerText: string;
@@ -34,6 +36,8 @@ export default function EntryInputField({
   postfix = "",
   onChangeText,
 }: Props) {
+  const [secure, setSecure] = useState(isPassword);
+
   return (
     <View
       style={[
@@ -48,17 +52,27 @@ export default function EntryInputField({
       ]}
     >
       <Text style={[styles.typeFont, headerStyle]}>{headerText}</Text>
-      <View style={{ flexDirection: "row" }}>
+      <View style={styles.inputRow}>
         <TextInput
           placeholder={placeholderText}
           placeholderTextColor={Colors.Gray}
           style={styles.insideFont}
-          secureTextEntry={isPassword}
+          secureTextEntry={secure}
           onChangeText={onChangeText}
           keyboardType={keyboardType}
           autoCapitalize="none"
         />
-        <Text style={styles.prefix}>{" " + postfix}</Text>
+        {isPassword ? (
+          <Pressable onPress={() => setSecure(prev => !prev)} style={styles.iconButton}>
+            <MaterialCommunityIcons
+              name={secure ? 'eye-off-outline' : 'eye-outline'}
+              size={24}
+              color={Colors.Gray}
+            />
+          </Pressable>
+        ) : (
+          postfix.length > 0 && <Text style={styles.prefix}>{` ${postfix}`}</Text>
+        )}
       </View>
     </View>
   );
@@ -72,6 +86,7 @@ const styles = StyleSheet.create({
     fontWeight: "400",
   },
   insideFont: {
+    flex: 1,
     marginLeft: 15,
     color: Colors.Gray,
     fontSize: 16,
@@ -92,5 +107,13 @@ const styles = StyleSheet.create({
     elevation: 3,
     zIndex: 999,
     justifyContent: "center",
+  },
+  inputRow: {
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  iconButton: {
+    padding: 8,
+    marginRight: 15,
   },
 });

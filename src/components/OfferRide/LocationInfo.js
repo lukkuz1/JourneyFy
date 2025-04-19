@@ -1,17 +1,29 @@
-// src/components/LocationInfo.js
 import React from "react";
 import { View, Text } from "react-native";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import DashedLine from "react-native-dashed-line";
 import { Colors, Fonts, Sizes } from "../../constants/styles";
 
-const LocationInfo = () => {
+/**
+ * @param {string} pickupAddress - user-selected pickup location text
+ * @param {string} destinationAddress - user-selected destination location text
+ */
+const LocationInfo = ({ pickupAddress = "", destinationAddress = "" }) => {
   return (
     <View style={styles.locationInfoWrapper}>
       <View style={{ flexDirection: "row" }}>
         <View style={{ marginTop: Sizes.fixPadding + 5.0 }}>
-          <View style={[styles.locationIconWrapper, { borderColor: Colors.greenColor }]}>
-            <MaterialIcons name="location-pin" color={Colors.greenColor} size={18} />
+          <View
+            style={[
+              styles.locationIconWrapper,
+              { borderColor: Colors.greenColor },
+            ]}
+          >
+            <MaterialIcons
+              name="location-pin"
+              color={Colors.greenColor}
+              size={18}
+            />
           </View>
           <DashedLine
             axis="vertical"
@@ -30,9 +42,12 @@ const LocationInfo = () => {
           </Text>
           <Text
             numberOfLines={2}
-            style={{ marginTop: Sizes.fixPadding - 8.0, ...Fonts.grayColor14Medium }}
+            style={{
+              marginTop: Sizes.fixPadding - 8.0,
+              ...Fonts.grayColor14Medium,
+            }}
           >
-            B 420 Broome station, New york, NY 100013, USA
+            {pickupAddress || "-- Nenurodyta paėmimo vieta --"}
           </Text>
         </View>
       </View>
@@ -49,8 +64,17 @@ const LocationInfo = () => {
               marginLeft: Sizes.fixPadding + 2.0,
             }}
           />
-          <View style={[styles.locationIconWrapper, { borderColor: Colors.redColor }]}>
-            <MaterialIcons name="location-pin" color={Colors.redColor} size={18} />
+          <View
+            style={[
+              styles.locationIconWrapper,
+              { borderColor: Colors.redColor },
+            ]}
+          >
+            <MaterialIcons
+              name="location-pin"
+              color={Colors.redColor}
+              size={18}
+            />
           </View>
         </View>
         <View style={{ flex: 1, marginLeft: Sizes.fixPadding + 5.0 }}>
@@ -59,9 +83,12 @@ const LocationInfo = () => {
           </Text>
           <Text
             numberOfLines={2}
-            style={{ marginTop: Sizes.fixPadding - 8.0, ...Fonts.grayColor14Medium }}
+            style={{
+              marginTop: Sizes.fixPadding - 8.0,
+              ...Fonts.grayColor14Medium,
+            }}
           >
-            B 420 Broome station, New york, NY 100013, USA
+            {destinationAddress || "-- Nenurodytas kelionės tikslas --"}
           </Text>
         </View>
       </View>
