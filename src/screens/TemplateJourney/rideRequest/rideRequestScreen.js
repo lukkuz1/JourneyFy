@@ -1,5 +1,5 @@
 // src/screens/RideRequestScreen.js
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { View, StyleSheet } from "react-native";
 import MyStatusBar from "../../../components/myStatusBar";
 import Header from "../../../components/header";
@@ -7,178 +7,86 @@ import { Colors } from "../../../constants/styles";
 import RequestList from "../../../components/RideRequest/RequestList";
 import RequestSheet from "../../../components/RideRequest/RequestSheet";
 
-// Sample data for individual request users (detailed info in bottom sheet)
-const requestUsers = [
-  {
-    id: "1",
-    profile: require("../../../assets/images/user/user3.png"),
-    name: "Leslie Alexander",
-    pickup: "Mumbai,2464 Royal Lnord",
-    drop: "Pune, 2464 Royal Ln. Mesa",
-    amount: "$13.50",
-    seat: 1,
-  },
-  {
-    id: "2",
-    profile: require("../../../assets/images/user/user2.png"),
-    name: "Albert Flores",
-    pickup: "Mumbai,2464 Royal Lnord",
-    drop: "Pune, 2464 Royal Ln. Mesa",
-    amount: "$15.50",
-    seat: 1,
-  },
-  {
-    id: "3",
-    profile: require("../../../assets/images/user/user15.png"),
-    name: "Annette Black",
-    pickup: "Mumbai,2464 Royal Lnord",
-    drop: "Pune, 2464 Royal Ln. Mesa",
-    amount: "$10.50",
-    seat: 1,
-  },
-  {
-    id: "4",
-    profile: require("../../../assets/images/user/user8.png"),
-    name: "Guy Hawkins",
-    pickup: "Mumbai,2464 Royal Lnord",
-    drop: "Pune, 2464 Royal Ln. Mesa",
-    amount: "$9.50",
-    seat: 1,
-  },
-];
-
-// Sample data for ride requests
-const rideRequestsList = [
-  {
-    id: "1",
-    date: "Today",
-    time: "9:00 am",
-    pickup: "Mumbai,2464 Royal Lnord",
-    drop: "Pune, 2464 Royal Ln. Mesa",
-    requestCount: 2,
-    passengerList: [
-      {
-        id: "1p",
-        profile: require("../../../assets/images/user/user3.png"),
-        name: "Savannah Nguyen",
-      },
-      {
-        id: "p2",
-        profile: require("../../../assets/images/user/user2.png"),
-        name: "Brooklyn Simmons",
-      },
-      {
-        id: "3p",
-        profile: require("../../../assets/images/user/user6.png"),
-        name: "Savannah Nguyen",
-      },
-      {
-        id: "42",
-        profile: require("../../../assets/images/user/user17.png"),
-        name: "Brooklyn Simmons",
-      },
-    ],
-  },
-  {
-    id: "2",
-    date: "22 jan 2023",
-    time: "9:00 am",
-    pickup: "Mumbai,2464 Royal Lnord",
-    drop: "Pune, 2464 Royal Ln. Mesa",
-    requestCount: 4,
-    passengerList: [
-      {
-        id: "1p",
-        profile: require("../../../assets/images/user/user10.png"),
-        name: "Savannah Nguyen",
-      },
-      {
-        id: "p2",
-        profile: require("../../../assets/images/user/user1.jpeg"),
-        name: "Brooklyn Simmons",
-      },
-    ],
-  },
-  {
-    id: "3",
-    date: "23 jan 2023",
-    time: "9:00 am",
-    pickup: "Mumbai,2464 Royal Lnord",
-    drop: "Pune, 2464 Royal Ln. Mesa",
-    requestCount: 1,
-    passengerList: [
-      {
-        id: "1p",
-        profile: require("../../../assets/images/user/user10.png"),
-        name: "Savannah Nguyen",
-      },
-      {
-        id: "p2",
-        profile: require("../../../assets/images/user/user1.jpeg"),
-        name: "Brooklyn Simmons",
-      },
-      {
-        id: "p3",
-        profile: require("../../../assets/images/user/user9.png"),
-        name: "Brooklyn Simmons",
-      },
-    ],
-  },
-  {
-    id: "4",
-    date: "24 jan 2023",
-    time: "9:00 am",
-    pickup: "Mumbai,2464 Royal Lnord",
-    drop: "Pune, 2464 Royal Ln. Mesa",
-    requestCount: 3,
-    passengerList: [
-      {
-        id: "1p",
-        profile: require("../../../assets/images/user/user7.png"),
-        name: "Savannah Nguyen",
-      },
-    ],
-  },
-  {
-    id: "5",
-    date: "25 jan 2023",
-    time: "9:00 am",
-    pickup: "Mumbai,2464 Royal Lnord",
-    drop: "Pune, 2464 Royal Ln. Mesa",
-    requestCount: 2,
-    passengerList: [
-      {
-        id: "1p",
-        profile: require("../../../assets/images/user/user8.png"),
-        name: "Savannah Nguyen",
-      },
-      {
-        id: "p2",
-        profile: require("../../../assets/images/user/user12.png"),
-        name: "Brooklyn Simmons",
-      },
-      {
-        id: "p3",
-        profile: require("../../../assets/images/user/user5.png"),
-        name: "Brooklyn Simmons",
-      },
-    ],
-  },
-];
+import firebase from "../../../services/firebase";
+import {
+  collection,
+  query,
+  where,
+  onSnapshot,
+  orderBy,
+} from "firebase/firestore";
 
 const RideRequestScreen = ({ navigation }) => {
+  const [requests, setRequests] = useState([]);
   const [showRequestSheet, setShowRequestSheet] = useState(false);
-  const [selectedRequestCount, setSelectedRequestCount] = useState(null);
+  const [selectedRequestUsers, setSelectedRequestUsers] = useState([]);
+
+  useEffect(() => {
+    const user = firebase.auth.currentUser;
+    if (!user) return;
+
+    const journeysRef = collection(firebase.db, "journeys");
+    const q = query(
+      journeysRef,
+      where("userId", "==", user.uid),
+      orderBy("departureTime", "desc")
+    );
+
+    const unsubscribe = onSnapshot(q, snapshot => {
+      // build base array
+      const base = snapshot.docs.map(doc => {
+        const d = doc.data();
+        return {
+          id: doc.id,
+          departureTime: d.departureTime,
+          pickup: d.pickupLocation,
+          drop: d.dropoffLocation,
+          // these will be overwritten once sub-col data arrives
+          requestCount: 0,
+          passengerList: []
+        };
+      });
+
+      setRequests(base);
+
+      // subscribe to each ride's registered_journeys
+      base.forEach((ride, i) => {
+        const regRef = collection(
+          firebase.db,
+          "journeys",
+          ride.id,
+          "registered_journeys"
+        );
+        onSnapshot(regRef, snap => {
+          setRequests(prev => {
+            const updated = [...prev];
+            updated[i] = {
+              ...updated[i],
+              requestCount: snap.size,
+              passengerList: snap.docs.map(d => ({
+                id: d.id,
+                profile: require("../../../assets/images/user/user1.jpeg"),
+                name: d.id,  // replace with actual user name if stored
+              }))
+            };
+            return updated;
+          });
+        });
+      });
+    });
+
+    return unsubscribe;
+  }, []);
 
   return (
-    <View style={{ flex: 1, backgroundColor: Colors.bodyBackColor }}>
+    <View style={styles.screen}>
       <MyStatusBar />
-      <View style={{ flex: 1 }}>
+      <View style={styles.content}>
         <Header title="Kelionių prašymai" navigation={navigation} />
         <RequestList
-          requests={rideRequestsList}
-          onRequestPress={(requestCount) => {
-            setSelectedRequestCount(requestCount);
+          requests={requests}
+          onRequestPress={(passengerList) => {
+            setSelectedRequestUsers(passengerList);
             setShowRequestSheet(true);
           }}
           navigation={navigation}
@@ -186,8 +94,8 @@ const RideRequestScreen = ({ navigation }) => {
       </View>
       <RequestSheet
         isVisible={showRequestSheet}
-        requestUsers={requestUsers}
-        count={selectedRequestCount}
+        requestUsers={selectedRequestUsers}
+        count={selectedRequestUsers.length}
         onClose={() => setShowRequestSheet(false)}
       />
     </View>
@@ -197,5 +105,6 @@ const RideRequestScreen = ({ navigation }) => {
 export default RideRequestScreen;
 
 const styles = StyleSheet.create({
-
+  screen: { flex: 1, backgroundColor: Colors.bodyBackColor },
+  content: { flex: 1 },
 });

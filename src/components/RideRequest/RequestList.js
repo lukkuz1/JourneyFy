@@ -1,4 +1,4 @@
-// src/components/RequestList.js
+// src/components/RideRequest/RequestList.js
 import React from "react";
 import { FlatList } from "react-native";
 import { Sizes } from "../../constants/styles";
@@ -9,14 +9,14 @@ const RequestList = ({ requests, onRequestPress, navigation }) => {
     <RequestItem
       item={item}
       onPress={() => navigation.push("StartRideScreen")}
-      onRequestSheetPress={() => onRequestPress(item.requestCount)}
+      onRequestSheetPress={() => onRequestPress(item.passengerList)}
     />
   );
 
   return (
     <FlatList
       data={requests}
-      keyExtractor={(item) => `${item.id}`}
+      keyExtractor={(item) => item.id}
       renderItem={renderItem}
       showsVerticalScrollIndicator={false}
       contentContainerStyle={{ paddingTop: Sizes.fixPadding * 2 }}

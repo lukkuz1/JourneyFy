@@ -7,70 +7,82 @@ import RidesHeader from "../../components/Rides/RidesHeader";
 import NoRidesInfo from "../../components/Rides/NoRidesInfo";
 import RidesList from "../../components/Rides/RidesList";
 
-const initialRides = [
-  {
-    id: "1",
-    profile: require("../../assets/images/user/user8.png"),
-    name: "Jenny wilsom",
-    date: "Today",
-    time: "9:00 am",
-    pickup: "Mumbai,2464 Royal Lnord",
-    drop: "Pune, 2464 Royal Ln. Mesa",
-  },
-  {
-    id: "2",
-    profile: require("../../assets/images/user/user3.png"),
-    name: "Devon Lane",
-    date: "22 jan 2023",
-    time: "9:00 am",
-    pickup: "Mumbai,2464 Royal Lnord",
-    drop: "Pune, 2464 Royal Ln. Mesa",
-  },
-  {
-    id: "3",
-    profile: require("../../assets/images/user/user16.png"),
-    name: "Leslie Alexander",
-    date: "23 jan 2023",
-    time: "9:00 am",
-    pickup: "Mumbai,2464 Royal Lnord",
-    drop: "Pune, 2464 Royal Ln. Mesa",
-  },
-  {
-    id: "4",
-    profile: require("../../assets/images/user/user2.png"),
-    name: "Guy Hawkins",
-    date: "24 jan 2023",
-    time: "9:00 am",
-    pickup: "Mumbai,2464 Royal Lnord",
-    drop: "Pune, 2464 Royal Ln. Mesa",
-  },
-  {
-    id: "5",
-    profile: require("../../assets/images/user/user17.png"),
-    name: "Savannah Nguyen",
-    date: "25 jan 2023",
-    time: "9:00 am",
-    pickup: "Mumbai,2464 Royal Lnord",
-    drop: "Pune, 2464 Royal Ln. Mesa",
-  },
-];
+import firebase from "../../services/firebase";
+import {
+  collection,
+  query,
+  where,
+  onSnapshot,
+} from "firebase/firestore";
 
-const RidesScreen = ({ navigation, route }) => {
-  const [rides, setRides] = useState(initialRides);
+const RidesScreen = ({ navigation }) => {
+  const [rides, setRides] = useState([]);
 
-  // When a ride id is passed via route params (e.g., after deletion), filter it out.
   useEffect(() => {
-    if (route.params?.id) {
-      setRides((prevRides) => prevRides.filter((item) => item.id !== route.params.id));
+    const user = firebase.auth.currentUser;
+    if (!user) {
+      // not signed in
+      return;
     }
-  }, [route.params?.id]);
+
+    const journeysRef = collection(firebase.db, "journeys");
+    const q = query(
+      journeysRef,
+      where("passengers", "array-contains", user.uid)
+    );
+
+    const unsubscribe = onSnapshot(
+      q,
+      snapshot => {
+        const data = snapshot.docs.map(doc => {
+          const d = doc.data();
+          let date = "";
+          let time = "";
+          if (d.departureTime?.toDate) {
+            const dt = d.departureTime.toDate();
+            date = dt.toLocaleDateString(undefined, {
+              day: "numeric",
+              month: "short",
+              year: "numeric",
+            });
+            time = dt.toLocaleTimeString(undefined, {
+              hour: "2-digit",
+              minute: "2-digit",
+            });
+          }
+
+          return {
+            id: doc.id,
+            profile: d.driverPhotoUrl
+              ? { uri: d.driverPhotoUrl }
+              : require("../../assets/images/user/user1.jpeg"),
+            name: d.driverName || "Vairuotojas",
+            date: date || d.date || "",
+            time: time || d.time || "",
+            pickup: d.pickupLocation || "",
+            drop: d.dropoffLocation || "",
+          };
+        });
+        setRides(data);
+      },
+      error => {
+        console.error("Rides subscription error:", error);
+      }
+    );
+
+    return unsubscribe;
+  }, []);
 
   return (
-    <View style={{ flex: 1, backgroundColor: Colors.bodyBackColor }}>
+    <View style={styles.screen}>
       <MyStatusBar />
-      <View style={{ flex: 1 }}>
+      <View style={styles.content}>
         <RidesHeader navigation={navigation} />
-        {rides.length === 0 ? <NoRidesInfo /> : <RidesList rides={rides} navigation={navigation} />}
+        {rides.length === 0 ? (
+          <NoRidesInfo />
+        ) : (
+          <RidesList rides={rides} navigation={navigation} />
+        )}
       </View>
     </View>
   );
@@ -78,5 +90,12 @@ const RidesScreen = ({ navigation, route }) => {
 
 export default RidesScreen;
 
-// You can add any screen-specific styles below if needed.
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  screen: {
+    flex: 1,
+    backgroundColor: Colors.bodyBackColor,
+  },
+  content: {
+    flex: 1,
+  },
+});
