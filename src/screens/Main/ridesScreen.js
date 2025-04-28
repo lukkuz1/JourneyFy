@@ -13,75 +13,105 @@ import {
   query,
   where,
   onSnapshot,
+  getDoc,
+  doc,
 } from "firebase/firestore";
 
+const mapJourney = async (docSnap) => {
+  const d = docSnap.data();
+  // fetch driver info
+  let profile, name;
+  try {
+    const userSnap = await getDoc(doc(firebase.db, "users", d.userId));
+    if (userSnap.exists()) {
+      const drv = userSnap.data();
+      profile = drv.photoURL
+        ? { uri: drv.photoURL }
+        : require("../../assets/images/user/user1.jpeg");
+      name = `${drv.firstName} ${drv.lastName}`;
+    } else throw new Error();
+  } catch {
+    profile = require("../../assets/images/user/user1.jpeg");
+    name = "Vairuotojas";
+  }
+
+  // parse journeyDateTime (string "YYYY-M-D HH:mm")
+  let date = "", time = "";
+  if (d.journeyDateTime) {
+    const parts = d.journeyDateTime.split(" ");
+    date = parts[0];
+    time = parts[1] || "";
+  }
+
+  return {
+    id: docSnap.id,
+    __raw: d,
+    profile,
+    name,
+    date,
+    time,
+    pickup: d.pickupAddress,
+    drop: d.destinationAddress,
+    car: d.car,
+    facilities: d.facilities,
+    journeyType: d.journeyType,
+    price: d.price,
+    seats: d.seats,
+    userEmail: d.userEmail,
+  };
+};
+
 const RidesScreen = ({ navigation }) => {
-  const [rides, setRides] = useState([]);
+  const [driverRides, setDriverRides] = useState([]);
+  const [passengerRides, setPassengerRides] = useState([]);
 
   useEffect(() => {
     const user = firebase.auth.currentUser;
-    if (!user) {
-      // not signed in
-      return;
-    }
+    if (!user) return;
 
-    const journeysRef = collection(firebase.db, "journeys");
-    const q = query(
-      journeysRef,
-      where("passengers", "array-contains", user.uid)
+    // 1) Rides where I'm the driver
+    const qDriver = query(
+      collection(firebase.db, "journeys"),
+      where("userId", "==", user.uid),
+      where("status", "in", ["pending", "started"]),
     );
+    const unsubDriver = onSnapshot(qDriver, async (snap) => {
+      const arr = await Promise.all(snap.docs.map(mapJourney));
+      setDriverRides(arr);
+    });
 
-    const unsubscribe = onSnapshot(
-      q,
-      snapshot => {
-        const data = snapshot.docs.map(doc => {
-          const d = doc.data();
-          let date = "";
-          let time = "";
-          if (d.departureTime?.toDate) {
-            const dt = d.departureTime.toDate();
-            date = dt.toLocaleDateString(undefined, {
-              day: "numeric",
-              month: "short",
-              year: "numeric",
-            });
-            time = dt.toLocaleTimeString(undefined, {
-              hour: "2-digit",
-              minute: "2-digit",
-            });
-          }
-
-          return {
-            id: doc.id,
-            profile: d.driverPhotoUrl
-              ? { uri: d.driverPhotoUrl }
-              : require("../../assets/images/user/user1.jpeg"),
-            name: d.driverName || "Vairuotojas",
-            date: date || d.date || "",
-            time: time || d.time || "",
-            pickup: d.pickupLocation || "",
-            drop: d.dropoffLocation || "",
-          };
-        });
-        setRides(data);
-      },
-      error => {
-        console.error("Rides subscription error:", error);
-      }
+    // 2) Rides where I'm a passenger
+    const qPassenger = query(
+      collection(firebase.db, "journeys"),
+      where("passengers", "array-contains", user.uid),
+      where("status", "in", ["pending", "started"]),
     );
+    const unsubPassenger = onSnapshot(qPassenger, async (snap) => {
+      const arr = await Promise.all(snap.docs.map(mapJourney));
+      setPassengerRides(arr);
+    });
 
-    return unsubscribe;
+    return () => {
+      unsubDriver();
+      unsubPassenger();
+    };
   }, []);
+
+  // merge and dedupe (in case you drove a ride you also sat in)
+  const all = [
+    ...driverRides,
+    ...passengerRides.filter((p) => !driverRides.find((d) => d.id === p.id)),
+  ];
 
   return (
     <View style={styles.screen}>
       <MyStatusBar />
       <View style={styles.content}>
         <RidesHeader navigation={navigation} />
-        {rides.length === 0 ? (
+        {all.length === 0 ? (
           <NoRidesInfo />
         ) : (
-          <RidesList rides={rides} navigation={navigation} />
+          <RidesList rides={all} navigation={navigation} />
         )}
       </View>
     </View>

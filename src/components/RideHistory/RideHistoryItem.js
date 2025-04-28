@@ -1,4 +1,3 @@
-// src/components/RideHistoryItem.js
 import React from "react";
 import { TouchableOpacity, View, Text, Image, StyleSheet } from "react-native";
 import Ionicons from "react-native-vector-icons/Ionicons";
@@ -10,7 +9,9 @@ const RideHistoryItem = ({ item, navigation }) => {
   return (
     <TouchableOpacity
       activeOpacity={0.8}
-      onPress={() => navigation.navigate("HistoryRideDetailScreen")}
+      onPress={() =>
+        navigation.navigate("HistoryRideDetailScreen", { ride: item })
+      }
       style={styles.rideWrapper}
     >
       <Image
@@ -18,13 +19,18 @@ const RideHistoryItem = ({ item, navigation }) => {
         style={{ width: 82, height: 82, borderRadius: Sizes.fixPadding - 5 }}
       />
       <View style={styles.rideDetailWrapper}>
-        <Text style={{ ...Fonts.blackColor15SemiBold }}>{item.name}</Text>
+        {/* Driver name */}
+        <Text style={Fonts.blackColor15SemiBold}>{item.name}</Text>
+
+        {/* Date / Time */}
         <View style={CommonStyles.rowAlignCenter}>
-          <Ionicons name="calendar-outline" color={Colors.blackColor} size={14} />
+          <Ionicons
+            name="calendar-outline"
+            color={Colors.blackColor}
+            size={14}
+          />
           <Text
-            numberOfLines={1}
             style={{
-              maxWidth: "50%",
               ...Fonts.blackColor12Medium,
               marginLeft: Sizes.fixPadding - 5,
             }}
@@ -34,28 +40,38 @@ const RideHistoryItem = ({ item, navigation }) => {
           <View style={styles.dateTimeDivider} />
           <Ionicons name="time-outline" color={Colors.blackColor} size={14} />
           <Text
-            numberOfLines={1}
             style={{
-              flex: 1,
               ...Fonts.blackColor12Medium,
               marginLeft: Sizes.fixPadding - 5,
+              flex: 1,
             }}
           >
             {item.time}
           </Text>
         </View>
+
+        {/* Pickup & Drop */}
         <View>
           <View style={CommonStyles.rowAlignCenter}>
-            <View style={[styles.locationIconWrapper, { borderColor: Colors.greenColor }]}>
-              <MaterialIcons name="location-pin" color={Colors.greenColor} size={7} />
+            <View
+              style={[
+                styles.locationIconWrapper,
+                { borderColor: Colors.greenColor },
+              ]}
+            >
+              <MaterialIcons
+                name="location-pin"
+                color={Colors.greenColor}
+                size={7}
+              />
             </View>
             <Text
-              numberOfLines={1}
               style={{
-                flex: 1,
                 ...Fonts.grayColor12Medium,
                 marginLeft: Sizes.fixPadding,
+                flex: 1,
               }}
+              numberOfLines={1}
             >
               {item.pickup}
             </Text>
@@ -69,16 +85,25 @@ const RideHistoryItem = ({ item, navigation }) => {
             style={{ height: 5, marginLeft: Sizes.fixPadding - 4 }}
           />
           <View style={CommonStyles.rowAlignCenter}>
-            <View style={[styles.locationIconWrapper, { borderColor: Colors.redColor }]}>
-              <MaterialIcons name="location-pin" color={Colors.redColor} size={7} />
+            <View
+              style={[
+                styles.locationIconWrapper,
+                { borderColor: Colors.redColor },
+              ]}
+            >
+              <MaterialIcons
+                name="location-pin"
+                color={Colors.redColor}
+                size={7}
+              />
             </View>
             <Text
-              numberOfLines={1}
               style={{
-                flex: 1,
                 ...Fonts.grayColor12Medium,
                 marginLeft: Sizes.fixPadding,
+                flex: 1,
               }}
+              numberOfLines={1}
             >
               {item.drop}
             </Text>
@@ -102,7 +127,6 @@ const styles = StyleSheet.create({
   rideDetailWrapper: {
     flex: 1,
     marginLeft: Sizes.fixPadding,
-    height: 82,
     justifyContent: "space-between",
   },
   dateTimeDivider: {

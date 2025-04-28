@@ -2,7 +2,6 @@
 import React from "react";
 import { View, TouchableOpacity, Text } from "react-native";
 import { Colors, CommonStyles, Sizes, Fonts } from "../../constants/styles";
-// import the default firebase export
 import firebase from "../../services/firebase";
 
 const RideDetailFooter = ({
@@ -17,58 +16,38 @@ const RideDetailFooter = ({
 
   return (
     <View style={styles.footer}>
-      {isDriver ? (
-        <TouchableOpacity
-          activeOpacity={0.8}
-          onPress={() =>
-            navigation.navigate("ConfirmPoolingScreen", { rideId: ride.id })
-          }
-          style={{
-            flex: 1,
-            ...CommonStyles.button,
-            marginHorizontal: Sizes.fixPadding,
-          }}
-        >
-          <Text numberOfLines={1} style={Fonts.whiteColor18Bold}>
-            Keliauti
-          </Text>
-        </TouchableOpacity>
-      ) : !isRegistered ? (
-        <TouchableOpacity
-          activeOpacity={0.8}
-          onPress={onRegisterPress}
-          style={{
-            flex: 1,
-            ...CommonStyles.button,
-            marginHorizontal: Sizes.fixPadding,
-          }}
-        >
-          <Text numberOfLines={1} style={Fonts.whiteColor18Bold}>
-            Prisijungti
-          </Text>
-        </TouchableOpacity>
-      ) : (
-        <TouchableOpacity
-          activeOpacity={0.8}
-          onPress={onCancelPress}
-          style={styles.cancelRideButton}
-        >
-          <Text numberOfLines={1} style={Fonts.primaryColor18Bold}>
-            Atšaukti kelionę
-          </Text>
-        </TouchableOpacity>
+      {/* If the current user is not the driver, show either Cancel or Register */}
+      {!isDriver && (
+        isRegistered ? (
+          <TouchableOpacity
+            activeOpacity={0.8}
+            onPress={onCancelPress}
+            style={styles.cancelRideButton}
+          >
+            <Text numberOfLines={1} style={Fonts.primaryColor18Bold}>
+              Atšaukti kelionę
+            </Text>
+          </TouchableOpacity>
+        ) : (
+          <TouchableOpacity
+            activeOpacity={0.8}
+            onPress={onRegisterPress}
+            style={{ flex: 1, ...CommonStyles.button, marginHorizontal: Sizes.fixPadding }}
+          >
+            <Text numberOfLines={1} style={Fonts.whiteColor18Bold}>
+              Prisijungti
+            </Text>
+          </TouchableOpacity>
+        )
       )}
 
+      {/* Always show Messages button */}
       <TouchableOpacity
         activeOpacity={0.8}
         onPress={() =>
           navigation.navigate("MessageScreen", { rideId: ride.id })
         }
-        style={{
-          flex: 1,
-          ...CommonStyles.button,
-          marginHorizontal: Sizes.fixPadding,
-        }}
+        style={{ flex: 1, ...CommonStyles.button, marginHorizontal: Sizes.fixPadding }}
       >
         <Text numberOfLines={1} style={Fonts.whiteColor18Bold}>
           Žinutės

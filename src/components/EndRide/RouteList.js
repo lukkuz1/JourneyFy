@@ -1,78 +1,78 @@
-// src/components/RouteList.js
+// src/components/EndRide/RouteList.js
 import React from "react";
-import { View, Text, Image } from "react-native";
+import { View, Text } from "react-native";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import DashedLine from "react-native-dashed-line";
 import { Fonts, Sizes, Colors } from "../../constants/styles";
-import styles from "../../screens/TemplateJourney/endRide/EndRideStyles";
 
-const RouteList = ({ routesList }) => {
-  return (
-    <View style={{ marginTop: Sizes.fixPadding * 2.0 }}>
-      {routesList.map((item, index) => (
-        <RouteItem
-          key={item.id}
-          item={item}
-          index={index}
-          totalRoutes={routesList.length}
-        />
-      ))}
-    </View>
-  );
-};
+const RouteList = ({ ride }) => {
+  if (!ride) return null;
 
-const RouteItem = ({ item, index, totalRoutes }) => {
-  const iconColor =
-    item.status === "completed"
-      ? Colors.grayColor
-      : item.isPickPoint
-      ? Colors.greenColor
-      : Colors.redColor;
+  const { pickupAddress, destinationAddress, status } = ride;
+  const stops = [
+    {
+      id: "pickup",
+      title: "Paėmimas",
+      address: pickupAddress,
+      completed: status !== "pending",
+    },
+    {
+      id: "dropoff",
+      title: "Galutinis kelionės taškas",
+      address: destinationAddress,
+      completed: status === "finished",
+    },
+  ];
 
   return (
-    <View style={{ flexDirection: "row", marginHorizontal: Sizes.fixPadding * 2.0 }}>
-      <View>
-        {item.isPickDropPoint ? (
-          <View style={{ ...styles.sheetLocationIconWrapper, borderColor: iconColor }}>
-            <MaterialIcons name="location-pin" color={iconColor} size={10} />
+    <View style={{ marginTop: Sizes.fixPadding * 2 }}>
+      {stops.map((s, i) => {
+        const color = s.completed ? Colors.grayColor : Colors.primaryColor;
+        return (
+          <View
+            key={s.id}
+            style={{ flexDirection: "row", marginHorizontal: Sizes.fixPadding * 2 }}
+          >
+            <View>
+              <View
+                style={{
+                  width: 16,
+                  height: 16,
+                  borderRadius: 8,
+                  borderWidth: 1,
+                  borderColor: color,
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
+              >
+                <MaterialIcons name="location-pin" size={10} color={color} />
+              </View>
+              {i < stops.length - 1 && (
+                <DashedLine
+                  axis="vertical"
+                  dashLength={3}
+                  dashThickness={1}
+                  dashColor={Colors.lightGray}
+                  style={{ height: 45, marginLeft: Sizes.fixPadding - 2 }}
+                />
+              )}
+            </View>
+            <View style={{ flex: 1, marginLeft: Sizes.fixPadding }}>
+              <Text style={Fonts.grayColor14Medium}>{s.title}</Text>
+              <Text
+                style={{
+                  ...Fonts.blackColor14Medium,
+                  marginTop: Sizes.fixPadding - 8,
+                }}
+              >
+                {s.address}
+              </Text>
+            </View>
           </View>
-        ) : (
-          <Image
-            source={require("../../assets/images/vehicle/vehicle1.png")}
-            style={{
-              ...styles.sheetCarImage,
-              tintColor: item.status === "completed" ? Colors.grayColor : Colors.primaryColor,
-            }}
-          />
-        )}
-        {index !== totalRoutes - 1 && <VerticalDashLine />}
-      </View>
-      <View style={{ flex: 1, marginLeft: Sizes.fixPadding }}>
-        <Text numberOfLines={1} style={{ ...Fonts.grayColor14Medium }}>
-          {item.title}
-        </Text>
-        <Text
-          numberOfLines={1}
-          style={{ ...Fonts.blackColor14Medium, marginTop: Sizes.fixPadding - 8.0 }}
-        >
-          {item.address}
-        </Text>
-      </View>
+        );
+      })}
     </View>
   );
 };
-
-const VerticalDashLine = () => (
-  <DashedLine
-    axis="vertical"
-    dashLength={3}
-    dashColor={Colors.lightGrayColor}
-    dashThickness={1}
-    style={{
-      height: 45.0,
-      marginLeft: Sizes.fixPadding - 2.0,
-    }}
-  />
-);
 
 export default RouteList;

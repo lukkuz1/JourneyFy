@@ -30,7 +30,8 @@ const useFindMatchingJourneys = () => {
         // where("destinationAddress", "==", destinationAddress),
         // where("journeyDateTime", "==", journeyDateTime),
         // where("seats", ">=", seats),
-        where("journeyType", "==", "offer")
+        where("journeyType", "==", "offer"),
+        where("status", "==", "pending")
       );
 
       const snapshot = await getDocs(journeysQuery);
@@ -48,11 +49,11 @@ const useFindMatchingJourneys = () => {
           [{ text: "Gerai" }]
         );
       } else {
-        // Alert.alert(
-        //   'No Journeys Found',
-        //   'Sorry, no matching journeys were found.',
-        //   [{ text: 'OK' }]
-        // );
+        Alert.alert(
+          'Nerasta jokių kelionių',
+          'Atsiprašome, bet jokių kelionių atitinkančių kriterijus nebuvo rasta',
+          [{ text: 'OK' }]
+        );
       }
 
       return journeys;

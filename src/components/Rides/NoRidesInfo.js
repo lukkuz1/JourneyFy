@@ -11,7 +11,7 @@ const NoRidesInfo = () => {
         style={{ width: 50, height: 50, resizeMode: "contain" }}
       />
       <Text style={{ ...Fonts.grayColor16SemiBold, marginTop: Sizes.fixPadding }}>
-        Empty ride list
+        Tuščias kelionių sąrašas
       </Text>
     </View>
   );

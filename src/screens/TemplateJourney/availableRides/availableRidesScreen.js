@@ -47,7 +47,9 @@ const AvailableRidesScreen = ({ navigation, route }) => {
         <FlatList
           data={availableRides}
           keyExtractor={(item) => `${item.id}`}
-          renderItem={({ item }) => <RideItem ride={item} navigation={navigation} />}
+          renderItem={({ item }) => (
+            <RideItem ride={item} navigation={navigation} />
+          )}
           showsVerticalScrollIndicator={false}
           contentContainerStyle={{ paddingTop: Sizes.fixPadding * 2 }}
         />
@@ -56,7 +58,6 @@ const AvailableRidesScreen = ({ navigation, route }) => {
   );
 };
 
-// This component displays ride details along with driver info fetched from Firestore.
 const RideItem = ({ ride, navigation }) => {
   const [driver, setDriver] = useState(null);
   const db = getFirestore();
@@ -86,16 +87,34 @@ const RideItem = ({ ride, navigation }) => {
       onPress={() => navigation.navigate("RideDetailScreen", { ride })}
       style={styles.rideWrapper}
     >
-      <View style={{ paddingHorizontal: Sizes.fixPadding, ...CommonStyles.rowAlignCenter }}>
+      <View
+        style={{
+          paddingHorizontal: Sizes.fixPadding,
+          ...CommonStyles.rowAlignCenter,
+        }}
+      >
         <View style={{ flex: 1 }}>
           {/* Pickup address */}
           <View style={{ ...CommonStyles.rowAlignCenter }}>
-            <View style={{ ...styles.locationIconWrapper, borderColor: Colors.greenColor }}>
-              <MaterialIcons name="location-pin" color={Colors.greenColor} size={12} />
+            <View
+              style={{
+                ...styles.locationIconWrapper,
+                borderColor: Colors.greenColor,
+              }}
+            >
+              <MaterialIcons
+                name="location-pin"
+                color={Colors.greenColor}
+                size={12}
+              />
             </View>
             <Text
               numberOfLines={1}
-              style={{ flex: 1, ...Fonts.blackColor14Medium, marginHorizontal: Sizes.fixPadding }}
+              style={{
+                flex: 1,
+                ...Fonts.blackColor14Medium,
+                marginHorizontal: Sizes.fixPadding,
+              }}
             >
               {ride.pickupAddress}
             </Text>
@@ -104,12 +123,25 @@ const RideItem = ({ ride, navigation }) => {
           <View style={styles.verticalDashedLine}></View>
           {/* Destination address */}
           <View style={{ ...CommonStyles.rowAlignCenter }}>
-            <View style={{ ...styles.locationIconWrapper, borderColor: Colors.redColor }}>
-              <MaterialIcons name="location-pin" color={Colors.redColor} size={12} />
+            <View
+              style={{
+                ...styles.locationIconWrapper,
+                borderColor: Colors.redColor,
+              }}
+            >
+              <MaterialIcons
+                name="location-pin"
+                color={Colors.redColor}
+                size={12}
+              />
             </View>
             <Text
               numberOfLines={1}
-              style={{ flex: 1, ...Fonts.blackColor14Medium, marginHorizontal: Sizes.fixPadding }}
+              style={{
+                flex: 1,
+                ...Fonts.blackColor14Medium,
+                marginHorizontal: Sizes.fixPadding,
+              }}
             >
               {ride.destinationAddress}
             </Text>
@@ -127,13 +159,24 @@ const RideItem = ({ ride, navigation }) => {
         style={{ marginVertical: Sizes.fixPadding, overflow: "hidden" }}
       />
 
-      <View style={{ ...CommonStyles.rowAlignCenter, marginHorizontal: Sizes.fixPadding }}>
+      <View
+        style={{
+          ...CommonStyles.rowAlignCenter,
+          marginHorizontal: Sizes.fixPadding,
+        }}
+      >
         {/* Driver info: photo and name */}
-        <View style={{ flex: 1, ...CommonStyles.rowAlignCenter, marginRight: Sizes.fixPadding }}>
+        <View
+          style={{
+            flex: 1,
+            ...CommonStyles.rowAlignCenter,
+            marginRight: Sizes.fixPadding,
+          }}
+        >
           <Image
             source={
-              driver?.photo
-                ? { uri: driver.photo }
+              driver?.photoURL
+                ? { uri: driver.photoURL }
                 : require("../../../assets/images/user/user1.jpeg")
             }
             style={{
@@ -146,24 +189,25 @@ const RideItem = ({ ride, navigation }) => {
             <Text numberOfLines={1} style={{ ...Fonts.blackColor15SemiBold }}>
               {driver ? `${driver.firstName} ${driver.lastName}` : "Driver"}
             </Text>
-            <View style={{ ...CommonStyles.rowAlignCenter, marginTop: Sizes.fixPadding - 8 }}>
-              <Text numberOfLines={1} style={{ ...Fonts.grayColor13SemiBold, flex: 1 }}>
+            <View
+              style={{
+                ...CommonStyles.rowAlignCenter,
+                marginTop: Sizes.fixPadding - 8,
+              }}
+            >
+              <Text
+                numberOfLines={1}
+                style={{ ...Fonts.grayColor13SemiBold, flex: 1 }}
+              >
                 {ride.journeyDateTime || ""}
               </Text>
-              <View style={styles.dateTimeAndRatingDivider}></View>
-              <View style={{ ...CommonStyles.rowAlignCenter }}>
-                <Text style={{ ...Fonts.grayColor13SemiBold, marginRight: Sizes.fixPadding - 8 }}>
-                  {ride.rating || "0"}
-                </Text>
-                <MaterialIcons name="star" color={Colors.secondaryColor} size={16} />
-              </View>
             </View>
           </View>
         </View>
         {/* Seat availability */}
         <View style={{ width: "30%", alignItems: "flex-end" }}>
           <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-            {[1, 2, 3, 4].map((no) => (
+            {[1, 2, 3, 4, 5, 6].map((no) => (
               <MaterialIcons
                 key={`${no}`}
                 name="event-seat"
@@ -181,8 +225,15 @@ const RideItem = ({ ride, navigation }) => {
 
       {/* Optionally, you can also display additional driver information such as phone */}
       {driver?.phoneNumber && (
-        <View style={{ marginTop: Sizes.fixPadding, marginHorizontal: Sizes.fixPadding }}>
-          <Text style={{ ...Fonts.grayColor14Medium }}>Phone: {driver.phoneNumber}</Text>
+        <View
+          style={{
+            marginTop: Sizes.fixPadding,
+            marginHorizontal: Sizes.fixPadding,
+          }}
+        >
+          <Text style={{ ...Fonts.grayColor14Medium }}>
+            Telefonas: {driver.phoneNumber}
+          </Text>
         </View>
       )}
     </TouchableOpacity>

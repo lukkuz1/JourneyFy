@@ -11,15 +11,7 @@ const RiderDetail = ({ ride, navigation }) => {
       <View style={{ marginHorizontal: Sizes.fixPadding * 2 }}>
         <View style={{ ...CommonStyles.rowAlignCenter }}>
           <Text numberOfLines={1} style={{ flex: 1, ...Fonts.secondaryColor17SemiBold }}>
-            Pavežėjo informacija
-          </Text>
-          <Text
-            onPress={() =>
-              navigation.navigate("RideMapViewScreen", { rideId: ride.id })
-            }
-            style={{ ...Fonts.greenColor14SemiBold, textDecorationLine: "underline" }}
-          >
-            Žemėlapio peržiūra
+            Kelionės informacija
           </Text>
         </View>
       </View>
@@ -64,21 +56,15 @@ const RiderDetail = ({ ride, navigation }) => {
             {ride.journeyDateTime || "N/A"}
           </Text>
         </View>
-        <View style={{
-          height: "100%",
-          backgroundColor: Colors.lightGrayColor,
-          width: 1,
-          marginHorizontal: Sizes.fixPadding,
-        }} />
-        <View style={{ flex: 1, alignItems: "center" }}>
+        {/* <View style={{ flex: 1, alignItems: "center" }}>
           <Text numberOfLines={1} style={{ ...Fonts.blackColor14SemiBold }}>
             Grįžimo laikas
           </Text>
           <Text numberOfLines={1} style={{ ...Fonts.grayColor14SemiBold, marginTop: Sizes.fixPadding - 8 }}>
             {ride.returnTime || "N/A"}
           </Text>
-        </View>
-        <View style={{
+        </View> */}
+        {/* <View style={{
           height: "100%",
           backgroundColor: Colors.lightGrayColor,
           width: 1,
@@ -91,7 +77,7 @@ const RiderDetail = ({ ride, navigation }) => {
           <Text numberOfLines={1} style={{ ...Fonts.grayColor14SemiBold, marginTop: Sizes.fixPadding - 8 }}>
             {ride.totalCapacity ? `${ride.totalCapacity} people` : "N/A"}
           </Text>
-        </View>
+        </View> */}
       </View>
     </View>
   );

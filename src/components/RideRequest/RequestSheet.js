@@ -1,150 +1,151 @@
-// src/components/RequestSheet.js
-import React from "react";
-import { View, Text, ScrollView, TouchableOpacity, Image } from "react-native";
-import { BottomSheet } from "@rneui/themed";
-import { Colors, Fonts, Sizes, screenHeight, CommonStyles } from "../../constants/styles";
-import MaterialIcons from "react-native-vector-icons/MaterialIcons";
-import DashedLine from "react-native-dashed-line";
+// src/components/RideRequest/RequestSheet.js
+import React, { useState, useEffect } from "react";
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  Image,
+  ScrollView,
+  ActivityIndicator,
+} from "react-native";
+import { Overlay } from "@rneui/themed";
+import { Colors, Fonts, Sizes, CommonStyles } from "../../constants/styles";
+import { collection, getDoc, doc } from "firebase/firestore";
+import { db } from "../../services/firebase";
 
-const RequestSheet = ({ isVisible, requestUsers, count, onClose }) => {
-  const usersToShow = requestUsers.slice(0, count);
+const placeholder = require("../../assets/images/user/user9.png");
+
+const RequestSheet = ({
+  isVisible,
+  ride,
+  requestUsers = [],
+  onApprove,
+  onClose,
+}) => {
+  const [users, setUsers] = useState([]);
+  const [loading, setLoading] = useState(false);
+
+  // Whenever the sheet opens or the list changes, re-fetch user profiles
+  useEffect(() => {
+    if (!isVisible) return;
+    let mounted = true;
+    (async () => {
+      setLoading(true);
+      const enriched = await Promise.all(
+        requestUsers.map(async (req) => {
+          try {
+            const snap = await getDoc(doc(db, "users", req.userId));
+            if (snap.exists()) {
+              const u = snap.data();
+              return {
+                id: req.id,
+                registeredAt: req.registeredAt,
+                photoURL: u.photoURL,
+                nickname: u.nickname || `${u.firstName || ""} ${u.lastName || ""}`.trim(),
+              };
+            }
+          } catch (e) {
+            console.error("Failed to fetch user", req.userId, e);
+          }
+          // fallback
+          return {
+            id: req.id,
+            registeredAt: req.registeredAt,
+            photoURL: null,
+            nickname: "Vartotojas",
+          };
+        })
+      );
+      if (mounted) setUsers(enriched);
+      setLoading(false);
+    })();
+    return () => {
+      mounted = false;
+    };
+  }, [isVisible, requestUsers]);
+
+  const r = ride || {};
 
   return (
-    <BottomSheet
-      scrollViewProps={{ scrollEnabled: false }}
+    <Overlay
       isVisible={isVisible}
       onBackdropPress={onClose}
+      overlayStyle={{
+        width: "90%",
+        maxHeight: "80%",
+        borderRadius: Sizes.fixPadding * 2,
+        padding: 0,
+      }}
     >
-      <View style={styles.sheetStyle}>
-        <ScrollView showsVerticalScrollIndicator={false}>
-          {usersToShow.map((item) => (
-            <View key={item.id} style={styles.requestWrapper}>
-              <View style={{ ...CommonStyles.rowAlignCenter }}>
+      <View
+        style={{
+          height: 1,
+          backgroundColor: Colors.lightGray,
+          marginHorizontal: Sizes.fixPadding * 2,
+        }}
+      />
+
+      {loading ? (
+        <ActivityIndicator
+          size="large"
+          color={Colors.primaryColor}
+          style={{ marginTop: Sizes.fixPadding * 2 }}
+        />
+      ) : (
+        <ScrollView style={{ backgroundColor: Colors.whiteColor }}>
+          {users.length === 0 ? (
+            <Text
+              style={{
+                ...Fonts.grayColor14Medium,
+                textAlign: "center",
+                margin: Sizes.fixPadding,
+              }}
+            >
+              Nėra laukiančių keleivių
+            </Text>
+          ) : (
+            users.map((u) => (
+              <View
+                key={u.id}
+                style={{
+                  ...CommonStyles.rowAlignCenter,
+                  padding: Sizes.fixPadding,
+                  borderBottomWidth: 1,
+                  borderColor: Colors.lightGray,
+                }}
+              >
                 <Image
-                  source={item.profile}
-                  style={{
-                    width: 82,
-                    height: 82,
-                    borderRadius: Sizes.fixPadding - 5,
-                  }}
+                  source={u.photoURL ? { uri: u.photoURL } : placeholder}
+                  style={{ width: 60, height: 60, borderRadius: 30 }}
                 />
-                <View style={styles.requestDetailWrapper}>
-                  <Text style={{ ...Fonts.blackColor15SemiBold }}>{item.name}</Text>
-                  <View>
-                    <View style={{ ...CommonStyles.rowAlignCenter }}>
-                      <View style={{ ...styles.locationIconWrapper, borderColor: Colors.greenColor }}>
-                        <MaterialIcons name="location-pin" color={Colors.greenColor} size={7} />
-                      </View>
-                      <Text
-                        numberOfLines={1}
-                        style={{
-                          flex: 1,
-                          ...Fonts.grayColor12Medium,
-                          marginLeft: Sizes.fixPadding,
-                        }}
-                      >
-                        Mumbai,2464 Royal South
-                      </Text>
-                    </View>
-
-                    <DashedLine
-                      axis="vertical"
-                      dashLength={2}
-                      dashThickness={1}
-                      dashGap={1.5}
-                      dashColor={Colors.grayColor}
-                      style={{
-                        height: 5,
-                        marginLeft: Sizes.fixPadding - 4,
-                      }}
-                    />
-
-                    <View style={{ ...CommonStyles.rowAlignCenter }}>
-                      <View style={{ ...styles.locationIconWrapper, borderColor: Colors.redColor }}>
-                        <MaterialIcons name="location-pin" color={Colors.redColor} size={7} />
-                      </View>
-                      <Text
-                        numberOfLines={1}
-                        style={{
-                          flex: 1,
-                          ...Fonts.grayColor12Medium,
-                          marginLeft: Sizes.fixPadding,
-                        }}
-                      >
-                        Pune, 2464 Royal Ln. Mesa
-                      </Text>
-                    </View>
-                  </View>
-                  <Text style={{ ...Fonts.primaryColor15SemiBold }}>
-                    {item.amount} ({item.seat} seat)
+                <View style={{ flex: 1, marginLeft: Sizes.fixPadding }}>
+                  <Text style={Fonts.blackColor15SemiBold}>
+                    {u.nickname}
+                  </Text>
+                  <Text style={Fonts.grayColor12Medium}>
+                    Registruotas:{" "}
+                    {u.registeredAt
+                      ? u.registeredAt.toDate().toLocaleString()
+                      : ""}
                   </Text>
                 </View>
-              </View>
-              <View style={{ ...CommonStyles.rowAlignCenter, marginTop: Sizes.fixPadding + 2 }}>
                 <TouchableOpacity
-                  activeOpacity={0.8}
-                  onPress={onClose}
-                  style={{ backgroundColor: Colors.whiteColor, ...styles.sheetButton, marginRight: Sizes.fixPadding }}
-                >
-                  <Text style={{ ...Fonts.primaryColor16SemiBold }}>Decline</Text>
-                </TouchableOpacity>
-                <TouchableOpacity
-                  activeOpacity={0.8}
-                  onPress={() => {
-                    onClose();
-                    // You can add navigation to StartRide here if needed
+                  onPress={() => onApprove(u.id)}
+                  style={{
+                    backgroundColor: Colors.secondaryColor,
+                    padding: Sizes.fixPadding,
+                    borderRadius: Sizes.fixPadding / 2,
                   }}
-                  style={{ ...styles.sheetButton, backgroundColor: Colors.secondaryColor, marginLeft: Sizes.fixPadding }}
                 >
-                  <Text style={{ ...Fonts.whiteColor16SemiBold }}>Accept</Text>
+                  <Text style={Fonts.whiteColor16SemiBold}>Patvirtinti</Text>
                 </TouchableOpacity>
               </View>
-            </View>
-          ))}
+            ))
+          )}
         </ScrollView>
-      </View>
-    </BottomSheet>
+      )}
+    </Overlay>
   );
-};
-
-const styles = {
-  sheetStyle: {
-    backgroundColor: Colors.whiteColor,
-    borderTopLeftRadius: Sizes.fixPadding * 4,
-    borderTopRightRadius: Sizes.fixPadding * 4,
-    paddingTop: Sizes.fixPadding * 3,
-    maxHeight: screenHeight - 150,
-  },
-  requestWrapper: {
-    backgroundColor: Colors.whiteColor,
-    ...CommonStyles.shadow,
-    borderRadius: Sizes.fixPadding,
-    padding: Sizes.fixPadding,
-    marginHorizontal: Sizes.fixPadding * 2,
-    marginBottom: Sizes.fixPadding * 2,
-  },
-  requestDetailWrapper: {
-    flex: 1,
-    marginLeft: Sizes.fixPadding,
-    height: 82,
-    justifyContent: "space-between",
-  },
-  locationIconWrapper: {
-    width: 12,
-    height: 12,
-    borderRadius: 6,
-    borderWidth: 1,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  sheetButton: {
-    flex: 1,
-    ...CommonStyles.shadow,
-    alignItems: "center",
-    justifyContent: "center",
-    borderRadius: Sizes.fixPadding - 5,
-    padding: Sizes.fixPadding,
-  },
 };
 
 export default RequestSheet;

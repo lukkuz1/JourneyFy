@@ -1,34 +1,28 @@
 import React from "react";
 import { View, Text } from "react-native";
-import { Fonts, Sizes, Colors } from "../../constants/styles";
+import { Colors, Fonts, Sizes } from "../../constants/styles";
 
-const VehicleInfo = () => {
-  return (
-    <View style={styles.vehicleInfoWrapper}>
-      <Text style={{ ...Fonts.secondaryColor17SemiBold }}>Vehicle info</Text>
-      <View style={{ marginVertical: Sizes.fixPadding + 5.0 }}>
-        <Text style={{ ...Fonts.grayColor14SemiBold }}>Car model</Text>
-        <Text style={{ ...Fonts.blackColor14Medium, marginTop: Sizes.fixPadding - 7.0 }}>
-          Toyota Matrix | KJ 5454 | Black colour
-        </Text>
-      </View>
-      <View>
-        <Text style={{ ...Fonts.grayColor14SemiBold }}>Facilities</Text>
-        <Text style={{ ...Fonts.blackColor14Medium, marginTop: Sizes.fixPadding - 7.0 }}>
-          AC , Luggage space, Music system
-        </Text>
-      </View>
-    </View>
-  );
-};
-
-const styles = {
-  vehicleInfoWrapper: {
+const VehicleInfo = ({ ride }) => (
+  <View style={{
     backgroundColor: Colors.whiteColor,
-    paddingHorizontal: Sizes.fixPadding * 2.0,
-    paddingVertical: Sizes.fixPadding + 5.0,
-    marginVertical: Sizes.fixPadding * 2.0,
-  },
-};
+    paddingHorizontal: Sizes.fixPadding * 2,
+    paddingVertical: Sizes.fixPadding,
+    marginVertical: Sizes.fixPadding * 2,
+  }}>
+    <Text style={Fonts.secondaryColor17SemiBold}>Automobilio informacija</Text>
+    <View style={{ marginVertical: Sizes.fixPadding }}>
+      <Text style={Fonts.grayColor14SemiBold}>Modelis</Text>
+      <Text style={{ ...Fonts.blackColor14Medium, marginTop: Sizes.fixPadding / 2 }}>
+        {ride.car}
+      </Text>
+    </View>
+    <View>
+      <Text style={Fonts.grayColor14SemiBold}>Įranga</Text>
+      <Text style={{ ...Fonts.blackColor14Medium, marginTop: Sizes.fixPadding / 2 }}>
+        {ride.facilities}
+      </Text>
+    </View>
+  </View>
+);
 
 export default VehicleInfo;

@@ -1,106 +1,133 @@
 // src/screens/RideHistoryScreen.js
 import React, { useEffect, useState } from "react";
-import { View, StyleSheet } from "react-native";
+import { View } from "react-native";
 import MyStatusBar from "../../../components/myStatusBar";
 import { Colors } from "../../../constants/styles";
 import RidesHeader from "../../../components/RideHistory/RidesHeader";
 import RideHistoryList from "../../../components/RideHistory/RideHistoryList";
 import EmptyRideList from "../../../components/RideHistory/EmptyRideList";
 
-const ridesListInitial = [
-  {
-    id: "1",
-    profile: require("../../../assets/images/user/user17.png"),
-    name: "Savannah Nguyen",
-    date: "18 jan 2023",
-    time: "9:00 am",
-    pickup: "Mumbai,2464 Royal Lnord",
-    drop: "Pune, 2464 Royal Ln. Mesa",
-  },
-  {
-    id: "2",
-    profile: require("../../../assets/images/user/user16.png"),
-    name: "Leslie Alexander",
-    date: "18 jan 2023",
-    time: "9:00 am",
-    pickup: "Mumbai,2464 Royal Lnord",
-    drop: "Pune, 2464 Royal Ln. Mesa",
-  },
-  {
-    id: "3",
-    profile: require("../../../assets/images/user/user2.png"),
-    name: "Guy Hawkins",
-    date: "19 jan 2023",
-    time: "9:00 am",
-    pickup: "Mumbai,2464 Royal Lnord",
-    drop: "Pune, 2464 Royal Ln. Mesa",
-  },
-  {
-    id: "4",
-    profile: require("../../../assets/images/user/user3.png"),
-    name: "Devon Lane",
-    date: "20 jan 2023",
-    time: "9:00 am",
-    pickup: "Mumbai,2464 Royal Lnord",
-    drop: "Pune, 2464 Royal Ln. Mesa",
-  },
-  {
-    id: "5",
-    profile: require("../../../assets/images/user/user8.png"),
-    name: "Jenny wilsom",
-    date: "20 jan 2023",
-    time: "9:00 am",
-    pickup: "Mumbai,2464 Royal Lnord",
-    drop: "Pune, 2464 Royal Ln. Mesa",
-  },
-  {
-    id: "6",
-    profile: require("../../../assets/images/user/user14.png"),
-    name: "Ralph Edwards",
-    date: "21 jan 2023",
-    time: "9:00 am",
-    pickup: "Mumbai,2464 Royal Lnord",
-    drop: "Pune, 2464 Royal Ln. Mesa",
-  },
-  {
-    id: "7",
-    profile: require("../../../assets/images/user/user13.png"),
-    name: "Albert Flores",
-    date: "21 jan 2023",
-    time: "9:00 am",
-    pickup: "Mumbai,2464 Royal Lnord",
-    drop: "Pune, 2464 Royal Ln. Mesa",
-  },
-  {
-    id: "8",
-    profile: require("../../../assets/images/user/user15.png"),
-    name: "Jerome Bell",
-    date: "22 jan 2023",
-    time: "9:00 am",
-    pickup: "Mumbai,2464 Royal Lnord",
-    drop: "Pune, 2464 Royal Ln. Mesa",
-  },
-];
+import firebase from "../../../services/firebase";
+import {
+  collection,
+  query,
+  where,
+  orderBy,
+  onSnapshot,
+  getDoc,
+  doc,
+} from "firebase/firestore";
 
-const RideHistoryScreen = ({ navigation, route }) => {
-  const [rides, setRides] = useState(ridesListInitial);
+const mapJourney = async (docSnap) => {
+  const d = docSnap.data();
+  // fetch driver profile
+  let profile, name;
+  try {
+    const userSnap = await getDoc(doc(firebase.db, "users", d.userId));
+    if (userSnap.exists()) {
+      const drv = userSnap.data();
+      profile = drv.photoURL
+        ? { uri: drv.photoURL }
+        : require("../../../assets/images/user/user1.jpeg");
+      name = `${drv.firstName} ${drv.lastName}`;
+    } else throw new Error();
+  } catch {
+    profile = require("../../../assets/images/user/user1.jpeg");
+    name = "Vairuotojas";
+  }
 
-  // If route.params?.id exists (for example, after deletion), filter that ride out:
+  // parse date/time from the journeyDateTime string, fallback to createdAt timestamp
+  let date = "", time = "";
+  if (d.journeyDateTime) {
+    const [dPart, tPart] = d.journeyDateTime.split(" ");
+    date = dPart;
+    time = tPart || "";
+  } else if (d.createdAt?.toDate) {
+    const dt = d.createdAt.toDate();
+    date = dt.toLocaleDateString(undefined, {
+      day: "numeric",
+      month: "short",
+      year: "numeric",
+    });
+    time = dt.toLocaleTimeString(undefined, {
+      hour: "2-digit",
+      minute: "2-digit",
+    });
+  }
+
+  return {
+    id: docSnap.id,
+    __raw: d,
+    profile,
+    name,
+    date,
+    time,
+    pickup: d.pickupAddress,
+    drop: d.destinationAddress,
+    car: d.car,
+    facilities: d.facilities,
+    journeyType: d.journeyType,
+    price: d.price,
+    seats: d.seats,
+    userEmail: d.userEmail,
+  };
+};
+
+const RideHistoryScreen = ({ navigation }) => {
+  const [driverRides, setDriverRides] = useState([]);
+  const [passengerRides, setPassengerRides] = useState([]);
+
   useEffect(() => {
-    if (route.params?.id) {
-      setRides((prev) => prev.filter((item) => item.id !== route.params.id));
-    }
-  }, [route.params?.id]);
+    const user = firebase.auth.currentUser;
+    if (!user) return;
+
+    const journeysRef = collection(firebase.db, "journeys");
+
+    // 1) finished rides where I'm the driver
+    const qDriver = query(
+      journeysRef,
+      where("userId", "==", user.uid),
+      where("status", "==", "finished"),
+      orderBy("createdAt", "desc")
+    );
+    const unsubDriver = onSnapshot(qDriver, async (snap) => {
+      const arr = await Promise.all(snap.docs.map(mapJourney));
+      setDriverRides(arr);
+    });
+
+    // 2) finished rides where I'm a passenger
+    const qPassenger = query(
+      journeysRef,
+      where("passengers", "array-contains", user.uid),
+      where("status", "==", "finished"),
+      orderBy("createdAt", "desc")
+    );
+    const unsubPassenger = onSnapshot(qPassenger, async (snap) => {
+      const arr = await Promise.all(snap.docs.map(mapJourney));
+      setPassengerRides(arr);
+    });
+
+    return () => {
+      unsubDriver();
+      unsubPassenger();
+    };
+  }, []);
+
+  // Merge and dedupe
+  const allRides = [
+    ...driverRides,
+    ...passengerRides.filter((p) => !driverRides.find((d) => d.id === p.id)),
+  ];
 
   return (
     <View style={{ flex: 1, backgroundColor: Colors.bodyBackColor }}>
       <MyStatusBar />
       <View style={{ flex: 1 }}>
         <RidesHeader navigation={navigation} />
-        {rides.length === 0 ? (
+        {allRides.length === 0 ? (
           <EmptyRideList />
         ) : (
-          <RideHistoryList rides={rides} navigation={navigation} />
+          <RideHistoryList rides={allRides} navigation={navigation} />
         )}
       </View>
     </View>
@@ -108,6 +135,3 @@ const RideHistoryScreen = ({ navigation, route }) => {
 };
 
 export default RideHistoryScreen;
-
-
-const styles = StyleSheet.create({});

@@ -9,14 +9,6 @@ const RideDetailHeader = ({ navigation, driver }) => {
   return (
     <View style={{ justifyContent: "center" }}>
       <Header title="Kelionės aprašymas" navigation={navigation} />
-      {driver?.phoneNumber && (
-        <MaterialIcons
-          name="call"
-          color={Colors.whiteColor}
-          size={20}
-          style={{ position: "absolute", right: 20, top: Sizes.fixPadding }}
-        />
-      )}
     </View>
   );
 };

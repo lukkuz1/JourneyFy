@@ -7,52 +7,54 @@ import RideDetailHeader from "../../../components/RideDetail/RideDetailHeader";
 import RiderInfo from "../../../components/RideDetail/RiderInfo";
 import RiderDetail from "../../../components/RideDetail/RiderDetail";
 import PassengerDetail from "../../../components/RideDetail/PassengerDetail";
-import ReviewInfo from "../../../components/RideDetail/ReviewInfo";
 import VehicleInfo from "../../../components/RideDetail/VehicleInfo";
 import RideDetailFooter from "../../../components/RideDetail/RideDetailFooter";
 import CancelRideDialog from "../../../components/RideDetail/CancelRideDialog";
 import useDriver from "../../../hooks/useDriver";
 
-// Firebase modular imports
 import firebase from "../../../services/firebase";
 import {
   doc,
   collection,
   setDoc,
   updateDoc,
+  deleteDoc,
   arrayUnion,
+  arrayRemove,
   serverTimestamp,
 } from "firebase/firestore";
 
 const RideDetailScreen = ({ navigation, route }) => {
   const [showCancelDialog, setShowCancelDialog] = useState(false);
-  const ride = route.params?.ride || {};
-  const driver = useDriver(ride.userId);
+  // keep ride in state so we can mutate passengers array
+  const [rideState, setRideState] = useState(route.params?.ride || {});
+  const driver = useDriver(rideState.userId);
 
-  // Register current user to this ride
   const handleRegister = async () => {
     const user = firebase.auth.currentUser;
-    if (!user) {
-      // if not signed in, redirect to login
-      return navigation.navigate("Login");
-    }
+    if (!user) return navigation.navigate("Login");
 
-    const journeyDoc = doc(firebase.db, "journeys", ride.id);
-    const regColl   = collection(journeyDoc, "registered_journeys");
-    const regDoc    = doc(regColl, user.uid);
+    const journeyRef = doc(firebase.db, "journeys", rideState.id);
+    const regRef = doc(
+      collection(journeyRef, "registered_journeys"),
+      user.uid
+    );
 
     try {
-      // add registration with approvedByRider=false
-      await setDoc(regDoc, {
+      await setDoc(regRef, {
         userId: user.uid,
         registeredAt: serverTimestamp(),
         approvedByRider: false,
       });
-
-      // update parent ride's passengers array
-      await updateDoc(journeyDoc, {
+      await updateDoc(journeyRef, {
         passengers: arrayUnion(user.uid),
       });
+
+      // update local state immediately
+      setRideState((r) => ({
+        ...r,
+        passengers: [...(r.passengers || []), user.uid],
+      }));
 
       Alert.alert("Sėkmingai užsiregistravote į kelionę");
     } catch (err) {
@@ -61,7 +63,37 @@ const RideDetailScreen = ({ navigation, route }) => {
     }
   };
 
-  const handleCancelConfirm = () => {
+  const handleCancelConfirm = async () => {
+    const user = firebase.auth.currentUser;
+    if (!user) {
+      setShowCancelDialog(false);
+      return navigation.goBack();
+    }
+
+    const journeyRef = doc(firebase.db, "journeys", rideState.id);
+    const regRef = doc(
+      collection(journeyRef, "registered_journeys"),
+      user.uid
+    );
+
+    try {
+      await deleteDoc(regRef);
+      await updateDoc(journeyRef, {
+        passengers: arrayRemove(user.uid),
+      });
+
+      // remove from local state
+      setRideState((r) => ({
+        ...r,
+        passengers: (r.passengers || []).filter((uid) => uid !== user.uid),
+      }));
+
+      Alert.alert("Jūsų registracija atšaukta");
+    } catch (err) {
+      console.error("Cancel error:", err);
+      Alert.alert("Klaida atšaukiant registraciją", err.message);
+    }
+
     setShowCancelDialog(false);
     navigation.goBack();
   };
@@ -72,16 +104,15 @@ const RideDetailScreen = ({ navigation, route }) => {
       <View style={{ flex: 1 }}>
         <RideDetailHeader navigation={navigation} driver={driver} />
         <ScrollView showsVerticalScrollIndicator={false}>
-          <RiderInfo driver={driver} ride={ride} />
-          <RiderDetail ride={ride} navigation={navigation} />
-          <PassengerDetail passengers={ride.passengers} />
-          <ReviewInfo ride={ride} navigation={navigation} />
-          <VehicleInfo ride={ride} />
+          <RiderInfo driver={driver} ride={rideState} />
+          <RiderDetail ride={rideState} navigation={navigation} />
+          <PassengerDetail rideId={rideState.id} />
+          <VehicleInfo ride={rideState} />
         </ScrollView>
       </View>
 
       <RideDetailFooter
-        ride={ride}
+        ride={rideState}
         navigation={navigation}
         onCancelPress={() => setShowCancelDialog(true)}
         onRegisterPress={handleRegister}
