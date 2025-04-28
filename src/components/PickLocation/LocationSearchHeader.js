@@ -25,22 +25,17 @@ const LocationSearchHeader = ({ search, setSearch, onLocationSelected, onBackPre
             name="search"
             color={Colors.grayColor}
             size={20}
-            style={{ marginTop: Sizes.fixPadding - 3.0 }}
+            style={{ marginTop: Sizes.fixPadding - 3 }}
           />
           <GooglePlacesAutocomplete
             placeholder="Ieškokite vietos čia"
             minLength={2}
             fetchDetails={true}
-            onPress={(data, details = null) => {
-              if (details) {
-                setSearch(data.description);
-                onLocationSelected(details.geometry.location);
-              }
-            }}
+            listViewDisplayed="auto"
             query={{
               key: Key.apiKey,
-              language: "en",
-              components: "country:us",
+              language: "lt",
+              components: "country:lt",
             }}
             styles={{
               textInput: { height: 40, marginRight: -20 },
@@ -50,15 +45,30 @@ const LocationSearchHeader = ({ search, setSearch, onLocationSelected, onBackPre
                 elevation: 5,
               },
             }}
-            listViewDisplayed="auto"
             textInputProps={{
               InputComp: Input,
               value: search,
-              onChangeText: setSearch,
+              onChangeText: text => {
+                console.log("🔍 Search input:", text);
+                setSearch(text);
+              },
               inputContainerStyle: { borderBottomWidth: 0, height: 40 },
               inputStyle: { ...Fonts.blackColor16SemiBold },
               containerStyle: { marginLeft: -Sizes.fixPadding, height: 40 },
               selectionColor: Colors.primaryColor,
+            }}
+            onPress={(data, details = null) => {
+              console.log("✅ Place selected:", data, details);
+              if (details) {
+                setSearch(data.description);
+                onLocationSelected(details.geometry.location);
+              }
+            }}
+            onFail={error => {
+              console.warn("❌ Autocomplete error:", error);
+            }}
+            onNotFound={() => {
+              console.log("⚠️ No results found");
             }}
           />
           {search && Platform.OS === "android" && (
@@ -66,8 +76,11 @@ const LocationSearchHeader = ({ search, setSearch, onLocationSelected, onBackPre
               name="close"
               size={20}
               color={Colors.grayColor}
-              style={{ marginTop: Sizes.fixPadding - 3.0 }}
-              onPress={() => setSearch("")}
+              style={{ marginTop: Sizes.fixPadding - 3 }}
+              onPress={() => {
+                console.log("✖️ Clearing search");
+                setSearch("");
+              }}
             />
           )}
         </View>

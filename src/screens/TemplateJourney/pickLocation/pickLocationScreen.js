@@ -11,9 +11,9 @@ import Geocoder from "react-native-geocoding";
 import * as Location from "expo-location";
 import { Key } from "../../../constants/key";
 
-const LATITUDE = 35.78825;
-const LONGITUDE = -121.4324;
-const SPACE = 0.01;
+const LATITUDE  = 54.8985;
+const LONGITUDE = 23.9036;
+const SPACE     = 0.01;
 
 const PickLocationScreen = ({ navigation, route }) => {
   const [currentMarker, setCurrentMarker] = useState({
