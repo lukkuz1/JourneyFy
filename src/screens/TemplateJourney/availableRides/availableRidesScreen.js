@@ -16,9 +16,7 @@ import Header from "../../../components/header";
 import { getFirestore, doc, getDoc } from "firebase/firestore";
 
 const AvailableRidesScreen = ({ navigation, route }) => {
-  // Get rides data passed from Firebase.
   const ridesFromFirebase = route.params?.journeys || [];
-  // Filter out rides that have available seats.
   const availableRides = ridesFromFirebase.filter((ride) => ride.seats > 0);
 
   if (availableRides.length === 0) {
@@ -165,7 +163,6 @@ const RideItem = ({ ride, navigation }) => {
           marginHorizontal: Sizes.fixPadding,
         }}
       >
-        {/* Driver info: photo and name */}
         <View
           style={{
             flex: 1,
@@ -223,7 +220,6 @@ const RideItem = ({ ride, navigation }) => {
         </View>
       </View>
 
-      {/* Optionally, you can also display additional driver information such as phone */}
       {driver?.phoneNumber && (
         <View
           style={{

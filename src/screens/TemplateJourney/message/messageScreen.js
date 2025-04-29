@@ -1,92 +1,21 @@
-// src/screens/MessageScreen.js
-import React, { useState, useEffect } from "react";
-import {
-  KeyboardAvoidingView,
-  Platform,
-  View,
-} from "react-native";
+import React from "react";
+import { KeyboardAvoidingView, Platform, View } from "react-native";
 import MyStatusBar from "../../../components/myStatusBar";
 import { Colors } from "../../../constants/styles";
-
 import MessageHeader from "../../../components/Message/MessageHeader";
 import MessageList from "../../../components/Message/MessageList";
 import MessageInput from "../../../components/Message/MessageInput";
-
+import useMessages from "../../../hooks/useMessages";
+import useRideAndDriver from "../../../hooks/useRideAndDriver";
 import firebase from "../../../services/firebase";
-import {
-  collection,
-  query,
-  orderBy,
-  onSnapshot,
-  addDoc,
-  serverTimestamp,
-  doc,
-  getDoc,
-} from "firebase/firestore";
+import { collection, addDoc, serverTimestamp } from "firebase/firestore";
 
 const MessageScreen = ({ navigation, route }) => {
   const { rideId } = route.params;
-  const [messages, setMessages] = useState([]);
-  const [driver, setDriver] = useState(null);
-  const [rideInfo, setRideInfo] = useState(null);
+  const messages = useMessages(rideId);
+  const [rideInfo, driver] = useRideAndDriver(rideId);
 
-  useEffect(() => {
-    const user = firebase.auth.currentUser;
-    if (!user) return navigation.goBack();
-
-    // Subscribe to messages
-    const messagesRef = collection(firebase.db, "journeys", rideId, "messages");
-    const q = query(messagesRef, orderBy("createdAt", "asc"));
-    const unsubscribeMessages = onSnapshot(
-      q,
-      (snapshot) => {
-        const msgs = snapshot.docs.map((docSnap) => {
-          const { text, senderId, createdAt } = docSnap.data();
-          const date = createdAt?.toDate() || new Date();
-          const hours = date.getHours();
-          const minutes = date.getMinutes();
-          const ampm = hours >= 12 ? "PM" : "AM";
-          const displayHour = hours % 12 === 0 ? 12 : hours % 12;
-          const time = `${displayHour
-            .toString()
-            .padStart(2, "0")}:${minutes.toString().padStart(2, "0")} ${ampm}`;
-          return {
-            id: docSnap.id,
-            senderId,
-            message: text,
-            isSender: senderId === user.uid,
-            time,
-          };
-        });
-        setMessages(msgs);
-      },
-      (err) => console.error("Messages subscription error:", err)
-    );
-
-    // Fetch ride and driver once
-    const fetchRideAndDriver = async () => {
-      try {
-        const rideSnap = await getDoc(doc(firebase.db, "journeys", rideId));
-        if (rideSnap.exists()) {
-          const rideData = rideSnap.data();
-          setRideInfo(rideData);
-          const driverSnap = await getDoc(
-            doc(firebase.db, "users", rideData.userId)
-          );
-          if (driverSnap.exists()) {
-            setDriver(driverSnap.data());
-          }
-        }
-      } catch (err) {
-        console.error("Error loading ride/driver:", err);
-      }
-    };
-    fetchRideAndDriver();
-
-    return unsubscribeMessages;
-  }, [rideId, navigation]);
-
-  const handleSend = async (text) => {
+  const handleSend = async text => {
     const user = firebase.auth.currentUser;
     if (!user) return;
     try {
@@ -98,8 +27,8 @@ const MessageScreen = ({ navigation, route }) => {
           createdAt: serverTimestamp(),
         }
       );
-    } catch (err) {
-      console.error("Send message error:", err);
+    } catch (e) {
+      console.error("Send message error:", e);
     }
   };
 

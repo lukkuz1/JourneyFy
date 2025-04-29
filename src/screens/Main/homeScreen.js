@@ -17,13 +17,10 @@ const HomeScreen = ({ navigation, route }) => {
   const { createJourney } = useCreateJourney();
   const { findMatchingJourneys } = useFindMatchingJourneys();
   const location = useLocation();
-
   const [pickupAddress, setPickupAddress] = useState("");
   const [destinationAddress, setDestinationAddress] = useState("");
   const [pickAlert, setPickAlert] = useState(false);
   const [selectedTabIndex, setSelectedTabIndex] = useState(1);
-
-  // Date & Time picker state
   const [selectedDate, setSelectedDate] = useState("");
   const [defaultDate, setDefaultDate] = useState(new Date().getDate());
   const [selectedHour, setSelectedHour] = useState(new Date().getHours());
@@ -34,8 +31,6 @@ const HomeScreen = ({ navigation, route }) => {
   const [showDateTimeSheet, setShowDateTimeSheet] = useState(false);
   const [showNoOfSeatSheet, setShowNoOfSeatSheet] = useState(false);
   const [selectedSeat, setSelectedSeat] = useState();
-
-  // Format today date for picker
   const todayDate = `${new Date().getFullYear()}-${new Date().getMonth() + 1}-${new Date().getDate()}`;
 
   useEffect(() => {
@@ -89,7 +84,6 @@ const HomeScreen = ({ navigation, route }) => {
           seats: selectedSeat || 1,
           journeyType: "offer",
         });
-        // reset form
         setPickupAddress("");
         setDestinationAddress("");
         setSelectedDateAndTime("");
