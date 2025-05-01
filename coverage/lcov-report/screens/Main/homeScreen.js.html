@@ -208,13 +208,7 @@
 <a name='L143'></a><a href='#L143'>143</a>
 <a name='L144'></a><a href='#L144'>144</a>
 <a name='L145'></a><a href='#L145'>145</a>
-<a name='L146'></a><a href='#L146'>146</a>
-<a name='L147'></a><a href='#L147'>147</a>
-<a name='L148'></a><a href='#L148'>148</a>
-<a name='L149'></a><a href='#L149'>149</a>
-<a name='L150'></a><a href='#L150'>150</a>
-<a name='L151'></a><a href='#L151'>151</a>
-<a name='L152'></a><a href='#L152'>152</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L146'></a><a href='#L146'>146</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -233,25 +227,20 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -298,7 +287,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -384,13 +372,10 @@ const HomeScreen = <span class="cstat-no" title="statement not covered" ><span c
   const { createJourney } = <span class="cstat-no" title="statement not covered" >useCreateJourney();</span>
   const { findMatchingJourneys } = <span class="cstat-no" title="statement not covered" >useFindMatchingJourneys();</span>
   const location = <span class="cstat-no" title="statement not covered" >useLocation();</span>
-&nbsp;
   const [pickupAddress, setPickupAddress] = <span class="cstat-no" title="statement not covered" >useState("");</span>
   const [destinationAddress, setDestinationAddress] = <span class="cstat-no" title="statement not covered" >useState("");</span>
   const [pickAlert, setPickAlert] = <span class="cstat-no" title="statement not covered" >useState(false);</span>
   const [selectedTabIndex, setSelectedTabIndex] = <span class="cstat-no" title="statement not covered" >useState(1);</span>
-&nbsp;
-  // Date &amp; Time picker state
   const [selectedDate, setSelectedDate] = <span class="cstat-no" title="statement not covered" >useState("");</span>
   const [defaultDate, setDefaultDate] = <span class="cstat-no" title="statement not covered" >useState(new Date().getDate());</span>
   const [selectedHour, setSelectedHour] = <span class="cstat-no" title="statement not covered" >useState(new Date().getHours());</span>
@@ -401,8 +386,6 @@ const HomeScreen = <span class="cstat-no" title="statement not covered" ><span c
   const [showDateTimeSheet, setShowDateTimeSheet] = <span class="cstat-no" title="statement not covered" >useState(false);</span>
   const [showNoOfSeatSheet, setShowNoOfSeatSheet] = <span class="cstat-no" title="statement not covered" >useState(false);</span>
   const [selectedSeat, setSelectedSeat] = <span class="cstat-no" title="statement not covered" >useState();</span>
-&nbsp;
-  // Format today date for picker
   const todayDate = <span class="cstat-no" title="statement not covered" >`${new Date().getFullYear()}-${new Date().getMonth() + 1}-${new Date().getDate()}`;</span>
 &nbsp;
 <span class="cstat-no" title="statement not covered" >  useEffect(<span class="fstat-no" title="function not covered" >()</span> =&gt; {</span>
@@ -456,7 +439,6 @@ const HomeScreen = <span class="cstat-no" title="statement not covered" ><span c
           seats: selectedSeat || 1,
           journeyType: "offer",
         });
-        // reset form
 <span class="cstat-no" title="statement not covered" >        setPickupAddress("");</span>
 <span class="cstat-no" title="statement not covered" >        setDestinationAddress("");</span>
 <span class="cstat-no" title="statement not covered" >        setSelectedDateAndTime("");</span>
@@ -523,7 +505,7 @@ export default HomeScreen;</pre></td></tr></table></pre>
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2025-04-28T16:33:00.866Z
+                at 2025-05-01T16:49:51.192Z
             </div>
         <script src="../../prettify.js"></script>
         <script>
