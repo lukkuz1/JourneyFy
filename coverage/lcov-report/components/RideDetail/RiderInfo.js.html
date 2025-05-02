@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/3</span>
+                <span class='fraction'>3/3</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">66.66% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/9</span>
+                <span class='fraction'>6/9</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/1</span>
+                <span class='fraction'>1/1</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/3</span>
+                <span class='fraction'>3/3</span>
             </div>
         
             
@@ -61,7 +61,7 @@
             </div>
         </template>
     </div>
-    <div class='status-line low'></div>
+    <div class='status-line high'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -104,12 +104,10 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -133,21 +131,23 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">// src/components/RiderInfo.js
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">// src/components/RideDetail/RiderInfo.js
 import React from "react";
 import { View, Text, Image } from "react-native";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import { Colors, Fonts, Sizes, CommonStyles } from "../../constants/styles";
 &nbsp;
-const RiderInfo = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >({</span> driver, ride }) =&gt; {</span>
-  const photoUri = <span class="cstat-no" title="statement not covered" >driver?.photoURL || driver?.photo || null;</span>
+const RiderInfo = ({ driver, ride }) =&gt; {
+  const photoUri = driver?.photoURL || driver?.photo || null;
 &nbsp;
-<span class="cstat-no" title="statement not covered" >  return (</span>
+  return (
     &lt;View style={{ ...CommonStyles.rowAlignCenter, margin: Sizes.fixPadding * 2 }}&gt;
       &lt;Image
         source={
           photoUri
-            ? { uri: photoUri }
+            ? <span class="branch-0 cbranch-no" title="branch not covered" >{ uri: photoUri }</span>
             : require("../../assets/images/user/user9.png")
         }
         style={{ width: 80, height: 80, borderRadius: Sizes.fixPadding - 5 }}
@@ -157,12 +157,12 @@ const RiderInfo = <span class="cstat-no" title="statement not covered" ><span cl
         &lt;Text numberOfLines={1} style={Fonts.blackColor17SemiBold}&gt;
           {driver
             ? `${driver.firstName} ${driver.lastName}`
-            : "Driver Name"}
+            : <span class="branch-1 cbranch-no" title="branch not covered" >"Driver Name"}</span>
         &lt;/Text&gt;
       &lt;/View&gt;
 &nbsp;
       &lt;Text style={Fonts.primaryColor18SemiBold}&gt;
-        {ride.price != null ? `€${ride.price}` : "0.00€"}
+        {ride.price != null ? `€${ride.price}` : <span class="branch-1 cbranch-no" title="branch not covered" >"0.00€"}</span>
       &lt;/Text&gt;
     &lt;/View&gt;
   );
@@ -175,7 +175,7 @@ export default RiderInfo;</pre></td></tr></table></pre>
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2025-05-02T14:30:03.287Z
+                at 2025-05-02T16:19:58.996Z
             </div>
         <script src="../../prettify.js"></script>
         <script>

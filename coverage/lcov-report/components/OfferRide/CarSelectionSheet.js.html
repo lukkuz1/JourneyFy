@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/5</span>
+                <span class='fraction'>5/5</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/2</span>
+                <span class='fraction'>2/2</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/3</span>
+                <span class='fraction'>3/3</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/5</span>
+                <span class='fraction'>5/5</span>
             </div>
         
             
@@ -61,7 +61,7 @@
             </div>
         </template>
     </div>
-    <div class='status-line low'></div>
+    <div class='status-line high'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -132,8 +132,8 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -147,11 +147,9 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -172,7 +170,9 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -195,8 +195,8 @@ import { View, Text, ScrollView } from "react-native";
 import { BottomSheet } from "@rneui/themed";
 import { Colors, Fonts, Sizes, screenHeight } from "../../constants/styles";
 &nbsp;
-const CarSelectionSheet = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >({</span> isVisible, carsList, onSelect, onClose }) =&gt; {</span>
-<span class="cstat-no" title="statement not covered" >  return (</span>
+const CarSelectionSheet = ({ isVisible, carsList, onSelect, onClose }) =&gt; {
+  return (
     &lt;BottomSheet
       scrollViewProps={{ scrollEnabled: false }}
       isVisible={isVisible}
@@ -209,10 +209,10 @@ const CarSelectionSheet = <span class="cstat-no" title="statement not covered" >
           contentContainerStyle={{ paddingBottom: Sizes.fixPadding * 2.0 }}
         &gt;
           &lt;View&gt;
-            {carsList.map(<span class="fstat-no" title="function not covered" >(i</span>tem, index) =&gt; (
-<span class="cstat-no" title="statement not covered" >              &lt;View key={`${index}`}&gt;</span>
+            {carsList.map((item, index) =&gt; (
+              &lt;View key={`${index}`}&gt;
                 &lt;Text
-                  onPress={<span class="fstat-no" title="function not covered" >()</span> =&gt; <span class="cstat-no" title="statement not covered" >onSelect(item)}</span>
+                  onPress={() =&gt; onSelect(item)}
                   style={{ ...Fonts.blackColor15SemiBold, textAlign: "center" }}
                 &gt;
                   {item}
@@ -235,7 +235,7 @@ const CarSelectionSheet = <span class="cstat-no" title="statement not covered" >
   );
 };
 &nbsp;
-const styles = <span class="cstat-no" title="statement not covered" >{</span>
+const styles = {
   sheetStyle: {
     backgroundColor: Colors.whiteColor,
     borderTopLeftRadius: Sizes.fixPadding * 4.0,
@@ -259,7 +259,7 @@ export default CarSelectionSheet;
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2025-05-02T14:30:03.287Z
+                at 2025-05-02T16:19:58.996Z
             </div>
         <script src="../../prettify.js"></script>
         <script>

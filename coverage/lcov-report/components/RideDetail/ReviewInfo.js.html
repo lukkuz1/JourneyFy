@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/5</span>
+                <span class='fraction'>5/5</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/2</span>
+                <span class='fraction'>2/2</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/3</span>
+                <span class='fraction'>3/3</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/5</span>
+                <span class='fraction'>5/5</span>
             </div>
         
             
@@ -61,7 +61,7 @@
             </div>
         </template>
     </div>
-    <div class='status-line low'></div>
+    <div class='status-line high'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -147,7 +147,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -168,14 +168,14 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -183,7 +183,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -219,13 +219,13 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">// src/components/ReviewInfo.js
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">// src/components/RideDetail/ReviewInfo.js
 import React from "react";
 import { View, Text, Image } from "react-native";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import { Colors, Fonts, Sizes, CommonStyles } from "../../constants/styles";
 &nbsp;
-const reviewsList = <span class="cstat-no" title="statement not covered" >[</span>
+const reviewsList = [
   {
     id: "1",
     profile: require("../../assets/images/user/user11.png"),
@@ -246,22 +246,22 @@ const reviewsList = <span class="cstat-no" title="statement not covered" >[</spa
   },
 ];
 &nbsp;
-const ReviewInfo = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >({</span> ride, navigation }) =&gt; {</span>
-<span class="cstat-no" title="statement not covered" >  return (</span>
+const ReviewInfo = ({ ride, navigation }) =&gt; {
+  return (
     &lt;View style={{ backgroundColor: Colors.whiteColor, paddingHorizontal: Sizes.fixPadding * 2, paddingVertical: Sizes.fixPadding + 5 }}&gt;
       &lt;View style={{ ...CommonStyles.rowAlignCenter, marginBottom: Sizes.fixPadding + 5 }}&gt;
         &lt;Text style={{ flex: 1, ...Fonts.secondaryColor17SemiBold }}&gt;Atsiliepimas&lt;/Text&gt;
         &lt;Text
-          onPress={<span class="fstat-no" title="function not covered" >()</span> =&gt;
-<span class="cstat-no" title="statement not covered" >            navigation.navigate("ReviewsScreen", { rideId: ride.id })</span>
+          onPress={() =&gt;
+            navigation.navigate("ReviewsScreen", { rideId: ride.id })
           }
           style={{ ...Fonts.primaryColor16SemiBold }}
         &gt;
           Peržiūrėti visus
         &lt;/Text&gt;
       &lt;/View&gt;
-      {reviewsList.map(<span class="fstat-no" title="function not covered" >(i</span>tem, index) =&gt; (
-<span class="cstat-no" title="statement not covered" >        &lt;View key={item.id}&gt;</span>
+      {reviewsList.map((item, index) =&gt; (
+        &lt;View key={item.id}&gt;
           &lt;View style={{ ...CommonStyles.rowAlignCenter }}&gt;
             &lt;Image
               source={item.profile}
@@ -304,7 +304,7 @@ export default ReviewInfo;
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2025-05-02T14:30:03.287Z
+                at 2025-05-02T16:19:58.996Z
             </div>
         <script src="../../prettify.js"></script>
         <script>
