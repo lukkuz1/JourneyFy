@@ -45,8 +45,8 @@ export default function MainNavigation() {
 function tabSort(name, focused, color) {
   const icons = {
     Pradžia: home_icon_xml,
-    Piniginė: journey_icon_xml,
-    Kelionės: wallet_icon_xml,
+    Piniginė: wallet_icon_xml,
+    Kelionės: journey_icon_xml,
     Profilis: new_profile_icon_xml,
   };
 
