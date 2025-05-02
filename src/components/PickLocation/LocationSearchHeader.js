@@ -1,4 +1,4 @@
-// src/components/LocationSearchHeader.js
+// src/components/PickLocation/LocationSearchHeader.js
 import React from "react";
 import { View, Platform } from "react-native";
 import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";

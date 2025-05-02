@@ -1,4 +1,4 @@
-// src/components/CreditCardForm.js
+// src/components/CreditCard/CreditCardForm.js
 import React from "react";
 import { StyleSheet } from "react-native";
 import { CreditCardInput } from "react-native-credit-card-input";

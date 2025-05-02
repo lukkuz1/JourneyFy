@@ -1,4 +1,4 @@
-// src/components/TransactionItem.js
+// src/components/Transactions/TransactionItem.js
 import React from "react";
 import { View, Text, StyleSheet } from "react-native";
 import { Colors, Fonts, Sizes } from "../../constants/styles";

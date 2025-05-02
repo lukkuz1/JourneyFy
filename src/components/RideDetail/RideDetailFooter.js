@@ -1,4 +1,4 @@
-// src/components/RideDetailFooter.js
+// src/components/RideDetail/RideDetailFooter.js
 import React from "react";
 import { View, TouchableOpacity, Text } from "react-native";
 import { Colors, CommonStyles, Sizes, Fonts } from "../../constants/styles";

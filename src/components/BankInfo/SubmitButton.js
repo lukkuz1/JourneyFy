@@ -1,4 +1,4 @@
-// src/components/SubmitButton.js
+// src/components/BankInfo/SubmitButton.js
 import React from "react";
 import { TouchableOpacity, Text, View, StyleSheet } from "react-native";
 import { Colors, CommonStyles, Fonts, Sizes } from "../../constants/styles";

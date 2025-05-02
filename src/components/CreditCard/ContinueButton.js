@@ -1,4 +1,4 @@
-// src/components/ContinueButton.js
+// src/components/CreditCard/ContinueButton.js
 import React from "react";
 import { TouchableOpacity, Text, StyleSheet, View } from "react-native";
 import { Colors, CommonStyles, Fonts, Sizes } from "../../constants/styles";

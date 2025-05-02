@@ -1,4 +1,4 @@
-// src/components/VehicleInfo.js
+// src/components/RideDetail/VehicleInfo.js
 import React from "react";
 import { View, Text } from "react-native";
 import { Colors, Fonts, Sizes } from "../../constants/styles";

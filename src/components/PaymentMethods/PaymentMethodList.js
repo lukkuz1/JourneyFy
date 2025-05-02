@@ -1,4 +1,4 @@
-// src/components/PaymentMethodList.js
+// src/components/PaymentMethods/PaymentMethodList.js
 import React from "react";
 import { FlatList, StyleSheet } from "react-native";
 import { Sizes } from "../../constants/styles";

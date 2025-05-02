@@ -1,4 +1,4 @@
-// src/components/PaymentMethodItem.js
+// src/components/PaymentMethods/PaymentMethodItem.js
 import React from "react";
 import { View, Text, Image, TouchableOpacity, StyleSheet } from "react-native";
 import { Colors, Fonts, Sizes, CommonStyles } from "../../constants/styles";

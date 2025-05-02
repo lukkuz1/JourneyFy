@@ -1,4 +1,4 @@
-// src/components/CancelRideDialog.js
+// src/components/RideDetail/CancelRideDialog.js
 import React from "react";
 import { View, Text, TouchableOpacity } from "react-native";
 import { Overlay } from "@rneui/themed";

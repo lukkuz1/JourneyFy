@@ -1,4 +1,4 @@
-// src/components/TransactionList.js
+// src/components/Transactions/TransactionList.js
 import React from "react";
 import { FlatList, StyleSheet } from "react-native";
 import { Sizes } from "../../constants/styles";

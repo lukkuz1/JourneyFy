@@ -1,4 +1,4 @@
-// src/components/AccountHolderInput.js
+// src/components/BankInfo/AccountHolderInput.js
 import React from "react";
 import { View, Text, TextInput, StyleSheet } from "react-native";
 import { Colors, Fonts, Sizes, CommonStyles } from "../../constants/styles";

@@ -1,4 +1,4 @@
-// src/components/BranchCodeInput.js
+// src/components/BankInfo/BranchCodeInput.js
 import React from "react";
 import { View, Text, TextInput, StyleSheet } from "react-native";
 import { Colors, Fonts, Sizes, CommonStyles } from "../../constants/styles";

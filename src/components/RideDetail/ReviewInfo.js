@@ -1,4 +1,4 @@
-// src/components/ReviewInfo.js
+// src/components/RideDetail/ReviewInfo.js
 import React from "react";
 import { View, Text, Image } from "react-native";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";

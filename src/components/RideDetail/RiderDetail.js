@@ -1,4 +1,4 @@
-// src/components/RiderDetail.js
+// src/components/RideDetail/RiderDetail.js
 import React from "react";
 import { View, Text } from "react-native";
 import DashedLine from "react-native-dashed-line";

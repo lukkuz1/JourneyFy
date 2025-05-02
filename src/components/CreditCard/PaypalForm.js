@@ -1,4 +1,4 @@
-// src/components/Paypal/PaypalForm.js
+// src/components/CreditCard/PaypalForm.js
 import React, { useState } from "react";
 import { View, TextInput, StyleSheet, Text } from "react-native";
 import { Colors, Fonts, Sizes, CommonStyles } from "../../constants/styles";

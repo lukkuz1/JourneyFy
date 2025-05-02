@@ -1,4 +1,4 @@
-// src/components/LocationFooter.js
+// src/components/PickLocation/LocationFooter.js
 import React from "react";
 import { View, Text, TouchableOpacity } from "react-native";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
