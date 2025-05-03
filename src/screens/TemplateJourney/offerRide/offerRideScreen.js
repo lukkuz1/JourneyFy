@@ -1,3 +1,4 @@
+// src/screens/OfferRideScreen.js
 import React, { useState } from "react";
 import { View, ScrollView, Alert } from "react-native";
 import { useRoute } from "@react-navigation/native";
@@ -18,7 +19,6 @@ import { useFetchVehicles } from "../../../hooks/useFetchVehicles";
 const OfferRideScreen = ({ navigation }) => {
   const route = useRoute();
   const {
-    journeyId: existingJourneyId,
     pickupAddress: initPickup,
     destinationAddress: initDestination,
     journeyDateTime: initDateTime,
@@ -29,51 +29,58 @@ const OfferRideScreen = ({ navigation }) => {
   } = route.params || {};
 
   // form state
-  const [pickupAddress, setPickupAddress]     = useState(initPickup || "");
-  const [destinationAddress, setDestination]   = useState(initDestination || "");
-  const [journeyDateTime, setJourneyDateTime]  = useState(initDateTime || null);
-  const [selectedCar, setSelectedCar]          = useState("");
-  const [showCarSheet, setShowCarSheet]        = useState(false);
-  const [selectedSeat, setSelectedSeat]        = useState(initSeats || null);
-  const [showSeatSheet, setShowSeatSheet]      = useState(false);
-  const [price, setPrice]                      = useState(initPrice != null ? String(initPrice) : "");
-  const [facilities, setFacilities]            = useState(initFacilities || "");
-  const [journeyType, setJourneyType]          = useState(initType || "offer");
+  const [pickupAddress, setPickupAddress] = useState(initPickup || "");
+  const [destinationAddress, setDestination] = useState(initDestination || "");
+  const [journeyDateTime, setJourneyDateTime] = useState(initDateTime || null);
+  const [selectedCar, setSelectedCar] = useState("");
+  const [showCarSheet, setShowCarSheet] = useState(false);
+  const [selectedSeat, setSelectedSeat] = useState(initSeats || null);
+  const [showSeatSheet, setShowSeatSheet] = useState(false);
+  const [price, setPrice] = useState(
+    initPrice != null ? String(initPrice) : ""
+  );
+  const [facilities, setFacilities] = useState(initFacilities || "");
+  const [journeyType] = useState(initType || "offer");
 
-  const { createJourney, loading }             = useCreateJourney();
+  const { createJourney, loading } = useCreateJourney();
 
   // fetch user's cars
-  const { vehicles, loading: carsLoading }     = useFetchVehicles();
+  const { vehicles } = useFetchVehicles();
   const carsList = vehicles.map((v) => v.vehicleName);
 
   const handleContinue = async () => {
-    // 1) Price required
+    // 1) Price is required
     if (price === "") {
       Alert.alert("Trūksta kainos", "Prašome įvesti kainą už vietą.");
       return;
     }
-    // 2) Car required
+    // 2) Car is required
     if (!selectedCar) {
       Alert.alert("Trūksta automobilio", "Prašome pasirinkti savo automobilį.");
       return;
     }
-    // 3) Other required fields
+    // 3) All other fields
     if (
       !pickupAddress ||
       !destinationAddress ||
       !journeyDateTime ||
       !selectedSeat
     ) {
-      Alert.alert("Trūksta informacijos", "Prašome užpildyti visus laukus.");
+      Alert.alert(
+        "Trūksta informacijos",
+        "Prašome užpildyti visus laukus."
+      );
       return;
     }
 
+    // 4) Price must be a valid non‐negative number
     const numericPrice = parseFloat(price);
     if (isNaN(numericPrice) || numericPrice < 0) {
       Alert.alert("Neteisinga kaina", "Įveskite galiojančią kainą.");
       return;
     }
 
+    // only now write to Firestore
     const id = await createJourney({
       pickupAddress,
       destinationAddress,
@@ -83,8 +90,8 @@ const OfferRideScreen = ({ navigation }) => {
       car: selectedCar,
       price: numericPrice,
       facilities,
-      journeyId: existingJourneyId,
     });
+
     if (id) {
       navigation.navigate("ConfirmPoolingScreen", { journeyId: id });
     }
@@ -105,10 +112,7 @@ const OfferRideScreen = ({ navigation }) => {
             onPickupChange={setPickupAddress}
             onDestinationChange={setDestination}
           />
-          <PriceInfo
-            price={price}
-            onPriceChange={setPrice}
-          />
+          <PriceInfo price={price} onPriceChange={setPrice} />
           <CarInfo
             selectedCar={selectedCar}
             onPress={() => setShowCarSheet(true)}

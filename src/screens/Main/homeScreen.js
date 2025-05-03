@@ -1,3 +1,4 @@
+// src/screens/HomeScreen.js
 import React, { useState, useEffect } from "react";
 import { View } from "react-native";
 import { getAuth } from "firebase/auth";
@@ -17,21 +18,28 @@ const HomeScreen = ({ navigation, route }) => {
   const { createJourney } = useCreateJourney();
   const { findMatchingJourneys } = useFindMatchingJourneys();
   const location = useLocation();
+
   const [pickupAddress, setPickupAddress] = useState("");
   const [destinationAddress, setDestinationAddress] = useState("");
   const [pickAlert, setPickAlert] = useState(false);
   const [selectedTabIndex, setSelectedTabIndex] = useState(1);
+
   const [selectedDate, setSelectedDate] = useState("");
   const [defaultDate, setDefaultDate] = useState(new Date().getDate());
   const [selectedHour, setSelectedHour] = useState(new Date().getHours());
   const [selectedMinute, setSelectedMinute] = useState(new Date().getMinutes());
-  const [selectedAmPm, setSelectedAmPm] = useState(new Date().toLocaleTimeString().slice(-2));
+  const [selectedAmPm, setSelectedAmPm] = useState(
+    new Date().toLocaleTimeString().slice(-2)
+  );
   const [selectedDateAndTime, setSelectedDateAndTime] = useState("");
 
   const [showDateTimeSheet, setShowDateTimeSheet] = useState(false);
   const [showNoOfSeatSheet, setShowNoOfSeatSheet] = useState(false);
   const [selectedSeat, setSelectedSeat] = useState();
-  const todayDate = `${new Date().getFullYear()}-${new Date().getMonth() + 1}-${new Date().getDate()}`;
+
+  const todayDate = `${new Date().getFullYear()}-${
+    new Date().getMonth() + 1
+  }-${new Date().getDate()}`;
 
   useEffect(() => {
     if (route.params?.address) {
@@ -56,42 +64,34 @@ const HomeScreen = ({ navigation, route }) => {
     }
 
     if (selectedTabIndex === 1) {
+      // search for matching rides
       const matchingJourneys = await findMatchingJourneys({
         pickupAddress,
         destinationAddress,
         journeyDateTime: selectedDateAndTime,
         seats: selectedSeat || 1,
       });
-      navigation.navigate("AvailableRidesScreen", { journeys: matchingJourneys });
+      navigation.navigate("AvailableRidesScreen", {
+        journeys: matchingJourneys,
+      });
       if (matchingJourneys.length === 0) {
         setPickAlert(true);
         setTimeout(() => setPickAlert(false), 2000);
       }
     } else if (selectedTabIndex === 2) {
-      const journeyId = await createJourney({
+      // just navigate into the “offer” form — no Firestore write yet
+      navigation.navigate("OfferRideScreen", {
         pickupAddress,
         destinationAddress,
         journeyDateTime: selectedDateAndTime,
         seats: selectedSeat || 1,
         journeyType: "offer",
       });
-      if (journeyId) {
-        navigation.navigate("OfferRideScreen", {
-          journeyId,
-          pickupAddress,
-          destinationAddress,
-          journeyDateTime: selectedDateAndTime,
-          seats: selectedSeat || 1,
-          journeyType: "offer",
-        });
-        setPickupAddress("");
-        setDestinationAddress("");
-        setSelectedDateAndTime("");
-        setSelectedSeat(undefined);
-      } else {
-        setPickAlert(true);
-        setTimeout(() => setPickAlert(false), 2000);
-      }
+      // reset search fields
+      setPickupAddress("");
+      setDestinationAddress("");
+      setSelectedDateAndTime("");
+      setSelectedSeat(undefined);
     }
   };
 
