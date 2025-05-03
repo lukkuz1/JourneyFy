@@ -31,7 +31,7 @@ const AvailableRidesScreen = ({ navigation, route }) => {
       >
         <MyStatusBar />
         <Text style={{ ...Fonts.blackColor16SemiBold }}>
-          No available rides found.
+          Nerasta jokių laisvų kelionių.
         </Text>
       </View>
     );

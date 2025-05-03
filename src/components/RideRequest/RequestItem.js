@@ -29,7 +29,8 @@ const RequestItem = ({ item, onPress, onRequestSheetPress }) => (
             marginLeft: Sizes.fixPadding - 5,
           }}
         >
-          {new Date(item.createdAt.seconds * 1000).toLocaleDateString()}
+          {/* Lithuanian date format */}
+          {new Date(item.createdAt.seconds * 1000).toLocaleDateString("lt-LT")}
         </Text>
         <View
           style={{
@@ -47,9 +48,11 @@ const RequestItem = ({ item, onPress, onRequestSheetPress }) => (
             marginLeft: Sizes.fixPadding - 5,
           }}
         >
-          {new Date(item.createdAt.seconds * 1000).toLocaleTimeString([], {
+          {/* 24-hour Lithuanian time */}
+          {new Date(item.createdAt.seconds * 1000).toLocaleTimeString("lt-LT", {
             hour: "2-digit",
             minute: "2-digit",
+            hour12: false,
           })}
         </Text>
       </View>
