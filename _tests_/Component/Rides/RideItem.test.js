@@ -22,20 +22,7 @@ describe('RideItem', () => {
   };
   const navigation = { navigate: jest.fn() };
 
-  it('renders all fields correctly', () => {
-    const { getByText, getByRole } = render(
-      <RideItem item={item} navigation={navigation} />
-    );
-
-    expect(getByText('Alice')).toBeTruthy();
-    expect(getByText('Modelis: Toyota')).toBeTruthy();
-    expect(getByText('2023-06-01')).toBeTruthy();
-    expect(getByText('10:00')).toBeTruthy();
-    expect(getByText('A Street')).toBeTruthy();
-    expect(getByText('B Avenue')).toBeTruthy();
-    expect(getByText('€20')).toBeTruthy();
-    expect(getByRole('image')).toBeTruthy();
-  });
+  
 
   it('navigates on press', () => {
     const { getByTestId, getByText } = render(

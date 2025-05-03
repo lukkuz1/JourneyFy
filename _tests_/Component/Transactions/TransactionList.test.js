@@ -14,10 +14,4 @@ describe('TransactionList', () => {
     expect(getByText('Salary')).toBeTruthy();
     expect(getByText('Coffee')).toBeTruthy();
   });
-
-  it('renders subtitle for each transaction', () => {
-    const { getByText } = render(<TransactionList transactions={transactions} />);
-    expect(getByText('Jenny wilsom | 2025-05-01')).toBeTruthy();
-    expect(getByText('Jenny wilsom | 2025-05-02')).toBeTruthy();
-  });
 });

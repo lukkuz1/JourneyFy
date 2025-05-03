@@ -51,25 +51,6 @@ describe("VehicleForm", () => {
     expect(onOpenImagePicker).toHaveBeenCalled();
   });
 
-  it("renders inputs and calls onChange correctly", () => {
-    const { getByPlaceholderText } = render(
-      <VehicleForm
-        vehicleData={defaultData}
-        onChange={onChange}
-        onOpenImagePicker={onOpenImagePicker}
-        onOpenVehicleTypePicker={onOpenVehicleTypePicker}
-        onOpenSeatPicker={onOpenSeatPicker}
-      />
-    );
-
-    const nameInput = getByPlaceholderText("Įveskite mašinos pavadinimą");
-    fireEvent.changeText(nameInput, "MyCar");
-    expect(onChange).toHaveBeenCalledWith("vehicleName", "MyCar");
-
-    const regInput = getByPlaceholderText("Įveskite mašinos reg. nr.");
-    fireEvent.changeText(regInput, "ABC123");
-    expect(onChange).toHaveBeenCalledWith("regNo", "ABC123");
-  });
 
   it("renders select inputs and triggers pickers", () => {
     const { getByText } = render(

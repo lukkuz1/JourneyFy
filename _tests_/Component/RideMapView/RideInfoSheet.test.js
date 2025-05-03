@@ -1,6 +1,7 @@
 import React from 'react';
 import { render } from '@testing-library/react-native';
 import RideInfoSheet from '../../../src/components/RideMapView/RideInfoSheet';
+import VerticalDashLine from '../../../src/components/RideMapView/VerticalDashLine';
 
 // Mock native bottom sheet and animatable
 jest.mock('react-native-simple-bottom-sheet', () => {
@@ -16,7 +17,7 @@ jest.mock('react-native-animatable', () => {
 });
 
 // Mock VerticalDashLine (it's our own, test separately)
-jest.mock('./VerticalDashLine', () => {
+jest.mock('../../../src/components/RideMapView/VerticalDashLine', () => {
   const React = require('react');
   return () => React.createElement('VerticalDashLine', null, null);
 });

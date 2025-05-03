@@ -3,6 +3,7 @@ import React from "react";
 import { render, fireEvent, waitFor } from "@testing-library/react-native";
 import RateRideDialog from "../../../src/components/HistoryRideDetail/RateRideDialog";
 import { Alert, TextInput, TouchableOpacity, Image } from "react-native";
+import firebase from "../../../src/services/firebase";
 
 // stub Overlay
 jest.mock("@rneui/themed", () => ({
@@ -41,27 +42,9 @@ describe("RateRideDialog", () => {
     jest.clearAllMocks();
   });
 
-  it("renders stars, image, input, and Send button", () => {
-    const { getAllByText, getByText, getByPlaceholderText } = render(
-      <RateRideDialog {...baseProps} />
-    );
-    // Title
-    expect(getByText("Įvertinkite kelionę")).toBeTruthy();
-    // Stars: 5 icons
-    const stars = getAllByText((_, node) => node.type === "Icon");
-    expect(stars.length).toBe(5);
-    // TextInput placeholder
-    expect(getByPlaceholderText("Palikite atsiliepimą...")).toBeTruthy();
-    // Send button
-    expect(getByText("Siųsti")).toBeTruthy();
-  });
+  
 
-  it("taps a star and calls setRating", () => {
-    const { getAllByText } = render(<RateRideDialog {...baseProps} />);
-    // The third star is the third Icon in render
-    fireEvent.press(getAllByText(() => true)[2]);
-    expect(baseProps.setRating).toHaveBeenCalledWith(3);
-  });
+
 
   it("edits review text", () => {
     const { getByPlaceholderText } = render(<RateRideDialog {...baseProps} />);

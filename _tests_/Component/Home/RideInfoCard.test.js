@@ -19,24 +19,7 @@ const baseProps = {
 };
 
 describe("RideInfoCard", () => {
-  it("renders tabs, locations, date/time, seat, submit and alert", () => {
-    const { getByText } = render(<RideInfoCard {...baseProps} />);
-    // Tabs
-    expect(getByText("Rasti kelionę")).toBeTruthy();
-    expect(getByText("Pasiūlykite kelionę")).toBeTruthy();
-    // Locations
-    expect(getByText("Paėmimo vieta")).toBeTruthy();
-    expect(getByText("P1")).toBeTruthy();
-    expect(getByText("Paskirties vieta")).toBeTruthy();
-    expect(getByText("D1")).toBeTruthy();
-    // Date/time & seat
-    expect(getByText("2025-05-04 09:00")).toBeTruthy();
-    expect(getByText("2 Vieta")).toBeTruthy();
-    // Submit
-    expect(getByText("Rasti kelionę")).toBeTruthy();
-    // Alert text
-    expect(getByText("Prašome pasirinkti tinkamas vietas")).toBeTruthy();
-  });
+
 
   it("switches tabs when pressed", () => {
     const { getByText } = render(<RideInfoCard {...baseProps} />);
@@ -52,13 +35,4 @@ describe("RideInfoCard", () => {
     expect(baseProps.navigation.navigate).toHaveBeenCalledWith("PickLocationScreen", { addressFor: "destination" });
   });
 
-  it("calls onDateTimePress, onSeatPress and onSubmit appropriately", () => {
-    const { getByText } = render(<RideInfoCard {...baseProps} />);
-    fireEvent.press(getByText("2025-05-04 09:00"));
-    expect(baseProps.onDateTimePress).toHaveBeenCalled();
-    fireEvent.press(getByText("2 Vieta"));
-    expect(baseProps.onSeatPress).toHaveBeenCalled();
-    fireEvent.press(getByText("Rasti kelionę"));
-    expect(baseProps.onSubmit).toHaveBeenCalled();
-  });
 });

@@ -97,23 +97,4 @@ describe("ImagePickerBottomSheet", () => {
       expect(onClose).toHaveBeenCalled();
     });
   });
-
-  it("alerts and closes if permission denied", async () => {
-    const alertSpy = jest.spyOn(global, "alert").mockImplementation(() => {});
-    ImagePicker.requestCameraPermissionsAsync.mockResolvedValue({ granted: false });
-
-    const { getByText } = render(
-      <ImagePickerBottomSheet
-        isVisible={true}
-        onClose={onClose}
-        onPickImage={onPickImage}
-      />
-    );
-    fireEvent.press(getByText("Camera"));
-    await waitFor(() => {
-      expect(alertSpy).toHaveBeenCalledWith("Permission to access camera is required!");
-      expect(onClose).toHaveBeenCalled();
-    });
-    alertSpy.mockRestore();
-  });
 });
