@@ -63,12 +63,12 @@ const EditProfileScreen = ({ navigation }) => {
 
   const handleUpdateProfile = async () => {
     if (!currentUserId) {
-      Alert.alert("Error", "User not authenticated.");
+      Alert.alert("Klaida", "Vartotojas neautentifikuotas.");
       return;
     }
     const validationErrors = validateFields();
     if (Object.values(validationErrors).some((error) => error)) {
-      Alert.alert("Validation Error", "Please fix the errors before updating.");
+      Alert.alert("Validacijos klaida", "Prieš atnaujindami, ištaisykite klaidas.");
       return;
     }
     const updateData = {
@@ -84,10 +84,10 @@ const EditProfileScreen = ({ navigation }) => {
     }
     try {
       await updateProfileInFirestore(currentUserId, updateData);
-      Alert.alert("Success", "Profile updated successfully!");
+      Alert.alert("Sekmės pranešimas", "Profilis sėkmingai atnaujintas!");
     } catch (error) {
       console.error("Error updating profile:", error);
-      Alert.alert("Error", "Profile update failed.");
+      Alert.alert("Klaidos pranešimas", "Profilio atnaujinimas nepavyko.");
     }
   };
 
