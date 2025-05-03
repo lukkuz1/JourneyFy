@@ -92,7 +92,6 @@ const RideItem = ({ ride, navigation }) => {
         }}
       >
         <View style={{ flex: 1 }}>
-          {/* Pickup address */}
           <View style={{ ...CommonStyles.rowAlignCenter }}>
             <View
               style={{
@@ -117,9 +116,7 @@ const RideItem = ({ ride, navigation }) => {
               {ride.pickupAddress}
             </Text>
           </View>
-          {/* Dashed line */}
           <View style={styles.verticalDashedLine}></View>
-          {/* Destination address */}
           <View style={{ ...CommonStyles.rowAlignCenter }}>
             <View
               style={{
@@ -184,7 +181,9 @@ const RideItem = ({ ride, navigation }) => {
           />
           <View style={{ flex: 1, marginHorizontal: Sizes.fixPadding }}>
             <Text numberOfLines={1} style={{ ...Fonts.blackColor15SemiBold }}>
-              {driver ? `${driver.firstName} ${driver.lastName}` : "Driver"}
+              {driver
+                ? `${driver.firstName} ${driver.lastName}`
+                : "Vairuotojas"}
             </Text>
             <View
               style={{
@@ -201,7 +200,6 @@ const RideItem = ({ ride, navigation }) => {
             </View>
           </View>
         </View>
-        {/* Seat availability */}
         <View style={{ width: "30%", alignItems: "flex-end" }}>
           <ScrollView horizontal showsHorizontalScrollIndicator={false}>
             {[1, 2, 3, 4, 5, 6].map((no) => (

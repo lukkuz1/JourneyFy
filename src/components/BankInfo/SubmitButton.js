@@ -11,7 +11,7 @@ const SubmitButton = ({ onPress }) => {
         onPress={onPress}
         style={{ ...CommonStyles.button, margin: Sizes.fixPadding * 2 }}
       >
-        <Text style={{ ...Fonts.whiteColor18Bold }}>Send to bank (100.00)</Text>
+        <Text style={{ ...Fonts.whiteColor18Bold }}>Siųsti</Text>
       </TouchableOpacity>
     </View>
   );

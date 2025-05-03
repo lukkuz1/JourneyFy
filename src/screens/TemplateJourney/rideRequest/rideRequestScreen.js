@@ -1,4 +1,3 @@
-// src/screens/RideRequestScreen.js
 import React, { useState, useEffect } from "react";
 import { View, StyleSheet, Alert } from "react-native";
 import MyStatusBar from "../../../components/myStatusBar";
@@ -93,7 +92,6 @@ const RideRequestScreen = ({ navigation }) => {
 
   const handleApprove = async (userId) => {
     try {
-      // mark passenger approved
       const regDocRef = doc(
         firebase.db,
         "journeys",
@@ -102,7 +100,6 @@ const RideRequestScreen = ({ navigation }) => {
         userId
       );
       await updateDoc(regDocRef, { approvedByRider: true });
-      // decrement seats
       const journeyDocRef = doc(firebase.db, "journeys", selectedRide.id);
       await updateDoc(journeyDocRef, { seats: increment(-1) });
       Alert.alert("Keleivis patvirtintas");

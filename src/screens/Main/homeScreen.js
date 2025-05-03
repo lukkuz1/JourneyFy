@@ -1,4 +1,3 @@
-// src/screens/HomeScreen.js
 import React, { useState, useEffect } from "react";
 import { View } from "react-native";
 import { getAuth } from "firebase/auth";
@@ -64,7 +63,6 @@ const HomeScreen = ({ navigation, route }) => {
     }
 
     if (selectedTabIndex === 1) {
-      // search for matching rides
       const matchingJourneys = await findMatchingJourneys({
         pickupAddress,
         destinationAddress,
@@ -79,7 +77,6 @@ const HomeScreen = ({ navigation, route }) => {
         setTimeout(() => setPickAlert(false), 2000);
       }
     } else if (selectedTabIndex === 2) {
-      // just navigate into the “offer” form — no Firestore write yet
       navigation.navigate("OfferRideScreen", {
         pickupAddress,
         destinationAddress,
@@ -87,7 +84,6 @@ const HomeScreen = ({ navigation, route }) => {
         seats: selectedSeat || 1,
         journeyType: "offer",
       });
-      // reset search fields
       setPickupAddress("");
       setDestinationAddress("");
       setSelectedDateAndTime("");

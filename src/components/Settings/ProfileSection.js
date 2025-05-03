@@ -8,12 +8,10 @@ const ProfileSection = () => {
   const [fullName, setFullName] = useState("");
 
   useEffect(() => {
-    // Fetch profile data when the component mounts
     fetchUserProfile();
   }, []);
 
   useEffect(() => {
-    // Update fullName when user data changes
     if (user.firstName || user.lastName) {
       setFullName(`${user.firstName} ${user.lastName}`.trim());
     }

@@ -70,10 +70,6 @@ const RideCompleteScreen = ({ navigation }) => {
         >
           Kelionė užbaigta
         </Text>
-        <Text style={{ ...Fonts.grayColor14SemiBold, textAlign: "center" }}>
-          Hope you have a great car pooing experience You have earn $50.00 from
-          this ride
-        </Text>
       </View>
     );
   }

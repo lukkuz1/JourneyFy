@@ -1,10 +1,14 @@
-// src/components/PaymentMethods/PaymentMethodList.js
 import React from "react";
 import { FlatList, StyleSheet } from "react-native";
 import { Sizes } from "../../constants/styles";
 import PaymentMethodItem from "./PaymentMethodItem";
 
-const PaymentMethodList = ({ methods, selectedMethodIndex, onSelectMethod, navigation }) => {
+const PaymentMethodList = ({
+  methods,
+  selectedMethodIndex,
+  onSelectMethod,
+  navigation,
+}) => {
   const renderItem = ({ item, index }) => (
     <PaymentMethodItem
       item={item}
@@ -14,7 +18,7 @@ const PaymentMethodList = ({ methods, selectedMethodIndex, onSelectMethod, navig
       navigation={navigation}
     />
   );
-  
+
   return (
     <FlatList
       data={methods}

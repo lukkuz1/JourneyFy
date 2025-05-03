@@ -1,23 +1,14 @@
-// src/components/OfferRide/CarInfo.js
 import React from "react";
 import { View, Text, TouchableOpacity, Alert } from "react-native";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import { Colors, Fonts, Sizes, CommonStyles } from "../../constants/styles";
 import { useFetchVehicles } from "../../hooks/useFetchVehicles";
 
-/**
- * Shows the user's registered car or prompts to add one.
- * If a car exists, tapping opens the selection sheet;
- * otherwise shows an alert asking the user to add a car.
- */
 const CarInfo = ({ selectedCar, onPress }) => {
   const { vehicles, loading, error } = useFetchVehicles();
-
-  // Support only one car for now
   const userCar = vehicles.length > 0 ? vehicles[0] : null;
   const displayText =
-    selectedCar ||
-    (userCar ? userCar.vehicleName : "Pridėti automobilį");
+    selectedCar || (userCar ? userCar.vehicleName : "Pridėti automobilį");
 
   const handlePress = () => {
     if (userCar) {

@@ -15,18 +15,15 @@ const MessageScreen = ({ navigation, route }) => {
   const messages = useMessages(rideId);
   const [rideInfo, driver] = useRideAndDriver(rideId);
 
-  const handleSend = async text => {
+  const handleSend = async (text) => {
     const user = firebase.auth.currentUser;
     if (!user) return;
     try {
-      await addDoc(
-        collection(firebase.db, "journeys", rideId, "messages"),
-        {
-          text,
-          senderId: user.uid,
-          createdAt: serverTimestamp(),
-        }
-      );
+      await addDoc(collection(firebase.db, "journeys", rideId, "messages"), {
+        text,
+        senderId: user.uid,
+        createdAt: serverTimestamp(),
+      });
     } catch (e) {
       console.error("Send message error:", e);
     }
@@ -44,10 +41,7 @@ const MessageScreen = ({ navigation, route }) => {
           driver={driver}
           ride={rideInfo}
         />
-        <MessageList
-          messages={messages}
-          driverId={rideInfo?.userId}
-        />
+        <MessageList messages={messages} driverId={rideInfo?.userId} />
       </View>
       <MessageInput onSend={handleSend} />
     </KeyboardAvoidingView>

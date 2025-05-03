@@ -1,4 +1,3 @@
-// src/screens/RideHistoryScreen.js
 import React, { useEffect, useState } from "react";
 import { View } from "react-native";
 import MyStatusBar from "../../../components/myStatusBar";
@@ -20,7 +19,6 @@ import {
 
 const mapJourney = async (docSnap) => {
   const d = docSnap.data();
-  // fetch driver profile
   let profile, name;
   try {
     const userSnap = await getDoc(doc(firebase.db, "users", d.userId));
@@ -35,9 +33,8 @@ const mapJourney = async (docSnap) => {
     profile = require("../../../assets/images/user/user1.jpeg");
     name = "Vairuotojas";
   }
-
-  // parse date/time from the journeyDateTime string, fallback to createdAt timestamp
-  let date = "", time = "";
+  let date = "",
+    time = "";
   if (d.journeyDateTime) {
     const [dPart, tPart] = d.journeyDateTime.split(" ");
     date = dPart;
@@ -83,7 +80,6 @@ const RideHistoryScreen = ({ navigation }) => {
 
     const journeysRef = collection(firebase.db, "journeys");
 
-    // 1) finished rides where I'm the driver
     const qDriver = query(
       journeysRef,
       where("userId", "==", user.uid),
@@ -95,7 +91,6 @@ const RideHistoryScreen = ({ navigation }) => {
       setDriverRides(arr);
     });
 
-    // 2) finished rides where I'm a passenger
     const qPassenger = query(
       journeysRef,
       where("passengers", "array-contains", user.uid),
@@ -113,7 +108,6 @@ const RideHistoryScreen = ({ navigation }) => {
     };
   }, []);
 
-  // Merge and dedupe
   const allRides = [
     ...driverRides,
     ...passengerRides.filter((p) => !driverRides.find((d) => d.id === p.id)),

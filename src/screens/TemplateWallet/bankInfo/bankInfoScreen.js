@@ -1,4 +1,3 @@
-// src/screens/BankInfoScreen.js
 import React, { useState } from "react";
 import { View, ScrollView, StyleSheet } from "react-native";
 import MyStatusBar from "../../../components/myStatusBar";
@@ -32,7 +31,9 @@ const BankInfoScreen = ({ navigation }) => {
       </View>
       <SubmitButton
         onPress={() =>
-          navigation.navigate("SuccessfullyAddAndSendScreen", { successFor: "bank" })
+          navigation.navigate("SuccessfullyAddAndSendScreen", {
+            successFor: "bank",
+          })
         }
       />
     </View>

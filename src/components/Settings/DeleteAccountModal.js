@@ -15,7 +15,10 @@ const DeleteAccountModal = ({ visible, onDelete, onCancel }) => {
             <TouchableOpacity style={styles.modalButton} onPress={onDelete}>
               <Text style={styles.modalButtonText}>Ištrinti</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={[styles.modalButton, styles.modalCancelButton]} onPress={onCancel}>
+            <TouchableOpacity
+              style={[styles.modalButton, styles.modalCancelButton]}
+              onPress={onCancel}
+            >
               <Text style={styles.modalButtonText}>Atšaukti</Text>
             </TouchableOpacity>
           </View>

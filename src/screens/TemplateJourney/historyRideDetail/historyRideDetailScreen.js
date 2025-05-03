@@ -1,4 +1,3 @@
-// src/screens/HistoryRideDetailScreen.js
 import React, { useState } from "react";
 import { View, ScrollView } from "react-native";
 import MyStatusBar from "../../../components/myStatusBar";

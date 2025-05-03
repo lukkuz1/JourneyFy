@@ -1,4 +1,3 @@
-// src/components/WalletImage.js
 import React from "react";
 import { Image, StyleSheet } from "react-native";
 import { screenWidth, Sizes } from "../../constants/styles";

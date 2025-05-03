@@ -1,4 +1,3 @@
-// src/components/StartRide/StartRideButton.js
 import React from "react";
 import { TouchableOpacity, Text, View, Alert } from "react-native";
 import { Colors, CommonStyles, Fonts, Sizes } from "../../constants/styles";

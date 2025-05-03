@@ -1,4 +1,3 @@
-// src/components/VerticalDashLine.js
 import React from "react";
 import DashedLine from "react-native-dashed-line";
 import { Colors, Sizes } from "../../constants/styles";

@@ -19,7 +19,12 @@ const RideInfoCard = ({
 }) => {
   return (
     <View style={styles.cardWrapper}>
-      <View style={{ marginHorizontal: Sizes.fixPadding * 2, marginVertical: Sizes.fixPadding + 5 }}>
+      <View
+        style={{
+          marginHorizontal: Sizes.fixPadding * 2,
+          marginVertical: Sizes.fixPadding + 5,
+        }}
+      >
         <View style={styles.buttonWrapper}>
           <TouchableOpacity
             activeOpacity={0.8}
@@ -27,10 +32,21 @@ const RideInfoCard = ({
             style={[
               styles.rideButton,
               styles.findRideButton,
-              { backgroundColor: selectedTabIndex === 1 ? Colors.secondaryColor : "transparent" },
+              {
+                backgroundColor:
+                  selectedTabIndex === 1
+                    ? Colors.secondaryColor
+                    : "transparent",
+              },
             ]}
           >
-            <Text style={selectedTabIndex === 1 ? Fonts.whiteColor15SemiBold : Fonts.grayColor15SemiBold}>
+            <Text
+              style={
+                selectedTabIndex === 1
+                  ? Fonts.whiteColor15SemiBold
+                  : Fonts.grayColor15SemiBold
+              }
+            >
               Rasti kelionę
             </Text>
           </TouchableOpacity>
@@ -40,10 +56,21 @@ const RideInfoCard = ({
             style={[
               styles.rideButton,
               styles.offerRideButton,
-              { backgroundColor: selectedTabIndex === 2 ? Colors.secondaryColor : "transparent" },
+              {
+                backgroundColor:
+                  selectedTabIndex === 2
+                    ? Colors.secondaryColor
+                    : "transparent",
+              },
             ]}
           >
-            <Text style={selectedTabIndex === 2 ? Fonts.whiteColor15SemiBold : Fonts.grayColor15SemiBold}>
+            <Text
+              style={
+                selectedTabIndex === 2
+                  ? Fonts.whiteColor15SemiBold
+                  : Fonts.grayColor15SemiBold
+              }
+            >
               Pasiūlykite kelionę
             </Text>
           </TouchableOpacity>
@@ -51,18 +78,35 @@ const RideInfoCard = ({
 
         <TouchableOpacity
           activeOpacity={0.8}
-          onPress={() => navigation.navigate("PickLocationScreen", { addressFor: "pickup" })}
+          onPress={() =>
+            navigation.navigate("PickLocationScreen", { addressFor: "pickup" })
+          }
           style={styles.locationBox}
         >
-          <View style={[styles.locationIconWrapper, { borderColor: Colors.greenColor }]}>
-            <MaterialIcons name="location-pin" color={Colors.greenColor} size={18} />
+          <View
+            style={[
+              styles.locationIconWrapper,
+              { borderColor: Colors.greenColor },
+            ]}
+          >
+            <MaterialIcons
+              name="location-pin"
+              color={Colors.greenColor}
+              size={18}
+            />
           </View>
           <View style={{ flex: 1, marginLeft: Sizes.fixPadding + 5 }}>
             <Text numberOfLines={1} style={Fonts.blackColor15SemiBold}>
               Paėmimo vieta
             </Text>
             {pickupAddress ? (
-              <Text numberOfLines={2} style={{ ...Fonts.grayColor14Medium, marginTop: Sizes.fixPadding - 5 }}>
+              <Text
+                numberOfLines={2}
+                style={{
+                  ...Fonts.grayColor14Medium,
+                  marginTop: Sizes.fixPadding - 5,
+                }}
+              >
                 {pickupAddress}
               </Text>
             ) : null}
@@ -71,36 +115,70 @@ const RideInfoCard = ({
 
         <TouchableOpacity
           activeOpacity={0.8}
-          onPress={() => navigation.navigate("PickLocationScreen", { addressFor: "destination" })}
+          onPress={() =>
+            navigation.navigate("PickLocationScreen", {
+              addressFor: "destination",
+            })
+          }
           style={styles.locationBox}
         >
-          <View style={[styles.locationIconWrapper, { borderColor: Colors.redColor }]}>
-            <MaterialIcons name="location-pin" color={Colors.redColor} size={18} />
+          <View
+            style={[
+              styles.locationIconWrapper,
+              { borderColor: Colors.redColor },
+            ]}
+          >
+            <MaterialIcons
+              name="location-pin"
+              color={Colors.redColor}
+              size={18}
+            />
           </View>
           <View style={{ flex: 1, marginLeft: Sizes.fixPadding + 5 }}>
             <Text numberOfLines={1} style={Fonts.blackColor15SemiBold}>
               Paskirties vieta
             </Text>
             {destinationAddress ? (
-              <Text numberOfLines={2} style={{ ...Fonts.grayColor14Medium, marginTop: Sizes.fixPadding - 5 }}>
+              <Text
+                numberOfLines={2}
+                style={{
+                  ...Fonts.grayColor14Medium,
+                  marginTop: Sizes.fixPadding - 5,
+                }}
+              >
                 {destinationAddress}
               </Text>
             ) : null}
           </View>
         </TouchableOpacity>
 
-        <View style={{ flexDirection: "row", marginTop: Sizes.fixPadding * 2, marginBottom: Sizes.fixPadding }}>
+        <View
+          style={{
+            flexDirection: "row",
+            marginTop: Sizes.fixPadding * 2,
+            marginBottom: Sizes.fixPadding,
+          }}
+        >
           <TouchableOpacity
             activeOpacity={0.8}
             onPress={onDateTimePress}
-            style={[styles.dateTimeWrapper, { marginRight: selectedTabIndex === 1 ? Sizes.fixPadding : 0 }]}
+            style={[
+              styles.dateTimeWrapper,
+              { marginRight: selectedTabIndex === 1 ? Sizes.fixPadding : 0 },
+            ]}
           >
-            <Ionicons name="calendar-outline" color={Colors.grayColor} size={18} />
+            <Ionicons
+              name="calendar-outline"
+              color={Colors.grayColor}
+              size={18}
+            />
             <Text
               numberOfLines={2}
               style={[
                 { flex: 1, marginLeft: Sizes.fixPadding },
-                selectedDateAndTime ? Fonts.blackColor16SemiBold : Fonts.grayColor15SemiBold,
+                selectedDateAndTime
+                  ? Fonts.blackColor16SemiBold
+                  : Fonts.grayColor15SemiBold,
               ]}
             >
               {selectedDateAndTime ? selectedDateAndTime : "Data ir Laikas"}
@@ -112,12 +190,18 @@ const RideInfoCard = ({
               onPress={onSeatPress}
               style={[styles.dateTimeWrapper, { marginLeft: Sizes.fixPadding }]}
             >
-              <Ionicons name="calendar-outline" color={Colors.grayColor} size={18} />
+              <Ionicons
+                name="calendar-outline"
+                color={Colors.grayColor}
+                size={18}
+              />
               <Text
                 numberOfLines={2}
                 style={[
                   { flex: 1, marginLeft: Sizes.fixPadding },
-                  selectedSeat ? Fonts.blackColor16SemiBold : Fonts.grayColor15SemiBold,
+                  selectedSeat
+                    ? Fonts.blackColor16SemiBold
+                    : Fonts.grayColor15SemiBold,
                 ]}
               >
                 {selectedSeat ? `${selectedSeat} Vieta` : "Vietų sk."}
@@ -126,13 +210,17 @@ const RideInfoCard = ({
           )}
         </View>
       </View>
-      <TouchableOpacity activeOpacity={0.8} onPress={onSubmit} style={[CommonStyles.button, styles.submitButton]}>
-        <Text style={Fonts.whiteColor18Bold}>{selectedTabIndex === 1 ? "Rasti kelionę" : "Tęsti"}</Text>
+      <TouchableOpacity
+        activeOpacity={0.8}
+        onPress={onSubmit}
+        style={[CommonStyles.button, styles.submitButton]}
+      >
+        <Text style={Fonts.whiteColor18Bold}>
+          {selectedTabIndex === 1 ? "Rasti kelionę" : "Tęsti"}
+        </Text>
       </TouchableOpacity>
       {pickAlert && (
-        <Text style={styles.alertText}>
-          Prašome pasirinkti tinkamas vietas
-        </Text>
+        <Text style={styles.alertText}>Prašome pasirinkti tinkamas vietas</Text>
       )}
     </View>
   );

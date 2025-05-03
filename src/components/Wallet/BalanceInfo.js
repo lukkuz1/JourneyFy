@@ -1,4 +1,3 @@
-// src/components/BalanceInfo.js
 import React, { useCallback } from "react";
 import { View, Text, StyleSheet } from "react-native";
 import { useFocusEffect } from "@react-navigation/native";
@@ -17,18 +16,9 @@ const BalanceInfo = ({ navigation }) => {
   return (
     <View style={styles.balanceInfoWrapper}>
       <View style={styles.balanceView}>
-        <Text style={{ ...Fonts.primaryColor30Medium }}>${walletValue}</Text>
+        <Text style={{ ...Fonts.primaryColor30Medium }}>€{walletValue}</Text>
         <Text style={{ ...Fonts.grayColor18Medium }}>Galimas likutis</Text>
       </View>
-
-      {/* <WalletOption
-        iconName="swap-vertical"
-        iconType="MaterialCommunityIcons"
-        iconColor={Colors.secondaryColor}
-        optionTitle="Sandoris"
-        optionSubtitle="Peržiūrėti visų sandorių sąrašą"
-        onPress={() => navigation.navigate("TransactionsScreen")}
-      /> */}
 
       <WalletOption
         iconName="wallet-plus-outline"

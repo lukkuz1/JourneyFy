@@ -1,4 +1,3 @@
-// src/components/SeatInfo.js
 import React from "react";
 import { View, Text, TouchableOpacity } from "react-native";
 import Ionicons from "react-native-vector-icons/Ionicons";
@@ -7,7 +6,12 @@ import { Colors, Fonts, Sizes, CommonStyles } from "../../constants/styles";
 const SeatInfo = ({ selectedSeat, onPress }) => {
   return (
     <View style={{ margin: Sizes.fixPadding * 2.0 }}>
-      <Text style={{ ...Fonts.blackColor15SemiBold, marginBottom: Sizes.fixPadding }}>
+      <Text
+        style={{
+          ...Fonts.blackColor15SemiBold,
+          marginBottom: Sizes.fixPadding,
+        }}
+      >
         Laisvų vietų sk.
       </Text>
       <TouchableOpacity

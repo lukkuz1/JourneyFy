@@ -1,4 +1,3 @@
-// src/components/AddAndSendMoney/AmountInfo.js
 import React from "react";
 import { View, Text, TextInput, StyleSheet } from "react-native";
 import { Colors, Fonts, Sizes, CommonStyles } from "../../constants/styles";
@@ -6,7 +5,12 @@ import { Colors, Fonts, Sizes, CommonStyles } from "../../constants/styles";
 const AmountInfo = ({ addFor, amount, setAmount }) => {
   return (
     <View style={styles.container}>
-      <Text style={{ ...Fonts.blackColor15SemiBold, marginBottom: Sizes.fixPadding }}>
+      <Text
+        style={{
+          ...Fonts.blackColor15SemiBold,
+          marginBottom: Sizes.fixPadding,
+        }}
+      >
         {addFor === "money" ? "Pridėti sumą" : "Pridėkite siunčiamą sumą"}
       </Text>
       <View style={styles.valueBox}>

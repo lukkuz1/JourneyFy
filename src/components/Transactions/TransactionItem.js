@@ -1,4 +1,3 @@
-// src/components/Transactions/TransactionItem.js
 import React from "react";
 import { View, Text, StyleSheet } from "react-native";
 import { Colors, Fonts, Sizes } from "../../constants/styles";
@@ -19,7 +18,7 @@ const TransactionItem = ({ item, isLast }) => {
                 marginTop: Sizes.fixPadding - 7,
               }}
             >
-              Jenny wilsom | {item.date}
+              Pavyzdys | {item.date}
             </Text>
           </View>
           <Text

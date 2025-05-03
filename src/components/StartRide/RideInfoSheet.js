@@ -19,7 +19,9 @@ const RideInfoSheet = ({ ride, passengers = [] }) => {
         renderItem={({ item }) => (
           <View style={styles.passenger}>
             <Image
-              source={item.photoURL ? { uri: item.photoURL } : placeholderAvatar}
+              source={
+                item.photoURL ? { uri: item.photoURL } : placeholderAvatar
+              }
               style={styles.avatar}
             />
             <Text style={Fonts.grayColor12Medium}>

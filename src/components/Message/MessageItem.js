@@ -17,9 +17,7 @@ const MessageItem = ({ item, driverId }) => {
       .then((snap) => {
         if (snap.exists()) setSender(snap.data());
       })
-      .catch((e) =>
-        console.error("Error fetching sender profile:", e)
-      );
+      .catch((e) => console.error("Error fetching sender profile:", e));
   }, [senderId]);
 
   const isDriverMsg = senderId === driverId;

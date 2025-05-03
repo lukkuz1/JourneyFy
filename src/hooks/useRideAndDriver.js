@@ -15,7 +15,9 @@ export default function useRideAndDriver(rideId) {
         const rideData = rideSnap.data();
         setRide(rideData);
 
-        const drvSnap = await getDoc(doc(firebase.db, "users", rideData.userId));
+        const drvSnap = await getDoc(
+          doc(firebase.db, "users", rideData.userId)
+        );
         if (drvSnap.exists()) setDriver(drvSnap.data());
       } catch (e) {
         console.error("Ride/driver load error:", e);

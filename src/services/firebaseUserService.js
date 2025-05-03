@@ -3,7 +3,11 @@ import firebaseServices from "../services/firebase";
 
 const { db } = firebaseServices;
 
-export const fetchUserProfile = async (currentUserId, populateUserData, initializeUserProfile) => {
+export const fetchUserProfile = async (
+  currentUserId,
+  populateUserData,
+  initializeUserProfile
+) => {
   if (!currentUserId) return;
 
   try {
@@ -34,10 +38,8 @@ export const updateProfileInFirestore = async (currentUserId, profileData) => {
   const userDoc = await getDoc(userRef);
 
   if (!userDoc.exists()) {
-    console.log("📄 User document not found, creating one.");
     await setDoc(userRef, profileData);
   } else {
-    console.log("📌 Updating existing user document.");
     await updateDoc(userRef, profileData);
   }
 };

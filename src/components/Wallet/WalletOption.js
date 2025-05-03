@@ -1,4 +1,3 @@
-// src/components/WalletOption.js
 import React from "react";
 import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 import Ionicons from "react-native-vector-icons/Ionicons";
@@ -14,8 +13,8 @@ const WalletOption = ({
   containerStyle,
   onPress,
 }) => {
-  // Pick the proper icon component based on iconType (default: MaterialCommunityIcons)
-  const IconComponent = iconType === "Ionicons" ? Ionicons : MaterialCommunityIcons;
+  const IconComponent =
+    iconType === "Ionicons" ? Ionicons : MaterialCommunityIcons;
 
   return (
     <TouchableOpacity
@@ -24,7 +23,11 @@ const WalletOption = ({
       style={[styles.optionWrapper, containerStyle]}
     >
       <View style={styles.circle40}>
-        <IconComponent name={iconName} color={iconColor} size={iconType === "Ionicons" ? 20 : 22} />
+        <IconComponent
+          name={iconName}
+          color={iconColor}
+          size={iconType === "Ionicons" ? 20 : 22}
+        />
       </View>
       <View style={{ flex: 1, marginHorizontal: Sizes.fixPadding }}>
         <Text numberOfLines={1} style={{ ...Fonts.blackColor16SemiBold }}>
@@ -40,7 +43,11 @@ const WalletOption = ({
           {optionSubtitle}
         </Text>
       </View>
-      <Ionicons name="chevron-forward-outline" color={Colors.blackColor} size={24} />
+      <Ionicons
+        name="chevron-forward-outline"
+        color={Colors.blackColor}
+        size={24}
+      />
     </TouchableOpacity>
   );
 };

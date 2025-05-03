@@ -1,4 +1,3 @@
-// src/components/CarSelectionSheet.js
 import React from "react";
 import { View, Text, ScrollView } from "react-native";
 import { BottomSheet } from "@rneui/themed";

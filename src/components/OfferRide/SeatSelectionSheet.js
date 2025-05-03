@@ -1,10 +1,15 @@
-// src/components/SeatSelectionSheet.js
 import React from "react";
 import { View, Text, ScrollView } from "react-native";
 import { BottomSheet } from "@rneui/themed";
 import { Colors, Fonts, Sizes, screenHeight } from "../../constants/styles";
 
-const SeatSelectionSheet = ({ isVisible, seats, selectedSeat, onSelect, onClose }) => {
+const SeatSelectionSheet = ({
+  isVisible,
+  seats,
+  selectedSeat,
+  onSelect,
+  onClose,
+}) => {
   return (
     <BottomSheet
       scrollViewProps={{ scrollEnabled: false }}

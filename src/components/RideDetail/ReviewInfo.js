@@ -1,4 +1,3 @@
-// src/components/RideDetail/ReviewInfo.js
 import React from "react";
 import { View, Text, Image } from "react-native";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
@@ -27,9 +26,22 @@ const reviewsList = [
 
 const ReviewInfo = ({ ride, navigation }) => {
   return (
-    <View style={{ backgroundColor: Colors.whiteColor, paddingHorizontal: Sizes.fixPadding * 2, paddingVertical: Sizes.fixPadding + 5 }}>
-      <View style={{ ...CommonStyles.rowAlignCenter, marginBottom: Sizes.fixPadding + 5 }}>
-        <Text style={{ flex: 1, ...Fonts.secondaryColor17SemiBold }}>Atsiliepimas</Text>
+    <View
+      style={{
+        backgroundColor: Colors.whiteColor,
+        paddingHorizontal: Sizes.fixPadding * 2,
+        paddingVertical: Sizes.fixPadding + 5,
+      }}
+    >
+      <View
+        style={{
+          ...CommonStyles.rowAlignCenter,
+          marginBottom: Sizes.fixPadding + 5,
+        }}
+      >
+        <Text style={{ flex: 1, ...Fonts.secondaryColor17SemiBold }}>
+          Atsiliepimas
+        </Text>
         <Text
           onPress={() =>
             navigation.navigate("ReviewsScreen", { rideId: ride.id })
@@ -50,24 +62,40 @@ const ReviewInfo = ({ ride, navigation }) => {
               <Text numberOfLines={1} style={{ ...Fonts.blackColor16SemiBold }}>
                 {item.name}
               </Text>
-              <Text numberOfLines={1} style={{ marginTop: Sizes.fixPadding - 8, ...Fonts.grayColor14Medium }}>
+              <Text
+                numberOfLines={1}
+                style={{
+                  marginTop: Sizes.fixPadding - 8,
+                  ...Fonts.grayColor14Medium,
+                }}
+              >
                 {item.reviewDate}
               </Text>
             </View>
             <View style={{ ...CommonStyles.rowAlignCenter }}>
-              <Text style={{ ...Fonts.grayColor16SemiBold }}>{item.rating.toFixed(1)}</Text>
-              <MaterialIcons name="star" color={Colors.secondaryColor} size={16} />
+              <Text style={{ ...Fonts.grayColor16SemiBold }}>
+                {item.rating.toFixed(1)}
+              </Text>
+              <MaterialIcons
+                name="star"
+                color={Colors.secondaryColor}
+                size={16}
+              />
             </View>
           </View>
-          <Text style={{ ...Fonts.grayColor14Medium, marginTop: Sizes.fixPadding }}>
+          <Text
+            style={{ ...Fonts.grayColor14Medium, marginTop: Sizes.fixPadding }}
+          >
             {item.review}
           </Text>
           {index === reviewsList.length - 1 ? null : (
-            <View style={{
-              height: 1,
-              backgroundColor: Colors.lightGrayColor,
-              marginVertical: Sizes.fixPadding * 2,
-            }} />
+            <View
+              style={{
+                height: 1,
+                backgroundColor: Colors.lightGrayColor,
+                marginVertical: Sizes.fixPadding * 2,
+              }}
+            />
           )}
         </View>
       ))}

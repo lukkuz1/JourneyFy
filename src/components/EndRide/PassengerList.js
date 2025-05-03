@@ -1,4 +1,3 @@
-// src/components/EndRide/PassengerList.js
 import React from "react";
 import { FlatList, View, Image, Text } from "react-native";
 import { Fonts, Sizes } from "../../constants/styles";

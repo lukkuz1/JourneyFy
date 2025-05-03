@@ -1,6 +1,13 @@
 // src/components/Profile/ProfilePicture.js
 import React, { useState } from "react";
-import { View, Image, TouchableOpacity, StyleSheet, ActivityIndicator, Alert } from "react-native";
+import {
+  View,
+  Image,
+  TouchableOpacity,
+  StyleSheet,
+  ActivityIndicator,
+  Alert,
+} from "react-native";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import * as ImagePicker from "expo-image-picker";
 import { getAuth } from "firebase/auth";
@@ -11,7 +18,8 @@ const ProfilePicture = ({ currentUser, profilePhoto, onProfileUpdated }) => {
   const [uploading, setUploading] = useState(false);
 
   const pickImage = async () => {
-    const permissionResult = await ImagePicker.requestMediaLibraryPermissionsAsync();
+    const permissionResult =
+      await ImagePicker.requestMediaLibraryPermissionsAsync();
     if (!permissionResult.granted) {
       Alert.alert("Leidimas atmestas", "Būtinas leidimas patekti į galeriją!");
       return;
@@ -33,7 +41,10 @@ const ProfilePicture = ({ currentUser, profilePhoto, onProfileUpdated }) => {
       const auth = getAuth();
       const storage = getStorage();
       const userId = auth.currentUser.uid;
-      const storageReference = ref(storage, `profilePictures/${userId}/profile.jpg`);
+      const storageReference = ref(
+        storage,
+        `profilePictures/${userId}/profile.jpg`
+      );
       await uploadBytes(storageReference, blob);
       const downloadURL = await getDownloadURL(storageReference);
       onProfileUpdated && onProfileUpdated(downloadURL);
@@ -53,11 +64,22 @@ const ProfilePicture = ({ currentUser, profilePhoto, onProfileUpdated }) => {
       ) : (
         <>
           <Image
-            source={profilePhoto ? { uri: profilePhoto } : require("../../assets/images/user/user1.jpeg")}
+            source={
+              profilePhoto
+                ? { uri: profilePhoto }
+                : require("../../assets/images/user/user1.jpeg")
+            }
             style={styles.profilePicture}
           />
-          <TouchableOpacity style={styles.changePhotoCircleWrapper} onPress={pickImage}>
-            <Ionicons name="camera-outline" color={Colors.secondaryColor} size={20} />
+          <TouchableOpacity
+            style={styles.changePhotoCircleWrapper}
+            onPress={pickImage}
+          >
+            <Ionicons
+              name="camera-outline"
+              color={Colors.secondaryColor}
+              size={20}
+            />
           </TouchableOpacity>
         </>
       )}

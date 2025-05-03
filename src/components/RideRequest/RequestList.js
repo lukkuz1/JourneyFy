@@ -7,7 +7,7 @@ const RequestList = ({ requests, onRequestPress, navigation }) => {
   return (
     <FlatList
       data={requests}
-      keyExtractor={item => item.id}
+      keyExtractor={(item) => item.id}
       renderItem={({ item }) => (
         <RequestItem
           item={item}

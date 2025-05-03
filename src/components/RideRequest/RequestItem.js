@@ -1,11 +1,5 @@
 import React from "react";
-import {
-  View,
-  Text,
-  Image,
-  TouchableOpacity,
-  ScrollView,
-} from "react-native";
+import { View, Text, Image, TouchableOpacity, ScrollView } from "react-native";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import DashedLine from "react-native-dashed-line";
@@ -26,7 +20,6 @@ const RequestItem = ({ item, onPress, onRequestSheetPress }) => (
     }}
   >
     <View style={{ flex: 1 }}>
-      {/* Date & Time */}
       <View style={{ ...CommonStyles.rowAlignCenter }}>
         <Ionicons name="calendar-outline" color={Colors.blackColor} size={14} />
         <Text
@@ -61,7 +54,6 @@ const RequestItem = ({ item, onPress, onRequestSheetPress }) => (
         </Text>
       </View>
 
-      {/* Pickup & Drop */}
       <View style={{ marginVertical: Sizes.fixPadding - 5 }}>
         <View style={{ ...CommonStyles.rowAlignCenter }}>
           <View
@@ -121,27 +113,22 @@ const RequestItem = ({ item, onPress, onRequestSheetPress }) => (
         </View>
       </View>
 
-      {/* Journey details */}
       <Text style={Fonts.blackColor14SemiBold}>
-        Automobilis:{" "}
-        <Text style={Fonts.grayColor14Medium}>{item.car}</Text>
+        Automobilis: <Text style={Fonts.grayColor14Medium}>{item.car}</Text>
       </Text>
       <Text style={Fonts.blackColor14SemiBold}>
-        Kaina:{" "}
-        <Text style={Fonts.grayColor14Medium}>{item.price} €</Text>
+        Kaina: <Text style={Fonts.grayColor14Medium}>{item.price} €</Text>
       </Text>
       <Text style={Fonts.blackColor14SemiBold}>
-        Vietų liko:{" "}
-        <Text style={Fonts.grayColor14Medium}>{item.seats}</Text>
+        Vietų liko: <Text style={Fonts.grayColor14Medium}>{item.seats}</Text>
       </Text>
 
-      {/* Passenger avatars */}
       <ScrollView
         horizontal
         showsHorizontalScrollIndicator={false}
         style={{ marginTop: Sizes.fixPadding }}
       >
-        {item.passengerList.map(p => (
+        {item.passengerList.map((p) => (
           <Image
             key={p.id}
             source={p.profile}
@@ -162,7 +149,7 @@ const RequestItem = ({ item, onPress, onRequestSheetPress }) => (
       style={styles.requestCountButton}
     >
       <Text style={Fonts.primaryColor15SemiBold}>
-        Request({item.requestCount})
+        Prašymai ({item.requestCount})
       </Text>
     </TouchableOpacity>
   </TouchableOpacity>

@@ -1,4 +1,3 @@
-// src/components/PickLocation/LocationSearchHeader.js
 import React from "react";
 import { View, Platform } from "react-native";
 import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
@@ -8,7 +7,12 @@ import { Input } from "@rneui/themed";
 import { Colors, Fonts, Sizes, CommonStyles } from "../../constants/styles";
 import { Key } from "../../constants/key";
 
-const LocationSearchHeader = ({ search, setSearch, onLocationSelected, onBackPress }) => {
+const LocationSearchHeader = ({
+  search,
+  setSearch,
+  onLocationSelected,
+  onBackPress,
+}) => {
   return (
     <View style={styles.headerContainer}>
       <View style={styles.headerBg} />
@@ -48,7 +52,7 @@ const LocationSearchHeader = ({ search, setSearch, onLocationSelected, onBackPre
             textInputProps={{
               InputComp: Input,
               value: search,
-              onChangeText: text => {
+              onChangeText: (text) => {
                 console.log("🔍 Search input:", text);
                 setSearch(text);
               },
@@ -64,7 +68,7 @@ const LocationSearchHeader = ({ search, setSearch, onLocationSelected, onBackPre
                 onLocationSelected(details.geometry.location);
               }
             }}
-            onFail={error => {
+            onFail={(error) => {
               console.warn("❌ Autocomplete error:", error);
             }}
             onNotFound={() => {

@@ -39,14 +39,17 @@ export default function ForgotPassword() {
       navigation.navigate("Login");
     } catch (error) {
       if (error.code === "auth/invalid-email") {
-        Alert.alert("Invalid Email", "Please enter a valid email address.");
+        Alert.alert(
+          "Neteisingas el. pašto adresas",
+          "Įveskite galiojantį el. pašto adresą."
+        );
       } else if (error.code === "auth/user-not-found") {
         Alert.alert(
-          "Email Not Found",
-          "This email address is not associated with any account."
+          "El. pašto adresas nerastas",
+          "Šis el. pašto adresas nesusijęs su jokia paskyra."
         );
       } else {
-        Alert.alert("Password Reset Failed", error.message);
+        Alert.alert("Slaptažodžio atkūrimas nepavyko", error.message);
       }
     }
   };

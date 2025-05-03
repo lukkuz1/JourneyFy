@@ -61,14 +61,14 @@ export const UserProvider: React.FC = ({ children }: Props) => {
   const initialize = async (user: UserData): Promise<void> => {
     if (user != null) {
       setUser(user);
-  
+
       let userExists = true;
       let updateRequired = false;
       let snapshotTotalPoints = 0;
       let snapshotWalletValue = 0;
-  
+
       const dbRef = ref(rtdb);
-  
+
       await get(child(dbRef, `users/${user.uid}`))
         .then((snapshot) => {
           if (snapshot.exists()) {
@@ -89,13 +89,13 @@ export const UserProvider: React.FC = ({ children }: Props) => {
         .catch((error) => {
           console.error(error);
         });
-  
+
       if (!userExists || updateRequired) {
         const newUserData = {
           totalPoints: userExists ? snapshotTotalPoints : 0,
           walletValue: snapshotWalletValue,
         };
-  
+
         await update(ref(rtdb, `users/${user.uid}`), newUserData)
           .then(() => {
             originalTotal.current = userExists ? snapshotTotalPoints : 0;
@@ -107,9 +107,6 @@ export const UserProvider: React.FC = ({ children }: Props) => {
       setStatus(true);
     }
   };
-  
-
-
 
   const destroy = () => {
     setUser(null);
@@ -151,7 +148,6 @@ export const UserProvider: React.FC = ({ children }: Props) => {
 
   const updateDataJSON = async (updateData: any): Promise<void> => {
     if (status && user) {
-      // You can implement additional updates here if needed
     }
   };
 

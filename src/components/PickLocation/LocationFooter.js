@@ -1,4 +1,3 @@
-// src/components/PickLocation/LocationFooter.js
 import React from "react";
 import { View, Text, TouchableOpacity } from "react-native";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
@@ -8,12 +7,25 @@ const LocationFooter = ({ address, onPickLocation }) => {
   return (
     <View style={styles.footer}>
       <View style={styles.locationInfoWrapStyle}>
-        <View style={[styles.locationIconWrapper, { borderColor: Colors.greenColor }]}>
-          <MaterialIcons name="location-pin" color={Colors.greenColor} size={18} />
+        <View
+          style={[
+            styles.locationIconWrapper,
+            { borderColor: Colors.greenColor },
+          ]}
+        >
+          <MaterialIcons
+            name="location-pin"
+            color={Colors.greenColor}
+            size={18}
+          />
         </View>
         <Text
           numberOfLines={2}
-          style={{ marginLeft: Sizes.fixPadding, flex: 1, ...Fonts.blackColor14Medium }}
+          style={{
+            marginLeft: Sizes.fixPadding,
+            flex: 1,
+            ...Fonts.blackColor14Medium,
+          }}
         >
           {address || "Adresas nepasirinktas"}
         </Text>

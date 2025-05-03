@@ -1,4 +1,3 @@
-// src/screens/AddAndSendMoneyScreen.js
 import React, { useState } from "react";
 import { View, ScrollView, Alert } from "react-native";
 import MyStatusBar from "../../../components/myStatusBar";
@@ -12,7 +11,7 @@ import useWalletValue from "../../../hooks/useWalletValue";
 const AddAndSendMoneyScreen = ({ navigation, route }) => {
   const addFor = route?.params?.addFor || "money";
   const [amount, setAmount] = useState("");
-  const walletValue = useWalletValue(); 
+  const walletValue = useWalletValue();
 
   const handleContinue = () => {
     const amt = parseFloat(amount);

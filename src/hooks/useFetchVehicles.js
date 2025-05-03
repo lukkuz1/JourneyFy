@@ -1,4 +1,3 @@
-// src/hooks/useFetchVehicles.js
 import { useState, useEffect } from "react";
 import {
   getFirestore,
@@ -9,15 +8,11 @@ import {
 } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
 
-/**
- * Real-time fetch of the current user's admin-approved vehicles.
- * Automatically updates when the Firestore "cars" collection changes.
- */
 export const useFetchVehicles = () => {
   const [vehicles, setVehicles] = useState([]);
-  const [loading, setLoading]   = useState(true);
-  const [error, setError]       = useState(null);
-  const db   = getFirestore();
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const db = getFirestore();
   const auth = getAuth();
 
   useEffect(() => {
@@ -28,18 +23,19 @@ export const useFetchVehicles = () => {
       return;
     }
 
-    // Build query: only this user's approved cars
     const q = query(
       collection(db, "cars"),
       where("userId", "==", user.uid),
       where("approvedByAdmin", "==", true)
     );
 
-    // Subscribe to realtime updates
     const unsubscribe = onSnapshot(
       q,
       (snapshot) => {
-        const data = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+        const data = snapshot.docs.map((doc) => ({
+          id: doc.id,
+          ...doc.data(),
+        }));
         setVehicles(data);
         setLoading(false);
       },

@@ -1,10 +1,5 @@
 import { useState, useEffect } from "react";
-import {
-  collection,
-  query,
-  orderBy,
-  onSnapshot,
-} from "firebase/firestore";
+import { collection, query, orderBy, onSnapshot } from "firebase/firestore";
 import firebase from "../services/firebase";
 import { formatTime } from "../utils/formatTime";
 
@@ -21,8 +16,8 @@ export default function useMessages(rideId) {
 
     const unsub = onSnapshot(
       q,
-      snap => {
-        const list = snap.docs.map(docSnap => {
+      (snap) => {
+        const list = snap.docs.map((docSnap) => {
           const { text, senderId, createdAt } = docSnap.data();
           return {
             id: docSnap.id,
@@ -34,7 +29,7 @@ export default function useMessages(rideId) {
         });
         setMessages(list);
       },
-      err => console.error("Messages listen error:", err)
+      (err) => console.error("Messages listen error:", err)
     );
 
     return () => unsub();

@@ -1,4 +1,3 @@
-// src/components/RideItem.js
 import React from "react";
 import { View, Text, Image, TouchableOpacity, StyleSheet } from "react-native";
 import Ionicons from "react-native-vector-icons/Ionicons";
@@ -7,9 +6,8 @@ import DashedLine from "react-native-dashed-line";
 import { Colors, Fonts, Sizes, CommonStyles } from "../../constants/styles";
 
 const RideItem = ({ item, navigation }) => {
-  // summary fields
   const pickup = item.pickup ?? item.__raw?.pickupAddress;
-  const drop   = item.drop   ?? item.__raw?.destinationAddress;
+  const drop = item.drop ?? item.__raw?.destinationAddress;
 
   return (
     <TouchableOpacity
@@ -28,16 +26,23 @@ const RideItem = ({ item, navigation }) => {
       <View style={styles.details}>
         <Text style={Fonts.blackColor15SemiBold}>{item.name}</Text>
 
-        {/* Car model */}
         {item.car && (
           <Text style={{ ...Fonts.grayColor12Medium, marginTop: 2 }}>
             Modelis: {item.car}
           </Text>
         )}
 
-        {/* Date & Time */}
-        <View style={{ ...CommonStyles.rowAlignCenter, marginTop: Sizes.fixPadding - 4 }}>
-          <Ionicons name="calendar-outline" color={Colors.blackColor} size={14} />
+        <View
+          style={{
+            ...CommonStyles.rowAlignCenter,
+            marginTop: Sizes.fixPadding - 4,
+          }}
+        >
+          <Ionicons
+            name="calendar-outline"
+            color={Colors.blackColor}
+            size={14}
+          />
           <Text style={{ ...Fonts.blackColor12Medium, marginLeft: 4 }}>
             {item.date}
           </Text>
@@ -48,13 +53,23 @@ const RideItem = ({ item, navigation }) => {
           </Text>
         </View>
 
-        {/* Pickup & Drop */}
         <View style={{ marginTop: Sizes.fixPadding - 4 }}>
           <View style={CommonStyles.rowAlignCenter}>
-            <View style={[styles.locationDot, { borderColor: Colors.greenColor }]}>
-              <MaterialIcons name="location-pin" color={Colors.greenColor} size={7} />
+            <View
+              style={[styles.locationDot, { borderColor: Colors.greenColor }]}
+            >
+              <MaterialIcons
+                name="location-pin"
+                color={Colors.greenColor}
+                size={7}
+              />
             </View>
-            <Text style={{ ...Fonts.grayColor12Medium, marginLeft: Sizes.fixPadding }}>
+            <Text
+              style={{
+                ...Fonts.grayColor12Medium,
+                marginLeft: Sizes.fixPadding,
+              }}
+            >
               {pickup}
             </Text>
           </View>
@@ -67,10 +82,21 @@ const RideItem = ({ item, navigation }) => {
             style={{ height: 5, marginLeft: Sizes.fixPadding - 4 }}
           />
           <View style={CommonStyles.rowAlignCenter}>
-            <View style={[styles.locationDot, { borderColor: Colors.redColor }]}>
-              <MaterialIcons name="location-pin" color={Colors.redColor} size={7} />
+            <View
+              style={[styles.locationDot, { borderColor: Colors.redColor }]}
+            >
+              <MaterialIcons
+                name="location-pin"
+                color={Colors.redColor}
+                size={7}
+              />
             </View>
-            <Text style={{ ...Fonts.grayColor12Medium, marginLeft: Sizes.fixPadding }}>
+            <Text
+              style={{
+                ...Fonts.grayColor12Medium,
+                marginLeft: Sizes.fixPadding,
+              }}
+            >
               {drop}
             </Text>
           </View>

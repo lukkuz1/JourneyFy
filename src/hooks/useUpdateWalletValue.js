@@ -1,4 +1,3 @@
-// src/hooks/useUpdateWalletValue.js
 import { getAuth } from "firebase/auth";
 import { ref, get, update } from "firebase/database";
 import { rtdb } from "../services/firebase";

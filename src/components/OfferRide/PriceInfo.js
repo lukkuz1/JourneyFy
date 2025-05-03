@@ -12,7 +12,7 @@ const PriceInfo = ({ price, onPriceChange }) => {
           marginBottom: Sizes.fixPadding,
         }}
       >
-        Kaina
+        Kaina už vietą
       </Text>
       <View style={styles.valueBox}>
         <TextInput

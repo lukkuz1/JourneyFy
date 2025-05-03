@@ -1,10 +1,15 @@
-// src/components/DirectionMap.js
 import React from "react";
 import { Image, Text, View } from "react-native";
 import MapView, { Marker, PROVIDER_GOOGLE } from "react-native-maps";
 import MapViewDirections from "react-native-maps-directions";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
-import { Colors, Sizes, screenWidth, screenHeight, Fonts } from "../../constants/styles";
+import {
+  Colors,
+  Sizes,
+  screenWidth,
+  screenHeight,
+  Fonts,
+} from "../../constants/styles";
 import { Key } from "../../constants/key";
 
 const DirectionMap = () => {
@@ -63,17 +68,33 @@ const DirectionMap = () => {
       </Marker>
       <Marker coordinate={pickupPoint}>
         <View style={{ ...styles.markerCircle, borderColor: Colors.redColor }}>
-          <MaterialIcons name="location-pin" color={Colors.redColor} size={20} />
+          <MaterialIcons
+            name="location-pin"
+            color={Colors.redColor}
+            size={20}
+          />
         </View>
       </Marker>
       <Marker coordinate={currentPoint}>
-        <View style={{ backgroundColor: Colors.secondaryColor, padding: Sizes.fixPadding - 5, borderRadius: 5 }}>
+        <View
+          style={{
+            backgroundColor: Colors.secondaryColor,
+            padding: Sizes.fixPadding - 5,
+            borderRadius: 5,
+          }}
+        >
           <Text style={{ ...Fonts.whiteColor13SemiBold }}>42 km</Text>
         </View>
       </Marker>
       <Marker coordinate={destinationPoint}>
-        <View style={{ ...styles.markerCircle, borderColor: Colors.primaryColor }}>
-          <MaterialIcons name="location-pin" color={Colors.primaryColor} size={20} />
+        <View
+          style={{ ...styles.markerCircle, borderColor: Colors.primaryColor }}
+        >
+          <MaterialIcons
+            name="location-pin"
+            color={Colors.primaryColor}
+            size={20}
+          />
         </View>
       </Marker>
       <Marker coordinate={endPoint}>

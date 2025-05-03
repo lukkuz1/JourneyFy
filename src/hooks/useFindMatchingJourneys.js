@@ -50,9 +50,9 @@ const useFindMatchingJourneys = () => {
         );
       } else {
         Alert.alert(
-          'Nerasta jokių kelionių',
-          'Atsiprašome, bet jokių kelionių atitinkančių kriterijus nebuvo rasta',
-          [{ text: 'OK' }]
+          "Nerasta jokių kelionių",
+          "Atsiprašome, bet jokių kelionių atitinkančių kriterijus nebuvo rasta",
+          [{ text: "OK" }]
         );
       }
 

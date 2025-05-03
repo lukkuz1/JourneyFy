@@ -1,4 +1,3 @@
-// src/screens/Profile/EditProfileScreen.js
 import React, { useState, useEffect } from "react";
 import { ScrollView, StyleSheet, View, Alert } from "react-native";
 import { getAuth } from "firebase/auth";
@@ -37,13 +36,16 @@ const EditProfileScreen = ({ navigation }) => {
     dateOfBirth: "",
   });
 
-  // New state to hold the profile picture URL.
-  const [profilePhoto, setProfilePhoto] = useState(auth.currentUser?.photoURL || "");
+  const [profilePhoto, setProfilePhoto] = useState(
+    auth.currentUser?.photoURL || ""
+  );
 
   useEffect(() => {
-    fetchUserProfile(currentUserId, populateUserData, initializeUserProfile).finally(() =>
-      setLoading(false)
-    );
+    fetchUserProfile(
+      currentUserId,
+      populateUserData,
+      initializeUserProfile
+    ).finally(() => setLoading(false));
   }, []);
 
   const populateUserData = (data) => {

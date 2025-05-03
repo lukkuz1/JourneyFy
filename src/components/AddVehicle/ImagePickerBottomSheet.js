@@ -8,9 +8,10 @@ import * as ImagePicker from "expo-image-picker";
 const ImagePickerBottomSheet = ({ isVisible, onClose, onPickImage }) => {
   const pickFromGallery = async () => {
     try {
-      const permissionResult = await ImagePicker.requestMediaLibraryPermissionsAsync();
+      const permissionResult =
+        await ImagePicker.requestMediaLibraryPermissionsAsync();
       if (!permissionResult.granted) {
-        alert("Permission to access gallery is required!");
+        alert("Reikalingas leidimas pasiekti galeriją!");
         return;
       }
       const result = await ImagePicker.launchImageLibraryAsync({
@@ -29,9 +30,10 @@ const ImagePickerBottomSheet = ({ isVisible, onClose, onPickImage }) => {
 
   const takeFromCamera = async () => {
     try {
-      const permissionResult = await ImagePicker.requestCameraPermissionsAsync();
+      const permissionResult =
+        await ImagePicker.requestCameraPermissionsAsync();
       if (!permissionResult.granted) {
-        alert("Permission to access camera is required!");
+        alert("Reikalingas leidimas pasiekti kamerą!");
         return;
       }
       const result = await ImagePicker.launchCameraAsync({
@@ -50,7 +52,12 @@ const ImagePickerBottomSheet = ({ isVisible, onClose, onPickImage }) => {
   return (
     <BottomSheet isVisible={isVisible} onBackdropPress={onClose}>
       <View style={styles.sheetStyle}>
-        <Text style={{ ...Fonts.blackColor18SemiBold, marginBottom: Sizes.fixPadding }}>
+        <Text
+          style={{
+            ...Fonts.blackColor18SemiBold,
+            marginBottom: Sizes.fixPadding,
+          }}
+        >
           Pridėti nuotrauką
         </Text>
         {renderOption({
@@ -81,7 +88,11 @@ const renderOption = ({ icon, option, color, onPress }) => (
     </View>
     <Text
       numberOfLines={1}
-      style={{ ...Fonts.blackColor16Medium, flex: 1, marginLeft: Sizes.fixPadding + 5 }}
+      style={{
+        ...Fonts.blackColor16Medium,
+        flex: 1,
+        marginLeft: Sizes.fixPadding + 5,
+      }}
     >
       {option}
     </Text>

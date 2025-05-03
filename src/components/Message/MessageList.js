@@ -10,9 +10,7 @@ const MessageList = ({ messages, driverId }) => (
       inverted
       data={messages}
       keyExtractor={(item) => item.id}
-      renderItem={({ item }) => (
-        <MessageItem item={item} driverId={driverId} />
-      )}
+      renderItem={({ item }) => <MessageItem item={item} driverId={driverId} />}
       showsVerticalScrollIndicator={false}
       contentContainerStyle={{
         flexDirection: "column-reverse",

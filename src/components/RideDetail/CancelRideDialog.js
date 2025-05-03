@@ -17,8 +17,7 @@ const CancelRideDialog = ({ isVisible, onClose, onConfirm }) => {
         </Text>
       </View>
       <View style={[CommonStyles.rowAlignCenter]}>
-
-      <TouchableOpacity
+        <TouchableOpacity
           activeOpacity={0.8}
           onPress={onConfirm}
           style={styles.dialogButton}

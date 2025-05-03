@@ -25,8 +25,7 @@ const LogoutDialog = ({ isVisible, onClose, onLogout }) => (
       </Text>
     </View>
     <View style={{ ...CommonStyles.rowAlignCenter }}>
-
-    <TouchableOpacity
+      <TouchableOpacity
         activeOpacity={0.8}
         onPress={onLogout}
         style={styles.dialogButton}

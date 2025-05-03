@@ -23,11 +23,8 @@ export const useMapSettings = (currentUserId) => {
         const data = mapDoc.data();
         const rStr = data.radius.toString();
         const sStr = data.stops.toString();
-
-        // for backwards compatibility / placeholders
         setPopulateRadius(rStr);
         setPopulateStops(sStr);
-        // now actually pre‑fill the inputs
         setRadius(rStr);
         setStops(sStr);
       }
@@ -47,11 +44,17 @@ export const useMapSettings = (currentUserId) => {
     const s = stops.trim();
 
     if (r === "" || isNaN(Number(r)) || Number(r) <= 0) {
-      Alert.alert("Klaida", "Įveskite galiojantį spindulį (skaičius didesnis už 0).");
+      Alert.alert(
+        "Klaida",
+        "Įveskite galiojantį spindulį (skaičius didesnis už 0)."
+      );
       return false;
     }
     if (s === "" || !/^\d+$/.test(s) || Number(s) < 1) {
-      Alert.alert("Klaida", "Įveskite galiojantį maksimalių stotelių skaičių (teigiamas sveikasis skaičius).");
+      Alert.alert(
+        "Klaida",
+        "Įveskite galiojantį maksimalių stotelių skaičių (teigiamas sveikasis skaičius)."
+      );
       return false;
     }
     if (!currentUserId) {
@@ -69,7 +72,10 @@ export const useMapSettings = (currentUserId) => {
       return true;
     } catch (error) {
       console.error("Error updating map data:", error);
-      Alert.alert("Klaidos pranešimas", "Nepavyko atnaujinti žemėlapio duomenų");
+      Alert.alert(
+        "Klaidos pranešimas",
+        "Nepavyko atnaujinti žemėlapio duomenų"
+      );
       return false;
     }
   };

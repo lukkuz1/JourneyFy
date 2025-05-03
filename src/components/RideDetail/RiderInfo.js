@@ -1,11 +1,5 @@
 import React, { useEffect, useState } from "react";
-import {
-  View,
-  Text,
-  Image,
-  StyleSheet,
-  ActivityIndicator,
-} from "react-native";
+import { View, Text, Image, StyleSheet, ActivityIndicator } from "react-native";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import { Colors, Fonts, Sizes, CommonStyles } from "../../constants/styles";
 import firebase from "../../services/firebase";
@@ -26,7 +20,6 @@ const RiderInfo = ({ driver, ride }) => {
         const ratingsRef = collection(firebase.db, "driver_ratings");
         const q = query(ratingsRef, where("driverId", "==", ride.userId));
         const snap = await getDocs(q);
-        // map & filter out any review where raterId === driverId
         const items = snap.docs
           .map((d) => d.data())
           .filter((r) => r.raterId !== ride.userId);
@@ -60,9 +53,7 @@ const RiderInfo = ({ driver, ride }) => {
 
       <View style={styles.info}>
         <Text numberOfLines={1} style={Fonts.blackColor17SemiBold}>
-          {driver
-            ? `${driver.firstName} ${driver.lastName}`
-            : "Vairuotojas"}
+          {driver ? `${driver.firstName} ${driver.lastName}` : "Vairuotojas"}
         </Text>
 
         {loading ? (

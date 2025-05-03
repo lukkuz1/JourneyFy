@@ -12,7 +12,13 @@ import {
 } from "firebase/firestore";
 import { Alert } from "react-native";
 
-export default function useRegistration(rideId, initialPassengers, onPassengersChange, onCloseDialog, onGoBack) {
+export default function useRegistration(
+  rideId,
+  initialPassengers,
+  onPassengersChange,
+  onCloseDialog,
+  onGoBack
+) {
   const user = firebase.auth.currentUser;
   const userId = user?.uid;
   const [loading, setLoading] = useState(false);
@@ -36,7 +42,7 @@ export default function useRegistration(rideId, initialPassengers, onPassengersC
       await updateDoc(journeyRef, {
         passengers: arrayUnion(userId),
       });
-      onPassengersChange(prev => [...prev, userId]);
+      onPassengersChange((prev) => [...prev, userId]);
       Alert.alert("Užsiregistravote");
     } catch (e) {
       console.error("Register error:", e);
@@ -60,7 +66,7 @@ export default function useRegistration(rideId, initialPassengers, onPassengersC
       await updateDoc(journeyRef, {
         passengers: arrayRemove(userId),
       });
-      onPassengersChange(prev => prev.filter(id => id !== userId));
+      onPassengersChange((prev) => prev.filter((id) => id !== userId));
       Alert.alert("Registracija atšaukta");
       onCloseDialog();
       onGoBack();

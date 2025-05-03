@@ -1,5 +1,12 @@
 import React, { useState } from "react";
-import { View, ScrollView, StyleSheet, ActivityIndicator, TouchableOpacity, Text } from "react-native";
+import {
+  View,
+  ScrollView,
+  StyleSheet,
+  ActivityIndicator,
+  TouchableOpacity,
+  Text,
+} from "react-native";
 import { Colors, Sizes, Fonts, CommonStyles } from "../../../constants/styles";
 import MyStatusBar from "../../../components/myStatusBar";
 import Header from "../../../components/header";
@@ -43,7 +50,10 @@ const AddVehicleScreen = ({ navigation }) => {
       <MyStatusBar />
       <View style={{ flex: 1 }}>
         <Header title="Pridėti mašiną" navigation={navigation} />
-        <ScrollView showsVerticalScrollIndicator={false} automaticallyAdjustKeyboardInsets={true}>
+        <ScrollView
+          showsVerticalScrollIndicator={false}
+          automaticallyAdjustKeyboardInsets={true}
+        >
           <VehicleForm
             vehicleData={vehicleData}
             onChange={handleChange}

@@ -1,6 +1,11 @@
 import { useState } from "react";
 import { Alert } from "react-native";
-import { getAuth, updatePassword, reauthenticateWithCredential, EmailAuthProvider } from "firebase/auth";
+import {
+  getAuth,
+  updatePassword,
+  reauthenticateWithCredential,
+  EmailAuthProvider,
+} from "firebase/auth";
 
 export const usePasswordChange = () => {
   const [newPassword, setNewPassword] = useState("");
@@ -34,5 +39,11 @@ export const usePasswordChange = () => {
     }
   };
 
-  return { newPassword, confirmPassword, setNewPassword, setConfirmPassword, handlePasswordChange };
+  return {
+    newPassword,
+    confirmPassword,
+    setNewPassword,
+    setConfirmPassword,
+    handlePasswordChange,
+  };
 };

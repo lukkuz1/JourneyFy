@@ -1,4 +1,3 @@
-// src/components/RideInfoSheet.js
 import React from "react";
 import { ScrollView, View, Text, Image } from "react-native";
 import BottomSheet from "react-native-simple-bottom-sheet";
@@ -23,12 +22,21 @@ const RideInfoSheet = () => {
           contentContainerStyle={{ paddingBottom: Sizes.fixPadding * 2 }}
           showsVerticalScrollIndicator={false}
         >
-          <Animatable.View animation="slideInUp" iterationCount={1} duration={1500}>
-            <Text style={{ ...Fonts.blackColor16SemiBold, textAlign: "center", margin: Sizes.fixPadding * 2 }}>
+          <Animatable.View
+            animation="slideInUp"
+            iterationCount={1}
+            duration={1500}
+          >
+            <Text
+              style={{
+                ...Fonts.blackColor16SemiBold,
+                textAlign: "center",
+                margin: Sizes.fixPadding * 2,
+              }}
+            >
               Ride start on 25 june 2023
             </Text>
 
-            {/* Row 1: Ride Start */}
             <View style={{ flexDirection: "row" }}>
               <View>
                 <View style={{ width: 16, alignItems: "center" }}>
@@ -43,17 +51,30 @@ const RideInfoSheet = () => {
                 <Text numberOfLines={1} style={{ ...Fonts.grayColor14Medium }}>
                   Kelionės pradžia
                 </Text>
-                <Text numberOfLines={1} style={{ ...Fonts.blackColor14Medium, marginTop: Sizes.fixPadding - 8 }}>
+                <Text
+                  numberOfLines={1}
+                  style={{
+                    ...Fonts.blackColor14Medium,
+                    marginTop: Sizes.fixPadding - 8,
+                  }}
+                >
                   2715 Ash Dr. San Jose, South Dakota 83475
                 </Text>
               </View>
             </View>
-
-            {/* Row 2: Pick up Point */}
             <View style={{ flexDirection: "row" }}>
               <View>
-                <View style={{ ...styles.locationIconWrapper, borderColor: Colors.redColor }}>
-                  <MaterialIcons name="location-pin" color={Colors.redColor} size={12} />
+                <View
+                  style={{
+                    ...styles.locationIconWrapper,
+                    borderColor: Colors.redColor,
+                  }}
+                >
+                  <MaterialIcons
+                    name="location-pin"
+                    color={Colors.redColor}
+                    size={12}
+                  />
                 </View>
                 <VerticalDashLine />
               </View>
@@ -61,13 +82,17 @@ const RideInfoSheet = () => {
                 <Text numberOfLines={1} style={{ ...Fonts.redColor14Medium }}>
                   Pick up point (10:00 am)
                 </Text>
-                <Text numberOfLines={1} style={{ ...Fonts.blackColor14Medium, marginTop: Sizes.fixPadding - 8 }}>
+                <Text
+                  numberOfLines={1}
+                  style={{
+                    ...Fonts.blackColor14Medium,
+                    marginTop: Sizes.fixPadding - 8,
+                  }}
+                >
                   2715 Ash Dr. San Jose, South Dakota 83475
                 </Text>
               </View>
             </View>
-
-            {/* Row 3: Drive */}
             <View style={{ flexDirection: "row" }}>
               <View>
                 <View style={{ width: 16, alignItems: "center" }}>
@@ -82,31 +107,52 @@ const RideInfoSheet = () => {
                 <Text numberOfLines={1} style={{ ...Fonts.grayColor14Medium }}>
                   Vairuoti
                 </Text>
-                <Text numberOfLines={1} style={{ ...Fonts.blackColor14Medium, marginTop: Sizes.fixPadding - 8 }}>
+                <Text
+                  numberOfLines={1}
+                  style={{
+                    ...Fonts.blackColor14Medium,
+                    marginTop: Sizes.fixPadding - 8,
+                  }}
+                >
                   2715 Ash Dr. San Jose, South Dakota 83475
                 </Text>
               </View>
             </View>
-
-            {/* Row 4: Destination Point */}
             <View style={{ flexDirection: "row" }}>
               <View>
-                <View style={{ ...styles.locationIconWrapper, borderColor: Colors.primaryColor }}>
-                  <MaterialIcons name="location-pin" color={Colors.primaryColor} size={12} />
+                <View
+                  style={{
+                    ...styles.locationIconWrapper,
+                    borderColor: Colors.primaryColor,
+                  }}
+                >
+                  <MaterialIcons
+                    name="location-pin"
+                    color={Colors.primaryColor}
+                    size={12}
+                  />
                 </View>
                 <VerticalDashLine />
               </View>
               <View style={{ flex: 1, marginLeft: Sizes.fixPadding }}>
-                <Text numberOfLines={1} style={{ ...Fonts.primaryColor14Medium }}>
+                <Text
+                  numberOfLines={1}
+                  style={{ ...Fonts.primaryColor14Medium }}
+                >
                   Destination point (11:00 am)
                 </Text>
-                <Text numberOfLines={1} style={{ ...Fonts.blackColor14Medium, marginTop: Sizes.fixPadding - 8 }}>
+                <Text
+                  numberOfLines={1}
+                  style={{
+                    ...Fonts.blackColor14Medium,
+                    marginTop: Sizes.fixPadding - 8,
+                  }}
+                >
                   2715 Ash Dr. San Jose, South Dakota 83475
                 </Text>
               </View>
             </View>
 
-            {/* Row 5: Ride End */}
             <View style={{ flexDirection: "row" }}>
               <View style={{ width: 16, alignItems: "center" }}>
                 <Image
@@ -118,7 +164,13 @@ const RideInfoSheet = () => {
                 <Text numberOfLines={1} style={{ ...Fonts.grayColor14Medium }}>
                   Ride end
                 </Text>
-                <Text numberOfLines={1} style={{ ...Fonts.blackColor14Medium, marginTop: Sizes.fixPadding - 8 }}>
+                <Text
+                  numberOfLines={1}
+                  style={{
+                    ...Fonts.blackColor14Medium,
+                    marginTop: Sizes.fixPadding - 8,
+                  }}
+                >
                   2715 Ash Dr. San Jose, South Dakota 83475
                 </Text>
               </View>

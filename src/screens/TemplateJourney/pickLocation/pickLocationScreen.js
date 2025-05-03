@@ -1,4 +1,3 @@
-// src/screens/PickLocationScreen.js
 import "react-native-get-random-values";
 import React, { useState, useEffect } from "react";
 import { View, Platform, KeyboardAvoidingView } from "react-native";
@@ -11,9 +10,9 @@ import Geocoder from "react-native-geocoding";
 import * as Location from "expo-location";
 import { Key } from "../../../constants/key";
 
-const LATITUDE  = 54.8985;
+const LATITUDE = 54.8985;
 const LONGITUDE = 23.9036;
-const SPACE     = 0.01;
+const SPACE = 0.01;
 
 const PickLocationScreen = ({ navigation, route }) => {
   const [currentMarker, setCurrentMarker] = useState({
@@ -26,7 +25,6 @@ const PickLocationScreen = ({ navigation, route }) => {
   const params = route?.params || {};
   const addressFor = params.addressFor || "unknown";
 
-  // Request location permissions and get current device location.
   useEffect(() => {
     (async () => {
       let { status } = await Location.requestForegroundPermissionsAsync();
@@ -41,7 +39,6 @@ const PickLocationScreen = ({ navigation, route }) => {
     })();
   }, []);
 
-  // Initialize the geocoder and fetch the address whenever the marker updates.
   useEffect(() => {
     Geocoder.init(Key.apiKey);
     if (currentMarker.latitude && currentMarker.longitude) {
@@ -58,7 +55,6 @@ const PickLocationScreen = ({ navigation, route }) => {
       .catch((error) => console.warn("Geocoder error:", error));
   };
 
-  // Callback for updating marker based on a search result.
   const setMarkerBySearch = async (locationObj) => {
     try {
       if (!locationObj) {
@@ -76,13 +72,11 @@ const PickLocationScreen = ({ navigation, route }) => {
     }
   };
 
-  // Callback when the marker is dragged.
   const handleMarkerDragEnd = (newLocation) => {
     setCurrentMarker(newLocation);
     getAddress(newLocation);
   };
 
-  // Called when the user confirms the location.
   const handlePickLocation = () => {
     console.log("Selected Address:", address);
     navigation.navigate("HomeScreen", { address, addressFor });

@@ -1,4 +1,3 @@
-// src/screens/RideDetailScreen.js
 import React, { useState } from "react";
 import { View, ScrollView, StyleSheet, Alert } from "react-native";
 import MyStatusBar from "../../../components/myStatusBar";
@@ -29,13 +28,9 @@ import {
 export default function RideDetailScreen({ navigation, route }) {
   const [showCancelDialog, setShowCancelDialog] = useState(false);
   const [showDeleteDialog, setShowDeleteDialog] = useState(false);
-
-  // keep ride in state so we can mutate passengers and seats
   const [rideState, setRideState] = useState(route.params?.ride || {});
   const driver = useDriver(rideState.userId);
   const user = firebase.auth.currentUser;
-
-  // passenger cancels their registration
   const handleCancelConfirm = async () => {
     if (!user) {
       setShowCancelDialog(false);
@@ -43,30 +38,21 @@ export default function RideDetailScreen({ navigation, route }) {
     }
 
     const journeyRef = doc(firebase.db, "journeys", rideState.id);
-    const regRef = doc(
-      collection(journeyRef, "registered_journeys"),
-      user.uid
-    );
+    const regRef = doc(collection(journeyRef, "registered_journeys"), user.uid);
 
     try {
-      // fetch the registration to see if it was approved
       const regSnap = await getDoc(regRef);
       const wasApproved =
         regSnap.exists() && regSnap.data().approvedByRider === true;
-
-      // delete the registration record
       await deleteDoc(regRef);
 
-      // build update object
       const updateData = { passengers: arrayRemove(user.uid) };
       if (wasApproved) {
         updateData.seats = increment(1);
       }
 
-      // apply update
       await updateDoc(journeyRef, updateData);
 
-      // update local state
       setRideState((r) => ({
         ...r,
         passengers: (r.passengers || []).filter((uid) => uid !== user.uid),
@@ -83,7 +69,6 @@ export default function RideDetailScreen({ navigation, route }) {
     navigation.goBack();
   };
 
-  // driver deletes entire journey
   const handleDeleteConfirm = async () => {
     const journeyRef = doc(firebase.db, "journeys", rideState.id);
     try {
@@ -97,7 +82,6 @@ export default function RideDetailScreen({ navigation, route }) {
     setShowDeleteDialog(false);
   };
 
-  // passenger registers for ride (unchanged)
   const handleRegister = async () => {
     if (!user) return navigation.navigate("Login");
     if ((rideState.seats ?? 0) < 1) {
@@ -105,10 +89,7 @@ export default function RideDetailScreen({ navigation, route }) {
       return;
     }
     const journeyRef = doc(firebase.db, "journeys", rideState.id);
-    const regRef = doc(
-      collection(journeyRef, "registered_journeys"),
-      user.uid
-    );
+    const regRef = doc(collection(journeyRef, "registered_journeys"), user.uid);
     try {
       await setDoc(regRef, {
         userId: user.uid,
@@ -148,7 +129,6 @@ export default function RideDetailScreen({ navigation, route }) {
         onDeletePress={() => setShowDeleteDialog(true)}
       />
 
-      {/* passenger unregister confirmation */}
       <CancelRideDialog
         isVisible={showCancelDialog}
         onClose={() => setShowCancelDialog(false)}
@@ -157,7 +137,6 @@ export default function RideDetailScreen({ navigation, route }) {
         description="Ar tikrai norite atšaukti savo registraciją į šią kelionę?"
       />
 
-      {/* driver delete journey confirmation */}
       <CancelRideDialog
         isVisible={showDeleteDialog}
         onClose={() => setShowDeleteDialog(false)}

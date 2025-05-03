@@ -63,7 +63,9 @@ export const useUserVehicles = () => {
     if (approved) {
       setModalMessage("Šis automobilis yra patvirtintas administratoriaus.");
     } else {
-      setModalMessage("Šis automobilis dar nėra patvirtintas administratoriaus.");
+      setModalMessage(
+        "Šis automobilis dar nėra patvirtintas administratoriaus."
+      );
     }
     setModalVisible(true);
   };

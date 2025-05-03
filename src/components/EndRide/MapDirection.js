@@ -1,4 +1,3 @@
-// src/components/EndRide/MapDirection.js
 import React, { useState, useRef } from "react";
 import MapView, { Marker, PROVIDER_GOOGLE } from "react-native-maps";
 import MapViewDirections from "react-native-maps-directions";
@@ -37,10 +36,7 @@ const MapDirection = ({ ride }) => {
       />
       {coords.length > 0 && (
         <>
-          <Marker
-            coordinate={coords[0]}
-            pinColor={Colors.greenColor}
-          />
+          <Marker coordinate={coords[0]} pinColor={Colors.greenColor} />
           <Marker
             coordinate={coords[coords.length - 1]}
             pinColor={Colors.redColor}

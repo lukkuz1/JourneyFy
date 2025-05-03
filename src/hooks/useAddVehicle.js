@@ -1,5 +1,12 @@
 import { useState } from "react";
-import { getFirestore, collection, addDoc, query, where, getDocs } from "firebase/firestore";
+import {
+  getFirestore,
+  collection,
+  addDoc,
+  query,
+  where,
+  getDocs,
+} from "firebase/firestore";
 import { getAuth } from "firebase/auth";
 import { uploadImageAsync } from "../utils/uploadImage";
 
@@ -14,7 +21,6 @@ export const useAddVehicle = () => {
       throw new Error("Naudotojas nėra prisijungęs!");
     }
     setUploading(true);
-
 
     const vehiclesQuery = query(
       collection(db, "cars"),

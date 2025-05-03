@@ -4,10 +4,6 @@ import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import DashedLine from "react-native-dashed-line";
 import { Colors, Fonts, Sizes } from "../../constants/styles";
 
-/**
- * @param {string} pickupAddress - user-selected pickup location text
- * @param {string} destinationAddress - user-selected destination location text
- */
 const LocationInfo = ({ pickupAddress = "", destinationAddress = "" }) => {
   return (
     <View style={styles.locationInfoWrapper}>

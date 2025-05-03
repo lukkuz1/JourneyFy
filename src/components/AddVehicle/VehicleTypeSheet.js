@@ -1,24 +1,34 @@
 import React from "react";
-import { View, Text, TouchableOpacity, ScrollView, StyleSheet } from "react-native";
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  ScrollView,
+  StyleSheet,
+} from "react-native";
 import { BottomSheet } from "@rneui/themed";
 import { Colors, Sizes, Fonts } from "../../constants/styles";
 
-
 const vehicleTypes = [
-    "Sedanas", 
-    "Hečbekas", 
-    "Universalas", 
-    "Kabrioletas", 
-    "Kupė", 
-    "Minivanas", 
-    "Pikapas", 
-    "Visureigis", 
-    "Limuzinas", 
-    "Furgonas", 
-    "Kompaktinis automobilis"
-  ];
+  "Sedanas",
+  "Hečbekas",
+  "Universalas",
+  "Kabrioletas",
+  "Kupė",
+  "Minivanas",
+  "Pikapas",
+  "Visureigis",
+  "Limuzinas",
+  "Furgonas",
+  "Kompaktinis automobilis",
+];
 
-const VehicleTypeSheet = ({ isVisible, onClose, selectedVehicleType, onSelectVehicleType }) => {
+const VehicleTypeSheet = ({
+  isVisible,
+  onClose,
+  selectedVehicleType,
+  onSelectVehicleType,
+}) => {
   return (
     <BottomSheet
       isVisible={isVisible}

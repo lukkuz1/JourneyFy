@@ -1,4 +1,3 @@
-// src/components/RidesHeader.js
 import React from "react";
 import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
@@ -7,10 +6,23 @@ import { Colors, Fonts, Sizes, CommonStyles } from "../../constants/styles";
 const RidesHeader = ({ navigation }) => {
   return (
     <View style={styles.header}>
-      <TouchableOpacity style={styles.backButton} onPress={() => navigation.goBack()}>
-        <MaterialIcons name="arrow-back-ios" size={24} color={Colors.whiteColor} />
+      <TouchableOpacity
+        style={styles.backButton}
+        onPress={() => navigation.goBack()}
+      >
+        <MaterialIcons
+          name="arrow-back-ios"
+          size={24}
+          color={Colors.whiteColor}
+        />
       </TouchableOpacity>
-      <Text style={{ ...Fonts.whiteColor20SemiBold, maxWidth: "85%", textAlign: "center" }}>
+      <Text
+        style={{
+          ...Fonts.whiteColor20SemiBold,
+          maxWidth: "85%",
+          textAlign: "center",
+        }}
+      >
         Kelionių istorija
       </Text>
     </View>

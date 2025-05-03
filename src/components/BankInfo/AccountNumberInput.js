@@ -9,7 +9,7 @@ const AccountNumberInput = ({ value, onChangeText }) => {
       <Text style={styles.label}>Sąskaitos numeris</Text>
       <View style={styles.valueBox}>
         <TextInput
-          placeholder="Enter account number"
+          placeholder="Įveskite sąskaitos numerį"
           style={styles.textField}
           placeholderTextColor={Colors.grayColor}
           selectionColor={Colors.primaryColor}

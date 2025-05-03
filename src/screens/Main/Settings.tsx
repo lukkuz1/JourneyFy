@@ -33,7 +33,13 @@ export default function Settings({ navigation }) {
     handleUpdateMapData,
   } = useMapSettings(currentUserId);
 
-  const { newPassword, confirmPassword, setNewPassword, setConfirmPassword, handlePasswordChange } = usePasswordChange();
+  const {
+    newPassword,
+    confirmPassword,
+    setNewPassword,
+    setConfirmPassword,
+    handlePasswordChange,
+  } = usePasswordChange();
 
   const { handleDeleteAccount } = useDeleteAccount();
 
@@ -50,7 +56,7 @@ export default function Settings({ navigation }) {
       <MyStatusBar />
       <ScrollView>
         <Header title={"Nustatymai"} navigation={navigation} />
-        <ProfileSection/>
+        <ProfileSection />
         <OptionsList
           onChangePassword={() => setIsPasswordModalVisible(true)}
           onMapSettings={() => setIsMapModalVisible(true)}

@@ -25,7 +25,11 @@ const MessageInput = ({ onSend }) => {
         placeholderTextColor={Colors.grayColor}
         selectionColor={Colors.primaryColor}
       />
-      <TouchableOpacity activeOpacity={0.8} onPress={send} style={styles.sendIconWrapper}>
+      <TouchableOpacity
+        activeOpacity={0.8}
+        onPress={send}
+        style={styles.sendIconWrapper}
+      >
         <MaterialIcons name="send" size={24} color={Colors.whiteColor} />
       </TouchableOpacity>
     </View>

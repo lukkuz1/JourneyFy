@@ -1,12 +1,6 @@
-// src/components/RideDetail/PassengerDetail.js
 import React, { useState, useEffect } from "react";
 import { View, Text, FlatList, StyleSheet, Image } from "react-native";
-import {
-  Sizes,
-  Fonts,
-  Colors,
-  CommonStyles,
-} from "../../constants/styles";
+import { Sizes, Fonts, Colors, CommonStyles } from "../../constants/styles";
 import {
   collection,
   query,
@@ -22,8 +16,6 @@ const placeholder = require("../../assets/images/user/user9.png");
 const PassengerDetail = ({ rideId }) => {
   const [approvedRegs, setApprovedRegs] = useState([]);
   const [users, setUsers] = useState([]);
-
-  // Listen only to registrations where approvedByRider == true
   useEffect(() => {
     const q = query(
       collection(db, "journeys", rideId, "registered_journeys"),
@@ -36,7 +28,6 @@ const PassengerDetail = ({ rideId }) => {
     return unsub;
   }, [rideId]);
 
-  // Fetch user details for each approved registration
   useEffect(() => {
     const fetchUsers = async () => {
       const results = await Promise.all(
@@ -90,9 +81,7 @@ const PassengerDetail = ({ rideId }) => {
                 {item.firstName} {item.lastName}
               </Text>
               {item.phoneNumber ? (
-                <Text style={Fonts.grayColor12Medium}>
-                  {item.phoneNumber}
-                </Text>
+                <Text style={Fonts.grayColor12Medium}>{item.phoneNumber}</Text>
               ) : null}
               <Text style={Fonts.grayColor12Medium}>
                 Registruotas {item.registeredAt.toLocaleString()}

@@ -13,8 +13,11 @@ const StatusModal = ({ modalVisible, setModalVisible, modalMessage }) => {
       <View style={styles.modalContainer}>
         <View style={styles.modalContent}>
           <Text style={styles.modalText}>{modalMessage}</Text>
-          <TouchableOpacity style={styles.modalButton} onPress={() => setModalVisible(false)}>
-            <Text style={styles.modalButtonText}>OK</Text>
+          <TouchableOpacity
+            style={styles.modalButton}
+            onPress={() => setModalVisible(false)}
+          >
+            <Text style={styles.modalButtonText}>Gerai</Text>
           </TouchableOpacity>
         </View>
       </View>

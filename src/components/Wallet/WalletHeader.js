@@ -1,4 +1,3 @@
-// src/components/WalletHeader.js
 import React from "react";
 import { View, Text, StyleSheet } from "react-native";
 import { Colors, Fonts, Sizes } from "../../constants/styles";

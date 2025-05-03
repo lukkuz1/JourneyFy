@@ -17,7 +17,7 @@ const privacyPolicies = [
   "Kiek laiko saugome Jūsų duomenis?",
   "Jūsų asmens duomenis saugome tik tiek, kiek būtina tikslams, dėl kurių jie buvo surinkti, arba tiek, kiek reikalauja įstatymai. Pasibaigus šiam laikotarpiui, duomenys bus saugiai ištrinti arba anonimizuoti.",
   "Pastaba:",
-  "Šios privatumo politikos tekstas yra bendrinis ir turėtų būti pritaikytas pagal konkrečius „JourneyFy“ veiklos reikalavimus bei suderintas su teisininkais, kad atitiktų GDPR ir kitus teisės aktus."
+  "Šios privatumo politikos tekstas yra bendrinis ir turėtų būti pritaikytas pagal konkrečius „JourneyFy“ veiklos reikalavimus bei suderintas su teisininkais, kad atitiktų GDPR ir kitus teisės aktus.",
 ];
 
 const PrivacyPolicyScreen = ({ navigation }) => {

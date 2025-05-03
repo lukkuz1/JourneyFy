@@ -7,7 +7,7 @@ import { Colors, Sizes, CommonStyles, Fonts } from "../../constants/styles";
 const MessageHeader = ({ navigation, driver, ride }) => {
   const photoUri = driver?.photoURL || driver?.photo || null;
   const subtitle = ride?.journeyDateTime
-    ? `Ride on ${ride.journeyDateTime}`
+    ? `Kelionė ${ride.journeyDateTime}`
     : "";
 
   return (
@@ -35,9 +35,7 @@ const MessageHeader = ({ navigation, driver, ride }) => {
         />
         <View style={{ flex: 1, marginLeft: Sizes.fixPadding }}>
           <Text numberOfLines={1} style={Fonts.whiteColor14SemiBold}>
-            {driver
-              ? `${driver.firstName} ${driver.lastName}`
-              : "Driver"}
+            {driver ? `${driver.firstName} ${driver.lastName}` : "Vairuotojas"}
           </Text>
           {subtitle ? (
             <Text numberOfLines={1} style={Fonts.whiteColor12Medium}>

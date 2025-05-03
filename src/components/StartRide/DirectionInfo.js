@@ -1,4 +1,3 @@
-// src/components/StartRide/DirectionInfo.js
 import React from "react";
 import { View, Text, StyleSheet } from "react-native";
 import { Colors, Fonts, Sizes } from "../../constants/styles";
@@ -9,7 +8,6 @@ const DirectionInfo = ({ ride }) => {
   return (
     <View style={styles.container}>
       <Text style={Fonts.secondaryColor17SemiBold}>Kelionės informacija</Text>
-
 
       <Text style={styles.row}>
         <Text style={Fonts.grayColor14SemiBold}>Iš: </Text>

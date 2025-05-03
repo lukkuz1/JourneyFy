@@ -1,4 +1,3 @@
-// src/components/AddAndSendMoney/ContinueButton.js
 import React from "react";
 import { TouchableOpacity, Text, View } from "react-native";
 import { Colors, CommonStyles, Fonts, Sizes } from "../../constants/styles";

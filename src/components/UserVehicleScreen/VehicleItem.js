@@ -1,5 +1,11 @@
 import React from "react";
-import { StyleSheet, View, Text, ImageBackground, TouchableOpacity } from "react-native";
+import {
+  StyleSheet,
+  View,
+  Text,
+  ImageBackground,
+  TouchableOpacity,
+} from "react-native";
 import { Colors, Fonts, Sizes } from "../../constants/styles";
 import Ionicons from "react-native-vector-icons/Ionicons";
 
@@ -22,7 +28,11 @@ const VehicleItem = ({ vehicle, deleteVehicle, openStatusModal }) => {
           onPress={() => openStatusModal(vehicle.approvedByAdmin)}
         >
           {vehicle.approvedByAdmin ? (
-            <Ionicons name="checkmark-circle" size={24} color={Colors.greenColor} />
+            <Ionicons
+              name="checkmark-circle"
+              size={24}
+              color={Colors.greenColor}
+            />
           ) : (
             <Ionicons name="close-circle" size={24} color={Colors.redColor} />
           )}
@@ -40,7 +50,10 @@ const VehicleItem = ({ vehicle, deleteVehicle, openStatusModal }) => {
           </Text>
           <Text
             numberOfLines={1}
-            style={[Fonts.whiteColor15Medium, { marginTop: Sizes.fixPadding - 8 }]}
+            style={[
+              Fonts.whiteColor15Medium,
+              { marginTop: Sizes.fixPadding - 8 },
+            ]}
           >
             {vehicle.capacityOfPerson} vietų
           </Text>

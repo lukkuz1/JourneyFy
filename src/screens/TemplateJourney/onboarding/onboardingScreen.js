@@ -228,7 +228,7 @@ const OnboardingScreen = ({ navigation }) => {
     return backClickCount == 1 ? (
       <View style={styles.exitInfoWrapStyle}>
         <Text style={{ ...Fonts.whiteColor14Medium }}>
-        Norėdami išeiti, dar kartą paspauskite Atgal!
+          Norėdami išeiti, dar kartą paspauskite Atgal!
         </Text>
       </View>
     ) : null;
@@ -255,7 +255,7 @@ const styles = StyleSheet.create({
     position: "absolute",
     top: 20.0,
     right: 20.0,
-    zIndex:100,
+    zIndex: 100,
   },
   indicatorWithButtonWrapStyle: {
     position: "absolute",

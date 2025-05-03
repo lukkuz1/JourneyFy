@@ -21,41 +21,51 @@ export default function RideDetailFooter({
         <TouchableOpacity
           activeOpacity={0.8}
           onPress={onDeletePress}
-          style={{ ...CommonStyles.button, flex: 1, marginHorizontal: Sizes.fixPadding }}
+          style={{
+            ...CommonStyles.button,
+            flex: 1,
+            marginHorizontal: Sizes.fixPadding,
+          }}
         >
           <Text numberOfLines={1} style={Fonts.whiteColor18Bold}>
             Ištrinti kelionę
           </Text>
         </TouchableOpacity>
+      ) : isRegistered ? (
+        <TouchableOpacity
+          activeOpacity={0.8}
+          onPress={onCancelPress}
+          style={styles.cancelButton}
+        >
+          <Text numberOfLines={1} style={Fonts.primaryColor18Bold}>
+            Atšaukti kelionę
+          </Text>
+        </TouchableOpacity>
       ) : (
-        isRegistered ? (
-          <TouchableOpacity
-            activeOpacity={0.8}
-            onPress={onCancelPress}
-            style={styles.cancelButton}
-          >
-            <Text numberOfLines={1} style={Fonts.primaryColor18Bold}>
-              Atšaukti kelionę
-            </Text>
-          </TouchableOpacity>
-        ) : (
-          <TouchableOpacity
-            activeOpacity={0.8}
-            onPress={onRegisterPress}
-            style={{ flex: 1, ...CommonStyles.button, marginHorizontal: Sizes.fixPadding }}
-          >
-            <Text numberOfLines={1} style={Fonts.whiteColor18Bold}>
-              Prisijungti
-            </Text>
-          </TouchableOpacity>
-        )
+        <TouchableOpacity
+          activeOpacity={0.8}
+          onPress={onRegisterPress}
+          style={{
+            flex: 1,
+            ...CommonStyles.button,
+            marginHorizontal: Sizes.fixPadding,
+          }}
+        >
+          <Text numberOfLines={1} style={Fonts.whiteColor18Bold}>
+            Prisijungti
+          </Text>
+        </TouchableOpacity>
       )}
       <TouchableOpacity
         activeOpacity={0.8}
         onPress={() =>
           navigation.navigate("MessageScreen", { rideId: ride.id })
         }
-        style={{ flex: 1, ...CommonStyles.button, marginHorizontal: Sizes.fixPadding }}
+        style={{
+          flex: 1,
+          ...CommonStyles.button,
+          marginHorizontal: Sizes.fixPadding,
+        }}
       >
         <Text numberOfLines={1} style={Fonts.whiteColor18Bold}>
           Žinutės

@@ -33,18 +33,11 @@ const RateRideDialog = ({
       Alert.alert("Turite prisijungti, kad galėtumėte vertinti");
       return;
     }
-
-    // ride.id always there
     const rideId = ride.id;
-    // try top‐level ride.userId, otherwise look in __raw
     const driverId = ride.userId ?? ride.__raw?.userId;
 
-    console.log("🐞 sending rating for rideId:", rideId, "driverId:", driverId);
-
     if (!driverId) {
-      Alert.alert(
-        "Įvyko klaida: trūksta vairuotojo identifikatoriaus"
-      );
+      Alert.alert("Įvyko klaida: trūksta vairuotojo identifikatoriaus");
       return;
     }
 
@@ -112,9 +105,7 @@ const RateRideDialog = ({
                   name="star"
                   size={40}
                   color={
-                    rating >= no
-                      ? Colors.secondaryColor
-                      : Colors.lightGrayColor
+                    rating >= no ? Colors.secondaryColor : Colors.lightGrayColor
                   }
                   onPress={() => setRating(no)}
                   style={{ marginHorizontal: Sizes.fixPadding / 2 }}

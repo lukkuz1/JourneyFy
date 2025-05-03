@@ -26,20 +26,24 @@ const Header = ({ location = "Lietuva" }) => {
   return (
     <View style={styles.header}>
       <View style={{ flexDirection: "row", alignItems: "center" }}>
-    <Image
-      source={
-        user?.photoURL
-          ? { uri: user.photoURL }
-          : require("../../assets/images/user/user1.jpeg")
-      }
-      style={styles.profileImage}
-    />
+        <Image
+          source={
+            user?.photoURL
+              ? { uri: user.photoURL }
+              : require("../../assets/images/user/user1.jpeg")
+          }
+          style={styles.profileImage}
+        />
         <View style={{ flex: 1, marginLeft: Sizes.fixPadding }}>
           <Text numberOfLines={1} style={Fonts.whiteColor16SemiBold}>
             Labas, {userName}
           </Text>
           <View style={styles.locationRow}>
-            <Ionicons name="location-outline" size={14} color={Colors.whiteColor} />
+            <Ionicons
+              name="location-outline"
+              size={14}
+              color={Colors.whiteColor}
+            />
             <Text numberOfLines={1} style={styles.locationText}>
               {location}
             </Text>

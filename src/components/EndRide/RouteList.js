@@ -1,4 +1,3 @@
-// src/components/EndRide/RouteList.js
 import React from "react";
 import { View, Text } from "react-native";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
@@ -12,7 +11,7 @@ const RouteList = ({ ride }) => {
   const stops = [
     {
       id: "pickup",
-      title: "Paėmimas",
+      title: "Paėmimo taškas",
       address: pickupAddress,
       completed: status !== "pending",
     },
@@ -31,7 +30,10 @@ const RouteList = ({ ride }) => {
         return (
           <View
             key={s.id}
-            style={{ flexDirection: "row", marginHorizontal: Sizes.fixPadding * 2 }}
+            style={{
+              flexDirection: "row",
+              marginHorizontal: Sizes.fixPadding * 2,
+            }}
           >
             <View>
               <View

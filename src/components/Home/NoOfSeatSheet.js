@@ -3,7 +3,6 @@ import { View, Text, TouchableOpacity, ScrollView } from "react-native";
 import { BottomSheet } from "@rneui/themed";
 import { Colors, Sizes, Fonts } from "../../constants/styles";
 
-
 const seats = Array.from({ length: 7 }, (_, i) => i + 1);
 
 const NoOfSeatSheet = ({ isVisible, onClose, selectedSeat, onSelectSeat }) => {
@@ -15,7 +14,10 @@ const NoOfSeatSheet = ({ isVisible, onClose, selectedSeat, onSelectSeat }) => {
     >
       <View style={styles.sheetStyle}>
         <Text style={styles.sheetHeader}>Vietų sk.</Text>
-        <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={{ paddingBottom: Sizes.fixPadding * 2 }}>
+        <ScrollView
+          showsVerticalScrollIndicator={false}
+          contentContainerStyle={{ paddingBottom: Sizes.fixPadding * 2 }}
+        >
           <View>
             {seats.map((item, index) => (
               <View key={index}>
@@ -25,7 +27,9 @@ const NoOfSeatSheet = ({ isVisible, onClose, selectedSeat, onSelectSeat }) => {
                     onClose();
                   }}
                   style={{
-                    ...(selectedSeat === item ? Fonts.secondaryColor16SemiBold : Fonts.blackColor16SemiBold),
+                    ...(selectedSeat === item
+                      ? Fonts.secondaryColor16SemiBold
+                      : Fonts.blackColor16SemiBold),
                     textAlign: "center",
                   }}
                 >

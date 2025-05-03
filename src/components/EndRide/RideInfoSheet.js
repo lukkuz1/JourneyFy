@@ -1,4 +1,3 @@
-// src/components/EndRide/RideInfoSheet.js
 import React from "react";
 import { ScrollView, Text } from "react-native";
 import BottomSheet from "react-native-simple-bottom-sheet";
@@ -26,7 +25,11 @@ const RideInfoSheet = ({ ride, passengersList = [] }) => {
           contentContainerStyle={{ paddingBottom: Sizes.fixPadding * 10 }}
           showsVerticalScrollIndicator={false}
         >
-          <Animatable.View animation="slideInUp" iterationCount={1} duration={1500}>
+          <Animatable.View
+            animation="slideInUp"
+            iterationCount={1}
+            duration={1500}
+          >
             <Text
               style={{
                 ...Fonts.blackColor16SemiBold,

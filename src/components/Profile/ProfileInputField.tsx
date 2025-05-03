@@ -18,7 +18,7 @@ interface ProfileInputFieldProps {
   setter: (text: string) => void;
   keyboardType?: KeyboardTypeOptions;
   validate?: (text: string) => string;
-  placeholder?: string; // Added placeholder prop
+  placeholder?: string;
 }
 
 const ProfileInputField: React.FC<ProfileInputFieldProps> = ({
@@ -27,7 +27,7 @@ const ProfileInputField: React.FC<ProfileInputFieldProps> = ({
   setter,
   keyboardType = "default",
   validate,
-  placeholder, // Accepting placeholder prop
+  placeholder,
 }) => {
   const [error, setError] = useState<string>("");
 
@@ -60,15 +60,15 @@ const ProfileInputField: React.FC<ProfileInputFieldProps> = ({
           <Text style={styles.label}>{label}</Text>
           <TextInput
             style={styles.textFieldStyle}
-            placeholder={placeholder} // Using the placeholder prop
+            placeholder={placeholder}
             value={value}
             onChangeText={handleChange}
             onBlur={handleBlur}
             placeholderTextColor={Colors.grayColor}
             keyboardType={keyboardType}
             autoFocus={true}
-            editable={true} // Ensure it's interactable
-            returnKeyType="done" // Allows users to close the keyboard
+            editable={true}
+            returnKeyType="done"
           />
           {error ? <Text style={styles.errorText}>{error}</Text> : null}
         </View>
@@ -78,26 +78,26 @@ const ProfileInputField: React.FC<ProfileInputFieldProps> = ({
 };
 
 export const validateName = (name: string): string => {
-  if (!name.trim()) return "This field is required";
-  if (!/^[A-Za-z\s]+$/.test(name)) return "Only letters and spaces are allowed";
+  if (!name.trim()) return "Šis laukas privalomas";
+  if (!/^[A-Za-z\s]+$/.test(name)) return "Leidžiami tik raidės ir tarpai";
   return "";
 };
 
 export const validatePhoneNumber = (number: string): string => {
-  if (!number.trim()) return "Phone number is required";
+  if (!number.trim()) return "Būtina nurodyti telefono numerį";
   if (
     !/^\+?(\d{1,4})?[-.\s()]?\(?\d{1,4}\)?[-.\s]?\d{1,4}[-.\s]?\d{1,9}$/.test(
       number
     )
   )
-    return "Enter a valid phone number";
+    return "Įveskite teisingą telefono numerį";
   return "";
 };
 
 export const validateDateOfBirth = (date: string): string => {
-  if (!date.trim()) return "Date of birth is required";
+  if (!date.trim()) return "Būtina nurodyti gimimo datą";
   if (!/^\d{4}-\d{2}-\d{2}$/.test(date)) {
-    return "Enter a valid date (YYYY-MM-DD)";
+    return "Įveskite teisingą gimimo datą (MMMM-MM-DD)";
   }
 
   const parsedDate = new Date(date);
@@ -105,7 +105,7 @@ export const validateDateOfBirth = (date: string): string => {
   const currentYear = new Date().getFullYear();
 
   if (year < 1900 || year > currentYear) {
-    return `Enter a year between 1900 and ${currentYear}`;
+    return `Įveskite metus nuo 1900 iki ${currentYear}`;
   }
 
   if (
@@ -113,7 +113,7 @@ export const validateDateOfBirth = (date: string): string => {
     parsedDate.getMonth() + 1 !== month ||
     parsedDate.getDate() !== day
   ) {
-    return "Enter a valid date (YYYY-MM-DD)";
+    return "Įveskite galiojančią datą (MMMM-MM-DD)";
   }
 
   return "";

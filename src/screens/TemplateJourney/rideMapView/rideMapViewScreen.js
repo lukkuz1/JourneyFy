@@ -1,4 +1,3 @@
-// src/screens/RideMapViewScreen.js
 import React from "react";
 import { View, ScrollView, StyleSheet } from "react-native";
 import MyStatusBar from "../../../components/myStatusBar";

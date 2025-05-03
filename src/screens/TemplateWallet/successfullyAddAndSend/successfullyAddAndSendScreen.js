@@ -1,4 +1,3 @@
-// src/screens/SuccessfullyAddAndSendScreen.js
 import {
   StyleSheet,
   Text,

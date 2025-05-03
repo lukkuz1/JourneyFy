@@ -1,4 +1,3 @@
-// src/screens/TransactionsScreen.js
 import React from "react";
 import { View } from "react-native";
 import MyStatusBar from "../../../components/myStatusBar";
@@ -98,7 +97,7 @@ const TransactionsScreen = ({ navigation }) => {
     <View style={{ flex: 1, backgroundColor: Colors.bodyBackColor }}>
       <MyStatusBar />
       <View style={{ flex: 1 }}>
-        <Header title={"Sandoris"} navigation={navigation} />
+        <Header title={"Sandoriai"} navigation={navigation} />
         <TransactionList transactions={transactionsList} />
       </View>
     </View>

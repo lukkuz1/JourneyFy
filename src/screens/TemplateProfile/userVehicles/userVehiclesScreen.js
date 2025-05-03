@@ -38,7 +38,10 @@ const UserVehiclesScreen = ({ navigation }) => {
         setModalVisible={setModalVisible}
         modalMessage={modalMessage}
       />
-      <SnackBarComponent showSnackBar={showSnackBar} setShowSnackBar={setShowSnackBar} />
+      <SnackBarComponent
+        showSnackBar={showSnackBar}
+        setShowSnackBar={setShowSnackBar}
+      />
     </View>
   );
 };

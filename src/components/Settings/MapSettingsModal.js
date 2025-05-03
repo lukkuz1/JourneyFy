@@ -28,7 +28,9 @@ const MapSettingsModal = ({
           />
           <EntryInputField
             headerText="Maksimalus sustojimų skaičius"
-            placeholderText={populateStops || "Įveskite maksimalų sustojimų skaičių"}
+            placeholderText={
+              populateStops || "Įveskite maksimalų sustojimų skaičių"
+            }
             keyboardType="numeric"
             isPassword={false}
             onChangeText={onChangeStops}
@@ -37,7 +39,10 @@ const MapSettingsModal = ({
             <TouchableOpacity style={styles.modalButton} onPress={onSave}>
               <Text style={styles.modalButtonText}>Išsaugoti</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={[styles.modalButton, styles.modalCancelButton]} onPress={onCancel}>
+            <TouchableOpacity
+              style={[styles.modalButton, styles.modalCancelButton]}
+              onPress={onCancel}
+            >
               <Text style={styles.modalButtonText}>Atšaukti</Text>
             </TouchableOpacity>
           </View>

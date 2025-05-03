@@ -1,4 +1,3 @@
-// src/screens/OfferRideScreen.js
 import React, { useState } from "react";
 import { View, ScrollView, Alert } from "react-native";
 import { useRoute } from "@react-navigation/native";
@@ -28,7 +27,6 @@ const OfferRideScreen = ({ navigation }) => {
     facilities: initFacilities,
   } = route.params || {};
 
-  // form state
   const [pickupAddress, setPickupAddress] = useState(initPickup || "");
   const [destinationAddress, setDestination] = useState(initDestination || "");
   const [journeyDateTime, setJourneyDateTime] = useState(initDateTime || null);
@@ -44,43 +42,36 @@ const OfferRideScreen = ({ navigation }) => {
 
   const { createJourney, loading } = useCreateJourney();
 
-  // fetch user's cars
   const { vehicles } = useFetchVehicles();
   const carsList = vehicles.map((v) => v.vehicleName);
 
   const handleContinue = async () => {
-    // 1) Price is required
     if (price === "") {
       Alert.alert("Trūksta kainos", "Prašome įvesti kainą už vietą.");
       return;
     }
-    // 2) Car is required
+
     if (!selectedCar) {
       Alert.alert("Trūksta automobilio", "Prašome pasirinkti savo automobilį.");
       return;
     }
-    // 3) All other fields
+
     if (
       !pickupAddress ||
       !destinationAddress ||
       !journeyDateTime ||
       !selectedSeat
     ) {
-      Alert.alert(
-        "Trūksta informacijos",
-        "Prašome užpildyti visus laukus."
-      );
+      Alert.alert("Trūksta informacijos", "Prašome užpildyti visus laukus.");
       return;
     }
 
-    // 4) Price must be a valid non‐negative number
     const numericPrice = parseFloat(price);
     if (isNaN(numericPrice) || numericPrice < 0) {
       Alert.alert("Neteisinga kaina", "Įveskite galiojančią kainą.");
       return;
     }
 
-    // only now write to Firestore
     const id = await createJourney({
       pickupAddress,
       destinationAddress,

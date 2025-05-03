@@ -13,8 +13,8 @@ import { Alert } from "react-native";
 
 const useCreateJourney = () => {
   const [loading, setLoading] = useState(false);
-  const [error, setError]     = useState(null);
-  const db  = getFirestore();
+  const [error, setError] = useState(null);
+  const db = getFirestore();
   const auth = getAuth();
 
   const createJourney = async ({
@@ -33,8 +33,8 @@ const useCreateJourney = () => {
     setError(null);
 
     const rawData = {
-      userId:      auth.currentUser.uid,
-      userEmail:   auth.currentUser.email,
+      userId: auth.currentUser.uid,
+      userEmail: auth.currentUser.email,
       pickupAddress,
       destinationAddress,
       journeyDateTime,
@@ -65,7 +65,9 @@ const useCreateJourney = () => {
       setLoading(false);
       Alert.alert(
         "Sekmės pranešimas",
-        journeyId ? "Kelionės informacija atnaujinta!" : "Kelionė sėkmingai sukurta!"
+        journeyId
+          ? "Kelionės informacija atnaujinta!"
+          : "Kelionė sėkmingai sukurta!"
       );
       return docRefId;
     } catch (err) {

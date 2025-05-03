@@ -1,4 +1,3 @@
-// src/components/PaymentMethods/PaymentMethodItem.js
 import React from "react";
 import { View, Text, Image, TouchableOpacity, StyleSheet } from "react-native";
 import { Colors, Fonts, Sizes, CommonStyles } from "../../constants/styles";
@@ -9,15 +8,19 @@ const PaymentMethodItem = ({ item, index, isSelected, onSelect }) => {
       <TouchableOpacity
         activeOpacity={0.8}
         onPress={onSelect}
-        style={[styles.itemContainer, CommonStyles.rowAlignCenter, { marginHorizontal: Sizes.fixPadding * 2 }]}
+        style={[
+          styles.itemContainer,
+          CommonStyles.rowAlignCenter,
+          { marginHorizontal: Sizes.fixPadding * 2 },
+        ]}
       >
-        <Image
-          source={item.paymentIcon}
-          style={styles.paymentIcon}
-        />
+        <Image source={item.paymentIcon} style={styles.paymentIcon} />
         <Text
           numberOfLines={1}
-          style={[Fonts.blackColor16Medium, { flex: 1, marginHorizontal: Sizes.fixPadding + 5 }]}
+          style={[
+            Fonts.blackColor16Medium,
+            { flex: 1, marginHorizontal: Sizes.fixPadding + 5 },
+          ]}
         >
           {item.paymentType}
         </Text>
@@ -31,7 +34,7 @@ const PaymentMethodItem = ({ item, index, isSelected, onSelect }) => {
           ]}
         />
       </TouchableOpacity>
-      {index === (item.length - 1) ? null : <View style={styles.divider} />}
+      {index === item.length - 1 ? null : <View style={styles.divider} />}
     </View>
   );
 };

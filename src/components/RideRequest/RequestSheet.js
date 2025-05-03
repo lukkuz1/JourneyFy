@@ -1,4 +1,3 @@
-// src/components/RideRequest/RequestSheet.js
 import React, { useState, useEffect } from "react";
 import {
   View,
@@ -116,9 +115,7 @@ const RequestSheet = ({
                   style={{ width: 60, height: 60, borderRadius: 30 }}
                 />
                 <View style={{ flex: 1, marginLeft: Sizes.fixPadding }}>
-                  <Text style={Fonts.blackColor15SemiBold}>
-                    {u.nickname}
-                  </Text>
+                  <Text style={Fonts.blackColor15SemiBold}>{u.nickname}</Text>
                   <Text style={Fonts.grayColor12Medium}>
                     Registruotas:{" "}
                     {u.registeredAt

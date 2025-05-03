@@ -7,7 +7,12 @@ const SupportForm = () => {
   return (
     <>
       <View style={{ margin: Sizes.fixPadding * 2 }}>
-        <Text style={{ ...Fonts.blackColor15SemiBold, marginBottom: Sizes.fixPadding }}>
+        <Text
+          style={{
+            ...Fonts.blackColor15SemiBold,
+            marginBottom: Sizes.fixPadding,
+          }}
+        >
           Vardas
         </Text>
         <View style={styles.valueBox}>
@@ -21,7 +26,12 @@ const SupportForm = () => {
         </View>
       </View>
       <View style={{ marginHorizontal: Sizes.fixPadding * 2 }}>
-        <Text style={{ ...Fonts.blackColor15SemiBold, marginBottom: Sizes.fixPadding }}>
+        <Text
+          style={{
+            ...Fonts.blackColor15SemiBold,
+            marginBottom: Sizes.fixPadding,
+          }}
+        >
           E. paštas
         </Text>
         <View style={styles.valueBox}>
@@ -36,7 +46,12 @@ const SupportForm = () => {
         </View>
       </View>
       <View style={{ margin: Sizes.fixPadding * 2 }}>
-        <Text style={{ ...Fonts.blackColor15SemiBold, marginBottom: Sizes.fixPadding }}>
+        <Text
+          style={{
+            ...Fonts.blackColor15SemiBold,
+            marginBottom: Sizes.fixPadding,
+          }}
+        >
           Žinutė
         </Text>
         <View style={styles.valueBox}>

@@ -1,4 +1,3 @@
-// src/components/OfferRide/FacilityInfo.js
 import React from "react";
 import { View, Text, TextInput, Platform } from "react-native";
 import { Colors, Fonts, Sizes } from "../../constants/styles";

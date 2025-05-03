@@ -33,7 +33,10 @@ const PasswordModal = ({
             <TouchableOpacity style={styles.modalButton} onPress={onSubmit}>
               <Text style={styles.modalButtonText}>Patvirtinti</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={[styles.modalButton, styles.modalCancelButton]} onPress={onCancel}>
+            <TouchableOpacity
+              style={[styles.modalButton, styles.modalCancelButton]}
+              onPress={onCancel}
+            >
               <Text style={styles.modalButtonText}>Atšaukti</Text>
             </TouchableOpacity>
           </View>

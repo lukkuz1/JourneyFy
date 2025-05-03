@@ -1,4 +1,9 @@
-import { getStorage, ref as storageRef, uploadBytes, getDownloadURL } from "firebase/storage";
+import {
+  getStorage,
+  ref as storageRef,
+  uploadBytes,
+  getDownloadURL,
+} from "firebase/storage";
 import { getAuth } from "firebase/auth";
 
 export const uploadImageAsync = async (uri) => {

@@ -19,10 +19,7 @@ const RideHistoryItem = ({ item, navigation }) => {
         style={{ width: 82, height: 82, borderRadius: Sizes.fixPadding - 5 }}
       />
       <View style={styles.rideDetailWrapper}>
-        {/* Driver name */}
         <Text style={Fonts.blackColor15SemiBold}>{item.name}</Text>
-
-        {/* Date / Time */}
         <View style={CommonStyles.rowAlignCenter}>
           <Ionicons
             name="calendar-outline"
@@ -49,8 +46,6 @@ const RideHistoryItem = ({ item, navigation }) => {
             {item.time}
           </Text>
         </View>
-
-        {/* Pickup & Drop */}
         <View>
           <View style={CommonStyles.rowAlignCenter}>
             <View

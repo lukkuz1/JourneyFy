@@ -43,9 +43,7 @@ const StartRideScreen = ({ navigation, route }) => {
       Alert.alert(
         "Kelionė jau buvo pradėta",
         null,
-        [
-          { text: "Gerai", onPress: () => {} },
-        ],
+        [{ text: "Gerai", onPress: () => {} }],
         { cancelable: false }
       );
       navigation.replace("EndRideScreen", { rideId: rideState.id });
@@ -68,16 +66,19 @@ const StartRideScreen = ({ navigation, route }) => {
           snap.docs.map(async (regDoc) => {
             const { userId } = regDoc.data();
             try {
-              const userSnap = await getDoc(
-                doc(firebase.db, "users", userId)
-              );
+              const userSnap = await getDoc(doc(firebase.db, "users", userId));
               if (userSnap.exists()) {
                 return { id: userId, ...userSnap.data() };
               }
             } catch (e) {
               console.error("Error fetching passenger", userId, e);
             }
-            return { id: userId, firstName: "Keleivis", lastName: "", photoURL: null };
+            return {
+              id: userId,
+              firstName: "Keleivis",
+              lastName: "",
+              photoURL: null,
+            };
           })
         );
         setPassengers(results);

@@ -1,4 +1,3 @@
-// src/components/RideDetail/VehicleInfo.js
 import React from "react";
 import { View, Text } from "react-native";
 import { Colors, Fonts, Sizes } from "../../constants/styles";
@@ -30,7 +29,7 @@ const VehicleInfo = ({ ride }) => {
             { marginTop: Sizes.fixPadding - 7 },
           ]}
         >
-          {ride.seats != null ? ride.seats : "Nenurodytas"}
+          {ride.seats != null ? ride.seats : "Nenurodytas vietų sk."}
         </Text>
       </View>
 

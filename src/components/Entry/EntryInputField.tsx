@@ -11,7 +11,7 @@ import {
   Pressable,
 } from "react-native";
 import Colors from "../../constants/Colors";
-import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 type Props = {
   headerText: string;
@@ -63,15 +63,20 @@ export default function EntryInputField({
           autoCapitalize="none"
         />
         {isPassword ? (
-          <Pressable onPress={() => setSecure(prev => !prev)} style={styles.iconButton}>
+          <Pressable
+            onPress={() => setSecure((prev) => !prev)}
+            style={styles.iconButton}
+          >
             <MaterialCommunityIcons
-              name={secure ? 'eye-off-outline' : 'eye-outline'}
+              name={secure ? "eye-off-outline" : "eye-outline"}
               size={24}
               color={Colors.Gray}
             />
           </Pressable>
         ) : (
-          postfix.length > 0 && <Text style={styles.prefix}>{` ${postfix}`}</Text>
+          postfix.length > 0 && (
+            <Text style={styles.prefix}>{` ${postfix}`}</Text>
+          )
         )}
       </View>
     </View>

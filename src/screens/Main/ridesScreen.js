@@ -1,4 +1,3 @@
-// src/screens/RidesScreen.js
 import React, { useEffect, useState } from "react";
 import { View, StyleSheet } from "react-native";
 import MyStatusBar from "../../components/myStatusBar";
@@ -19,7 +18,6 @@ import {
 
 const mapJourney = async (docSnap) => {
   const d = docSnap.data();
-  // fetch driver info
   let profile, name;
   try {
     const userSnap = await getDoc(doc(firebase.db, "users", d.userId));
@@ -35,8 +33,8 @@ const mapJourney = async (docSnap) => {
     name = "Vairuotojas";
   }
 
-  // parse journeyDateTime (string "YYYY-M-D HH:mm")
-  let date = "", time = "";
+  let date = "",
+    time = "";
   if (d.journeyDateTime) {
     const parts = d.journeyDateTime.split(" ");
     date = parts[0];
@@ -68,23 +66,19 @@ const RidesScreen = ({ navigation }) => {
   useEffect(() => {
     const user = firebase.auth.currentUser;
     if (!user) return;
-
-    // 1) Rides where I'm the driver
     const qDriver = query(
       collection(firebase.db, "journeys"),
       where("userId", "==", user.uid),
-      where("status", "in", ["pending", "started"]),
+      where("status", "in", ["pending", "started"])
     );
     const unsubDriver = onSnapshot(qDriver, async (snap) => {
       const arr = await Promise.all(snap.docs.map(mapJourney));
       setDriverRides(arr);
     });
-
-    // 2) Rides where I'm a passenger
     const qPassenger = query(
       collection(firebase.db, "journeys"),
       where("passengers", "array-contains", user.uid),
-      where("status", "in", ["pending", "started"]),
+      where("status", "in", ["pending", "started"])
     );
     const unsubPassenger = onSnapshot(qPassenger, async (snap) => {
       const arr = await Promise.all(snap.docs.map(mapJourney));
@@ -97,7 +91,6 @@ const RidesScreen = ({ navigation }) => {
     };
   }, []);
 
-  // merge and dedupe (in case you drove a ride you also sat in)
   const all = [
     ...driverRides,
     ...passengerRides.filter((p) => !driverRides.find((d) => d.id === p.id)),

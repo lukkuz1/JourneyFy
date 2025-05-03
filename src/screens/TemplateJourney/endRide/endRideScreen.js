@@ -1,4 +1,3 @@
-// src/screens/EndRideScreen.js
 import React, { useState, useEffect } from "react";
 import { View } from "react-native";
 import MyStatusBar from "../../../components/myStatusBar";
@@ -25,7 +24,7 @@ const EndRideScreen = ({ navigation, route }) => {
           data.passengers.map(async (uid) => {
             const uSnap = await getDoc(doc(firebase.db, "users", uid));
             if (uSnap.exists()) return { id: uid, ...uSnap.data() };
-            return { id: uid, firstName: "Unknown", lastName: "" };
+            return { id: uid, firstName: "Vairuotojas", lastName: "" };
           })
         );
         setPassengersList(users);

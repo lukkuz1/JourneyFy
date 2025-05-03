@@ -1,8 +1,12 @@
-// src/components/PickLocation/PickLocationMap.js
 import React from "react";
 import { Image } from "react-native";
 import MapView, { Marker, PROVIDER_GOOGLE } from "react-native-maps";
-import { Colors, screenWidth, screenHeight, Sizes } from "../../constants/styles";
+import {
+  Colors,
+  screenWidth,
+  screenHeight,
+  Sizes,
+} from "../../constants/styles";
 
 const LATITUDE_DELTA = 0.1;
 const ASPECT_RATIO = screenWidth / screenHeight;
