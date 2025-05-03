@@ -1,7 +1,7 @@
 # JourneyFy
 ![JourneyFy](./assets/app_color_icon.png)
 
-Kelionių rezervavimo programėlė, skirta planuoti ir įgyvendinti jūsų keliones
+Kelionių kartu (Carpooling) programėlė, skirta planuoti ir įgyvendinti jūsų keliones
 
 ## Turinio rodyklė
 - [Įvadas](#įvadas)
@@ -24,7 +24,7 @@ JourneyFy yra mobilioji programėlė, sukurta padėti naudotojams planuoti, reze
 
 ## Aplinkos kintamieji
 
-Prieš paleisdami programėlę, sukurkite `.env` failą projekto šaknyje ir pridėkite šiuos kintamuosius:
+Prieš paleisdami programėlę, sukurkite `.env` failą projekto bazėje ir pridėkite šiuos kintamuosius:
 
 ```bash
 FIREBASE_API_KEY=""
@@ -52,11 +52,12 @@ npm install
 
 4. Paleiskite programėlę savo emuliatoriuje arba įrenginyje:
 npx react-native run-android
-# or
+# arba
 npm start
 
 
 ## Technologijos
-- **React Native**: Dėl mobiliosios programėlės kūrimo.
+- **React Native**: Technologija panaudota mobiliosios programėlės kūrimui.
+- **Javascript**: Programavimo kalba panaudota JourneyFy kūrime.
 - **Firebase**: Skirta vidinėms paslaugoms, įskaitant naudotojo autentifikaciją, realaus laiko duomenų bazę.
 
