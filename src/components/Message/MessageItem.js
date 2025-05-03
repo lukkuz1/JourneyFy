@@ -1,4 +1,3 @@
-// src/components/Message/MessageItem.js
 import React, { useState, useEffect } from "react";
 import { View, Text, Image } from "react-native";
 import { Colors, Sizes, Fonts, screenWidth } from "../../constants/styles";
@@ -6,6 +5,17 @@ import firebase from "../../services/firebase";
 import { doc, getDoc } from "firebase/firestore";
 
 const placeholder = require("../../assets/images/user/user2.png");
+
+const formatTo24h = (t) => {
+  const m = t.match(/(\d{1,2}):(\d{2})\s*([AaPp][Mm])/);
+  if (!m) return t; 
+  let [ , hh, mm, period ] = m;
+  let hour = parseInt(hh, 10);
+  period = period.toUpperCase();
+  if (period === "PM" && hour !== 12) hour += 12;
+  if (period === "AM" && hour === 12) hour = 0;
+  return `${hour.toString().padStart(2, "0")}:${mm}`;
+};
 
 const MessageItem = ({ item, driverId }) => {
   const [sender, setSender] = useState(null);
@@ -71,7 +81,7 @@ const MessageItem = ({ item, driverId }) => {
               marginTop: Sizes.fixPadding - 5,
             }}
           >
-            {time}
+            {formatTo24h(time)}
           </Text>
         </View>
       </View>
