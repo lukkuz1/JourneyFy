@@ -1,4 +1,3 @@
-// src/components/Message/MessageList.js
 import React from "react";
 import { View, FlatList } from "react-native";
 import { Sizes } from "../../constants/styles";

@@ -28,7 +28,7 @@ const MessageItem = ({ item, driverId }) => {
   const nickname =
     sender?.nickname ||
     `${sender?.firstName || ""} ${sender?.lastName || ""}`.trim() ||
-    "Vartotojas";
+    "Naudotojas";
 
   return (
     <View

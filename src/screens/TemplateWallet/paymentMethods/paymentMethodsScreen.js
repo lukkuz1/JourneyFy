@@ -21,7 +21,6 @@ const PaymentMethodsScreen = ({ navigation, route }) => {
   const buttonText =
     addFor === "money" ? `Pridėti (${amount}€)` : `Siųsti (${amount}€)`;
 
-  // Log the route params for debugging purposes.
   useEffect(() => {
     console.log("PaymentMethodsScreen params:", route?.params);
   }, [route]);

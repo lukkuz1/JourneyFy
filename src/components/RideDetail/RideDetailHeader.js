@@ -1,4 +1,4 @@
-// src/components/RideDetail/RideDetailHeader.js
+
 import React from "react";
 import { View } from "react-native";
 import Header from "../header";

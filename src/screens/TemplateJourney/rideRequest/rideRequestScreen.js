@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { View, StyleSheet, Alert } from "react-native";
 import MyStatusBar from "../../../components/myStatusBar";
 import Header from "../../../components/header";
@@ -25,9 +25,9 @@ const RideRequestScreen = ({ navigation }) => {
   const [selectedRide, setSelectedRide] = useState(null);
   const [requestUsers, setRequestUsers] = useState([]);
 
-  useEffect(() => {
+  const subscribeToJourneys = useCallback(() => {
     const user = firebase.auth.currentUser;
-    if (!user) return;
+    if (!user) return () => {};
 
     const journeysRef = collection(firebase.db, "journeys");
     const q = query(
@@ -37,71 +37,73 @@ const RideRequestScreen = ({ navigation }) => {
       orderBy("createdAt", "desc")
     );
 
-    const unsub = onSnapshot(q, (snap) => {
-      const base = snap.docs.map((d) => {
-        const data = d.data();
-        return {
-          id: d.id,
-          pickup: data.pickupAddress,
-          drop: data.destinationAddress,
-          createdAt: data.createdAt,
-          car: data.car,
-          price: data.price,
-          seats: data.seats,
-          requestCount: 0,
-          passengerList: [],
-        };
-      });
+    const unsubJourneys = onSnapshot(q, (snap) => {
+      const base = snap.docs.map((d) => ({
+        id: d.id,
+        pickup: d.data().pickupAddress,
+        drop: d.data().destinationAddress,
+        createdAt: d.data().createdAt,
+        car: d.data().car,
+        price: d.data().price,
+        seats: d.data().seats,
+        requestCount: 0,
+        passengerList: [],
+      }));
       setJourneys(base);
 
-      base.forEach((ride, idx) => {
-        const regRef = collection(
-          firebase.db,
-          "journeys",
-          ride.id,
-          "registered_journeys"
-        );
-        const rq = query(regRef, where("approvedByRider", "==", false));
-        onSnapshot(rq, (rsnap) => {
-          setJourneys((prev) =>
-            prev.map((r, i) =>
-              i === idx
-                ? {
-                    ...r,
-                    requestCount: rsnap.size,
-                    passengerList: rsnap.docs.map((doc) => ({
-                      id: doc.id,
-                      ...doc.data(),
-                    })),
-                  }
-                : r
-            )
-          );
-        });
-      });
+      base.forEach((ride, idx) => subscribeToRequests(ride.id, idx));
     });
 
-    return unsub;
+    return unsubJourneys;
   }, []);
 
-  const openSheet = (ride) => {
-    setSelectedRide(ride);
-    setRequestUsers(ride.passengerList || []);
-    setShowSheet(true);
+  const subscribeToRequests = (rideId, idx) => {
+    const regRef = collection(
+      firebase.db,
+      "journeys",
+      rideId,
+      "registered_journeys"
+    );
+    const rq = query(regRef, where("approvedByRider", "==", false));
+
+    return onSnapshot(rq, (rsnap) => {
+      setJourneys((prev) =>
+        prev.map((r, i) =>
+          i === idx
+            ? {
+                ...r,
+                requestCount: rsnap.size,
+                passengerList: rsnap.docs.map((doc) => ({
+                  id: doc.id,
+                  ...doc.data(),
+                })),
+              }
+            : r
+        )
+      );
+    });
   };
 
-  const handleApprove = async (userId) => {
+  useEffect(() => {
+    const unsub = subscribeToJourneys();
+    return () => unsub();
+  }, [subscribeToJourneys]);
+
+  const approveUser = async (userId) => {
     try {
-      const regDocRef = doc(
+      const regDoc = doc(
         firebase.db,
         "journeys",
         selectedRide.id,
         "registered_journeys",
         userId
       );
-      await updateDoc(regDocRef, { approvedByRider: true });
-      const journeyDocRef = doc(firebase.db, "journeys", selectedRide.id);
-      await updateDoc(journeyDocRef, { seats: increment(-1) });
+      await updateDoc(regDoc, { approvedByRider: true });
+
+      await updateDoc(doc(firebase.db, "journeys", selectedRide.id), {
+        seats: increment(-1),
+      });
+
       Alert.alert("Keleivis patvirtintas");
       setRequestUsers((us) => us.filter((u) => u.id !== userId));
     } catch (e) {
@@ -110,22 +112,29 @@ const RideRequestScreen = ({ navigation }) => {
     }
   };
 
-  const handleDecline = async (userId) => {
+  const declineUser = async (userId) => {
     try {
-      const regDocRef = doc(
+      const regDoc = doc(
         firebase.db,
         "journeys",
         selectedRide.id,
         "registered_journeys",
         userId
       );
-      await deleteDoc(regDocRef);
+      await deleteDoc(regDoc);
+
       Alert.alert("Registracija atmesta");
       setRequestUsers((us) => us.filter((u) => u.id !== userId));
     } catch (e) {
       console.error("Decline error:", e);
       Alert.alert("Klaida atmetant registraciją", e.message);
     }
+  };
+
+  const openSheet = (ride) => {
+    setSelectedRide(ride);
+    setRequestUsers(ride.passengerList || []);
+    setShowSheet(true);
   };
 
   return (
@@ -143,8 +152,8 @@ const RideRequestScreen = ({ navigation }) => {
         isVisible={showSheet}
         ride={selectedRide}
         requestUsers={requestUsers}
-        onApprove={handleApprove}
-        onDecline={handleDecline}
+        onApprove={approveUser}
+        onDecline={declineUser}
         onClose={() => setShowSheet(false)}
       />
     </View>
@@ -154,6 +163,11 @@ const RideRequestScreen = ({ navigation }) => {
 export default RideRequestScreen;
 
 const styles = StyleSheet.create({
-  screen: { flex: 1, backgroundColor: Colors.bodyBackColor },
-  content: { flex: 1 },
+  screen: {
+    flex: 1,
+    backgroundColor: Colors.bodyBackColor,
+  },
+  content: {
+    flex: 1,
+  },
 });

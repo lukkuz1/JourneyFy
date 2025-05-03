@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import { View, Alert } from "react-native";
+import React, { useState, useEffect, useCallback } from "react";
+import { View, Alert, StyleSheet } from "react-native";
 import MyStatusBar from "../../../components/myStatusBar";
 import Header from "../../../components/header";
 import { Colors } from "../../../constants/styles";
@@ -16,82 +16,84 @@ import {
   getDoc,
 } from "firebase/firestore";
 
-const StartRideScreen = ({ navigation, route }) => {
-  const initialRide = route.params?.ride || {};
+export default function StartRideScreen({ navigation, route }) {
+  const initialRide = route.params?.ride ?? {};
   const [rideState, setRideState] = useState(initialRide);
   const [passengers, setPassengers] = useState([]);
 
-  useEffect(() => {
-    if (!initialRide.id) return;
-    const rideRef = doc(firebase.db, "journeys", initialRide.id);
-    const unsubscribeRide = onSnapshot(
+  const subscribeToRide = useCallback((rideId) => {
+    const rideRef = doc(firebase.db, "journeys", rideId);
+    return onSnapshot(
       rideRef,
       (snap) => {
         if (!snap.exists()) return;
-        setRideState((prev) => ({
-          ...prev,
-          ...snap.data(),
-        }));
+        setRideState((prev) => ({ ...prev, ...snap.data() }));
       },
-      (err) => console.error("Failed to listen to ride doc:", err)
+      (err) => console.error("Ride subscription error:", err)
     );
-    return () => unsubscribeRide();
-  }, [initialRide.id]);
+  }, []);
 
   useEffect(() => {
-    if (rideState.status === "started") {
-      Alert.alert(
-        "Kelionė jau buvo pradėta",
-        null,
-        [{ text: "Gerai", onPress: () => {} }],
-        { cancelable: false }
-      );
-      navigation.replace("EndRideScreen", { rideId: rideState.id });
-    }
+    if (!initialRide.id) return;
+    const unsubscribe = subscribeToRide(initialRide.id);
+    return () => unsubscribe();
+  }, [initialRide.id, subscribeToRide]);
+
+  useEffect(() => {
+    if (rideState.status !== "started") return;
+
+    Alert.alert(
+      "Kelionė jau buvo pradėta",
+      undefined,
+      [{ text: "Gerai", onPress: () => {} }],
+      { cancelable: false }
+    );
+    navigation.replace("EndRideScreen", { rideId: rideState.id });
   }, [rideState.status, navigation, rideState.id]);
 
-  useEffect(() => {
-    if (!rideState.id) return;
+  const fetchPassenger = async (userId) => {
+    try {
+      const userSnap = await getDoc(doc(firebase.db, "users", userId));
+      if (userSnap.exists()) {
+        return { id: userId, ...userSnap.data() };
+      }
+    } catch (e) {
+      console.error("Error fetching passenger", userId, e);
+    }
+    return { id: userId, firstName: "Keleivis", lastName: "", photoURL: null };
+  };
+
+  const subscribeToPassengers = useCallback((rideId) => {
     const regRef = collection(
       firebase.db,
       "journeys",
-      rideState.id,
+      rideId,
       "registered_journeys"
     );
     const q = query(regRef, where("approvedByRider", "==", true));
-    const unsubscribe = onSnapshot(
+
+    return onSnapshot(
       q,
       async (snap) => {
-        const results = await Promise.all(
-          snap.docs.map(async (regDoc) => {
-            const { userId } = regDoc.data();
-            try {
-              const userSnap = await getDoc(doc(firebase.db, "users", userId));
-              if (userSnap.exists()) {
-                return { id: userId, ...userSnap.data() };
-              }
-            } catch (e) {
-              console.error("Error fetching passenger", userId, e);
-            }
-            return {
-              id: userId,
-              firstName: "Keleivis",
-              lastName: "",
-              photoURL: null,
-            };
-          })
+        const list = await Promise.all(
+          snap.docs.map((doc) => fetchPassenger(doc.data().userId))
         );
-        setPassengers(results);
+        setPassengers(list);
       },
-      (err) => console.error("Failed to listen to passengers:", err)
+      (err) => console.error("Passengers subscription error:", err)
     );
+  }, []);
+
+  useEffect(() => {
+    if (!rideState.id) return;
+    const unsubscribe = subscribeToPassengers(rideState.id);
     return () => unsubscribe();
-  }, [rideState.id]);
+  }, [rideState.id, subscribeToPassengers]);
 
   return (
-    <View style={{ flex: 1, backgroundColor: Colors.bodyBackColor }}>
+    <View style={styles.container}>
       <MyStatusBar />
-      <View style={{ flex: 1 }}>
+      <View style={styles.content}>
         <Header title="Kelionės pradžia" navigation={navigation} />
         <DirectionInfo ride={rideState} />
         <RideInfoSheet ride={rideState} passengers={passengers} />
@@ -99,6 +101,14 @@ const StartRideScreen = ({ navigation, route }) => {
       </View>
     </View>
   );
-};
+}
 
-export default StartRideScreen;
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: Colors.bodyBackColor,
+  },
+  content: {
+    flex: 1,
+  },
+});

@@ -16,48 +16,60 @@ import {
   doc,
 } from "firebase/firestore";
 
-const mapJourney = async (docSnap) => {
-  const d = docSnap.data();
-  let profile, name;
+async function fetchUserProfile(userId) {
   try {
-    const userSnap = await getDoc(doc(firebase.db, "users", d.userId));
-    if (userSnap.exists()) {
-      const drv = userSnap.data();
-      profile = drv.photoURL
-        ? { uri: drv.photoURL }
-        : require("../../assets/images/user/user1.jpeg");
-      name = `${drv.firstName} ${drv.lastName}`;
-    } else throw new Error();
-  } catch {
-    profile = require("../../assets/images/user/user1.jpeg");
-    name = "Vairuotojas";
-  }
+    const userDoc = await getDoc(doc(firebase.db, "users", userId));
+    if (!userDoc.exists()) throw new Error("No such user");
 
-  let date = "",
-    time = "";
-  if (d.journeyDateTime) {
-    const parts = d.journeyDateTime.split(" ");
-    date = parts[0];
-    time = parts[1] || "";
+    const { firstName, lastName, photoURL } = userDoc.data();
+    return {
+      profile: photoURL
+        ? { uri: photoURL }
+        : require("../../assets/images/user/user1.jpeg"),
+      name: `${firstName} ${lastName}`,
+    };
+  } catch {
+    return {
+      profile: require("../../assets/images/user/user1.jpeg"),
+      name: "Vairuotojas",
+    };
   }
+}
+
+function formatDateTime(dateTime = "") {
+  const [date = "", time = ""] = dateTime.split(" ");
+  return { date, time };
+}
+
+async function mapJourney(docSnap) {
+  const raw = docSnap.data();
+  const { profile, name } = await fetchUserProfile(raw.userId);
+  const { date, time } = formatDateTime(raw.journeyDateTime);
 
   return {
     id: docSnap.id,
-    __raw: d,
+    __raw: raw,
     profile,
     name,
     date,
     time,
-    pickup: d.pickupAddress,
-    drop: d.destinationAddress,
-    car: d.car,
-    facilities: d.facilities,
-    journeyType: d.journeyType,
-    price: d.price,
-    seats: d.seats,
-    userEmail: d.userEmail,
+    pickup: raw.pickupAddress,
+    drop: raw.destinationAddress,
+    car: raw.car,
+    facilities: raw.facilities,
+    journeyType: raw.journeyType,
+    price: raw.price,
+    seats: raw.seats,
+    userEmail: raw.userEmail,
   };
-};
+}
+
+function subscribeToJourneys(q, setter) {
+  return onSnapshot(q, async (snapshot) => {
+    const rides = await Promise.all(snapshot.docs.map(mapJourney));
+    setter(rides);
+  });
+}
 
 const RidesScreen = ({ navigation }) => {
   const [driverRides, setDriverRides] = useState([]);
@@ -66,24 +78,24 @@ const RidesScreen = ({ navigation }) => {
   useEffect(() => {
     const user = firebase.auth.currentUser;
     if (!user) return;
-    const qDriver = query(
+
+    const driverQuery = query(
       collection(firebase.db, "journeys"),
       where("userId", "==", user.uid),
       where("status", "in", ["pending", "started"])
     );
-    const unsubDriver = onSnapshot(qDriver, async (snap) => {
-      const arr = await Promise.all(snap.docs.map(mapJourney));
-      setDriverRides(arr);
-    });
-    const qPassenger = query(
+
+    const passengerQuery = query(
       collection(firebase.db, "journeys"),
       where("passengers", "array-contains", user.uid),
       where("status", "in", ["pending", "started"])
     );
-    const unsubPassenger = onSnapshot(qPassenger, async (snap) => {
-      const arr = await Promise.all(snap.docs.map(mapJourney));
-      setPassengerRides(arr);
-    });
+
+    const unsubDriver = subscribeToJourneys(driverQuery, setDriverRides);
+    const unsubPassenger = subscribeToJourneys(
+      passengerQuery,
+      setPassengerRides
+    );
 
     return () => {
       unsubDriver();
@@ -91,9 +103,9 @@ const RidesScreen = ({ navigation }) => {
     };
   }, []);
 
-  const all = [
+  const allRides = [
     ...driverRides,
-    ...passengerRides.filter((p) => !driverRides.find((d) => d.id === p.id)),
+    ...passengerRides.filter((p) => !driverRides.some((d) => d.id === p.id)),
   ];
 
   return (
@@ -101,10 +113,10 @@ const RidesScreen = ({ navigation }) => {
       <MyStatusBar />
       <View style={styles.content}>
         <RidesHeader navigation={navigation} />
-        {all.length === 0 ? (
+        {allRides.length === 0 ? (
           <NoRidesInfo />
         ) : (
-          <RidesList rides={all} navigation={navigation} />
+          <RidesList rides={allRides} navigation={navigation} />
         )}
       </View>
     </View>

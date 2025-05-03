@@ -1,4 +1,3 @@
-// src/components/HistoryRideDetail/RateRideDialog.js
 import React from "react";
 import {
   View,
