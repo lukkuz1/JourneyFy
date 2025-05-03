@@ -20,12 +20,12 @@ const RequestSheet = ({
   ride,
   requestUsers = [],
   onApprove,
+  onDecline,
   onClose,
 }) => {
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(false);
 
-  // Whenever the sheet opens or the list changes, re-fetch user profiles
   useEffect(() => {
     if (!isVisible) return;
     let mounted = true;
@@ -41,13 +41,12 @@ const RequestSheet = ({
                 id: req.id,
                 registeredAt: req.registeredAt,
                 photoURL: u.photoURL,
-                nickname: u.nickname || `${u.firstName || ""} ${u.lastName || ""}`.trim(),
+                nickname: (u.nickname || `${u.firstName} ${u.lastName}`).trim(),
               };
             }
           } catch (e) {
             console.error("Failed to fetch user", req.userId, e);
           }
-          // fallback
           return {
             id: req.id,
             registeredAt: req.registeredAt,
@@ -63,8 +62,6 @@ const RequestSheet = ({
       mounted = false;
     };
   }, [isVisible, requestUsers]);
-
-  const r = ride || {};
 
   return (
     <Overlay
@@ -129,15 +126,28 @@ const RequestSheet = ({
                       : ""}
                   </Text>
                 </View>
+
                 <TouchableOpacity
                   onPress={() => onApprove(u.id)}
                   style={{
                     backgroundColor: Colors.secondaryColor,
                     padding: Sizes.fixPadding,
                     borderRadius: Sizes.fixPadding / 2,
+                    marginRight: Sizes.fixPadding,
                   }}
                 >
                   <Text style={Fonts.whiteColor16SemiBold}>Patvirtinti</Text>
+                </TouchableOpacity>
+
+                <TouchableOpacity
+                  onPress={() => onDecline(u.id)}
+                  style={{
+                    backgroundColor: Colors.redColor,
+                    padding: Sizes.fixPadding,
+                    borderRadius: Sizes.fixPadding / 2,
+                  }}
+                >
+                  <Text style={Fonts.whiteColor16SemiBold}>Atmesti</Text>
                 </TouchableOpacity>
               </View>
             ))

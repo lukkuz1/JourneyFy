@@ -4,25 +4,35 @@ import { View, TouchableOpacity, Text } from "react-native";
 import { Colors, CommonStyles, Sizes, Fonts } from "../../constants/styles";
 import firebase from "../../services/firebase";
 
-const RideDetailFooter = ({
+export default function RideDetailFooter({
   ride,
   navigation,
   onCancelPress,
   onRegisterPress,
-}) => {
+  onDeletePress,
+}) {
   const user = firebase.auth.currentUser;
   const isDriver = ride.userId === user?.uid;
   const isRegistered = ride.passengers?.includes(user?.uid);
 
   return (
     <View style={styles.footer}>
-      {/* If the current user is not the driver, show either Cancel or Register */}
-      {!isDriver && (
+      {isDriver ? (
+        <TouchableOpacity
+          activeOpacity={0.8}
+          onPress={onDeletePress}
+          style={{ ...CommonStyles.button, flex: 1, marginHorizontal: Sizes.fixPadding }}
+        >
+          <Text numberOfLines={1} style={Fonts.whiteColor18Bold}>
+            Ištrinti kelionę
+          </Text>
+        </TouchableOpacity>
+      ) : (
         isRegistered ? (
           <TouchableOpacity
             activeOpacity={0.8}
             onPress={onCancelPress}
-            style={styles.cancelRideButton}
+            style={styles.cancelButton}
           >
             <Text numberOfLines={1} style={Fonts.primaryColor18Bold}>
               Atšaukti kelionę
@@ -40,8 +50,6 @@ const RideDetailFooter = ({
           </TouchableOpacity>
         )
       )}
-
-      {/* Always show Messages button */}
       <TouchableOpacity
         activeOpacity={0.8}
         onPress={() =>
@@ -55,7 +63,7 @@ const RideDetailFooter = ({
       </TouchableOpacity>
     </View>
   );
-};
+}
 
 const styles = {
   footer: {
@@ -65,7 +73,7 @@ const styles = {
     flexDirection: "row",
     alignItems: "center",
   },
-  cancelRideButton: {
+  cancelButton: {
     flex: 1,
     ...CommonStyles.button,
     backgroundColor: Colors.whiteColor,
@@ -73,5 +81,3 @@ const styles = {
     ...CommonStyles.shadow,
   },
 };
-
-export default RideDetailFooter;

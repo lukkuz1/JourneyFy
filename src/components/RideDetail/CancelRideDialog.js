@@ -13,24 +13,25 @@ const CancelRideDialog = ({ isVisible, onClose, onConfirm }) => {
     >
       <View style={{ margin: Sizes.fixPadding * 2 }}>
         <Text style={[Fonts.blackColor16SemiBold, { textAlign: "center" }]}>
-          Ar tikrai norite atšaukti registraciją?
+          Ar tikrai norite atšaukti kelionę?
         </Text>
       </View>
       <View style={[CommonStyles.rowAlignCenter]}>
-        <TouchableOpacity
-          activeOpacity={0.8}
-          onPress={onClose}
-          style={styles.dialogButton}
-        >
-          <Text style={Fonts.whiteColor18SemiBold}>Ne</Text>
-        </TouchableOpacity>
-        <View style={{ width: 2, backgroundColor: Colors.whiteColor }} />
-        <TouchableOpacity
+
+      <TouchableOpacity
           activeOpacity={0.8}
           onPress={onConfirm}
           style={styles.dialogButton}
         >
           <Text style={Fonts.whiteColor18SemiBold}>Taip</Text>
+        </TouchableOpacity>
+        <View style={{ width: 2, backgroundColor: Colors.whiteColor }} />
+        <TouchableOpacity
+          activeOpacity={0.8}
+          onPress={onClose}
+          style={styles.cancelButton}
+        >
+          <Text style={Fonts.whiteColor18SemiBold}>Ne</Text>
         </TouchableOpacity>
       </View>
     </Overlay>
@@ -43,6 +44,13 @@ const styles = {
     borderRadius: Sizes.fixPadding,
     padding: 0,
     overflow: "hidden",
+  },
+  cancelButton: {
+    flex: 1,
+    backgroundColor: Colors.secondaryColor,
+    alignItems: "center",
+    justifyContent: "center",
+    padding: Sizes.fixPadding + 2,
   },
   dialogButton: {
     flex: 1,
