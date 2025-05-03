@@ -1,34 +1,30 @@
 # JourneyFy
 ![JourneyFy](./assets/app_color_icon.png)
 
-Journey booking app to plan and complete your journeys
+Kelionių rezervavimo programėlė, skirta planuoti ir įgyvendinti jūsų keliones
+
+## Turinio rodyklė
+- [Įvadas](#įvadas)
+- [Funkcijos](#funkcijos)
+- [Diegimas](#diegimas)
+- [Naudojimas](#naudojimas)
+- [Technologijos](#technologijos)
+
+## Įvadas
+JourneyFy yra mobilioji programėlė, sukurta padėti naudotojams planuoti, rezervuoti ir įgyvendinti keliones. Nesvarbu, ar keliaujate laisvalaikiui, ar verslo tikslais, JourneyFy leidžia kurti keliones, prie kurių kiti naudotojai gali prisijungti, taip paversdama kelionių planavimą socialiu ir interaktyviu. Panašiai kaip BlaBlaCar.
+
+## Funkcijos
+- Kurti ir peržiūrėti keliones
+- Prisijungti prie kitų naudotojų sukurtų kelionių  
+- Peržiūrėti kelionės detales ir maršrutą  
+- Bendrauti su kelionės dalyviais  
+- Naudotojo autentifikacija ir profilio valdymas  
+- Mašinos peržiūra ir valdymas
 
 
+## Aplinkos kintamieji
 
-## Table of Contents
-- [Introduction](#introduction)
-- [Features](#features)
-- [Installation](#installation)
-- [Usage](#usage)
-- [Technologies Used](#technologies-used)
-- [Contributing](#contributing)
-- [License](#license)
-
-## Introduction
-JourneyFy is a mobile application designed to help users plan, book, and complete journeys. Whether you are traveling for leisure or business, JourneyFy allows you to create journeys that other users can join, making your travel planning social and interactive. Same as BlaBlaCar.
-
-## Features
-- Create and manage journeys
-- Join journeys created by other users
-- View journey details and itinerary
-- Chat with journey participants
-- Receive notifications for journey updates
-- User authentication and profile management
-
-
-## Environment Variables
-
-Before running the app, create a `.env` file in the project root and add the following environment variables:
+Prieš paleisdami programėlę, sukurkite `.env` failą projekto šaknyje ir pridėkite šiuos kintamuosius:
 
 ```bash
 FIREBASE_API_KEY=""
@@ -39,46 +35,28 @@ FIREBASE_STORAGE_BUCKET=""
 FIREBASE_MESSAGING_SENDER_ID=""
 FIREBASE_APP_ID=""
 FIREBASE_MEASUREMENT_ID=""
-MAPS_API_KEY="" (Google Maps API KEY)
+MAPS_API_KEY="" (Google Maps API raktas)
 ```
 
-## Installation
-To get started with JourneyFy, follow these steps:
+## Naudojimas
+Norėdami pradėti naudotis „JourneyFy“, atlikite šiuos veiksmus:
 
-1. Clone the repository:
+1. Klonuoti saugyklą:
 git clone https://github.com/yourusername/journeyfy.git
 
-2. Navigate to the project directory:
-cd journeyfy
+2. Eikite į projekto katalogą:
+cd JourneyFy
 
-3. Install the dependencies:
+3. Įdiekite priklausomybes:
 npm install
 
-4. Run the app on your emulator or device:
+4. Paleiskite programėlę savo emuliatoriuje arba įrenginyje:
 npx react-native run-android
 # or
-npx react-native run-ios
+npm start
 
-## Usage
-- **Create a Journey**: Navigate to the "Create Journey" section, fill in the journey details, and publish it.
-- **Join a Journey**: Browse available journeys and join any that interest you.
-- **View Journey Details**: Check the details and itinerary of your journeys.
-- **Chat with Participants**: Use the in-app chat feature to communicate with other journey participants.
-- **Receive Notifications**: Stay updated with notifications about journey changes and updates.
 
-## Technologies Used
-- **React Native**: For building the mobile application.
-- **Firebase**: For backend services including authentication, real-time database, and notifications.
+## Technologijos
+- **React Native**: Dėl mobiliosios programėlės kūrimo.
+- **Firebase**: Skirta vidinėms paslaugoms, įskaitant naudotojo autentifikaciją, realaus laiko duomenų bazę.
 
-## Contributing
-We welcome contributions to JourneyFy! To contribute, follow these steps:
-
-1. Fork the repository.
-2. Create a new branch (`git checkout -b feature-branch`).
-3. Make your changes.
-4. Commit your changes (`git commit -m 'Add some feature'`).
-5. Push to the branch (`git push origin feature-branch`).
-6. Open a pull request.
-
-## License
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
