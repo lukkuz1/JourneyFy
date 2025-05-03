@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">90.47% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/21</span>
+                <span class='fraction'>19/21</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">75% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/4</span>
+                <span class='fraction'>3/4</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/3</span>
+                <span class='fraction'>3/3</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">95% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/20</span>
+                <span class='fraction'>19/20</span>
             </div>
         
             
@@ -61,7 +61,7 @@
             </div>
         </template>
     </div>
-    <div class='status-line low'></div>
+    <div class='status-line high'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -104,75 +104,75 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-yes">7x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">7x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { useState } from "react";
 import { doc, getDoc, setDoc } from "firebase/firestore";
 import firebaseServices from "../services/firebase";
 &nbsp;
-const { db } = <span class="cstat-no" title="statement not covered" >firebaseServices;</span>
+const { db } = firebaseServices;
 &nbsp;
-export const useUserProfile = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >()</span> =&gt; {</span>
-  const [user, setUser] = <span class="cstat-no" title="statement not covered" >useState({});</span>
-  const [refreshing, setRefreshing] = <span class="cstat-no" title="statement not covered" >useState(false);</span>
+export const useUserProfile = () =&gt; {
+  const [user, setUser] = useState({});
+  const [refreshing, setRefreshing] = useState(false);
 &nbsp;
-  const fetchUserProfile = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >as</span>ync () =&gt; {</span>
-<span class="cstat-no" title="statement not covered" >    try {</span>
-      const currentUserId = <span class="cstat-no" title="statement not covered" >firebaseServices.auth.currentUser?.uid;</span>
-<span class="cstat-no" title="statement not covered" >      if (!currentUserId) <span class="cstat-no" title="statement not covered" >return;</span></span>
+  const fetchUserProfile = async () =&gt; {
+    try {
+      const currentUserId = firebaseServices.auth.currentUser?.uid;
+      <span class="missing-if-branch" title="if path not taken" >I</span>if (!currentUserId) <span class="cstat-no" title="statement not covered" >return;</span>
 &nbsp;
-      const userRef = <span class="cstat-no" title="statement not covered" >doc(db, "users", currentUserId);</span>
-      const userDoc = <span class="cstat-no" title="statement not covered" >await getDoc(userRef);</span>
+      const userRef = doc(db, "users", currentUserId);
+      const userDoc = await getDoc(userRef);
 &nbsp;
-<span class="cstat-no" title="statement not covered" >      if (userDoc.exists()) {</span>
-<span class="cstat-no" title="statement not covered" >        setUser(userDoc.data());</span>
+      if (userDoc.exists()) {
+        setUser(userDoc.data());
       } else {
-<span class="cstat-no" title="statement not covered" >        await setDoc(userRef, { firstName: "", lastName: "" });</span>
-<span class="cstat-no" title="statement not covered" >        setUser({ firstName: "", lastName: "" });</span>
+        await setDoc(userRef, { firstName: "", lastName: "" });
+        setUser({ firstName: "", lastName: "" });
       }
     } catch (error) {
 <span class="cstat-no" title="statement not covered" >      console.error("Error fetching user data:", error);</span>
     }
   };
 &nbsp;
-  const onRefresh = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >as</span>ync () =&gt; {</span>
-<span class="cstat-no" title="statement not covered" >    setRefreshing(true);</span>
-<span class="cstat-no" title="statement not covered" >    await fetchUserProfile();</span>
-<span class="cstat-no" title="statement not covered" >    setRefreshing(false);</span>
+  const onRefresh = async () =&gt; {
+    setRefreshing(true);
+    await fetchUserProfile();
+    setRefreshing(false);
   };
 &nbsp;
-<span class="cstat-no" title="statement not covered" >  return { user, fetchUserProfile, refreshing, onRefresh };</span>
+  return { user, fetchUserProfile, refreshing, onRefresh };
 };
 &nbsp;</pre></td></tr></table></pre>
 
@@ -181,7 +181,7 @@ export const useUserProfile = <span class="cstat-no" title="statement not covere
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2025-05-03T16:00:50.023Z
+                at 2025-05-03T16:59:22.361Z
             </div>
         <script src="../prettify.js"></script>
         <script>

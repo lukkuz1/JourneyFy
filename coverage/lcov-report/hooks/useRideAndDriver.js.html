@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">88.88% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/18</span>
+                <span class='fraction'>16/18</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">66.66% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/6</span>
+                <span class='fraction'>4/6</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/3</span>
+                <span class='fraction'>3/3</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">93.33% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/15</span>
+                <span class='fraction'>14/15</span>
             </div>
         
             
@@ -61,7 +61,7 @@
             </div>
         </template>
     </div>
-    <div class='status-line low'></div>
+    <div class='status-line high'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -98,60 +98,60 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { useState, useEffect } from "react";
 import { doc, getDoc } from "firebase/firestore";
 import firebase from "../services/firebase";
 &nbsp;
-export default function <span class="fstat-no" title="function not covered" >useRideAndDriver(</span>rideId) {
-  const [ride, setRide] = <span class="cstat-no" title="statement not covered" >useState(null);</span>
-  const [driver, setDriver] = <span class="cstat-no" title="statement not covered" >useState(null);</span>
+export default function useRideAndDriver(rideId) {
+  const [ride, setRide] = useState(null);
+  const [driver, setDriver] = useState(null);
 &nbsp;
-<span class="cstat-no" title="statement not covered" >  useEffect(<span class="fstat-no" title="function not covered" >()</span> =&gt; {</span>
-<span class="cstat-no" title="statement not covered" >    if (!rideId) <span class="cstat-no" title="statement not covered" >return;</span></span>
-    const fetch = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >as</span>ync () =&gt; {</span>
-<span class="cstat-no" title="statement not covered" >      try {</span>
-        const rideSnap = <span class="cstat-no" title="statement not covered" >await getDoc(doc(firebase.db, "journeys", rideId));</span>
-<span class="cstat-no" title="statement not covered" >        if (!rideSnap.exists()) <span class="cstat-no" title="statement not covered" >return;</span></span>
-        const rideData = <span class="cstat-no" title="statement not covered" >rideSnap.data();</span>
-<span class="cstat-no" title="statement not covered" >        setRide(rideData);</span>
+  useEffect(() =&gt; {
+    if (!rideId) return;
+    const fetch = async () =&gt; {
+      try {
+        const rideSnap = await getDoc(doc(firebase.db, "journeys", rideId));
+        <span class="missing-if-branch" title="if path not taken" >I</span>if (!rideSnap.exists()) <span class="cstat-no" title="statement not covered" >return;</span>
+        const rideData = rideSnap.data();
+        setRide(rideData);
 &nbsp;
-        const drvSnap = <span class="cstat-no" title="statement not covered" >await getDoc(</span>
+        const drvSnap = await getDoc(
           doc(firebase.db, "users", rideData.userId)
         );
-<span class="cstat-no" title="statement not covered" >        if (drvSnap.exists()) <span class="cstat-no" title="statement not covered" >setDriver(drvSnap.data());</span></span>
+        <span class="missing-if-branch" title="else path not taken" >E</span>if (drvSnap.exists()) setDriver(drvSnap.data());
       } catch (e) {
 <span class="cstat-no" title="statement not covered" >        console.error("Ride/driver load error:", e);</span>
       }
     };
-<span class="cstat-no" title="statement not covered" >    fetch();</span>
+    fetch();
   }, [rideId]);
 &nbsp;
-<span class="cstat-no" title="statement not covered" >  return [ride, driver];</span>
+  return [ride, driver];
 }
 &nbsp;</pre></td></tr></table></pre>
 
@@ -160,7 +160,7 @@ export default function <span class="fstat-no" title="function not covered" >use
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2025-05-03T16:00:50.023Z
+                at 2025-05-03T16:59:22.361Z
             </div>
         <script src="../prettify.js"></script>
         <script>

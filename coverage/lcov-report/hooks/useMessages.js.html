@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">88.88% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/18</span>
+                <span class='fraction'>16/18</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">75% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/4</span>
+                <span class='fraction'>3/4</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">83.33% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/6</span>
+                <span class='fraction'>5/6</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">93.33% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/15</span>
+                <span class='fraction'>14/15</span>
             </div>
         
             
@@ -61,7 +61,7 @@
             </div>
         </template>
     </div>
-    <div class='status-line low'></div>
+    <div class='status-line high'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -108,61 +108,61 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { useState, useEffect } from "react";
 import { collection, query, orderBy, onSnapshot } from "firebase/firestore";
 import firebase from "../services/firebase";
 import { formatTime } from "../utils/formatTime";
 &nbsp;
-export default function <span class="fstat-no" title="function not covered" >useMessages(</span>rideId) {
-  const [messages, setMessages] = <span class="cstat-no" title="statement not covered" >useState([]);</span>
+export default function useMessages(rideId) {
+  const [messages, setMessages] = useState([]);
 &nbsp;
-<span class="cstat-no" title="statement not covered" >  useEffect(<span class="fstat-no" title="function not covered" >()</span> =&gt; {</span>
-<span class="cstat-no" title="statement not covered" >    if (!rideId) <span class="cstat-no" title="statement not covered" >return;</span></span>
-    const user = <span class="cstat-no" title="statement not covered" >firebase.auth.currentUser;</span>
-<span class="cstat-no" title="statement not covered" >    if (!user) <span class="cstat-no" title="statement not covered" >return;</span></span>
+  useEffect(() =&gt; {
+    if (!rideId) return;
+    const user = firebase.auth.currentUser;
+    <span class="missing-if-branch" title="if path not taken" >I</span>if (!user) <span class="cstat-no" title="statement not covered" >return;</span>
 &nbsp;
-    const msgsRef = <span class="cstat-no" title="statement not covered" >collection(firebase.db, "journeys", rideId, "messages");</span>
-    const q = <span class="cstat-no" title="statement not covered" >query(msgsRef, orderBy("createdAt", "asc"));</span>
+    const msgsRef = collection(firebase.db, "journeys", rideId, "messages");
+    const q = query(msgsRef, orderBy("createdAt", "asc"));
 &nbsp;
-    const unsub = <span class="cstat-no" title="statement not covered" >onSnapshot(</span>
+    const unsub = onSnapshot(
       q,
-<span class="fstat-no" title="function not covered" >      (s</span>nap) =&gt; {
-        const list = <span class="cstat-no" title="statement not covered" >snap.docs.map(<span class="fstat-no" title="function not covered" >(d</span>ocSnap) =&gt; {</span>
-          const { text, senderId, createdAt } = <span class="cstat-no" title="statement not covered" >docSnap.data();</span>
-<span class="cstat-no" title="statement not covered" >          return {</span>
+      (snap) =&gt; {
+        const list = snap.docs.map((docSnap) =&gt; {
+          const { text, senderId, createdAt } = docSnap.data();
+          return {
             id: docSnap.id,
             message: text,
             senderId,
@@ -170,15 +170,15 @@ export default function <span class="fstat-no" title="function not covered" >use
             time: formatTime(createdAt),
           };
         });
-<span class="cstat-no" title="statement not covered" >        setMessages(list);</span>
+        setMessages(list);
       },
 <span class="fstat-no" title="function not covered" >      (e</span>rr) =&gt; <span class="cstat-no" title="statement not covered" >console.error("Messages listen error:", err)</span>
     );
 &nbsp;
-<span class="cstat-no" title="statement not covered" >    return <span class="fstat-no" title="function not covered" >()</span> =&gt; <span class="cstat-no" title="statement not covered" >unsub();</span></span>
+    return () =&gt; unsub();
   }, [rideId]);
 &nbsp;
-<span class="cstat-no" title="statement not covered" >  return messages;</span>
+  return messages;
 }
 &nbsp;</pre></td></tr></table></pre>
 
@@ -187,7 +187,7 @@ export default function <span class="fstat-no" title="function not covered" >use
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2025-05-03T16:00:50.023Z
+                at 2025-05-03T16:59:22.361Z
             </div>
         <script src="../prettify.js"></script>
         <script>

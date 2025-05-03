@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/10</span>
+                <span class='fraction'>10/10</span>
             </div>
         
             
@@ -37,16 +37,16 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/4</span>
+                <span class='fraction'>4/4</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/10</span>
+                <span class='fraction'>10/10</span>
             </div>
         
             
@@ -61,7 +61,7 @@
             </div>
         </template>
     </div>
-    <div class='status-line low'></div>
+    <div class='status-line high'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -87,44 +87,44 @@
 <a name='L22'></a><a href='#L22'>22</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { getAuth, deleteUser } from "firebase/auth";
 import { Alert } from "react-native";
 &nbsp;
-export const useDeleteAccount = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >()</span> =&gt; {</span>
-  const auth = <span class="cstat-no" title="statement not covered" >getAuth();</span>
+export const useDeleteAccount = () =&gt; {
+  const auth = getAuth();
 &nbsp;
-  const handleDeleteAccount = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >()</span> =&gt; {</span>
-    const user = <span class="cstat-no" title="statement not covered" >auth.currentUser;</span>
-<span class="cstat-no" title="statement not covered" >    deleteUser(user)</span>
-      .then(<span class="fstat-no" title="function not covered" >()</span> =&gt; {
-<span class="cstat-no" title="statement not covered" >        auth.signOut();</span>
-<span class="cstat-no" title="statement not covered" >        Alert.alert("Paskyra ištrinta", "Jūsų paskyra ištrinta.");</span>
+  const handleDeleteAccount = () =&gt; {
+    const user = auth.currentUser;
+    deleteUser(user)
+      .then(() =&gt; {
+        auth.signOut();
+        Alert.alert("Paskyra ištrinta", "Jūsų paskyra ištrinta.");
       })
-      .catch(<span class="fstat-no" title="function not covered" >(e</span>rror) =&gt; {
-<span class="cstat-no" title="statement not covered" >        console.error("Error deleting account:", error);</span>
-<span class="cstat-no" title="statement not covered" >        Alert.alert("Klaida", "Nepavyko ištrinti paskyros.");</span>
+      .catch((error) =&gt; {
+        console.error("Error deleting account:", error);
+        Alert.alert("Klaida", "Nepavyko ištrinti paskyros.");
       });
   };
 &nbsp;
-<span class="cstat-no" title="statement not covered" >  return { handleDeleteAccount };</span>
+  return { handleDeleteAccount };
 };
 &nbsp;</pre></td></tr></table></pre>
 
@@ -133,7 +133,7 @@ export const useDeleteAccount = <span class="cstat-no" title="statement not cove
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2025-05-03T16:00:50.023Z
+                at 2025-05-03T16:59:22.361Z
             </div>
         <script src="../prettify.js"></script>
         <script>

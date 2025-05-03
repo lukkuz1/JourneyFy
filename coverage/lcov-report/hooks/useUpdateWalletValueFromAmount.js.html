@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">77.77% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/18</span>
+                <span class='fraction'>14/18</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/9</span>
+                <span class='fraction'>9/9</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">66.66% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/6</span>
+                <span class='fraction'>4/6</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">77.77% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/18</span>
+                <span class='fraction'>14/18</span>
             </div>
         
             
@@ -61,7 +61,7 @@
             </div>
         </template>
     </div>
-    <div class='status-line low'></div>
+    <div class='status-line medium'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -109,30 +109,25 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -140,8 +135,13 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -150,25 +150,25 @@ import { getAuth } from "firebase/auth";
 import { ref, get, update } from "firebase/database";
 import { rtdb } from "../services/firebase";
 &nbsp;
-const useUpdateWalletValueFromAmount = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >(a</span>mount, operation = <span class="branch-0 cbranch-no" title="branch not covered" >"add")</span> =&gt; {</span>
-  const [walletValue, setWalletValue] = <span class="cstat-no" title="statement not covered" >useState(null);</span>
-  const auth = <span class="cstat-no" title="statement not covered" >getAuth();</span>
-  const user = <span class="cstat-no" title="statement not covered" >auth.currentUser;</span>
+const useUpdateWalletValueFromAmount = (amount, operation = "add") =&gt; {
+  const [walletValue, setWalletValue] = useState(null);
+  const auth = getAuth();
+  const user = auth.currentUser;
 &nbsp;
-<span class="cstat-no" title="statement not covered" >  useEffect(<span class="fstat-no" title="function not covered" >()</span> =&gt; {</span>
-<span class="cstat-no" title="statement not covered" >    if (user &amp;&amp; amount) {</span>
-      const walletRef = <span class="cstat-no" title="statement not covered" >ref(rtdb, `users/${user.uid}/walletValue`);</span>
-<span class="cstat-no" title="statement not covered" >      get(walletRef)</span>
-        .then(<span class="fstat-no" title="function not covered" >(s</span>napshot) =&gt; {
-          const currentValue = <span class="cstat-no" title="statement not covered" >snapshot.exists() ? snapshot.val() : 0;</span>
-          const adjustment = <span class="cstat-no" title="statement not covered" >Number(amount);</span>
+  useEffect(() =&gt; {
+    if (user &amp;&amp; amount) {
+      const walletRef = ref(rtdb, `users/${user.uid}/walletValue`);
+      get(walletRef)
+        .then((snapshot) =&gt; {
+          const currentValue = snapshot.exists() ? snapshot.val() : 0;
+          const adjustment = Number(amount);
           const newValue =
-<span class="cstat-no" title="statement not covered" >            operation === "add"</span>
+            operation === "add"
               ? currentValue + adjustment
               : currentValue - adjustment;
-<span class="cstat-no" title="statement not covered" >          update(ref(rtdb, `users/${user.uid}`), { walletValue: newValue })</span>
-            .then(<span class="fstat-no" title="function not covered" >()</span> =&gt; {
-<span class="cstat-no" title="statement not covered" >              setWalletValue(newValue);</span>
+          update(ref(rtdb, `users/${user.uid}`), { walletValue: newValue })
+            .then(() =&gt; {
+              setWalletValue(newValue);
             })
             .catch(<span class="fstat-no" title="function not covered" >(e</span>rror) =&gt; {
 <span class="cstat-no" title="statement not covered" >              console.error("Error updating walletValue:", error);</span>
@@ -182,7 +182,7 @@ const useUpdateWalletValueFromAmount = <span class="cstat-no" title="statement n
     }
   }, [amount, user, operation]);
 &nbsp;
-<span class="cstat-no" title="statement not covered" >  return walletValue;</span>
+  return walletValue;
 };
 &nbsp;
 export default useUpdateWalletValueFromAmount;
@@ -193,7 +193,7 @@ export default useUpdateWalletValueFromAmount;
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2025-05-03T16:00:50.023Z
+                at 2025-05-03T16:59:22.361Z
             </div>
         <script src="../prettify.js"></script>
         <script>
