@@ -1,18 +1,15 @@
-// _tests_/Unit/Profile/ProfileScreen.test.js
 import React from 'react';
 import { Text, View, ScrollView, RefreshControl, TouchableOpacity } from 'react-native';
 import { render, fireEvent, waitFor } from '@testing-library/react-native';
 
-// 1) Mock react-navigation so useFocusEffect and useNavigation don't crash
+
 jest.mock('@react-navigation/native', () => ({
   useFocusEffect: (callback) => {
-    // call the effect immediately
     callback();
   },
   useNavigation: () => ({ navigate: jest.fn() }),
 }));
 
-// 2) Stub hooks
 const mockFetchUserProfile = jest.fn();
 const mockOnRefresh        = jest.fn();
 jest.mock('../../../src/hooks/useUserProfile', () => ({
@@ -29,7 +26,6 @@ jest.mock('../../../src/hooks/useAuth', () => ({
   useAuth: () => ({ signOut: mockSignOut }),
 }));
 
-// 3) Stub visual components
 jest.mock('../../../src/components/myStatusBar', () => () => null);
 
 jest.mock('../../../src/components/Profile/Divider', () => {
@@ -65,7 +61,7 @@ jest.mock('../../../src/components/Profile/LogoutDialog', () => {
     );
 });
 
-// 4) Now import the screen under test
+
 import ProfileScreen from '../../../src/screens/TemplateProfile/profile/profileScreen';
 
 describe('<ProfileScreen />', () => {
@@ -86,7 +82,6 @@ describe('<ProfileScreen />', () => {
   it('calls onRefresh when pull-to-refresh triggered', () => {
     const { UNSAFE_getByType } = render(<ProfileScreen navigation={navigation} />);
     const scroll = UNSAFE_getByType(ScrollView);
-    // simulate pull-to-refresh
     scroll.props.refreshControl.props.onRefresh();
     expect(mockOnRefresh).toHaveBeenCalled();
   });
@@ -116,7 +111,6 @@ describe('<ProfileScreen />', () => {
   it('opens logout dialog and signs out when confirmed', () => {
     const { getByText, getByTestId } = render(<ProfileScreen navigation={navigation} />);
     fireEvent.press(getByText('Atsijungti'));
-    // dialog becomes visible
     expect(getByTestId('logout-dialog').props.style.display).toBe('flex');
 
     fireEvent.press(getByTestId('btn-confirm-logout'));

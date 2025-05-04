@@ -1,8 +1,8 @@
-// _tests_/Unit/Profile/UserVehiclesScreen.test.js
+
 import React from 'react';
 import { render, fireEvent } from '@testing-library/react-native';
 
-// 1) Stub useUserVehicles
+
 const mockDeleteVehicle = jest.fn();
 const mockSetShowSnackBar = jest.fn();
 const mockSetModalVisible = jest.fn();
@@ -24,7 +24,7 @@ jest.mock('../../../src/hooks/useUserVehicles', () => ({
   }),
 }));
 
-// 2) Stub child components via createElement
+
 jest.mock('../../../src/components/myStatusBar', () => () => null);
 
 jest.mock('../../../src/components/header', () => {
@@ -42,18 +42,15 @@ jest.mock(
       React.createElement(
         View,
         { testID: 'vehicles-list' },
-        // two Texts
         props.vehicles.map(v =>
           React.createElement(Text, { key: v.id, testID: `vehicle-${v.id}` }, v.vehicleName)
         ).concat([
-          // delete-first button
           React.createElement(Button, {
             key: 'del1',
             testID: 'delete-first',
             title: 'Delete First',
             onPress: () => props.deleteVehicle(props.vehicles[0].id),
           }),
-          // status-first button
           React.createElement(Button, {
             key: 'stat1',
             testID: 'status-first',
@@ -118,7 +115,6 @@ jest.mock(
   }
 );
 
-// 3) Import screen under test
 import UserVehiclesScreen from '../../../src/screens/TemplateProfile/userVehicles/userVehiclesScreen';
 
 describe('<UserVehiclesScreen />', () => {

@@ -1,9 +1,7 @@
-// _tests_/Unit/Journey/StartRideScreen.test.js
 import React from 'react';
 import { render, act } from '@testing-library/react-native';
 import { Alert } from 'react-native';
 
-// 1) Stub firebase and Firestore
 jest.mock('../../../src/services/firebase', () => ({
   db: {},
 }));
@@ -18,10 +16,8 @@ jest.mock('firebase/firestore', () => ({
   getDoc: () => {},     // unused
 }));
 
-// 2) Stub navigation.replace
 const mockReplace = jest.fn();
 
-// 3) Stub components
 jest.mock('../../../src/components/myStatusBar', () => () => null);
 jest.mock('../../../src/components/header', () => props => {
   const React = require('react');
@@ -44,18 +40,14 @@ jest.mock('../../../src/components/StartRide/StartRideButton', () => props => {
   return <Button testID="start-button" title="Start" onPress={() => props.navigation.replace && props.navigation.replace()} />;
 });
 
-// 4) Import the screen under test (TemplateJourney path)
 import StartRideScreen from '../../../src/screens/TemplateJourney/startRide/startRideScreen';
 
 describe('<StartRideScreen />', () => {
   beforeEach(() => {
     jest.clearAllMocks();
-    // Default onSnapshot just returns an unsubscribe
     mockOnSnapshot.mockImplementation((ref, next) => {
-      // no-op subscription
       return () => {};
     });
-    // Silence native alerts
     jest.spyOn(Alert, 'alert').mockImplementation(() => {});
   });
 
@@ -91,7 +83,6 @@ describe('<StartRideScreen />', () => {
         route={{ params: { ride } }}
       />
     );
-    // should call doc then onSnapshot
     expect(mockDoc).toHaveBeenCalledWith({}, 'journeys', 'R1');
     expect(mockOnSnapshot).toHaveBeenCalled();
   });

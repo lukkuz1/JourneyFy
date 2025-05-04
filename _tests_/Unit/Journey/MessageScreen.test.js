@@ -1,17 +1,13 @@
-// _tests_/Unit/Journey/MessageScreen.test.js
 import React from 'react';
 import { render, fireEvent, waitFor } from '@testing-library/react-native';
 
-// 1) Stub firebase.auth.currentUser
 jest.mock('../../../src/services/firebase', () => ({
   auth: { currentUser: { uid: 'user123' } },
   db: {},
 }));
 
-// 2) Mock Firestore functions
 const mockAddDoc = jest.fn();
 const mockCollection = jest.fn();
-// Make collection return a real “ref” so addDoc gets something defined
 mockCollection.mockReturnValue('dummy-collection-ref');
 
 jest.mock('firebase/firestore', () => ({
@@ -20,7 +16,6 @@ jest.mock('firebase/firestore', () => ({
   serverTimestamp: () => ({ ts: true }),
 }));
 
-// 3) Stub hooks
 jest.mock('../../../src/hooks/useMessages', () => ({
   __esModule: true,
   default: rideId => [`msg-for-${rideId}`],
@@ -30,7 +25,6 @@ jest.mock('../../../src/hooks/useRideAndDriver', () => ({
   default: rideId => [{ id: rideId, userId: 'driverX' }, { id: 'driverX' }],
 }));
 
-// 4) Stub child components without using out-of-scope JSX
 jest.mock('../../../src/components/myStatusBar', () => () => {
   const React = require('react');
   const { View } = require('react-native');
@@ -72,13 +66,11 @@ jest.mock('../../../src/components/Message/MessageInput', () => {
     );
 });
 
-// 5) Import under test
 import MessageScreen from '../../../src/screens/TemplateJourney/message/messageScreen';
 
 describe('<MessageScreen />', () => {
   beforeEach(() => {
     jest.clearAllMocks();
-    // re-ensure our collection mock returns something
     mockCollection.mockReturnValue('dummy-collection-ref');
   });
 

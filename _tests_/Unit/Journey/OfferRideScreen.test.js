@@ -1,9 +1,8 @@
-// _tests_/Unit/Journey/OfferRideScreen.test.js
 import React from 'react';
 import { render, fireEvent, waitFor } from '@testing-library/react-native';
 import { Alert } from 'react-native';
 
-// Mock useRoute to supply initial params
+
 jest.mock('@react-navigation/native', () => ({
   useRoute: () => ({
     params: {
@@ -12,13 +11,12 @@ jest.mock('@react-navigation/native', () => ({
       journeyDateTime: '2025-06-01T12:00',
       seats: 3,
       journeyType: 'offer',
-      price: 10,          // nonempty initial price
+      price: 10,
       facilities: 'None',
     },
   }),
 }));
 
-// Stub child components
 jest.mock('../../../src/components/myStatusBar', () => () => {
   const React = require('react');
   const { View } = require('react-native');
@@ -95,7 +93,6 @@ jest.mock('../../../src/components/OfferRide/SeatSelectionSheet', () => props =>
   return React.createElement(View, { testID: 'seat-sheet' });
 });
 
-// Mock hooks
 const mockCreateJourney = jest.fn();
 jest.mock('../../../src/hooks/useCreateJourney', () => () => ({
   createJourney: mockCreateJourney,
@@ -107,10 +104,8 @@ jest.mock('../../../src/hooks/useFetchVehicles', () => ({
   }),
 }));
 
-// Spy on Alert.alert
 jest.spyOn(Alert, 'alert').mockImplementation(() => {});
 
-// Import AFTER mocks
 import OfferRideScreen from '../../../src/screens/TemplateJourney/offerRide/offerRideScreen';
 
 describe('<OfferRideScreen />', () => {
@@ -151,10 +146,8 @@ describe('<OfferRideScreen />', () => {
 
   it('creates journey and navigates on success', async () => {
     const { getByTestId } = renderScreen();
-    // open & select car
     fireEvent.press(getByTestId('car-open'));
     fireEvent.press(getByTestId('car-select'));
-    // now continue
     fireEvent.press(getByTestId('continue'));
     await waitFor(() => {
       expect(mockCreateJourney).toHaveBeenCalledWith({

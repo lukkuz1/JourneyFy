@@ -1,9 +1,9 @@
-// _tests_/Unit/Profile/EditProfileScreen.test.js
+
 import React from 'react';
 import { render, fireEvent, waitFor } from '@testing-library/react-native';
 import { Alert } from 'react-native';
 
-// 1) Mock firebase/auth and firestore Timestamp
+
 jest.mock('firebase/auth', () => ({
   getAuth: () => ({ currentUser: { uid: 'u1', photoURL: 'url1' } }),
 }));
@@ -11,7 +11,7 @@ jest.mock('firebase/firestore', () => ({
   Timestamp: { fromDate: jest.fn(d => ({ ts: d.getTime() })) },
 }));
 
-// 2) Mock your firebaseUserService
+
 const mockFetch = jest.fn();
 const mockInit  = jest.fn();
 const mockUpdate = jest.fn();
@@ -21,7 +21,7 @@ jest.mock('../../../src/services/firebaseUserService', () => ({
   updateProfileInFirestore: mockUpdate,
 }));
 
-// 3) Stub child components via React.createElement
+
 jest.mock('../../../src/components/LoadingIndicator', () => {
   const React = require('react');
   const { Text } = require('react-native');
@@ -75,17 +75,17 @@ jest.mock('../../../src/components/Profile/UpdateButton', () => {
     );
 });
 
-// 4) Silence native alerts
+
 jest.spyOn(Alert, 'alert').mockImplementation(() => {});
 
-// 5) Import _after_ all mocks
+
 import EditProfileScreen from '../../../src/screens/TemplateProfile/editProfile/editProfileScreen';
 
 describe('<EditProfileScreen />', () => {
   beforeEach(() => {
     jest.clearAllMocks();
 
-    // Default fetchUserProfile populates
+
     mockFetch.mockImplementation((uid, populate) => {
       const data = {
         firstName: 'Jane',
@@ -102,10 +102,10 @@ describe('<EditProfileScreen />', () => {
   it('renders loading then the populated form', async () => {
     const { getByTestId, queryByTestId } = render(<EditProfileScreen />);
 
-    // 1) Initially shows loading
+
     expect(getByTestId('loading')).toBeTruthy();
 
-    // 2) fetchUserProfile should have been called with uid + a callback
+
     await waitFor(() => {
       expect(mockFetch).toHaveBeenCalled();
       const [calledUid, calledPopulate] = mockFetch.mock.calls[0];
@@ -113,10 +113,10 @@ describe('<EditProfileScreen />', () => {
       expect(typeof calledPopulate).toBe('function');
     });
 
-    // 3) After load, loading indicator goes away
+
     expect(queryByTestId('loading')).toBeNull();
 
-    // 4) Header & inputs populated
+
     expect(getByTestId('header').props.children).toBe('Redaguoti Profilį');
     expect(getByTestId('input-Vardas').props.value).toBe('Jane');
     expect(getByTestId('input-Pavardė').props.value).toBe('Smith');
@@ -124,7 +124,7 @@ describe('<EditProfileScreen />', () => {
   });
 
   it('blocks submission on empty required fields', async () => {
-    // populate with empty data
+
     mockFetch.mockImplementation((uid, populate) => {
       populate({});
       return Promise.resolve();
@@ -133,7 +133,7 @@ describe('<EditProfileScreen />', () => {
     const { getByTestId } = render(<EditProfileScreen />);
     await waitFor(() => expect(mockFetch).toHaveBeenCalled());
 
-    // press update without entering anything
+
     fireEvent.press(getByTestId('btn-update'));
     expect(Alert.alert).toHaveBeenCalledWith(
       'Validacijos klaida',

@@ -1,8 +1,6 @@
-// _tests_/Unit/Journey/PickLocationScreen.test.js
 import React from 'react';
 import { render, fireEvent, waitFor } from '@testing-library/react-native';
 
-// 1) Mock expo-location
 jest.mock('expo-location', () => ({
   requestForegroundPermissionsAsync: jest.fn().mockResolvedValue({ status: 'granted' }),
   getCurrentPositionAsync: jest.fn().mockResolvedValue({
@@ -10,7 +8,6 @@ jest.mock('expo-location', () => ({
   }),
 }));
 
-// 2) Mock geocoding
 jest.mock('react-native-geocoding', () => ({
   init: jest.fn(),
   from: jest.fn().mockResolvedValue({
@@ -18,7 +15,6 @@ jest.mock('react-native-geocoding', () => ({
   }),
 }));
 
-// 3) Stub child components
 jest.mock('../../../src/components/myStatusBar', () => () => null);
 
 jest.mock(
@@ -73,7 +69,6 @@ jest.mock(
   }
 );
 
-// 4) Import the screen under test
 import PickLocationScreen from '../../../src/screens/TemplateJourney/pickLocation/pickLocationScreen';
 
 describe('<PickLocationScreen />', () => {

@@ -1,16 +1,14 @@
-// _tests_/Unit/Journey/RideDetailScreen.test.js
 import React from 'react';
 import { render, fireEvent, waitFor } from '@testing-library/react-native';
 import { Alert } from 'react-native';
 
-// 1) Mock firebase.auth.currentUser and db
 const mockCurrentUser = { uid: 'user42' };
 jest.mock('../../../src/services/firebase', () => ({
   auth: { currentUser: mockCurrentUser },
   db: {},
 }));
 
-// 2) Mock Firestore functions
+
 const mockDoc = jest.fn();
 const mockCollection = jest.fn();
 const mockGetDoc = jest.fn();
@@ -35,10 +33,9 @@ jest.mock('firebase/firestore', () => ({
   increment:    (...args) => mockIncrement(...args),
 }));
 
-// 3) Stub useDriver hook
+
 jest.mock('../../../src/hooks/useDriver', () => () => ({ name: 'Drv' }));
 
-// 4) Stub all child components & footer to expose three buttons
 jest.mock('../../../src/components/myStatusBar',       () => () => null);
 jest.mock('../../../src/components/RideDetail/RideDetailHeader', () => () => null);
 jest.mock('../../../src/components/RideDetail/RiderInfo',         () => () => null);
@@ -77,7 +74,6 @@ jest.mock(
   () => props => {
     const React = require('react');
     const { View, Button } = require('react-native');
-    // always visible for testing
     return React.createElement(View, null, [
       React.createElement(Button, {
         key: 'confirm',
@@ -95,7 +91,6 @@ jest.mock(
   }
 );
 
-// 5) Import component under test
 import RideDetailScreen from '../../../src/screens/TemplateJourney/rideDetail/rideDetailScreen';
 
 describe('<RideDetailScreen />', () => {
@@ -109,13 +104,11 @@ describe('<RideDetailScreen />', () => {
 
   beforeEach(() => {
     jest.clearAllMocks();
-    // default getDoc for registration snapshot:
     mockGetDoc.mockResolvedValue({
       exists: () => true,
       data: () => ({ approvedByRider: true }),
     });
     navigation = { navigate: jest.fn(), goBack: jest.fn(), popToTop: jest.fn() };
-    // silence native alert
     jest.spyOn(Alert, 'alert').mockImplementation(() => {});
   });
 
@@ -135,7 +128,6 @@ describe('<RideDetailScreen />', () => {
   });
 
   it('navigates to Login when registering while unauthenticated', async () => {
-    // override user to null
     jest.doMock('../../../src/services/firebase', () => ({
       auth: { currentUser: null },
       db: {},

@@ -1,9 +1,7 @@
-// _tests_/Unit/Journey/AddVehicleScreen.test.js
 import React from 'react';
 import { render, fireEvent, waitFor } from '@testing-library/react-native';
 import { ActivityIndicator } from 'react-native';
 
-// 1) Stub child components
 jest.mock('../../../src/components/myStatusBar', () => () => null);
 
 jest.mock('../../../src/components/header', () => {
@@ -60,7 +58,6 @@ jest.mock('../../../src/components/AddVehicle/VehicleTypeSheet', () => {
   );
 });
 
-// 2) Stub the hook
 let mockUploading = false;
 const mockAddVehicle = jest.fn();
 jest.mock('../../../src/hooks/useAddVehicle', () => ({
@@ -70,7 +67,6 @@ jest.mock('../../../src/hooks/useAddVehicle', () => ({
   }),
 }));
 
-// 3) Import the screen under test
 import AddVehicleScreen from '../../../src/screens/TemplateJourney/addVehicle/addVehicleScreen';
 
 describe('AddVehicleScreen', () => {
@@ -117,7 +113,6 @@ describe('AddVehicleScreen', () => {
 
     fireEvent.press(getByTestId('open-seat'));
     fireEvent.press(getByTestId('select-seat'));
-    // state update internal
   });
 
   it('opens and closes type picker sheet', () => {

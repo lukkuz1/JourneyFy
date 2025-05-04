@@ -1,14 +1,14 @@
-// _tests_/Unit/Main/Settings.test.js
+
 import React from 'react';
 import { render, fireEvent, waitFor } from '@testing-library/react-native';
 import { ActivityIndicator } from 'react-native';
 
-// 1) Mock firebase/auth
+
 jest.mock('firebase/auth', () => ({
   getAuth: () => ({ currentUser: { uid: 'u1' } }),
 }));
 
-// 2) Stub our three hooks
+
 const mockHandleUpdateMapData = jest.fn();
 const mockSetRadius = jest.fn();
 const mockSetStops = jest.fn();
@@ -45,7 +45,7 @@ jest.mock('../../../src/hooks/useDeleteAccount', () => ({
   }),
 }));
 
-// 3) Stub child components
+
 jest.mock('../../../src/components/myStatusBar', () => () => null);
 jest.mock('../../../src/components/header', () => () => null);
 jest.mock('../../../src/components/Settings/ProfileSection', () => () => null);
@@ -152,7 +152,7 @@ jest.mock('../../../src/components/Settings/DeleteAccountModal', () => ({
   },
 }));
 
-// 4) Import the screen under test
+
 import Settings from '../../../src/screens/Main/Settings';
 
 describe('<Settings />', () => {
@@ -162,7 +162,6 @@ describe('<Settings />', () => {
 
   it('opens and saves map settings', async () => {
     const { getByTestId } = render(<Settings navigation={{ navigate: () => {} }} />);
-    // initially hidden
     expect(getByTestId('map-visible').props.children).toBe('false');
     fireEvent.press(getByTestId('btn-map-settings'));
     expect(getByTestId('map-visible').props.children).toBe('true');

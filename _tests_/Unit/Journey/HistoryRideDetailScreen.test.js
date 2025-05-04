@@ -86,8 +86,6 @@ describe('<HistoryRideDetailScreen />', () => {
         route={{ params: { ride } }}
       />
     );
-    // All three stubs render with ride prop in their own way,
-    // but at minimum they exist. No errors = props passed.
     expect(getByTestId('rider-info')).toBeTruthy();
     expect(getByTestId('rider-detail')).toBeTruthy();
     expect(getByTestId('vehicle-info')).toBeTruthy();

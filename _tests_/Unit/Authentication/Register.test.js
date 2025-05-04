@@ -1,21 +1,17 @@
-// _tests_/Unit/Authentication/Register.test.js
 import React from 'react';
 import { Text, Alert } from 'react-native';
 import { render, fireEvent, waitFor } from '@testing-library/react-native';
 
-// 1) Mock navigation
 const mockNavigate = jest.fn();
 jest.mock('@react-navigation/native', () => ({
   useNavigation: () => ({ navigate: mockNavigate }),
 }));
 
-// 2) Mock useAuth.signUp
 const mockSignUp = jest.fn();
 jest.mock('../../../src/hooks/useAuth', () => ({
   useAuth: () => ({ signUp: mockSignUp }),
 }));
 
-// 3) Stub EntryInputField and EntryButton without out-of-scope vars
 jest.mock(
   '../../../src/components/Entry/EntryInputField',
   () => {
@@ -45,7 +41,6 @@ jest.mock(
   }
 );
 
-// 4) Import after mocks
 import Register from '../../../src/screens/Entry/Register';
 
 describe('Register screen', () => {
@@ -58,15 +53,12 @@ describe('Register screen', () => {
     mockSignUp.mockResolvedValue('auth/email-already-in-use');
     const { getByTestId, findByText } = render(<Register />);
 
-    // Fill email/password
     fireEvent.changeText(getByTestId('El. paštas'), 'dup@example.com');
     fireEvent.changeText(getByTestId('Slaptažodis'), 'pwd123');
     fireEvent.press(getByTestId('signup-button'));
 
-    // Wait for error text to appear
     expect(await findByText('auth/email-already-in-use')).toBeTruthy();
 
-    // No navigation or alert on success path
     expect(Alert.alert).not.toHaveBeenCalled();
     expect(mockNavigate).not.toHaveBeenCalled();
   });
@@ -96,11 +88,8 @@ describe('Register screen', () => {
     fireEvent.changeText(getByTestId('Slaptažodis'), '123456');
     fireEvent.press(getByTestId('signup-button'));
 
-    // give microtasks a tick
     await waitFor(() => {
-      // No error text
       expect(queryByText(/@/)).toBeNull();
-      // No alert, no navigation
       expect(Alert.alert).not.toHaveBeenCalled();
       expect(mockNavigate).not.toHaveBeenCalledWith('Login');
     });

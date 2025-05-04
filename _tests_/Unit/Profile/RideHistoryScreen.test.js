@@ -1,14 +1,14 @@
-// _tests_/Unit/Profile/RideHistoryScreen.test.js
+
 import React from 'react';
 import { render, waitFor } from '@testing-library/react-native';
 
-// 1) Stub firebase auth & db
+
 jest.mock('../../../src/services/firebase', () => ({
   auth: { currentUser: { uid: 'user123' } },
   db: {},
 }));
 
-// 2) Mock Firestore functions
+
 const mockCollection   = jest.fn();
 const mockQuery        = jest.fn();
 const mockWhere        = jest.fn();
@@ -27,7 +27,7 @@ jest.mock('firebase/firestore', () => ({
   doc:          (...args) => mockDocFn(...args),
 }));
 
-// 3) Stub child components
+
 jest.mock('../../../src/components/myStatusBar', () => () => null);
 
 jest.mock('../../../src/components/RideHistory/RidesHeader', () => {
@@ -52,18 +52,16 @@ jest.mock('../../../src/components/RideHistory/RideHistoryList', () => {
   );
 });
 
-// 4) Import screen under test using your TemplateProfile path
+
 import RideHistoryScreen from '../../../src/screens/TemplateProfile/rideHistory/rideHistoryScreen';
 
 describe('<RideHistoryScreen />', () => {
   beforeEach(() => {
     jest.clearAllMocks();
-    // default onSnapshot returns unsubscribe
     mockOnSnapshot.mockImplementation((q, cb) => {
       cb({ docs: [] });
       return () => {};
     });
-    // default getDoc returns a user profile
     mockGetDoc.mockResolvedValue({
       exists: () => true,
       data: () => ({ firstName: 'Alice', lastName: 'Smith', photoURL: null }),
@@ -71,7 +69,6 @@ describe('<RideHistoryScreen />', () => {
   });
 
   it('shows empty list if no user', () => {
-    // override auth to null
     jest.doMock('../../../src/services/firebase', () => ({
       auth: { currentUser: null },
       db: {},
@@ -82,7 +79,6 @@ describe('<RideHistoryScreen />', () => {
   });
 
   it('shows empty list when user but no rides', async () => {
-    // both driver & passenger onSnapshot callbacks invoke with empty docs
     mockOnSnapshot.mockImplementation((q, cb) => {
       cb({ docs: [] });
       return () => {};

@@ -1,21 +1,19 @@
-// _tests_/Unit/Main/HomeScreen.test.js
 import React from 'react';
 import { act } from 'react-test-renderer';
 import { render, fireEvent, waitFor } from '@testing-library/react-native';
 
-// 1) Mock navigation & route
+
 const mockNavigate = jest.fn();
 const mockRoute = { params: { address: 'A1', addressFor: 'pickup' } };
 jest.mock('@react-navigation/native', () => ({
   useNavigation: () => ({ navigate: mockNavigate }),
 }));
 
-// 2) Mock Firebase Auth
 jest.mock('firebase/auth', () => ({
   getAuth: () => ({}),
 }));
 
-// 3) Mock hooks
+
 const mockCreateJourney = jest.fn();
 jest.mock('../../../src/hooks/useCreateJourney', () => () => ({
   createJourney: mockCreateJourney,
@@ -28,7 +26,7 @@ jest.mock('../../../src/hooks/useLocation', () => ({
   useLocation: () => 'TestCountry',
 }));
 
-// 4) Stub child components using factories with require
+
 jest.mock(
   '../../../src/components/Home/Header',
   () => {
@@ -108,7 +106,7 @@ jest.mock(
   }
 );
 
-// 5) Import HomeScreen after mocks
+
 import HomeScreen from '../../../src/screens/Main/homeScreen';
 
 describe('HomeScreen', () => {
@@ -140,14 +138,11 @@ describe('HomeScreen', () => {
       <HomeScreen navigation={{ navigate: mockNavigate }} route={{}} />
     );
     fireEvent.press(getByTestId('onSubmit'));
-    // pickAlert should be true immediately
     expect(getByTestId('pickAlert').props.children).toBe('true');
 
-    // flush timers inside act
     act(() => {
       jest.runAllTimers();
     });
-    // after timeout pickAlert becomes false
     expect(getByTestId('pickAlert').props.children).toBe('false');
   });
 
@@ -156,7 +151,6 @@ describe('HomeScreen', () => {
     const { getByTestId, rerender } = render(
       <HomeScreen navigation={{ navigate: mockNavigate }} route={route1} />
     );
-    // simulate dropoff param change
     const route2 = { params: { address: 'D', addressFor: 'dropoff' } };
     rerender(
       <HomeScreen navigation={{ navigate: mockNavigate }} route={route2} />

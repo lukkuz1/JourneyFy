@@ -1,25 +1,21 @@
-// _tests_/Unit/Authentication/ForgotPassword.test.js
 import React from 'react';
 import { Alert } from 'react-native';
 import { render, fireEvent, waitFor } from '@testing-library/react-native';
 
-// 1) Mock navigation
+
 const mockNavigate = jest.fn();
 jest.mock('@react-navigation/native', () => ({
   useNavigation: () => ({ navigate: mockNavigate }),
 }));
 
-// 2) Mock Firebase service
 jest.mock('../../../src/services/firebase', () => ({
   auth: {},
 }));
 
-// 3) Mock the Firebase Auth function inside the factory
 jest.mock('firebase/auth', () => ({
   sendPasswordResetEmail: jest.fn(),
 }));
 
-// 4) Stub custom components WITHOUT out-of-scope vars
 jest.mock(
   '../../../src/components/Entry/EntryInputField',
   () => {

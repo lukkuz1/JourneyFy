@@ -1,21 +1,17 @@
-// _tests_/Unit/Authentication/Login.test.js
 import React from 'react';
 import { Text, Pressable, Alert } from 'react-native';
 import { render, fireEvent, waitFor } from '@testing-library/react-native';
 
-// 1) Mock navigation
 const mockNavigate = jest.fn();
 jest.mock('@react-navigation/native', () => ({
   useNavigation: () => ({ navigate: mockNavigate }),
 }));
 
-// 2) Mock useAuth
 const mockSignIn = jest.fn();
 jest.mock('../../../src/hooks/useAuth', () => ({
   useAuth: () => ({ signIn: mockSignIn }),
 }));
 
-// 3) Stub EntryInputField and EntryButton
 jest.mock(
   '../../../src/components/Entry/EntryInputField',
   () => props => {
@@ -41,7 +37,6 @@ jest.mock(
   }
 );
 
-// 4) Import AFTER mocks
 import Login from '../../../src/screens/Entry/Login';
 
 describe('Login screen', () => {
